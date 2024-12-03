@@ -31,8 +31,8 @@ import numpy as np
 
 from utils.helper_functions import create_virtual_modules, rgetattr
 from utils.logging import setup_logging
-from utils.Timer import Timer
-from utils.Writer import Writer
+from utils.timer import Timer
+from utils.writer import Writer
 
 # read the configuration from the local_conf.json
 try:
@@ -667,7 +667,7 @@ class Logger:
         5. Calls a helper method to log the configuration of sub-tables for each schema.
         """
         # modules that have a Configuration classes
-        _modules = ['core.Behavior', 'core.Stimulus']
+        _modules = ['core.behavior', 'core.stimulus']
         # consider that the module have the same name as the schema but in lower case
         # (e.g for class Behaviour the schema is the behavior)
         _schemas = [_module.split('.')[1].lower() for _module in _modules]

@@ -1,6 +1,10 @@
+import multiprocessing
+import struct
+import threading
+import time
+
 import numpy as np
-import threading, multiprocessing, struct, time
-from core.Interface import *
+from core.interface import Interface
 
 
 class Ball(Interface):

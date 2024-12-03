@@ -1,8 +1,11 @@
-import numpy as np
-from datetime import *
-import time, h5py, threading, os
-from shutil import copyfile
+import os
+import threading
+import time
 from queue import Queue
+from shutil import copyfile
+
+import h5py
+import numpy as np
 
 
 class Writer(object):
@@ -30,7 +33,12 @@ class Writer(object):
         self.target_path = target_path
 
     def createDataset(self, dataset, shape, dtype=np.int16, compression="gzip", chunk_len=1):
-        self.datasets[dataset] = self.h5Dataset(self.datapath, dataset, shape, dtype, compression, chunk_len)
+        self.datasets[dataset] = self.h5Dataset(self.datapath,
+                                                dataset,
+                                                shape,
+                                                dtype,
+                                                compression,
+                                                chunk_len)
 
     def append(self, dataset, data):
         self.queue.put({'dataset': dataset, 'data': data})
@@ -56,7 +64,13 @@ class Writer(object):
             copyfile(self.datapath, self.target_path + os.path.basename(self.datapath))
 
     class h5Dataset():
-        def __init__(self, datapath, dataset, shape, dtype=np.uint16, compression="gzip", chunk_len=1):
+        def __init__(self,
+                     datapath,
+                     dataset,
+                     shape,
+                     dtype=np.uint16,
+                     compression="gzip",
+                     chunk_len=1):
             with h5py.File(datapath, mode='a') as h5f:
                 self.i = 0
                 self.shape = shape

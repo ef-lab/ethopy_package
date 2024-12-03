@@ -1,6 +1,7 @@
-from core.Behavior import *
-from utils.Timer import *
+import datajoint as dj
 import numpy as np
+from core.behavior import Behavior
+from core.logger import behavior
 
 
 @behavior.schema
@@ -38,10 +39,10 @@ class MultiPort(Behavior, dj.Manual):
         position, ready_time, tmst = self.interface.in_position()
         if duration == 0:
             return True
-        elif position==0 or position.ready==0: 
-            return False    
+        elif position == 0 or position.ready == 0:
+            return False   
         elif not since:
-            return ready_time > duration # in position for specified duration
+            return ready_time > duration  # in position for specified duration
         elif tmst >= since:
             return ready_time > duration  # has been in position for specified duration since timepoint
         else:
@@ -57,7 +58,7 @@ class MultiPort(Behavior, dj.Manual):
             bool: True if correct, False otherwise
         """
         return self.curr_cond['response_port'] == -1 or \
-               np.any(np.equal(self.response.port, self.curr_cond['response_port']))
+            np.any(np.equal(self.response.port, self.curr_cond['response_port']))
 
     def is_off_proximity(self):
         return self.interface.off_proximity()
@@ -75,7 +76,8 @@ class MultiPort(Behavior, dj.Manual):
             bool: True if rewarded, False otherwise
         """
         # if response and reward ports are the same no need of tmst 
-        if self.response.reward: tmst=0
+        if self.response.reward:
+            tmst = 0
         # check that the last licked port ia also a reward port
         licked_port = self.is_licking(since=tmst, reward=True)
         if licked_port:
@@ -92,4 +94,3 @@ class MultiPort(Behavior, dj.Manual):
     def punish(self):
         port = self.response.port if self.response.port > 0 else np.nan
         self.update_history(port, punish=True)
-

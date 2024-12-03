@@ -1,4 +1,6 @@
-from core.Experiment import *
+from core.logger import experiment
+import datajoint as dj
+from core.experiment import ExperimentClass, State
 
 
 @experiment.schema

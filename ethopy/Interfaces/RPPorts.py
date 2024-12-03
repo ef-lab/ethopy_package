@@ -1,11 +1,15 @@
 from concurrent.futures import ThreadPoolExecutor
-from threading import Event
 from time import sleep
 
 import numpy as np
+from core.interface import Interface
 
-from core.Interface import *
-
+try:
+    import pigpio
+    from RPi import GPIO
+    IMPORT_RP = True
+except ImportError:
+    IMPORT_RP = False
 
 class RPPorts(Interface):
     channels = {'Odor': {1: 24, 2: 25},
@@ -18,19 +22,21 @@ class RPPorts(Interface):
                 'Status': 20}
 
     def __init__(self, **kwargs):
+        if not globals()["IMPORT_RP"]:
+            raise ImportError(
+                "Could not import RP packages (pigpio, RPi)!"
+            )
         super(RPPorts, self).__init__(**kwargs)
-        import pigpio
-        from RPi import GPIO
         self.GPIO = GPIO
         self.GPIO.setmode(self.GPIO.BCM)
         self.Pulser = pigpio.pi()
         self.PulseGen = pigpio.pulse
-        self.WaveProp=pigpio.WAVE_MODE_REPEAT_SYNC
+        self.WaveProp  = pigpio.WAVE_MODE_REPEAT_SYNC
         self.thread = ThreadPoolExecutor(max_workers=4)
         self.frequency = 15
         self.ts = False
         self.pulses = dict()
-        self.sound_pulses=[]
+        self.sound_pulses = []
 
         matched_ports = set(self.rew_ports) & set(self.channels['Liquid'].keys())
         assert matched_ports == set(self.rew_ports), 'All reward ports must have assigned a liquid delivery port!'

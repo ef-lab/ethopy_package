@@ -1,6 +1,5 @@
-import sys
-import time
 import threading
+import time
 
 
 class GetHWPoller(threading.Thread):

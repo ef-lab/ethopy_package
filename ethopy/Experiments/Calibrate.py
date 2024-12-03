@@ -3,13 +3,13 @@ from importlib import import_module
 
 import pygame
 
-from core.Experiment import *
+# from core.experiment import *
 
 try:
     import pygame_menu
 
     IMPORT_PYGAME_MENU = True
-except:
+except ImportError:
     IMPORT_PYGAME_MENU = False
 
 
@@ -57,7 +57,7 @@ class Experiment:
             key={"setup_conf_idx": self.params["setup_conf_idx"]},
         )[0]
         interface = getattr(
-            import_module(f"Interfaces.{interface_module}"), interface_module
+            import_module(f"interfaces.{interface_module}"), interface_module
         )
 
         self.interface = interface(exp=self, callbacks=False)

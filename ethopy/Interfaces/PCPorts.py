@@ -1,6 +1,8 @@
-from core.Interface import *
 from concurrent.futures import ThreadPoolExecutor
-from utils.Timer import Timer
+from time import sleep
+
+from core.interface import Interface
+from utils.timer import Timer
 
 
 class PCPorts(Interface):

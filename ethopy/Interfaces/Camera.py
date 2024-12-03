@@ -18,14 +18,11 @@ from threading import Condition, Lock, Thread
 from typing import Any, List, Optional, Union
 
 import numpy as np
-
-from utils.Timer import Timer
-
-# from libcamera import controls
+from utils.timer import Timer
 
 
 try:
-    from core.Logger import Logger
+    from core.logger import Logger
 except ImportError:
     print("Logger not found.")
 
@@ -36,7 +33,7 @@ try:
     from picamera2.outputs import FfmpegOutput, FileOutput
 
     IMPORT_PICAMERA = True
-except ImportError as e:
+except ImportError:
     IMPORT_PICAMERA = False
 
 

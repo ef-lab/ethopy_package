@@ -3,8 +3,8 @@ import sys
 import time
 import traceback
 
-from core.Logger import Logger
-from utils.Start import PyWelcome
+from core.logger import Logger
+from utils.start import PyWelcome
 
 ERROR = None
 protocol = sys.argv[1] if len(sys.argv) > 1 else False

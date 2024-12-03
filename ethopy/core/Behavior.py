@@ -1,4 +1,5 @@
 import bisect
+import itertools
 from dataclasses import dataclass
 from dataclasses import field as datafield
 from dataclasses import fields
@@ -6,19 +7,19 @@ from datetime import datetime, timedelta
 from importlib import import_module
 from queue import Queue
 
+import datajoint as dj
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib import cm
 
-from core.Experiment import *
-from core.Interface import *
-from core.Logger import behavior, experiment
+from core.logger import behavior, experiment
 
 
 @behavior.schema
 class Rewards(dj.Manual):
     definition = """
     # reward trials
-    -> experiment.Trial   
+    -> experiment.Trial
     time			        : int 	           # time from session start (ms)
     ---
     reward_type             : varchar(16)
@@ -255,7 +256,7 @@ class Behavior:
                                            table='SetupConfiguration',
                                            fields=['interface'],
                                            key={'setup_conf_idx': exp.params['setup_conf_idx']})[0]
-        interface = getattr(import_module(f'Interfaces.{interface_module}'), interface_module)
+        interface = getattr(import_module(f'interfaces.{interface_module}'), interface_module)
         self.interface = interface(exp=exp, beh=self)
         self.interface.load_calibration()
 

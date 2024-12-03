@@ -1,12 +1,11 @@
 # Retinotopic mapping experiment
 
-from Experiments.Passive import *
-from Stimuli.Bar import *
-from Behaviors.HeadFixed import *
+from experiments.passive import *
+from stimuli.bar import *
+from behaviors.head_fixed import *
 
 # define session parameters
 session_params = {
-    'trial_selection'       : 'fixed',
     'setup_conf_idx'        : 0,
     'max_res'               : 1000,
 }
@@ -33,11 +32,12 @@ key = {
 }
 
 repeat_n = 10
+block = exp.Block(difficulty=1, next_up=1, next_down=1, trial_selection='fixed', metric='dprime', stair_up=1, stair_down=0.5)
 
 conditions = []
 for axis in ['horizontal', 'vertical']:
     for rep in range(0, repeat_n):
-        conditions += exp.make_conditions(stim_class=Bar(), conditions={**key, 'axis': axis})
+        conditions += exp.make_conditions(stim_class=Bar(), conditions={**key, **block.dict(), 'axis': axis})
 
 
 # run experiments

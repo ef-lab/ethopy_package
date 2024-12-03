@@ -1,5 +1,8 @@
-import pygame, numpy, os
-from ft5406 import Touchscreen, TS_PRESS, TS_RELEASE
+import os
+
+import numpy
+import pygame
+from ft5406 import TS_PRESS, TS_RELEASE, Touchscreen
 
 
 class Button:

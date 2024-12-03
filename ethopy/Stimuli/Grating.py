@@ -1,7 +1,12 @@
-from core.Stimulus import *
-import io, imageio
+import io
+import os
+
+import datajoint as dj
+import imageio
+import numpy as np
+from core.logger import stimulus
+from core.stimulus import Stimulus
 from utils.helper_functions import flat2curve
-from utils.Presenter import *
 
 
 @stimulus.schema

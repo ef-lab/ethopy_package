@@ -1,6 +1,10 @@
-from core.Stimulus import *
+import datajoint as dj
+import numpy as np
+import pygame
+from core.logger import stimulus
+from core.stimulus import StimCondition, Stimulus
 from utils.helper_functions import flat2curve
-from utils.Presenter import *
+
 
 @stimulus.schema
 class Bar(Stimulus, dj.Manual):
@@ -24,18 +28,20 @@ class Bar(Stimulus, dj.Manual):
     """
 
     cond_tables = ['Bar']
-    default_key =  {'max_res'               : 1000,
-                    'bar_width'             : 4,  # degrees
-                    'bar_speed'             : 2,  # degrees/sec
-                    'flash_speed'           : 2,
-                    'grat_width'            : 10,  # degrees
-                    'grat_freq'             : 1,
-                    'grid_width'            : 10,
-                    'grit_freq'             : .1,
-                    'style'                 : 'checkerboard', # checkerboard, grating
-                    'direction'             : 1,             # 1 for UD LR, -1 for DU RL
-                    'flatness_correction'   : 1,
-                    'intertrial_duration'   : 0}
+    default_key = {
+        "max_res": 1000,
+        "bar_width": 4,  # degrees
+        "bar_speed": 2,  # degrees/sec
+        "flash_speed": 2,
+        "grat_width": 10,  # degrees
+        "grat_freq": 1,
+        "grid_width": 10,
+        "grit_freq": 0.1,
+        "style": "checkerboard",  # checkerboard, grating
+        "direction": 1,  # 1 for UD LR, -1 for DU RL
+        "flatness_correction": 1,
+        "intertrial_duration": 0,
+    }
 
     def setup(self):
         super().setup()

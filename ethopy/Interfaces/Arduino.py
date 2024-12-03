@@ -1,10 +1,12 @@
-import numpy as np
-from threading import Event
-from core.Interface import *
-import json, time
-from serial import Serial
+import json
 import threading
+import time
+from dataclasses import dataclass
+from dataclasses import field as datafield
 from queue import PriorityQueue
+
+from core.interface import Interface, Port
+from serial import Serial
 
 
 class Arduino(Interface):
@@ -12,18 +14,21 @@ class Arduino(Interface):
 
     def __init__(self, **kwargs):
         super(Arduino, self).__init__(**kwargs)
-        self.port = self.logger.get(table='SetupConfiguration', key=self.exp.params, fields=['path'])[0]
+        self.port = self.logger.get(table='SetupConfiguration',
+                                    key=self.exp.params,
+                                    fields=['path'])[0]
         self.baud = 115200
         self.timeout = .001
         self.no_response = False
         self.timeout_timer = time.time()
         self.ser = Serial(self.port, baudrate=self.baud)
-        sleep(1)
+        time.sleep(1)
         self.thread_runner = threading.Thread(target=self._communicator)
         self.thread_runner.start()
 
     def give_liquid(self, port, duration=False):
-        if not duration: duration = self.duration[port]
+        if not duration:
+            duration = self.duration[port]
         self.msg_queue.put(Message(type='pulse', port=port, duration=duration))
 
     def in_position(self, port=0):
@@ -41,7 +46,8 @@ class Arduino(Interface):
         position = self.position
 
         # If no position has been set, return (0, 0, 0).
-        if not position.port: return 0, 0, 0
+        if not position.port:
+            return 0, 0, 0
 
         # Calculate the duration and timestamp for the current position.
         position_dur = self.timer_ready.elapsed_time() if self.position.port else self.position_dur
@@ -55,7 +61,7 @@ class Arduino(Interface):
         Returns:
             bool: True if all proximity ports are not acrtivated
         """
-        return(not self.position.state)
+        return (not self.position.state)
 
     def cleanup(self):
         self.ser.close()  # Close the Serial connection
@@ -127,7 +133,8 @@ class Arduino(Interface):
         # Check if the animal is in position
         in_position = response.state
         # Start the timer if the animal is in position
-        if in_position: self.timer_ready.start()
+        if in_position:
+            self.timer_ready.start()
         # Log the in_position event and update the position if there is a change in position
         if in_position and not self.position.port:
             self.position_tmst = self.beh.log_activity({**response.__dict__, 'in_position': 1})
@@ -152,4 +159,3 @@ class Message:
 
     def dict(self):
         return self.__dict__
-

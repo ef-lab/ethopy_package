@@ -1,4 +1,6 @@
-from core.Behavior import *
+import datajoint as dj
+from core.behavior import Behavior, BehCondition
+from core.logger import behavior
 
 
 @behavior.schema
@@ -15,4 +17,3 @@ class HeadFixed(Behavior, dj.Manual):
     def exit(self):
         super().exit()
         self.interface.cleanup()
-

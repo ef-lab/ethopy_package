@@ -4,10 +4,10 @@ import datajoint as dj
 import numpy as np
 
 # import experiment needs in definition of Configuration and Trial tables
-from core.Logger import experiment, stimulus
+from core.logger import experiment, stimulus
 from utils.helper_functions import DictStruct
-from utils.Presenter import Presenter
-from utils.Timer import Timer
+from utils.presenter import Presenter
+from utils.timer import Timer
 
 
 @stimulus.schema

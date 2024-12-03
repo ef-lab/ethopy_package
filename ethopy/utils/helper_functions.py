@@ -22,6 +22,7 @@ def create_virtual_modules(schemata, create_tables=True,  create_schema=True):
             dj.config["database.host"],
             dj.config["database.user"],
             dj.config["database.password"],
+            use_tls=dj.config["database.use_tls"]
         )
         virtual_modules = {}
         for name, schema in schemata.items():
@@ -36,7 +37,8 @@ def create_virtual_modules(schemata, create_tables=True,  create_schema=True):
                          f"to an internet connection error: {e}")
         logging.error("ERROR %s", error_message)
         raise Exception(error_message) from e
-    
+
+
 def sub2ind(array_shape, rows, cols):
     return rows * array_shape[1] + cols
 

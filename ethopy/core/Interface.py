@@ -1,20 +1,11 @@
-import multiprocessing
-import socket
-import struct
-import threading
-import time
-from concurrent.futures import ThreadPoolExecutor
-from dataclasses import astuple, dataclass
+from dataclasses import dataclass
 from dataclasses import field as datafield
 from dataclasses import fields
-from datetime import datetime
 from importlib import import_module
-from time import sleep
 
 import numpy as np
-
-from utils.helper_functions import *
-from utils.Timer import *
+from utils.helper_functions import reverse_lookup
+from utils.timer import Timer
 
 
 class Interface:
@@ -53,8 +44,8 @@ class Interface:
                 filename=(f"{self.logger.trial_key['animal_id']}"
                           f"_{self.logger.trial_key['session']}"),
                 logger=self.logger,
-                logger_timer = self.logger.logger_timer,
-                video_aim = camera_params.pop('video_aim'),
+                logger_timer=self.logger.logger_timer,
+                video_aim=camera_params.pop('video_aim'),
                 **camera_params,
             )
 
@@ -85,7 +76,8 @@ class Interface:
     def release(self):
         if self.camera:
             print("Release camear"*10)
-            if self.camera.recording.is_set(): self.camera.stop_rec()
+            if self.camera.recording.is_set():
+                self.camera.stop_rec()
 
     def load_calibration(self):
         for port in list(set(self.rew_ports)):
@@ -98,8 +90,10 @@ class Interface:
                 self.exp.quit = True
                 break
             key['date'] = dates[-1]  # use the most recent calibration
-            self.pulse_dur[port], pulse_num, weight = self.logger.get(schema='behavior', table='PortCalibration.Liquid',
-                                                                 key=key, fields=['pulse_dur', 'pulse_num', 'weight'])
+            self.pulse_dur[port], pulse_num, weight = self.logger.get(schema='behavior',
+                                                                      table='PortCalibration.Liquid',
+                                                                      key=key,
+                                                                      fields=['pulse_dur', 'pulse_num', 'weight'])
             self.weight_per_pulse[port] = np.divide(weight, pulse_num)
 
     def calc_pulse_dur(self, reward_amount):  # calculate pulse duration for the desired reward amount
@@ -114,7 +108,8 @@ class Interface:
 
     def _channel2port(self, channel, category='Proximity'):
         port = reverse_lookup(self.channels[category], channel) if channel else 0
-        if port: port = self.ports[Port(type=category, port=port) == self.ports][0]
+        if port:
+            port = self.ports[Port(type=category, port=port) == self.ports][0]
         return port
 
 
@@ -131,4 +126,5 @@ class Port:
     def __init__(self, **kwargs):
         names = set([f.name for f in fields(self)])
         for k, v in kwargs.items():
-            if k in names: setattr(self, k, v)
+            if k in names:
+                setattr(self, k, v)

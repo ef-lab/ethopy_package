@@ -1,4 +1,8 @@
-from core.Experiment import *
+import time
+
+import datajoint as dj
+from core.experiment import ExperimentClass, State
+from core.logger import experiment
 
 
 @experiment.schema
@@ -79,6 +83,7 @@ class Reward(Experiment):
             return 'InterTrial'
         else:
             return 'Reward'
+
 
 class InterTrial(Experiment):
     def run(self):

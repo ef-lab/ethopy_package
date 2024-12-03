@@ -1,5 +1,7 @@
-from core.Stimulus import *
-from utils.Presenter import *
+import datajoint as dj
+from core.logger import stimulus
+from core.stimulus import StimCondition, Stimulus
+
 
 @stimulus.schema
 class Dot(Stimulus, dj.Manual):
@@ -51,7 +53,3 @@ class Dot(Stimulus, dj.Manual):
     def exit(self):
         self.Presenter.fill(self.fill_colors.background)
         super().exit()
-
-
-
-

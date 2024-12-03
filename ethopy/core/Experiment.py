@@ -8,9 +8,9 @@ import numpy as np
 from scipy import stats
 from sklearn.metrics import roc_auc_score
 
-from core.Logger import behavior, experiment, mice, stimulus
+from core.logger import behavior, experiment, mice, stimulus
 from utils.helper_functions import factorize, generate_conf_list, make_hash
-from utils.Timer import Timer
+from utils.timer import Timer
 
 
 class State:
@@ -128,7 +128,9 @@ class ExperimentClass:
 
         # Verify all required fields are set
         for cond in conditions:
-            assert np.all([field in cond for field in self.required_fields])
+            missing_fields = set(self.required_fields) - set(cond)
+            if missing_fields:
+                raise ValueError(f"Missing required fields: {missing_fields}")
             cond.update({**self.default_key, **self.params, **cond, 'experiment_class': self.cond_tables[0]})
 
         # Generate correct table name and Log conditions

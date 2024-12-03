@@ -1,4 +1,8 @@
-from core.Experiment import *
+import time
+
+import datajoint as dj
+from core.experiment import ExperimentClass, State
+from core.logger import experiment
 
 
 @experiment.schema
@@ -11,7 +15,7 @@ class Condition(dj.Manual):
         max_reward=3000             : smallint
         min_reward=500              : smallint
         hydrate_delay=0             : int # delay hydration in minutes
-        
+
         trial_selection='staircase' : enum('fixed','block','random','staircase', 'biased') 
         difficulty                  : int   
         bias_window=5               : smallint
@@ -24,7 +28,7 @@ class Condition(dj.Manual):
         next_down=0                 : tinyint
         metric='accuracy'           : enum('accuracy','dprime') 
         antibias=1                  : tinyint(1)
-        
+
         init_ready                  : int
         trial_ready                 : int
         intertrial_duration         : int
@@ -49,7 +53,7 @@ class Experiment(State, ExperimentClass):
                    'trial_duration': 1000,
                    'reward_duration': 2000,
                    'punish_duration': 1000,
-                   'abort_duration' : 0}
+                   'abort_duration': 0}
 
     def entry(self):  # updates stateMachine from Database entry - override for timing critical transitions
         self.logger.curr_state = self.name()

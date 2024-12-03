@@ -392,7 +392,7 @@ class PyWelcome:
         if digit == "ok":
             if not self.curr == "":
                 logged = log_function(self.curr)
-                if logged == True:
+                if logged:
                     self.curr = ""
                     self.main_menu = self.create_main()
                     screen.set_title(self.curr)

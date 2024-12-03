@@ -1,13 +1,14 @@
 # Retinotopic mapping experiment
 
-from Experiments.Passive import *
-from Stimuli.Dot import *
-from core.Behavior import *
 import random
+
+import numpy as np
+from core.behavior import Behavior
+from experiments.passive import Experiment
+from stimuli.dot import Dot
 
 # define session parameters
 session_params = {
-    'trial_selection'       : 'fixed',
     'setup_conf_idx'        : 0,
     'intertrial_duration'   : 0,
 }
@@ -25,7 +26,10 @@ key = {
     'dot_ysize'             : .1,
     'dot_shape'             : 'rect',
     'dot_time'              : .25,
+    'trial_selection'       : 'fixed',
+    'difficulty'            : 0
 }
+
 repeat_n = 1
 conditions = []
 dot = Dot()

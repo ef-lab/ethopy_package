@@ -1,7 +1,7 @@
 # Orientation discrimination experiment
-from Behaviors.MultiPort import *
-from Experiments.MatchPort import *
-from Stimuli.Grating import *
+from behaviors.multi_port import *
+from experiments.match_port import *
+from stimuli.grating import *
 
 # define session parameters
 session_params = {
