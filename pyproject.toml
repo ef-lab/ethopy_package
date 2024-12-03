@@ -1,0 +1,93 @@
+[project]
+name = "ethopy"
+dynamic = ["version"]
+description = "Python Boilerplate contains all the boilerplate you need to create a Python package."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT License"}
+authors = [
+    {name = "Alex Evangelou", email = "admin@example.com"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Typing :: Typed"
+]
+dependencies = [
+    "datajoint",
+    "imageio",
+    "matplotlib",
+    "pandas>=2.0.0",
+    "pillow",
+    "pytest",
+    "Panda3D",
+    "h5py",
+    "pygame",
+    "pygame-menu",
+    "numpy",
+    "scipy",
+    "scikit-learn",
+    "pyopengl"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "isort>=5.0",
+    "mypy>=1.0",
+    "ruff>=0.0.290"
+]
+docs = [
+    "mkdocs>=1.4.0",
+    "mkdocs-material>=9.0.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/alexevag/testcore"
+Documentation = "https://alexevag.github.io/testcore"
+Repository = "https://github.com/alexevag/testcore.git"
+Changelog = "https://github.com/alexevag/testcore/releases"
+
+[build-system]
+requires = ["hatchling>=1.18.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "ethopy/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ethopy"]
+
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+multi_line_output = 3
+
+[tool.mypy]
+python_version = "3.8"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+select = ["E", "F", "I", "N", "W", "UP", "B", "A"]
+ignore = ["B008"]
+
+[tool.pytest.ini_options]
+addopts = "-ra -q --cov=ethopy"
+testpaths = ["tests"]
