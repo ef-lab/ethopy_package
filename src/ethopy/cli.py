@@ -3,10 +3,10 @@ Command-line interface for EthoPy using Click.
 
 This module provides a user-friendly CLI for running EthoPy experiments.
 """
-import logging
 from pathlib import Path
 
 import click
+
 
 @click.command(context_settings=dict(help_option_names=['-h', '--help']))
 @click.option(
@@ -28,10 +28,7 @@ def main(config: Path, debug: bool) -> None:
         run(config)
     else:
         # Run default run.py
-        try:
-            run()
-        except Exception as e:
-            logging.error("ERROR %s", traceback.format_exc())
+        run()
 
 
 if __name__ == "__main__":

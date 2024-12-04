@@ -56,7 +56,7 @@ class CustomFormatter(logging.Formatter):
         return formatter.format(record)
 
 
-def setup_logging(console_log):
+def setup_logging(console_log, name: str = "", log_level=None):
     """
     Set up logging configuration.
 
@@ -68,13 +68,10 @@ def setup_logging(console_log):
     """
     log_file_path = os.path.join("log.txt")
 
-    # Load logging configuration from a JSON file
-    with open('local_conf.json', 'r', encoding='utf-8') as config_file:
-        config = json.load(config_file)
-
     # Extract the logging level from the configuration
-    log_level_str = config.get('log_level', 'INFO')  # Default to INFO if not specified
-    log_level = getattr(logging, log_level_str.upper(), logging.INFO)
+    if not log_level:
+        log_level = "INFO"
+    log_level = getattr(logging, log_level.upper(), logging.INFO)
 
     # Create and configure a rotating file handler
     rotating_handler = RotatingFileHandler(
@@ -99,4 +96,4 @@ def setup_logging(console_log):
         console = logging.StreamHandler()
         console.setLevel(log_level)
         console.setFormatter(CustomFormatter())
-        logging.getLogger("").addHandler(console)
+        logging.getLogger(name).addHandler(console)

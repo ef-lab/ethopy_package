@@ -8,7 +8,6 @@ status updates.
 """
 import importlib
 import inspect
-import json
 import logging
 import os
 import pathlib
@@ -28,27 +27,15 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import datajoint as dj
 import numpy as np
 
+from ethopy import config_manager
 from ethopy.utils.helper_functions import create_virtual_modules, rgetattr
 from ethopy.utils.logging import setup_logging
 from ethopy.utils.timer import Timer
 from ethopy.utils.writer import Writer
 
-# read the configuration from the local_conf.json
-try:
-    with open("local_conf.json", "r", encoding="utf-8") as f:
-        config = json.load(f)
-except FileNotFoundError:
-    logging.error("Configuration file 'local_conf.json' not found.")
-    raise
-except json.JSONDecodeError:
-    logging.error("Configuration file 'local_conf.json' is not a valid JSON.")
-    raise
-# set the datajoint parameters
-dj.config.update(config["dj_local_conf"])
-dj.logger.setLevel(dj.config["datajoint.loglevel"])
 
 # Schema mappings
-SCHEMATA = config["SCHEMATA"]
+SCHEMATA = config_manager.schema.__dict__
 
 VERSION = "0.1"
 
@@ -92,9 +79,6 @@ class Logger:
     threads for data insertion and setup status updates.
 
     Attributes:
-        DEFAULT_SOURCE_PATH (str): Default path where data are saved locally.
-        DEFAULT_TARGET_PATH (bool): Default target path where data will be moved after the session
-        ends.
         setup (str): The hostname of the machine running the experiment.
         is_pi (bool): Flag indicating if the current machine is a Raspberry Pi.
         task_idx (int): Task index resolved from protocol parameters.
@@ -125,14 +109,11 @@ class Logger:
         __init__(protocol=False): Initializes the Logger instance.
         _check_if_raspberry_pi(): Checks if the current machine is a Raspberry Pi.
         _resolve_protocol_parameters(protocol): Resolves protocol parameters.
-        _set_path_from_local_conf(key, default): Sets path from local configuration.
         _initialize_schemata(): Initializes database schemata.
         _inserter(): Inserts data into the database.
         _log_setup_info(setup, status): Logs setup information.
         _get_setup_status(): Get setup status.
     """
-    DEFAULT_SOURCE_PATH = os.path.join(os.path.expanduser("~"), "EthoPy_Files/")
-    DEFAULT_TARGET_PATH = False
 
     def __init__(self, protocol=False):
         self.setup = socket.gethostname()
@@ -169,9 +150,9 @@ class Logger:
         self.update_status.clear()
 
         # source path is the local path that data are saved
-        self.source_path = self._set_path_from_local_conf("source_path", self.DEFAULT_SOURCE_PATH)
+        self.source_path = config_manager.paths.source_path
         # target path is the path that data will be moved after the session ends
-        self.target_path = self._set_path_from_local_conf("target_path", self.DEFAULT_TARGET_PATH)
+        self.target_path = config_manager.paths.target_path
 
         # inserter_thread read the queue and insert the data in the database
         self.thread_end, self.thread_lock = threading.Event(), threading.Lock()
@@ -297,23 +278,6 @@ class Logger:
             else False
         )
 
-    def _set_path_from_local_conf(self, path_key: str, default_path: str = None) -> str:
-        """
-        Get the path from the local_conf or create a new directory at the default path.
-
-        Args:
-            path_key (str): The key to look up in the configuration.
-            default_path (str): The path to use if the key is not in the configuration.
-
-        Returns:
-            str: The path from the configuration or the default path.
-        """
-        path = config.get(path_key, default_path)
-        if path:
-            os.makedirs(path, exist_ok=True)
-            logging.info("Set %s to directory: %s", path_key, path)
-        return path
-
     def setup_schema(self, extra_schema: Dict[str, Any]) -> None:
         """
         Set up additional schema.
@@ -345,8 +309,8 @@ class Logger:
         processed by calling `join()`.
 
         Args:
-            **kwargs (Any): The keyword arguments used to create a `PrioritizedItem` and put it in the
-        queue.
+            **kwargs (Any): The keyword arguments used to create a `PrioritizedItem` and put it in
+            the queue.
         """
         item = PrioritizedItem(**kwargs)
         self.queue.put(item)

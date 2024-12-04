@@ -14,15 +14,14 @@ from scipy import ndimage
 
 def create_virtual_modules(schemata, create_tables=True,  create_schema=True):
     try:
-        if dj.config["database.password"] is None:
-            dj.config["database.password"] = getpass(prompt="Please enter DataJoint password: ")
-
+        if dj.config["password"] is None:
+            dj.config["password"] = getpass(prompt="Please enter DataJoint password: ")
         # Create virtual modules
-        public_conn = dj.Connection(
-            dj.config["database.host"],
-            dj.config["database.user"],
-            dj.config["database.password"],
-            use_tls=dj.config["database.use_tls"]
+        _conn = dj.Connection(
+            dj.config["host"],
+            dj.config["user"],
+            dj.config["password"],
+            use_tls=dj.config["use_tls"]
         )
         virtual_modules = {}
         for name, schema in schemata.items():
@@ -30,8 +29,8 @@ def create_virtual_modules(schemata, create_tables=True,  create_schema=True):
                                                              schema,
                                                              create_tables=create_tables,
                                                              create_schema=create_schema,
-                                                             connection=public_conn)
-        return virtual_modules, public_conn
+                                                             connection=_conn)
+        return virtual_modules, _conn
     except Exception as e:
         error_message = (f"Failed to connect to the database due "
                          f"to an internet connection error: {e}")

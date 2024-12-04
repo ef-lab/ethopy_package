@@ -1,4 +1,4 @@
-from .cli import cli
+from ethopy.cli import cli
 
 def main():
     """
