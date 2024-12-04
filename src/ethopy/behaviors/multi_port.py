@@ -9,7 +9,7 @@ from ethopy.core.logger import behavior
 class MultiPort(Behavior, dj.Manual):
     definition = """
     # This class handles the behavior variables for RP
-    ->BehCondition
+    ->behavior.BehCondition
     """
 
     class Response(dj.Part):

@@ -1,6 +1,6 @@
 import datajoint as dj
 
-from ethopy.core.behavior import Behavior, BehCondition
+from ethopy.core.behavior import Behavior
 from ethopy.core.logger import behavior
 
 
@@ -8,7 +8,7 @@ from ethopy.core.logger import behavior
 class HeadFixed(Behavior, dj.Manual):
     definition = """
     # This class handles the behavior variables for RP
-    ->BehCondition
+    ->behavior.BehCondition
     """
 
     def setup(self, exp):
