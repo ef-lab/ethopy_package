@@ -241,7 +241,7 @@ class Rewards(dj.Manual):
 class Activity(dj.Manual):
     definition = """
     # Mouse behavioral response
-    -> experiment.Trial  
+    -> experiment.Trial
     """
 
     class Proximity(dj.Part):
