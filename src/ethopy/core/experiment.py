@@ -7,8 +7,8 @@ import numpy as np
 from scipy import stats
 from sklearn.metrics import roc_auc_score
 
-from ethopy.core.logger import behavior, experiment, mice, stimulus
-from ethopy.utils.helper_functions import factorize, generate_conf_list, make_hash
+from ethopy.core.logger import experiment, mice
+from ethopy.utils.helper_functions import factorize, make_hash
 from ethopy.utils.timer import Timer
 
 
@@ -17,7 +17,8 @@ class State:
 
     def __init__(self, parent=None):
         self.__dict__ = self.__shared_state
-        if parent: self.__dict__.update(parent.__dict__)
+        if parent:
+            self.__dict__.update(parent.__dict__)
 
     def entry(self):
         """Entry transition method"""
@@ -66,7 +67,8 @@ class ExperimentClass:
     def setup(self, logger, BehaviorClass, session_params):
         self.in_operation = False
         self.conditions, self.iter, self.quit, self.curr_cond, self.block_h, self.stims, self.curr_trial, self.cur_block_sz = [], [], False, dict(), [], dict(),0, 0
-        if "setup_conf_idx" not in self.default_key: self.default_key["setup_conf_idx"] = 0
+        if "setup_conf_idx" not in self.default_key:
+            self.default_key["setup_conf_idx"] = 0
         self.params = {**self.default_key, **session_params}
         self.logger = logger
         self.logger.log_session({**self.default_key, **session_params, 'experiment_type': self.cond_tables[0]},
@@ -100,7 +102,8 @@ class ExperimentClass:
         self.quit = self.quit or self.logger.setup_status in ['stop', 'exit']
         if self.quit and self.logger.setup_status not in ['stop', 'exit']:
             self.logger.update_setup_info({'status': 'stop'})
-        if self.quit: self.in_operation = False
+        if self.quit:
+            self.in_operation = False
         return self.quit
 
     def make_conditions(self, stim_class, conditions, stim_periods=None):
@@ -121,7 +124,8 @@ class ExperimentClass:
                 conditions[stim_periods[i]] = []
             all_cond = [cond[stim_periods[i]] for i in range(len(stim_periods))]
             for comb in list(itertools.product(*all_cond)):
-                for i in range(len(stim_periods)): conditions[stim_periods[i]].append(comb[i])
+                for i in range(len(stim_periods)):
+                    conditions[stim_periods[i]].append(comb[i])
             conditions = factorize(conditions)
         conditions = self.log_conditions(**self.beh.make_conditions(conditions))
 
@@ -142,10 +146,12 @@ class ExperimentClass:
         resp_cond = self.params['resp_cond'] if 'resp_cond' in self.params else 'response_port'
         self.blocks = np.array([cond['difficulty'] for cond in self.conditions])
         if np.all([resp_cond in cond for cond in conditions]):
-            self.choices = np.array([make_hash([d[resp_cond], d['difficulty']]) for d in conditions])
+            self.choices = np.array(
+                [make_hash([d[resp_cond], d['difficulty']]) for d in conditions]
+                )
             self.un_choices, un_idx = np.unique(self.choices, axis=0, return_index=True)
             self.un_blocks = self.blocks[un_idx]
-        # select random condition for first trial initialization
+        #  select random condition for first trial initialization
         self.cur_block = min(self.blocks)
         self.curr_cond = np.random.choice([i for (i, v) in zip(self.conditions, self.blocks == self.cur_block) if v])
 
@@ -185,13 +191,15 @@ class ExperimentClass:
                 core = [field for field in self.logger.get_table_keys(schema, ctable, key_type='primary') if field != hsh]
                 fields = [field for field in self.logger.get_table_keys(schema, ctable)]
                 if not np.all([np.any(np.array(k) == list(cond.keys())) for k in fields]):
-                    if self.logger.manual_run: print('skipping ', ctable)
+                    if self.logger.manual_run:
+                        print('skipping ', ctable)
                     continue  # only insert complete tuples
                 if core and hasattr(cond[core[0]], '__iter__'):
                     for idx, pcond in enumerate(cond[core[0]]):
                         cond_key = {k: cond[k] if type(cond[k]) in [int, float, str] else cond[k][idx] for k in fields}
                         self.logger.put(table=ctable, tuple=cond_key, schema=schema, priority=insert_priority)
-                else: self.logger.put(table=ctable, tuple=cond.copy(), schema=schema, priority=insert_priority)
+                else:
+                    self.logger.put(table=ctable, tuple=cond.copy(), schema=schema, priority=insert_priority)
                 insert_priority += 1
         return conditions
 
@@ -199,12 +207,14 @@ class ExperimentClass:
         choice_h = np.array([make_hash(c) for c in choice_h[-self.curr_cond['bias_window']:]])
         if len(choice_h) < self.curr_cond['bias_window']: choice_h = self.choices
         fixed_p = 1 - np.array([np.mean(choice_h == un) for un in un_choices])
-        if sum(fixed_p) == 0:  fixed_p = np.ones(np.shape(fixed_p))
+        if sum(fixed_p) == 0:
+            fixed_p = np.ones(np.shape(fixed_p))
         return np.random.choice(un_choices, 1, p=fixed_p/sum(fixed_p))
 
     def _get_performance(self):
         idx = np.logical_or(~np.isnan(self.beh.reward_history), ~np.isnan(self.beh.punish_history))  # select valid
-        rew_h = np.asarray(self.beh.reward_history); rew_h = rew_h[idx]
+        rew_h = np.asarray(self.beh.reward_history)
+        rew_h = rew_h[idx]
         choice_h = np.int64(np.asarray(self.beh.choice_history)[idx])
         perf = np.nan
         window = self.curr_cond['staircase_window']
@@ -227,7 +237,8 @@ class ExperimentClass:
         if self.curr_cond['trial_selection'] == 'fixed':
             self.curr_cond = [] if len(self.conditions) == 0 else self.conditions.pop(0)
         elif self.curr_cond['trial_selection'] == 'block':
-            if np.size(self.iter) == 0: self.iter = np.random.permutation(np.size(self.conditions))
+            if np.size(self.iter) == 0:
+                self.iter = np.random.permutation(np.size(self.conditions))
             cond = self.conditions[self.iter[0]]
             self.iter = self.iter[1:]
             self.curr_cond = cond
@@ -249,7 +260,8 @@ class ExperimentClass:
             if self.curr_cond['antibias']:
                 anti_bias = self._anti_bias(choice_h, self.un_choices[self.un_blocks == self.cur_block])
                 condition_idx = np.logical_and(self.choices == anti_bias, self.blocks == self.cur_block)
-            else: condition_idx = self.blocks == self.cur_block
+            else:
+                condition_idx = self.blocks == self.cur_block
             self.curr_cond = np.random.choice([i for (i, v) in zip(self.conditions, condition_idx) if v])
             self.block_h.append(self.cur_block)
         elif self.curr_cond['trial_selection'] == 'biased':
@@ -259,7 +271,6 @@ class ExperimentClass:
         else:
             print('Selection method not implemented!')
             self.quit = True
-
 
     @dataclass
     class Block:
@@ -318,7 +329,7 @@ class Session(dj.Manual):
         -> Session
         ---
         reason=null                 : varchar(2048)      # notes for exclusion
-        timestamp=CURRENT_TIMESTAMP : timestamp  
+        timestamp=CURRENT_TIMESTAMP : timestamp
         """
 
 
@@ -328,12 +339,12 @@ class Condition(dj.Manual):
     # unique stimulus conditions
     cond_hash             : char(24)                 # unique condition hash
     ---
-    stimulus_class        : varchar(128) 
+    stimulus_class        : varchar(128)
     behavior_class        : varchar(128)
     experiment_class      : varchar(128)
     """
 
-    
+
 @experiment.schema
 class Trial(dj.Manual):
     definition = """
@@ -387,9 +398,9 @@ class SetupConfiguration(dj.Lookup, dj.Manual):
         discription              : varchar(256)
         """
 
-        contents = [[1,'Lick', 0, 0 , 1, 1, 0, 'probe'],
-                    [2,'Lick', 0, 0 , 1, 1, 0, 'probe'],
-                    [3,'Proximity', 0, 1 , 0, 0, 0, 'probe']]
+        contents = [[1, 'Lick', 0, 0, 1, 1, 0, 'probe'],
+                    [2, 'Lick', 0, 0, 1, 1, 0, 'probe'],
+                    [3, 'Proximity', 0, 1, 0, 0, 0, 'probe']]
 
     class Screen(dj.Lookup, dj.Part):
         definition = """
@@ -410,7 +421,7 @@ class SetupConfiguration(dj.Lookup, dj.Manual):
         fullscreen               : tinyint
         """
 
-        contents = [[1,0, 64, 5.0, 0, -0.1, 1.66, 7.0, 30, 800, 480, 'Simulation', 0],]
+        contents = [[1, 0, 64, 5.0, 0, -0.1, 1.66, 7.0, 30, 800, 480, 'Simulation', 0],]
 
     class Ball(dj.Lookup, dj.Part):
         definition = """
@@ -494,5 +505,3 @@ class MouseWeight(dj.Manual):
     ---
     weight                          : double(5,2)                  # weight in grams
     """
-
-
