@@ -3,7 +3,6 @@ import time
 from dataclasses import dataclass, field
 
 import datajoint as dj
-import matplotlib.pyplot as plt
 import numpy as np
 from scipy import stats
 from sklearn.metrics import roc_auc_score
@@ -359,92 +358,6 @@ class Trial(dj.Manual):
         time			    : int 	            # time from session start (ms)
         state               : varchar(64)
         """
-
-    def getGroups(self):
-        mts_flag = (np.unique((Condition & self).fetch('experiment_class')) == ['MatchToSample'])
-        mp_flag = (np.unique((Condition & self).fetch('experiment_class')) == ['MatchPort']) #only olfactory so far
-        print(mts_flag, mp_flag)
-
-        if mts_flag:
-            conditions = self * ((stimulus.StimCondition.Trial() & 'period = "Cue"').proj('stim_hash', stime = 'start_time') & self) *\
-                         stimulus.Panda.Object() * ((behavior.BehCondition.Trial().proj(btime = 'time') & self) * behavior.MultiPort.Response())
-            uniq_groups, groups_idx = np.unique(
-                [cond.astype(int) for cond in
-                 conditions.fetch('obj_id', 'response_port', order_by=('trial_idx'))],
-                axis=1, return_inverse=True)
-        elif mp_flag: #only olfactory so far
-            conditions = self * (stimulus.StimCondition.Trial().proj('stim_hash', stime = 'start_time') & self) *\
-                         stimulus.Olfactory.Channel() * ((behavior.BehCondition.Trial().proj(btime = 'time') & self) * behavior.MultiPort.Response())
-            uniq_groups, groups_idx = np.unique(
-                [cond.astype(int) for cond in
-                 conditions.fetch('odorant_id', 'response_port', order_by=('trial_idx'))],
-                axis=1, return_inverse=True)
-        else:
-            print('no conditions!')
-            return []
-
-        conditions = conditions.fetch(order_by = 'trial_idx')
-        condition_groups = [conditions[groups_idx == group] for group in set(groups_idx)]
-        return condition_groups
-    
-    def plotDifficulty(self, **kwargs):
-        mts_flag = (np.unique((Condition & self).fetch('experiment_class')) == ['MatchToSample'])
-        mp_flag = (np.unique((Condition & self).fetch('experiment_class')) == ['MatchPort']) #only olfactory so far
-
-        if mts_flag:
-            cond_class = experiment.Condition.MatchToSample()
-        elif mp_flag:
-            cond_class = experiment.Condition.MatchPort()
-        else:
-            print('what experiments class?')
-            return []
-
-        difficulties = (self * cond_class).fetch('difficulty')
-        min_difficulty = np.min(difficulties)
-        
-        params = {'probe_colors': [[1, 0, 0], [0, .5, 1]],
-                  'trial_bins': 10,
-                  'range': 0.9,
-                  'xlim': (-1,),
-                  'ylim': (min_difficulty - 0.6,), **kwargs}
-
-        def plot_trials(trials, **kwargs):
-            difficulties, trial_idxs = ((self & trials) * cond_class).fetch('difficulty', 'trial_idx')
-            offset = ((trial_idxs - 1) % params['trial_bins'] - params['trial_bins'] / 2) * params['range'] * 0.1
-            plt.scatter(trial_idxs, difficulties + offset, zorder=10, **kwargs)
-
-        # correct trials
-        correct_trials = (self & behavior.Rewards.proj(rtime = 'time')).proj()
-    
-        # missed trials
-        missed_trials = Trial.Aborted() & self
-
-        # incorrect trials
-        incorrect_trials = (self - missed_trials - correct_trials).proj()
-        
-        print('correct: {}, incorrect: {}, missed: {}'.format(len(correct_trials), len(incorrect_trials),
-                                                              len(missed_trials)))
-        print('correct: {}, incorrect: {}, missed: {}'.format(len(np.unique(correct_trials.fetch('trial_idx'))),
-                                                              len(np.unique(incorrect_trials.fetch('trial_idx'))),
-                                                              len(np.unique(missed_trials.fetch('trial_idx')))))
-
-        # plot trials
-        fig = plt.figure(figsize=(10, 5), tight_layout=True)
-        plot_trials(correct_trials, s=4, c=np.array(params['probe_colors'])[(correct_trials * behavior.BehCondition.Trial() * behavior.MultiPort.Response()).fetch('response_port', order_by='trial_idx') - 1])
-        plot_trials(incorrect_trials, s=4, marker='o', facecolors='none', edgecolors=[.3, .3, .3], linewidths=.5)
-        plot_trials(missed_trials, s=.1, c=[[0, 0, 0]])
-
-        # plot info
-        plt.xlabel('Trials')
-        plt.ylabel('Difficulty')
-        plt.title('Animal:%d  Session:%d' % (Session() & self).fetch1('animal_id', 'session'))
-        plt.yticks(range(int(min(plt.gca().get_ylim())), int(max(plt.gca().get_ylim())) + 1))
-        plt.ylim(params['ylim'][0])
-        plt.xlim(params['xlim'][0])
-        plt.gca().xaxis.set_ticks_position('none')
-        plt.gca().yaxis.set_ticks_position('none')
-        plt.box(False)
-        plt.show()
 
 
 @experiment.schema

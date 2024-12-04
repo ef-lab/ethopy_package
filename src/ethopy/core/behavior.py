@@ -1,5 +1,3 @@
-import bisect
-import itertools
 from dataclasses import dataclass
 from dataclasses import field as datafield
 from dataclasses import fields
@@ -8,9 +6,7 @@ from importlib import import_module
 from queue import Queue
 
 import datajoint as dj
-import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib import cm
 
 from ethopy.core.logger import behavior, experiment
 
