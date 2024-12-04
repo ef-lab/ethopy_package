@@ -20,6 +20,7 @@ classifiers = [
     "Typing :: Typed"
 ]
 dependencies = [
+    "click>=8.1.0",
     "datajoint",
     "imageio",
     "matplotlib",
@@ -33,7 +34,7 @@ dependencies = [
     "numpy",
     "scipy",
     "scikit-learn",
-    "pyopengl"
+    "pyopengl",
 ]
 
 [project.optional-dependencies]
@@ -61,10 +62,14 @@ requires = ["hatchling>=1.18.0"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
-path = "ethopy/__init__.py"
+path = "src/ethopy/__init__.py"
+
+[project.scripts]
+ethopy = "ethopy.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["ethopy"]
+packages = ["src/ethopy"]
+only-include = ["src/ethopy"]
 
 [tool.black]
 line-length = 88
