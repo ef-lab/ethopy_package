@@ -1,8 +1,8 @@
-site_name: testcore
+site_name: ethopy
 site_description: Python Boilerplate contains all the boilerplate you need to create a Python package.
 site_author: alexevag
-site_url: https://alexevag.github.io/testcore
-repo_url: https://github.com/alexevag/testcore
+site_url: https://alexevag.github.io/ethopy
+repo_url: https://github.com/alexevag/ethopy
 
 copyright: "Copyright &copy; 2024 - 2024 Alex Evangelou"
 
@@ -35,15 +35,12 @@ theme:
     font:
         text: Google Sans
         code: Regular
-
 plugins:
     - search
-    - mkdocstrings
-    - git-revision-date
-    - git-revision-date-localized:
-          enable_creation_date: true
-          type: timeago
-    # - pdf-export
+    - mkdocstrings:
+        handlers:
+          python:
+            paths: [src]
     - mkdocs-jupyter:
           include_source: True
           ignore_h1_titles: True
@@ -73,7 +70,7 @@ nav:
     - Contributing: contributing.md
     - FAQ: faq.md
     - Changelog: changelog.md
-    - Report Issues: https://github.com/alexevag/testcore/issues
+    - Report Issues: https://github.com/alexevag/ethopy/issues
     - Examples:
         - examples/intro.ipynb
     - API Reference:

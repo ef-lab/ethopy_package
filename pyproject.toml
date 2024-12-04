@@ -48,14 +48,16 @@ dev = [
 ]
 docs = [
     "mkdocs>=1.4.0",
-    "mkdocs-material>=9.0.0"
+    "mkdocs-material>=9.0.0",
+    "mkdocstrings",
+    "mkdocs-jupyter"
 ]
 
 [project.urls]
-Homepage = "https://github.com/alexevag/testcore"
-Documentation = "https://alexevag.github.io/testcore"
-Repository = "https://github.com/alexevag/testcore.git"
-Changelog = "https://github.com/alexevag/testcore/releases"
+Homepage = "https://github.com/alexevag/ethopy"
+Documentation = "https://alexevag.github.io/ethopy"
+Repository = "https://github.com/alexevag/ethopy.git"
+Changelog = "https://github.com/alexevag/ethopy/releases"
 
 [build-system]
 requires = ["hatchling>=1.18.0"]
