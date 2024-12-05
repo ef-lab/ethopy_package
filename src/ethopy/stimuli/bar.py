@@ -1,8 +1,9 @@
 import datajoint as dj
 import numpy as np
 import pygame
+
 from ethopy.core.logger import stimulus
-from ethopy.core.stimulus import StimCondition, Stimulus
+from ethopy.core.stimulus import Stimulus
 from ethopy.utils.helper_functions import flat2curve
 
 
@@ -10,7 +11,7 @@ from ethopy.utils.helper_functions import flat2curve
 class Bar(Stimulus, dj.Manual):
     definition = """
     # This class handles the presentation of area mapping Bar stimulus
-    -> StimCondition
+    -> stimulus.StimCondition
     ---
     axis                  : enum('vertical','horizontal')
     bar_width             : float  # degrees

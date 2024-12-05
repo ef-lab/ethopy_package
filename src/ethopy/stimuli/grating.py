@@ -4,6 +4,7 @@ import os
 import datajoint as dj
 import imageio
 import numpy as np
+
 from ethopy.core.logger import stimulus
 from ethopy.core.stimulus import Stimulus
 from ethopy.utils.helper_functions import flat2curve
@@ -13,7 +14,7 @@ from ethopy.utils.helper_functions import flat2curve
 class Grating(Stimulus, dj.Manual):
     definition = """
     # This class handles the presentation of static Gratings
-    -> StimCondition
+    -> stimulus.StimCondition
     ---
     theta                  : smallint   # in degrees (0-360)
     spatial_freq           : float      # cycles/deg

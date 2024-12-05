@@ -1,13 +1,14 @@
 import datajoint as dj
+
 from ethopy.core.logger import stimulus
-from ethopy.core.stimulus import StimCondition, Stimulus
+from ethopy.core.stimulus import Stimulus
 
 
 @stimulus.schema
 class Dot(Stimulus, dj.Manual):
     definition = """
     # This class handles the presentation of area mapping Bar stimulus
-    -> StimCondition
+    -> stimulus.StimCondition
     ---
     bg_level              : tinyblob  # 0-255 
     dot_level             : tinyblob  # 0-255 
