@@ -45,8 +45,8 @@ class Behavior:
 
         Args:
             since (int, optional): Time in milliseconds. Defaults to 0.
-            clear (bool, optional): If True, clears any existing response before checking for new responses. 
-                                    Defaults to True.
+            clear (bool, optional): If True, clears any existing response before checking for
+            new responses. Defaults to True.
 
         Returns:
             bool: True if there is any valid response since the given time, False otherwise.
@@ -65,9 +65,9 @@ class Behavior:
         while not self.response_queue.empty():
             _response = self.response_queue.get()
             if not _valid_response and _response.time >= since and _response.port:
-                self.response = _response 
+                self.response = _response
                 _valid_response = True
-                
+
         # return True if there is any valid response since the given time, False otherwise
         if _valid_response:
             return True
