@@ -462,6 +462,7 @@ class SetupConfiguration(dj.Lookup, dj.Manual):
         discription              : varchar(256)
         """
 
+
 @experiment.schema
 class Control(dj.Lookup):
     definition = """
@@ -484,6 +485,7 @@ class Control(dj.Lookup):
     ip=null                     : varchar(16)                  # setup IP address
     """
 
+
 @experiment.schema
 class Task(dj.Lookup):
     definition = """
@@ -495,7 +497,6 @@ class Task(dj.Lookup):
     timestamp                   : timestamp    
     """
 
-    # contents = generate_conf_list("conf/")
 
 @mice.schema
 class MouseWeight(dj.Manual):
