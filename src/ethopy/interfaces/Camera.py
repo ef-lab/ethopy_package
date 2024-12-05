@@ -22,7 +22,7 @@ import numpy as np
 from ethopy.utils.timer import Timer
 
 try:
-    from core.logger import Logger
+    from ethopy.core.logger import Logger
 except ImportError:
     print("Logger not found.")
 
