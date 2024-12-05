@@ -14,14 +14,14 @@ from scipy import ndimage
 
 def create_virtual_modules(schemata, create_tables=True,  create_schema=True):
     try:
-        if dj.config["password"] is None:
+        if dj.config["database.password"] is None:
             dj.config["password"] = getpass(prompt="Please enter DataJoint password: ")
         # Create virtual modules
         _conn = dj.Connection(
-            dj.config["host"],
-            dj.config["user"],
-            dj.config["password"],
-            use_tls=dj.config["use_tls"]
+            dj.config["database.host"],
+            dj.config["database.user"],
+            dj.config["database.password"],
+            use_tls=dj.config["database.use_tls"]
         )
         virtual_modules = {}
         for name, schema in schemata.items():
