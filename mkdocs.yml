@@ -67,6 +67,11 @@ nav:
     - Home: index.md
     - Installation: installation.md
     - Usage: usage.md
+    - Protocols: protocol.md
+    - Local congiguration: local_conf.md
+    - Plugin System: plugin.md
+    - Schemas: database.md
+    - Gui: gui.md
     - Contributing: contributing.md
     - FAQ: faq.md
     - Changelog: changelog.md
