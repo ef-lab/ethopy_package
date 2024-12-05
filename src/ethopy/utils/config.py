@@ -67,6 +67,7 @@ class PathConfig:
     """Path configuration settings with support for custom paths"""
     source_path: Path = Path.home() / "EthoPy_Files"
     target_path: Optional[Path] = None
+    plugin_path: Optional[Path] = None
     custom_paths: Dict[str, Path] = field(default_factory=dict)
 
     def __post_init__(self):
@@ -74,6 +75,9 @@ class PathConfig:
         self.source_path = Path(self.source_path)
         if self.target_path:
             self.target_path = Path(self.target_path)
+
+        if self.plugin_path:
+            self.plugin_path = Path(self.plugin_path)
 
         for key, value in self.custom_paths.items():
             self.custom_paths[key] = Path(value)
@@ -94,6 +98,7 @@ class PathConfig:
         base_paths = {
             "source_path": str(self.source_path),
             "target_path": str(self.target_path) if self.target_path else None,
+            "plugin_path": str(self.plugin_path) if self.plugin_path else None,
         }
         custom_paths = {
             f"path_{key}": str(value) for key, value in self.custom_paths.items()
@@ -190,7 +195,7 @@ class ConfigurationManager:
                 # Handle custom paths (path_video, path_interface, etc.)
                 path_name = key[5:]  # Remove 'path_' prefix
                 self.paths.add_path(path_name, value, create=True)
-            elif key in ["source_path", "target_path"]:
+            elif key in ["source_path", "target_path", "plugin_path"]:
                 # Handle standard paths
                 setattr(self.paths, key, Path(value))
             elif key not in ["dj_local_conf", "SCHEMATA"]:
