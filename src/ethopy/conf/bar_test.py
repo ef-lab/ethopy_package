@@ -1,12 +1,12 @@
 # Retinotopic mapping experiment
-from ethopy.behaviors.head_fixed import *
-from ethopy.experiments.passive import *
-from ethopy.stimuli.bar import *
+from ethopy.behaviors.head_fixed import HeadFixed
+from ethopy.experiments.passive import Experiment
+from ethopy.stimuli.bar import Bar
 
 # define session parameters
 session_params = {
-    'setup_conf_idx'        : 0,
-    'max_res'               : 1000,
+    'setup_conf_idx': 0,
+    'max_res': 1000,
 }
 
 exp = Experiment()
@@ -24,8 +24,8 @@ key = {
     'grat_freq'             : 3,
     'grid_width'            : 15,
     'grit_freq'             : 1,
-    'style'                 : 'checkerboard', # checkerboard, grating
-    'direction'             : 1,             # 1 for UD LR, -1 for DU RL
+    'style'                 : 'checkerboard',  # checkerboard, grating
+    'direction'             : 1,  # 1 for UD LR, -1 for DU RL
     'flatness_correction'   : 1,
     'intertrial_duration'   : 0,
 }
