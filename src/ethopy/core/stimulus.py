@@ -3,7 +3,6 @@ import os
 import datajoint as dj
 import numpy as np
 
-# import experiment needs in definition of Configuration and Trial tables
 from ethopy.core.logger import experiment, stimulus
 from ethopy.utils.helper_functions import DictStruct
 from ethopy.utils.presenter import Presenter
