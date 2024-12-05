@@ -27,17 +27,13 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import datajoint as dj
 import numpy as np
 
+from ethopy import __version__ as VERSION
+from ethopy import SCHEMATA
 from ethopy import config_manager
 from ethopy.utils.helper_functions import create_virtual_modules, rgetattr
 from ethopy.utils.logging import setup_logging
 from ethopy.utils.timer import Timer
 from ethopy.utils.writer import Writer
-
-
-# Schema mappings
-SCHEMATA = config_manager.schema.__dict__
-
-VERSION = "0.1"
 
 
 def set_connection():
@@ -109,7 +105,6 @@ class Logger:
         __init__(protocol=False): Initializes the Logger instance.
         _check_if_raspberry_pi(): Checks if the current machine is a Raspberry Pi.
         _resolve_protocol_parameters(protocol): Resolves protocol parameters.
-        _initialize_schemata(): Initializes database schemata.
         _inserter(): Inserts data into the database.
         _log_setup_info(setup, status): Logs setup information.
         _get_setup_status(): Get setup status.
@@ -262,14 +257,6 @@ class Logger:
         else:
             return False
 
-    def _initialize_schemata(self) -> Dict[str, dj.VirtualModule]:
-        return {
-            schema: dj.create_virtual_module(
-                schema, value, connection=self.private_conn
-            )
-            for schema, value in SCHEMATA.items()
-        }
-
     def _check_if_raspberry_pi(self) -> bool:
         system = platform.uname()
         return (
@@ -290,11 +277,7 @@ class Logger:
                 schema, value, create_tables=True, create_schema=True
             )
             self._schemata.update(
-                {
-                    schema: dj.create_virtual_module(
-                        schema, value, connection=self.private_conn
-                    )
-                }
+                {schema: dj.create_virtual_module(schema, value, connection=self.private_conn)}
             )
 
     def put(self, **kwargs: Any) -> None:
@@ -794,19 +777,25 @@ class Logger:
         """
         Save the protocol file,name and the git_hash in the database.
         """
-        git_hash = (
-            subprocess.check_output(["git", "rev-parse", "--short", "HEAD"])
-            .decode("ascii")
-            .strip()
-        )
-        logging.info("Git hash: %s", git_hash)
+        try:
+            git_hash = (
+                subprocess.check_output(["git", "rev-parse", "--short", "HEAD"])
+                .decode("ascii")
+                .strip()
+            )
+            hash = f"{git_hash}"
+        except subprocess.CalledProcessError:
+            from importlib.metadata import version
+            VERSION = version("ethopy")
+            hash = f"pip version {VERSION}"
+        logging.info(f"hash: {hash}")
         self.put(
             table="Session.Protocol",
             tuple={
                 **self.trial_key,
                 "protocol_name": self.protocol_path,
                 "protocol_file": np.fromfile(self.protocol_path, dtype=np.int8),
-                "git_hash": git_hash,
+                "git_hash": hash,
             },
         )
 

@@ -68,6 +68,8 @@ path = "src/ethopy/__init__.py"
 
 [project.scripts]
 ethopy = "ethopy.cli:main"
+ethopy-setup-djdocker = "ethopy.setup_db:setup_dj_docker"
+ethopy-setup-schema = "ethopy.setup_db:createschema"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/ethopy"]
