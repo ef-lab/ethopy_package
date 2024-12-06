@@ -1,11 +1,13 @@
 # ethopy/core/plugin_manager.py
-import sys
-import os
-from pathlib import Path
 import importlib
 import logging
-from typing import Dict, List, Set, Optional
+import os
+import sys
 from dataclasses import dataclass
+from pathlib import Path
+from typing import Dict, List, Optional, Set
+
+log = logging.getLogger(__name__)
 
 
 @dataclass
@@ -29,7 +31,6 @@ class PluginManager:
     PLUGIN_CATEGORIES = ["behaviors", "experiments", "interfaces", "stimuli"]
 
     def __init__(self):
-        self.logger = logging.getLogger(__name__)
         self._plugin_paths: Set[str] = set()
         self._plugins: Dict[str, PluginInfo] = {}  # import_path -> PluginInfo
         self._duplicates: Dict[str, List[str]] = (
@@ -53,7 +54,7 @@ class PluginManager:
 
             return os.path.dirname(ethopy.__file__)
         except ImportError:
-            self.logger.warning("Could not find main ethopy package")
+            log.warning("Could not find main ethopy package")
             return None
 
     def _scan_core_modules(self):
@@ -133,13 +134,13 @@ class PluginManager:
 
             # Handle core package conflicts
             if is_core and not existing.is_core:
-                self.logger.warning(
+                log.warning(
                     f"Plugin '{import_path}' from {plugin_path} conflicts with core ethopy "
                     f"module. Core module will be used."
                 )
                 return
             elif existing.is_core and not is_core:
-                self.logger.warning(
+                log.warning(
                     f"Plugin '{import_path}' from {plugin_path} conflicts with core ethopy "
                     f"module at {existing.path}. Core module will be used."
                 )
@@ -150,7 +151,7 @@ class PluginManager:
                 self._duplicates[import_path] = [existing.path]
             self._duplicates[import_path].append(plugin_path)
 
-            self.logger.warning(
+            log.warning(
                 f"Duplicate plugin found for '{import_path}':\n"
                 f"  Using:     {plugin_path}\n"
                 f"  Ignoring:  {existing.path}"
@@ -179,7 +180,7 @@ class PluginManager:
         """
         path = os.path.abspath(path)
         if not os.path.isdir(path):
-            # self.logger.warning(f"Plugin path not found: {path}")
+            log.warning(f"Plugin path not found: {path}")
             return
 
         if path not in self._plugin_paths:
@@ -189,7 +190,7 @@ class PluginManager:
             if path not in sys.path:
                 sys.path.insert(0, path)
 
-            self.logger.info(f"Added plugin path: {path}")
+            log.info(f"Added plugin path: {path}")
 
             # Scan for plugins
             self._scan_plugins(path)

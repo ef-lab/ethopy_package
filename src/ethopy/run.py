@@ -1,3 +1,4 @@
+# ethopy/run.py
 import logging
 import sys
 import time
@@ -6,22 +7,23 @@ import traceback
 from ethopy.core.logger import Logger
 from ethopy.utils.start import PyWelcome
 
+log = logging.getLogger(__name__)  # Get logger for this module
 
 def run(protocol=False):
     # ERROR = None
-    # protocol = sys.argv[1] if len(sys.argv) > 1 else False
     logger = Logger(protocol=protocol)
 
     # # # # Waiting for instructions loop # # # # #
     while logger.setup_status != 'exit':
         if logger.setup_status != 'running':
+            log.info("################ PyWelcome ################")
             PyWelcome(logger)
         if logger.setup_status == 'running':   # run experiment unless stopped
             try:
                 if logger.get_protocol():
                     exec(open(logger.protocol_path, encoding='utf-8').read())
             except Exception as e:
-                logging.error("ERROR %s", traceback.format_exc())
+                log.error("ERROR: %s", traceback.format_exc())
                 ERROR = str(e)
                 logger.update_setup_info({'state': 'ERROR!', 'notes': ERROR, 'status': 'exit'})
             if logger.manual_run:

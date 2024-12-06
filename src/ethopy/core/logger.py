@@ -27,14 +27,14 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import datajoint as dj
 import numpy as np
 
-from ethopy import __version__ as VERSION
 from ethopy import SCHEMATA
-from ethopy import config_manager
+from ethopy import __version__ as VERSION
+from ethopy import local_conf
 from ethopy.utils.helper_functions import create_virtual_modules, rgetattr
-from ethopy.utils.logging import setup_logging
 from ethopy.utils.timer import Timer
 from ethopy.utils.writer import Writer
 
+log = logging.getLogger(__name__)
 
 def set_connection():
     """
@@ -119,7 +119,6 @@ class Logger:
         # if the protocol path or task id is defined we consider that it runs manually
         self.manual_run = True if self.protocol_path else False
         # set the python logging
-        setup_logging(self.manual_run)
 
         # if manual true run the experiment else set it to ready state
         self.setup_status = 'running' if self.manual_run else 'ready'
@@ -145,9 +144,9 @@ class Logger:
         self.update_status.clear()
 
         # source path is the local path that data are saved
-        self.source_path = config_manager.paths.source_path
+        self.source_path = local_conf.get("source_path")
         # target path is the path that data will be moved after the session ends
-        self.target_path = config_manager.paths.target_path
+        self.target_path = local_conf.get("target_path")
 
         # inserter_thread read the queue and insert the data in the database
         self.thread_end, self.thread_lock = threading.Event(), threading.Lock()
@@ -209,9 +208,9 @@ class Logger:
         # checks if the file exist
         if not os.path.isfile(self.protocol_path):
             error_msg = f"Protocol file does not exist at {self._protocol_path}"
-            logging.error(error_msg)
+            log.error(error_msg)
             raise FileNotFoundError(error_msg)
-        logging.info("Protocol path: %s", self.protocol_path)
+        log.info("Protocol path: %s", self.protocol_path)
         return True
 
     @property
@@ -252,7 +251,7 @@ class Logger:
                 return task_query.fetch1("protocol")
             else:
                 error_msg = f"There is no task_idx:{task_idx} in the tables Tasks"
-                logging.info(error_msg)
+                log.info(error_msg)
                 raise FileNotFoundError(error_msg)
         else:
             return False
@@ -343,7 +342,7 @@ class Logger:
             thread_end : Description of parameter `thread_end`.
             queue : Description of parameter `queue`.
         """
-        logging.warning(
+        log.warning(
             "Failed to insert:\n%s in %s\n With error:%s\nWill retry later",
             item.tuple, table, exception, exc_info=True,)
         item.error = True
@@ -397,7 +396,7 @@ class Logger:
                 except Exception as insert_error:
                     if item.error:
                         self.thread_end.set()
-                        logging.error("Second time failed to insert:\n %s in %s With error:\n %s",
+                        log.error("Second time failed to insert:\n %s in %s With error:\n %s",
                                       item.tuple, table, insert_error, exc_info=True)
                         self.thread_exception = insert_error
                         break
@@ -423,7 +422,7 @@ class Logger:
                     self._fetch_setup_info()
                     self._update_setup_info(update_period)
                 except Exception as error:
-                    logging.exception("Error during Control table sync: %s", error)
+                    log.exception("Error during Control table sync: %s", error)
                     self.thread_exception = error
 
             time.sleep(1)  # Cycle once a second
@@ -475,7 +474,7 @@ class Logger:
         data = data or {}  # if data is None or False use an empty dictionary
         self.put(table=table, tuple={**self.trial_key, "time": tmst, **data}, **kwargs)
         if table == "Trial.StateOnset":
-            logging.info("State: %s", data["state"])
+            log.info("State: %s", data["state"])
         return tmst
 
     def _log_setup_info(self, setup, setup_status='running'):
@@ -568,12 +567,12 @@ class Logger:
         self.trial_key = {"animal_id": self.get_setup_info("animal_id"),
                           "trial_idx": 0,
                           "session": self._get_last_session() + 1}
-        logging.info("\n%s\n%s\n%s", "#" * 70, self.trial_key, "#" * 70)
+        log.info("\n%s\n%s\n%s", "#" * 70, self.trial_key, "#" * 70)
         # Creates a session key by merging trial key with session parameters.
         # TODO: Read the user name from the Control Table
         session_key = {**self.trial_key, **params, "setup": self.setup,
                        "user_name": params.get("user_name", "bot")}
-        logging.info("session_key:\n%s", pprint.pformat(session_key))
+        log.info("session_key:\n%s", pprint.pformat(session_key))
         # Logs the new session id to the database
         self.put(table="Session", tuple=session_key, priority=1, validate=True, block=True)
 
@@ -754,7 +753,7 @@ class Logger:
             caller = inspect.stack()[1]
             caller_info = (f"Function called by {caller.function} "
                            f"in {caller.filename} at line {caller.lineno}")
-            logging.info("Update status is set %s\n%s", info['status'], caller_info)
+            log.info("Update status is set %s\n%s", info['status'], caller_info)
 
         self.setup_info = {**(experiment.Control() & {**{"setup": self.setup}, **key}).fetch1(),
                            **info}
@@ -788,7 +787,8 @@ class Logger:
             from importlib.metadata import version
             VERSION = version("ethopy")
             hash = f"pip version {VERSION}"
-        logging.info(f"hash: {hash}")
+        log.info(f"hash: {hash}")
+
         self.put(
             table="Session.Protocol",
             tuple={
@@ -863,7 +863,7 @@ class Logger:
             trial_idx (int): The new trial index to be updated.
         """
         self.trial_key['trial_idx'] = trial_idx
-        logging.info("\nTrial idx: %s",  self.trial_key['trial_idx'])
+        log.info("\nTrial idx: %s",  self.trial_key['trial_idx'])
         if self.thread_exception:
             self.thread_exception = None
             raise Exception("Thread exception occurred: %s", self.thread_exception)
@@ -877,12 +877,12 @@ class Logger:
         the logging thread to terminate.
         """
         while not self.queue.empty() and not self.thread_end.is_set():
-            logging.info('Waiting for empty queue... qsize: %d', self.queue.qsize())
+            log.info('Waiting for empty queue... qsize: %d', self.queue.qsize())
             time.sleep(1)
         self.thread_end.set()
 
         if not self.queue.empty():
-            logging.warning('Clean up finished but queue size is: %d', self.queue.qsize())
+            log.warning('Clean up finished but queue size is: %d', self.queue.qsize())
 
     def createDataset(
                     self,

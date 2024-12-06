@@ -10,17 +10,19 @@ __version__ = "0.0.1"
 # Set environment variables
 environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
 
-config_manager = ConfigurationManager()
+# read the local_conf file
+local_conf = ConfigurationManager()
+
 # set the datajoint parameters
-dj.config.update(config_manager.db.to_dict)
-dj.logger.setLevel(config_manager.db.loglevel)
+dj.config.update(local_conf.get("dj_local_conf"))
+dj.logger.setLevel(local_conf.get("dj_local_conf")['datajoint.loglevel'])
 # Schema mappings
-SCHEMATA = config_manager.schema.__dict__
+SCHEMATA = local_conf.get("SCHEMATA")
 
 # Initialize plugins
 plugin_manager  # This will trigger plugin loading
 
-__all__ = ["config_manager",
+__all__ = ["local_conf",
            "plugin_manager",
            "__version__",
            "SCHEMATA"]
