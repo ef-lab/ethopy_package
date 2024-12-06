@@ -9,6 +9,10 @@ from typing import List, Optional, Tuple
 import click
 import datajoint as dj
 
+from ethopy.utils.logging import setup_logging
+
+setup_logging(console_log=True)
+
 
 def check_docker_status() -> Tuple[bool, str]:
     """
@@ -273,6 +277,21 @@ def get_import_commands() -> List[str]:
     ]
 
 
+def check_db_connection():
+    # Try to establish connection
+    from ethopy import local_conf
+
+    try:
+        dj.config.update(local_conf.get_dict()["dj_local_conf"])
+        dj.logger.setLevel(local_conf.db.loglevel)
+        conn = dj.conn()
+    except Exception:
+        logging.error(f"Failed to connect to database")
+        raise Exception(f"Failed to connect to database {dj.config['database.host']}")
+
+    logging.info(f"Connected to {dj.config['database.user']}@{dj.config['database.host']} !!")
+
+
 def createschema():
     """
     Create all required database schemas.
@@ -280,16 +299,7 @@ def createschema():
     This command imports and initializes all schema definitions in the correct order,
     setting up the database structure needed by ethopy.
     """
-    # Try to establish connection
-    from ethopy import config_manager
-    try:
-        dj.config.update(config_manager.get_dict()['dj_local_conf'])
-        dj.logger.setLevel(config_manager.db.loglevel)
-        conn = dj.conn()
-    except Exception:
-        logging.error(f"Failed to connect to database")
-        raise Exception(f"Failed to connect to database {dj.config['database.host']}")
-
+    check_db_connection()
     logging.info("Creating schemas and tables...")
 
     for cmd in get_import_commands():
