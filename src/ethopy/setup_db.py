@@ -11,7 +11,7 @@ import datajoint as dj
 
 from ethopy.utils.logging import setup_logging
 
-setup_logging(console_log=True)
+setup_logging()
 
 
 def check_docker_status() -> Tuple[bool, str]:
@@ -282,11 +282,11 @@ def check_db_connection():
     from ethopy import local_conf
 
     try:
-        dj.config.update(local_conf.get_dict()["dj_local_conf"])
-        dj.logger.setLevel(local_conf.db.loglevel)
-        conn = dj.conn()
+        dj.config.update(local_conf.get("dj_local_conf"))
+        dj.logger.setLevel(local_conf.get("dj_local_conf")['datajoint.loglevel'])
+        _ = dj.conn()
     except Exception:
-        logging.error(f"Failed to connect to database")
+        logging.error("Failed to connect to database")
         raise Exception(f"Failed to connect to database {dj.config['database.host']}")
 
     logging.info(f"Connected to {dj.config['database.user']}@{dj.config['database.host']} !!")
