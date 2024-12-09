@@ -8,7 +8,7 @@ from queue import Queue
 import datajoint as dj
 import numpy as np
 
-from ethopy.core.logger import behavior, experiment
+from ethopy.core.logger import behavior, experiment  # pylint: disable=W0611, # noqa: F401
 
 
 class Behavior:
@@ -127,7 +127,8 @@ class Behavior:
         """
         activity = BehActivity(**activity_key)
         # if activity.time is not set, set it to the current time
-        if not activity.time: activity.time = self.logger.logger_timer.elapsed_time()
+        if not activity.time:
+            activity.time = self.logger.logger_timer.elapsed_time()
         key = {**self.logger.trial_key, **activity.__dict__}
         # log the activity in the database
         if self.exp.in_operation and self.logging:
@@ -170,7 +171,8 @@ class Behavior:
                         schema='behavior')
 
     def update_history(self, choice=np.nan, reward=np.nan, punish=np.nan):
-        if np.isnan(choice) and (~np.isnan(reward) or ~np.isnan(punish)) and self.response.time > 0: choice = self.response.port
+        if np.isnan(choice) and (~np.isnan(reward) or ~np.isnan(punish)) and self.response.time > 0:
+            choice = self.response.port
         self.choice_history.append(choice)
         self.reward_history.append(reward)
         self.punish_history.append(punish)
@@ -226,6 +228,7 @@ class BehActivity:
             if k in names:
                 setattr(self, k, v)
 
+
 @behavior.schema
 class Rewards(dj.Manual):
     definition = """
@@ -236,6 +239,7 @@ class Rewards(dj.Manual):
     reward_type             : varchar(16)
     reward_amount           : float            # reward amount
     """
+
 
 @behavior.schema
 class Activity(dj.Manual):
