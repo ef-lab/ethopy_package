@@ -9,14 +9,14 @@ from ethopy.utils.start import PyWelcome
 
 log = logging.getLogger(__name__)  # Get logger for this module
 
+
 def run(protocol=False):
-    # ERROR = None
     logger = Logger(protocol=protocol)
 
     # # # # Waiting for instructions loop # # # # #
     while logger.setup_status != 'exit':
         if logger.setup_status != 'running':
-            log.info("################ PyWelcome ################")
+            log.info("################ EthoPy Welcome ################")
             PyWelcome(logger)
         if logger.setup_status == 'running':   # run experiment unless stopped
             try:
@@ -24,8 +24,7 @@ def run(protocol=False):
                     exec(open(logger.protocol_path, encoding='utf-8').read())
             except Exception as e:
                 log.error("ERROR: %s", traceback.format_exc())
-                ERROR = str(e)
-                logger.update_setup_info({'state': 'ERROR!', 'notes': ERROR, 'status': 'exit'})
+                logger.update_setup_info({'state': 'ERROR!', 'notes': str(e), 'status': 'exit'})
             if logger.manual_run:
                 logger.update_setup_info({'status': 'exit'})
                 break
