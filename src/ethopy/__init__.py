@@ -2,7 +2,7 @@ from os import environ
 
 import datajoint as dj
 
-from ethopy.plugin_manager import plugin_manager
+from ethopy.plugin_manager import PluginManager
 from ethopy.utils.config import ConfigurationManager
 
 __version__ = "0.0.1"
@@ -20,7 +20,7 @@ dj.logger.setLevel(local_conf.get("dj_local_conf")['datajoint.loglevel'])
 SCHEMATA = local_conf.get("SCHEMATA")
 
 # Initialize plugins
-plugin_manager  # This will trigger plugin loading
+plugin_manager = PluginManager(local_conf.get("plugin_path"))
 
 __all__ = ["local_conf",
            "plugin_manager",
