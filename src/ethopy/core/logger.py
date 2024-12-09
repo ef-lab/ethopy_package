@@ -1,11 +1,3 @@
-"""
-This module defines a Logger class used for managing data handling in an experimental setup.
-
-It includes functionalities for logging experimental data, managing database connections,
-controlling the flow of data from source to target locations, and supporting both manual
-and automatic running modes. The Logger class manages threads for data insertion and setup
-status updates.
-"""
 import importlib
 import inspect
 import logging
@@ -35,6 +27,7 @@ from ethopy.utils.timer import Timer
 from ethopy.utils.writer import Writer
 
 log = logging.getLogger(__name__)
+
 
 def set_connection():
     """
@@ -118,7 +111,6 @@ class Logger:
 
         # if the protocol path or task id is defined we consider that it runs manually
         self.manual_run = True if self.protocol_path else False
-        # set the python logging
 
         # if manual true run the experiment else set it to ready state
         self.setup_status = 'running' if self.manual_run else 'ready'
@@ -397,7 +389,7 @@ class Logger:
                     if item.error:
                         self.thread_end.set()
                         log.error("Second time failed to insert:\n %s in %s With error:\n %s",
-                                      item.tuple, table, insert_error, exc_info=True)
+                                  item.tuple, table, insert_error, exc_info=True)
                         self.thread_exception = insert_error
                         break
                     self._handle_insert_error(item, table, insert_error, self.queue)
@@ -912,7 +904,7 @@ class Logger:
             os.makedirs(path)  # create path if necessary
 
         if not os.path.isdir(self.target_path):
-            print('No target directory set! Autocopying will not work.')
+            log.info('No target directory set! Autocopying will not work.')
             target_path = False
         else:
             target_path = self.target_path + folder
