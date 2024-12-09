@@ -1,4 +1,5 @@
 import itertools
+import logging
 import time
 from dataclasses import dataclass, field
 
@@ -10,6 +11,8 @@ from sklearn.metrics import roc_auc_score
 from ethopy.core.logger import experiment, mice
 from ethopy.utils.helper_functions import factorize, make_hash
 from ethopy.utils.timer import Timer
+
+log = logging.getLogger(__name__)
 
 
 class State:
@@ -39,9 +42,12 @@ class State:
 
 class ExperimentClass:
     """  Parent Experiment """
-    curr_state, curr_trial, total_reward, cur_block, flip_count, states, stim, sync = '', 0, 0, 0, 0, dict(), False, False
-    un_choices, blocks, iter, curr_cond, block_h, stims, response, resp_ready = [], [], [], dict(), [], dict(), [], False
-    required_fields, default_key, conditions, cond_tables, quit, in_operation, cur_block_sz = [], dict(), [], [], False, False, 0
+    curr_state, curr_trial, total_reward, cur_block, flip_count, states = '', 0, 0, 0, 0, dict()
+    stim, sync = False, False
+    un_choices, blocks, iter, curr_cond, block_h, stims, response = [], [], [], dict(), [], dict(), []
+    resp_ready = False
+    required_fields, default_key, conditions, cond_tables, quit = [], dict(), [], [], False
+    in_operation, cur_block_sz = False, 0
 
     # move from State to State using a template method.
     class StateMachine:
@@ -66,7 +72,9 @@ class ExperimentClass:
 
     def setup(self, logger, BehaviorClass, session_params):
         self.in_operation = False
-        self.conditions, self.iter, self.quit, self.curr_cond, self.block_h, self.stims, self.curr_trial, self.cur_block_sz = [], [], False, dict(), [], dict(),0, 0
+        self.conditions, self.iter, self.quit, self.curr_cond = [], [], False, dict()
+        self.block_h, self.stims = [], dict()
+        self.curr_trial, self.cur_block_sz = 0, 0
         if "setup_conf_idx" not in self.default_key:
             self.default_key["setup_conf_idx"] = 0
         self.params = {**self.default_key, **session_params}
@@ -93,7 +101,7 @@ class ExperimentClass:
         self.beh.exit()
         if self.sync:
             while self.interface.is_recording():
-                print('Waiting for recording to end...')
+                log.info('Waiting for recording to end...')
                 time.sleep(1)
         self.logger.closeDatasets()
         self.in_operation = False
@@ -120,7 +128,9 @@ class ExperimentClass:
         else:
             cond = {}
             for i in range(len(stim_periods)):
-                cond[stim_periods[i]] = self.stims[stim_name].make_conditions(conditions=factorize(conditions[stim_periods[i]]))
+                cond[stim_periods[i]] = self.stims[stim_name].make_conditions(
+                    conditions=factorize(conditions[stim_periods[i]])
+                )
                 conditions[stim_periods[i]] = []
             all_cond = [cond[stim_periods[i]] for i in range(len(stim_periods))]
             for comb in list(itertools.product(*all_cond)):
@@ -164,11 +174,12 @@ class ExperimentClass:
             return
         if 'stimulus_class' not in old_cond or self.curr_trial == 0 \
                 or old_cond['stimulus_class'] != self.curr_cond['stimulus_class']:
-            if 'stimulus_class' in old_cond and self.curr_trial != 0: self.stim.exit()
+            if 'stimulus_class' in old_cond and self.curr_trial != 0:
+                self.stim.exit()
             self.stim = self.stims[self.curr_cond['stimulus_class']]
-            print('setting up stimulus')
+            log.info('setting up stimulus')
             self.stim.setup()
-            print('done')
+            log.info('stimuli is done')
         self.curr_trial += 1
         self.logger.update_trial_idx(self.curr_trial)
         self.trial_start = self.logger.logger_timer.elapsed_time()
@@ -178,21 +189,25 @@ class ExperimentClass:
 
     def name(self): return type(self).__name__
 
-    def log_conditions(self, conditions, condition_tables=['Condition'], schema='experiment', hsh='cond_hash', priority=2):
+    def log_conditions(self, conditions, condition_tables=['Condition'],
+                       schema='experiment', hsh='cond_hash', priority=2):
         fields_key, hash_dict = list(), dict()
         for ctable in condition_tables:
             fields_key += list(self.logger.get_table_keys(schema, ctable))
         for cond in conditions:
             insert_priority = priority
-            key = {sel_key: cond[sel_key] for sel_key in fields_key if sel_key != hsh and sel_key in cond}  # find all dependant fields and generate hash
+            # find all dependant fields and generate hash
+            key = {sel_key: cond[sel_key] for sel_key in fields_key if sel_key != hsh and sel_key in cond}
             cond.update({hsh: make_hash(key)})
             hash_dict[cond[hsh]] = cond[hsh]
             for ctable in condition_tables:  # insert dependant condition tables
-                core = [field for field in self.logger.get_table_keys(schema, ctable, key_type='primary') if field != hsh]
+                core = [field for field in self.logger.get_table_keys(schema,
+                                                                      ctable,
+                                                                      key_type='primary') if field != hsh]
                 fields = [field for field in self.logger.get_table_keys(schema, ctable)]
                 if not np.all([np.any(np.array(k) == list(cond.keys())) for k in fields]):
                     if self.logger.manual_run:
-                        print('skipping ', ctable)
+                        log.info(f"skipping {ctable}")
                     continue  # only insert complete tuples
                 if core and hasattr(cond[core[0]], '__iter__'):
                     for idx, pcond in enumerate(cond[core[0]]):
@@ -205,7 +220,8 @@ class ExperimentClass:
 
     def _anti_bias(self, choice_h, un_choices):
         choice_h = np.array([make_hash(c) for c in choice_h[-self.curr_cond['bias_window']:]])
-        if len(choice_h) < self.curr_cond['bias_window']: choice_h = self.choices
+        if len(choice_h) < self.curr_cond['bias_window']:
+            choice_h = self.choices
         fixed_p = 1 - np.array([np.mean(choice_h == un) for un in un_choices])
         if sum(fixed_p) == 0:
             fixed_p = np.ones(np.shape(fixed_p))
@@ -225,9 +241,10 @@ class ExperimentClass:
             if len(np.unique(y_true)) > 1:
                 perf = np.sqrt(2) * stats.norm.ppf(roc_auc_score(y_true, np.array(choice_h[-window:])))
             if self.logger.manual_run:
-                print('perf: ', perf, ' accuracy: ', np.nanmean(np.greater(rew_h[-window:], 0)))
+                log.info((f'perf: {perf if not np.isnan(perf) else 0} '
+                          f'accuracy: {np.nanmean(np.greater(rew_h[-window:], 0)) or 0}'))
         else:
-            print('Performance method not implemented!')
+            log.error('Performance method not implemented!')
             self.quit = True
         choice_h = [[c, d] for c, d in zip(choice_h, np.asarray(self.block_h)[idx])]
         return perf, choice_h
@@ -269,7 +286,7 @@ class ExperimentClass:
             condition_idx = self.choices == self._anti_bias(choice_h, self.un_choices)
             self.curr_cond = np.random.choice([i for (i, v) in zip(self.conditions, condition_idx) if v])
         else:
-            print('Selection method not implemented!')
+            log.error('Selection method not implemented!')
             self.quit = True
 
     @dataclass
@@ -408,7 +425,7 @@ class SetupConfiguration(dj.Lookup, dj.Manual):
         screen_idx               : tinyint
         -> SetupConfiguration
         ---
-        intensity                : tinyint UNSIGNED 
+        intensity                : tinyint UNSIGNED
         distance                 : float
         center_x                 : float
         center_y                 : float
@@ -466,22 +483,22 @@ class SetupConfiguration(dj.Lookup, dj.Manual):
 @experiment.schema
 class Control(dj.Lookup):
     definition = """
-    # Control table 
+    # Control table
     setup                       : varchar(256)                 # Setup name
     ---
-    status="exit"               : enum('ready','running','stop','sleeping','exit','offtime','wakeup') 
+    status="exit"               : enum('ready','running','stop','sleeping','exit','offtime','wakeup')
     animal_id=0                 : int                          # animal id
     task_idx=0                  : int                          # task identification number
-    session=0                   : int                          
-    trials=0                    : int                          
-    total_liquid=0              : float                        
-    state='none'                : varchar(255)                 
-    difficulty=0                : smallint                     
-    start_time='00:00:00'       : time                         
-    stop_time='23:59:00'        : time                         
-    last_ping=CURRENT_TIMESTAMP : timestamp                    
-    notes=''                    : varchar(256)                 
-    queue_size=0                : int                          
+    session=0                   : int
+    trials=0                    : int
+    total_liquid=0              : float
+    state='none'                : varchar(255)
+    difficulty=0                : smallint
+    start_time='00:00:00'       : time
+    stop_time='23:59:00'        : time
+    last_ping=CURRENT_TIMESTAMP : timestamp
+    notes=''                    : varchar(256)
+    queue_size=0                : int
     ip=null                     : varchar(16)                  # setup IP address
     """
 
@@ -494,7 +511,7 @@ class Task(dj.Lookup):
     ---
     protocol                    : varchar(4095)                # stimuli to be presented (array of dictionaries)
     description=""              : varchar(2048)                # task description
-    timestamp                   : timestamp    
+    timestamp                   : timestamp
     """
 
 
