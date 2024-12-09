@@ -1,4 +1,3 @@
-# ethopy/core/plugin_manager.py
 import importlib
 import logging
 import os
@@ -30,12 +29,15 @@ class PluginManager:
 
     PLUGIN_CATEGORIES = ["behaviors", "experiments", "interfaces", "stimuli"]
 
-    def __init__(self):
+    def __init__(self, local_conf_path: str = None):
         self._plugin_paths: Set[str] = set()
         self._plugins: Dict[str, PluginInfo] = {}  # import_path -> PluginInfo
         self._duplicates: Dict[str, List[str]] = (
             {}
         )  # import_path -> list of duplicate paths
+
+        if local_conf_path and str(local_conf_path).strip():
+            self.add_plugin_path(str(local_conf_path))
 
         # Get ethopy's main package path
         self._ethopy_path = self._get_ethopy_path()
@@ -98,8 +100,8 @@ class PluginManager:
     def _setup_plugin_paths(self):
         """Setup default plugin paths and from environment variable"""
         default_paths = [
-            Path.home() / "ethopy_plugins",
-            Path.cwd() / "ethopy_plugins",
+            Path.home() / ".ethopy" / "ethopy_plugins",
+            # Path.cwd() / "ethopy_plugins",
         ]
 
         env_paths = [
@@ -286,7 +288,3 @@ class PluginManager:
     def get_plugin_info(self, import_path: str) -> PluginInfo:
         """Get information about a specific plugin"""
         return self._plugins.get(import_path)
-
-
-# Global instance
-plugin_manager = PluginManager()
