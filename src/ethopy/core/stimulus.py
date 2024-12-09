@@ -3,7 +3,7 @@ import os
 import datajoint as dj
 import numpy as np
 
-from ethopy.core.logger import experiment, stimulus
+from ethopy.core.logger import experiment, stimulus  # pylint: disable=W0611, # noqa: F401
 from ethopy.utils.helper_functions import DictStruct
 from ethopy.utils.presenter import Presenter
 from ethopy.utils.timer import Timer
@@ -22,7 +22,7 @@ class Configuration(dj.Manual):
         -> Configuration
         screen_idx               : tinyint
         ---
-        intensity                : tinyint UNSIGNED 
+        intensity                : tinyint UNSIGNED
         distance         : float
         center_x         : float
         center_y         : float
@@ -51,7 +51,7 @@ class Configuration(dj.Manual):
 class StimCondition(dj.Manual):
     definition = """
     # This class handles the stimulus presentation use function overrides for each stimulus class
-    stim_hash            : char(24)                     # unique stimulus condition hash  
+    stim_hash            : char(24)                     # unique stimulus condition hash
     """
 
     class Trial(dj.Part):
@@ -108,7 +108,8 @@ class Stimulus:
         """stimulus hidding method"""
         if not color:
             color = self.fill_colors.background
-        if self.fill_colors.background: self.Presenter.fill(color)
+        if self.fill_colors.background:
+            self.Presenter.fill(color)
 
     def stop(self):
         """stop stimulus"""
@@ -122,19 +123,23 @@ class Stimulus:
 
     def ready_stim(self):
         """Stim Cue for ready"""
-        if self.fill_colors.ready: self.fill(self.fill_colors.ready)
+        if self.fill_colors.ready:
+            self.fill(self.fill_colors.ready)
 
     def reward_stim(self):
         """Stim Cue for reward"""
-        if self.fill_colors.reward: self.fill(self.fill_colors.reward)
+        if self.fill_colors.reward:
+            self.fill(self.fill_colors.reward)
 
     def punish_stim(self):
         """Stim Cue for punishment"""
-        if self.fill_colors.punish: self.fill(self.fill_colors.punish)
+        if self.fill_colors.punish:
+            self.fill(self.fill_colors.punish)
 
     def start_stim(self):
         """Stim Cue for start"""
-        if self.fill_colors.start: self.fill(self.fill_colors.start)
+        if self.fill_colors.start:
+            self.fill(self.fill_colors.start)
 
     def log_start(self):
         """Start time logging"""
@@ -154,7 +159,7 @@ class Stimulus:
             assert np.all([field in cond for field in self.required_fields])
             cond.update({**self.default_key, **cond})
         conditions = self.exp.log_conditions(conditions, schema='stimulus', hsh='stim_hash',
-                                       condition_tables=['StimCondition'] + self.cond_tables)
+                                             condition_tables=['StimCondition'] + self.cond_tables)
         self.conditions += conditions
         return conditions
 
