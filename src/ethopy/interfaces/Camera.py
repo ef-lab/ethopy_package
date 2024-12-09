@@ -21,10 +21,12 @@ import numpy as np
 
 from ethopy.utils.timer import Timer
 
+log = logging.getLogger(__name__)
+
 try:
     from ethopy.core.logger import Logger
 except ImportError:
-    print("Logger not found.")
+    log.warning("Logger not found.")
 
 try:
     import cv2
@@ -226,16 +228,16 @@ class Camera(ABC):
         file, target = args
         try:
             shutil.copy(str(file), str(target / file.name))
-            print(f"Transferred file: {file.name}")
+            log.info(f"Transferred file: {file.name}")
             # Verify the file exists in the target directory
             if os.path.exists(str(target / file.name)) and \
                os.path.getsize(str(file)) == os.path.getsize(str(target / file.name)):
                 os.remove(str(file))
-                print(f"Deleted original file: {file.name}")
+                log.info(f"Deleted original file: {file.name}")
             else:
-                print(f"Failed to transfer file: {file.name}")
+                log.error(f"Failed to transfer file: {file.name}")
         except FileNotFoundError as ex:
-            print(f"Failed to transfer file: {file.name}. Reason: {ex}")
+            log.error(f"Failed to transfer file: {file.name}. Reason: {ex}")
 
     def clear_local_videos(self) -> None:
         """
@@ -258,7 +260,7 @@ class Camera(ABC):
         # Clean up if the source directory is empty
         if not any(source.iterdir()):
             source.rmdir()
-            print(f"Deleted the empty folder: {source}")
+            log.info(f"Deleted the empty folder: {source}")
 
     def setup(self) -> None:
         """

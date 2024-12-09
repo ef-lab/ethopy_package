@@ -1,4 +1,5 @@
 import json
+import logging
 import threading
 import time
 from dataclasses import dataclass
@@ -9,6 +10,7 @@ from serial import Serial
 
 from ethopy.core.interface import Interface, Port
 
+log = logging.getLogger(__name__)
 
 class Arduino(Interface):
     thread_end, msg_queue, callbacks = threading.Event(), PriorityQueue(maxsize=1), True
@@ -78,7 +80,7 @@ class Arduino(Interface):
             self.ts.run()
         except:
             self.ts = False
-            print('Cannot create a touch exit!')
+            log.info('Cannot create a touch exit!')
 
     def _communicator(self):
         while not self.thread_end.is_set():
@@ -111,7 +113,7 @@ class Arduino(Interface):
         try:
             resp = json.loads(incoming)
         except json.JSONDecodeError:
-            print("Error decoding JSON message!")
+            log.error("Error decoding JSON message!")
         return resp
 
     def _write_msg(self, message=None):
@@ -120,7 +122,7 @@ class Arduino(Interface):
             json_msg = json.dumps(message)
             self.ser.write(json_msg.encode("utf-8"))
         except TypeError:
-            print("Unable to serialize message.")
+            log.error("Unable to serialize message.")
 
     def _position_change(self, response):
         """Update the position of the animal and log the in_position event.

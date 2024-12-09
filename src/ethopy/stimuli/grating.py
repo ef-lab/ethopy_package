@@ -1,4 +1,5 @@
 import io
+import logging
 import os
 
 import datajoint as dj
@@ -9,6 +10,7 @@ from ethopy.core.logger import stimulus
 from ethopy.core.stimulus import Stimulus
 from ethopy.utils.helper_functions import flat2curve
 
+log = logging.getLogger(__name__)
 
 @stimulus.schema
 class Grating(Stimulus, dj.Manual):
@@ -63,7 +65,7 @@ class Grating(Stimulus, dj.Manual):
                 tuple = self.exp.logger.get(schema='stimulus', table='Grating.Movie',
                                             key={**cond, 'file_name': filename}, fields=['stim_hash'])
                 if not tuple:
-                    print('Making movie %s', filename)
+                    log.info('Making movie %s', filename)
                     cond['lamda'] = int(self.px_per_deg/cond['spatial_freq'])
                     theta_frame_step = (cond['temporal_freq'] / self.monitor.fps) * np.pi * 2
                     image = self._make_grating(**cond)
@@ -77,12 +79,12 @@ class Grating(Stimulus, dj.Manual):
                     else:
                         transform = lambda x: x
                     for iframe in range(0, int(cond['duration']*self.monitor.fps/1000 + 10)):
-                        print('\r' + ('frame %d/%d' % (iframe, int(cond['duration']*self.monitor.fps/1000 + 10))), end='')
+                        log.info('\r' + ('frame %d/%d' % (iframe, int(cond['duration']*self.monitor.fps/1000 + 10))), end='')
                         cond['phase'] += theta_frame_step
                         image = self._make_grating(**cond)
                         images = np.dstack((images, self._gray2rgb(transform(image[:self.monitor.resolution_x,
                                                                                    :self.monitor.resolution_y]))))
-                    print('\r' + 'done!')
+                    log.info('\r' + 'done!')
                     images = np.transpose(images[:, :, :], [2, 1, 0])
                     self._im2mov(self.path + filename, images)
                     self.logger.log('Grating.Movie', {**cond, 'file_name': filename,

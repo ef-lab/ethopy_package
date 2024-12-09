@@ -1,3 +1,4 @@
+import logging
 import multiprocessing
 import struct
 import threading
@@ -6,6 +7,8 @@ import time
 import numpy as np
 
 from ethopy.core.interface import Interface
+
+log = logging.getLogger(__name__)
 
 
 class Ball(Interface):
@@ -71,7 +74,7 @@ class Ball(Interface):
                 self.theta = theta
                 self.loc_x = max(min(self.loc_x + np.double(x), self.xmx), 0)
                 self.loc_y = max(min(self.loc_y + np.double(y), self.ymx), 0)
-                print(self.loc_x, self.loc_y, self.theta/np.pi*180)
+                log.info(self.loc_x, self.loc_y, self.theta/np.pi*180)
                 self.dataset.append('tracking_data', [self.loc_x, self.loc_y, self.theta, self.timestamp])
             time.sleep(.1)
 
@@ -94,7 +97,7 @@ class Ball(Interface):
             self.mouse1.close()
             self.mouse2.close()
         except:
-            print('ball not running')
+            log.info('ball not running')
 
 
 class MouseReader:
@@ -109,7 +112,6 @@ class MouseReader:
 
     def reader(self, queue, dpm):
         while not self.thread_end.is_set():
-            # print('Reading file')
             data = self.file.read(3)  # Reads the 3 bytes
             x, y = struct.unpack("2b", data[1:])
             queue.put({'x': x/dpm, 'y': y/dpm, 'timestamp': self.logger.logger_timer.elapsed_time()})

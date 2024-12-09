@@ -2,6 +2,9 @@ import pygame
 from pygame.locals import *
 from OpenGL.GL import *
 import numpy as np
+import logging
+
+log = logging.getLogger(__name__)
 
 
 class Presenter():
@@ -33,7 +36,7 @@ class Presenter():
                 self.phd_f = lambda x: 0.5 * float(((x+1) & 1) * (2 - ((x+1) & (1 << (((np.int64(np.floor((x+1) / 2)) & 15) + 6) - 1)) != 0)))
                 self.photodiode = True
             else:
-                print(photodiode, ' method not implemented! Available methods: parity, flipcount')
+                log.error(photodiode, ' method not implemented! Available methods: parity, flipcount')
                 self.photodiode = False
         else:
             self.photodiode = False

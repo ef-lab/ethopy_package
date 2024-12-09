@@ -1,7 +1,10 @@
+import logging
+
 import pygame
 
 from ethopy.core.interface import Interface, Port
 
+log = logging.getLogger(__name__)
 
 class DummyPorts(Interface):
     def __init__(self, **kwargs):
@@ -39,7 +42,7 @@ class DummyPorts(Interface):
         return self.position.type != "Proximity"
 
     def stop_sound(self):
-        print("Stopping sound")
+        log.info("Stopping sound")
 
     def _get_events(self):
         port = 0
@@ -52,16 +55,16 @@ class DummyPorts(Interface):
             port = self._proximity_change(event, port)
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print(pygame.mouse.get_pos())
+                log.info(pygame.mouse.get_pos())
             elif event.type == pygame.QUIT:
                 self.logger.update_setup_info({"status": "stop"})
 
     def _port_activated(self, event, port):
         if self.dummy_ports_true(event, "left_port"):
-            print("Probe 1 activated!")
+            log.info("Probe 1 activated!")
             port = 1
         if self.dummy_ports_true(event, "right_port"):
-            print("Probe 2 activated!")
+            log.info("Probe 2 activated!")
             port = 2
         if port:
             self.position = self.ports[Port(type="Lick", port=port) == self.ports][0]
@@ -80,7 +83,7 @@ class DummyPorts(Interface):
             self.position_tmst = self.beh.log_activity(
                 {**self.position.__dict__, "in_position": self.ready}
             )
-            print("in position")
+            log.info("in position")
         elif self.dummy_ports_true(event, "proximity_false") and self.ready:
             self.ready = False
             port = 0
@@ -89,8 +92,7 @@ class DummyPorts(Interface):
             )
             self.position_dur = tmst - self.position_tmst
             self.position = Port()
-            print("off position")
-            # print(pygame.mouse.get_pos())
+            log.info("off position")
 
     def dummy_ports_true(self, event, name):
         if event.type == self.dummy_ports[name][0]:

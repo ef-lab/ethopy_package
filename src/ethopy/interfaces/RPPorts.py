@@ -1,8 +1,10 @@
+import logging
 from concurrent.futures import ThreadPoolExecutor
 from time import sleep
 
 import numpy as np
-from ethopy.core.interface import Interface
+
+from ethopy.core.interface import Interface, Port
 
 try:
     import pigpio
@@ -10,6 +12,9 @@ try:
     IMPORT_RP = True
 except ImportError:
     IMPORT_RP = False
+
+log = logging.getLogger(__name__)
+
 
 class RPPorts(Interface):
     channels = {'Odor': {1: 24, 2: 25},
@@ -74,15 +79,20 @@ class RPPorts(Interface):
             self.GPIO.add_event_detect(self.channels['Sync']['in'], self.GPIO.BOTH,
                                        callback=self._sync_in, bouncetime=20)
             self.dataset = self.logger.createDataset(dataset_name='sync',
-                                                     dataset_type=np.dtype([("sync_times", np.double)]))
+                                                     dataset_type=np.dtype([("sync_times",
+                                                                             np.double)]))
 
     def give_liquid(self, port, duration=False):
-        if not duration: duration=self.duration[port]
+        if not duration:
+            duration = self.duration[port]
         self.thread.submit(self._give_pulse, port, duration)
 
     def give_odor(self, delivery_port, odor_id, odor_duration, dutycycle):
-        for i, idx in enumerate(odor_id):
-            self.thread.submit(self.__pwd_out, self.channels['Odor'][delivery_port[i]], odor_duration, dutycycle[i])
+        for i, _ in enumerate(odor_id):
+            self.thread.submit(self.__pwd_out,
+                               self.channels['Odor'][delivery_port[i]],
+                               odor_duration,
+                               dutycycle[i])
 
     def opto_stim(self, duration, dutycycle):
         self.thread.submit(self.__pwd_out, self.channels['Opto'], duration, dutycycle)
@@ -109,13 +119,13 @@ class RPPorts(Interface):
             self.ts.run()
         except:
             self.ts = False
-            print('Cannot create a touch exit!')
+            log.warning('Cannot create a touch exit!')
 
     def set_operation_status(self, operation_status):
         if self.exp.sync:
             while not self.is_recording():
-                print('Waiting for recording to start...')
-                time.sleep(1)
+                log.info('Waiting for recording to start...')
+                sleep(1)
         self.GPIO.output(self.channels['Status'], operation_status)
 
     def is_recording(self):
@@ -130,16 +140,16 @@ class RPPorts(Interface):
         self.Pulser.stop()
         if self.callbacks:
             if 'Lick' in self.channels:
-                 for channel in self.channels['Lick']:
-                     self.GPIO.remove_event_detect(self.channels['Lick'][channel])
+                for channel in self.channels['Lick']:
+                    self.GPIO.remove_event_detect(self.channels['Lick'][channel])
             if 'Proximity' in self.channels:
-                 for channel in self.channels['Proximity']:
-                     self.GPIO.remove_event_detect(self.channels['Proximity'][channel])
+                for channel in self.channels['Proximity']:
+                    self.GPIO.remove_event_detect(self.channels['Proximity'][channel])
         self.GPIO.cleanup()
         if self.exp.sync:
             if 'Sync' in self.channels:
-                 for channel in self.channels['Sync']:
-                     self.GPIO.remove_event_detect(self.channels['Sync'][channel])
+                for channel in self.channels['Sync']:
+                    self.GPIO.remove_event_detect(self.channels['Sync'][channel])
             self.closeDatasets()
         if self.ts:
             self.ts.stop()
@@ -164,12 +174,13 @@ class RPPorts(Interface):
         port = self._get_position(port)
 
         # # If neither position has been set, return (0, 0, 0).
-        if not position.port and not port: return 0, 0, 0
+        if not position.port and not port:
+            return 0, 0, 0
 
         # # If the specified port is not in the correct position, update the position and timestamp.
         if position != Port(type='Proximity', port=port):
             self._position_change(self.channels['Proximity'][max(port, position.port)])
-                    
+
         # Calculate the duration and timestamp for the current position.
         position_dur = self.timer_ready.elapsed_time() if self.position.port else self.position_dur
         return self.position, position_dur, self.position_tmst
@@ -178,16 +189,17 @@ class RPPorts(Interface):
         """checks if any proximity ports is activated
 
         used to make sure that none of the ports is activated before move on to the next trial
-        if get_position returns 0 but position.type == Proximity means that self.position should be off
-        so call _position_change to reset it to the correct value
+        if get_position returns 0 but position.type == Proximity means that self.position should
+        be off so call _position_change to reset it to the correct value
 
         Returns:
             bool: True if all proximity ports are not activated
         """
         port = self._get_position()
-        # port=0 means that no proximity port is activated
-        if port==0:
-            # # self.position.type == 'Proximity' and port=0 means that add_event_detect has lost the off of the proximity
+        # port==0 means that no proximity port is activated
+        if port == 0:
+            # if self.position.type == 'Proximity' and port=0
+            # add_event_detect has lost the off of the proximity
             pos = self.position
             if pos.type == 'Proximity':
                 # call position_change to reset the self.position
@@ -208,8 +220,10 @@ class RPPorts(Interface):
             int: the id of the activated port else 0 
         """
         # if port is not specified check all proximity ports
-        if not ports: ports = self.proximity_ports
-        elif not type(ports) is list: ports = [ports]
+        if not ports:
+            ports = self.proximity_ports
+        elif not type(ports) is list:
+            ports = [ports]
         for port in ports:
             # find the position of the port
             in_position = self.GPIO.input(self.channels['Proximity'][port])
@@ -217,21 +231,22 @@ class RPPorts(Interface):
             if self.ports[Port(type='Proximity', port=port) == self.ports][0].invert:
                 in_position = not in_position
             # return the port id if any port is in position
-            if in_position: return port
+            if in_position:
+                return port
         return 0
 
     def _position_change(self, channel=0):
         """Update the position of the animal and log the in_position event.
-        
+
         Position_change is called in as callback at event_detect of GPIO.BOTH of the proximity channels.
         It is also called from function in_position in the case where the callback has not run but the position has changed.
         We want to log the port change and update the self.position with the activated port or reset it.
-        Also we calculate 
+        Also we calculate
             - position_dur (float): The duration in ms that the specified port has been in its current position.
             - position_tmst (float): The timestamp in ms that the specified port activated.
         Before we log the position we check that it has been changed, because due to the small bouncetime
         most proximity sensors(switches) will flicker back and forth between the two values before settling down.
-        
+
         Args:
             channel (int, optional): The channel number of the proximity sensor. Defaults to 0.
         """
@@ -240,7 +255,8 @@ class RPPorts(Interface):
         # Check if the animal is in position
         in_position = self._get_position(port.port)
         # Start the timer if the animal is in position
-        if in_position: self.timer_ready.start()
+        if in_position:
+            self.timer_ready.start()
         # Log the in_position event and update the position if there is a change in position
         if in_position and not self.position.port:
             self.position_tmst = self.beh.log_activity({**port.__dict__, 'in_position': 1})
@@ -269,7 +285,7 @@ class RPPorts(Interface):
     def _touch_handler(self, event, touch):
         if event == self.ts_press_event:
             if touch.x > 700 and touch.y < 50:
-                print('Exiting')
+                log.info('Exiting')
                 self.logger.update_setup_info({'status': 'stop'})
 
     def __pwd_out(self, channel, duration, dutycycle):
@@ -280,20 +296,30 @@ class RPPorts(Interface):
         pwm.stop()
 
     def __pulse_out(self, channel, freq, dutycycle=100, pulse_freq=0):
-        self.sound_pulses=[]
-        signal_duration=round(1/freq*1e6)   #microseconds
+        self.sound_pulses = []
+        signal_duration = round(1/freq*1e6)  # microseconds
         # Speaker has non monotonic response with ~50%dutycycle is maximum response. Thus normalize percentage by /2.
-        if dutycycle==0:
+        if dutycycle == 0:
             pass
         else:
-            if pulse_freq==0:
-                self.sound_pulses.append(self.PulseGen(1<<channel, 0, int(dutycycle*signal_duration/200))) 
-                self.sound_pulses.append(self.PulseGen(0, 1<<channel, signal_duration-int(dutycycle*signal_duration/200)))
-            else: 
-                for i in range(int((1/(pulse_freq*2)*1e6)/signal_duration)):
-                    self.sound_pulses.append(self.PulseGen(1<<channel, 0, int(dutycycle*signal_duration/200)))
-                    self.sound_pulses.append(self.PulseGen(0, 1<<channel, signal_duration-int(dutycycle*signal_duration/200)))
-                self.sound_pulses.append(self.PulseGen(0, 1<<channel, int((1/(pulse_freq*2)*1e6))))
+            if pulse_freq == 0:
+                self.sound_pulses.append(self.PulseGen(1 << channel,
+                                                       0,
+                                                       int(dutycycle*signal_duration/200)))
+                self.sound_pulses.append(self.PulseGen(0,
+                                                       1 << channel,
+                                                       signal_duration-int(dutycycle*signal_duration/200)))
+            else:
+                for _ in range(int((1/(pulse_freq*2)*1e6)/signal_duration)):
+                    self.sound_pulses.append(self.PulseGen(1 << channel,
+                                                           0,
+                                                           int(dutycycle*signal_duration/200)))
+                    self.sound_pulses.append(self.PulseGen(0,
+                                                           1 << channel,
+                                                           signal_duration-int(dutycycle*signal_duration/200)))
+                self.sound_pulses.append(self.PulseGen(0,
+                                                       1 << channel,
+                                                       int((1/(pulse_freq*2)*1e6))))
         self.Pulser.wave_add_generic(self.sound_pulses)
-        ff=self.Pulser.wave_create()
+        ff = self.Pulser.wave_create()
         self.Pulser.wave_send_using_mode(ff, self.WaveProp)
