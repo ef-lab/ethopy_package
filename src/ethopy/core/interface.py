@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 from dataclasses import field as datafield
 from dataclasses import fields
@@ -8,10 +9,12 @@ import numpy as np
 from ethopy.utils.helper_functions import reverse_lookup
 from ethopy.utils.timer import Timer
 
+log = logging.getLogger()
+
 
 class Interface:
     port, resp_tmst, ready_dur, activity_tmst, ready_tmst, pulse_rew, ports, response, duration = 0, 0, 0, 0, 0, dict(), [], [], dict()
-    ready, timer_ready, weight_per_pulse, pulse_dur, channels, position_dur = False, Timer(), dict(), dict(), dict(),0
+    ready, timer_ready, weight_per_pulse, pulse_dur, channels, position_dur = False, Timer(), dict(), dict(), dict(), 0
 
     def __init__(self, exp=[], beh=[], callbacks=True):
         self.callbacks = callbacks
@@ -76,7 +79,7 @@ class Interface:
 
     def release(self):
         if self.camera:
-            print("Release camear"*10)
+            log.info("Release camear"*10)
             if self.camera.recording.is_set():
                 self.camera.stop_rec()
 
@@ -87,7 +90,7 @@ class Interface:
             dates = self.logger.get(schema='behavior', table='PortCalibration.Liquid',
                                     key=key, fields=['date'], order_by='date')
             if np.size(dates) < 1:
-                print('No PortCalibration found!')
+                log.error('No PortCalibration found!')
                 self.exp.quit = True
                 break
             key['date'] = dates[-1]  # use the most recent calibration
@@ -103,7 +106,7 @@ class Interface:
             if reward_amount not in self.pulse_rew[port]:
                 self.duration[port] = np.interp(reward_amount/1000, self.weight_per_pulse[port], self.pulse_dur[port])
                 self.pulse_rew[port][reward_amount] = np.max((np.min(self.weight_per_pulse[port]),
-                                                              reward_amount/1000)) * 1000 # in uL
+                                                              reward_amount/1000)) * 1000  # in uL
             actual_rew[port] = self.pulse_rew[port][reward_amount]
         return actual_rew
 
