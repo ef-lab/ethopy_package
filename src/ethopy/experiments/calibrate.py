@@ -1,3 +1,4 @@
+import logging
 import time
 from importlib import import_module
 
@@ -11,6 +12,8 @@ try:
     IMPORT_PYGAME_MENU = True
 except ImportError:
     IMPORT_PYGAME_MENU = False
+
+log = logging.getLogger(__name__)
 
 
 class Experiment:
@@ -173,7 +176,7 @@ class Experiment:
         """
         if self.pulse < self.params["pulsenum"][self.cal_idx]:
             self.msg = f"Pulse {self.pulse + 1}/{self.params['pulsenum'][self.cal_idx]}"
-            print("\r" + self.msg, end="")
+            log.info("\r" + self.msg, end="")
             widget.set_title(self.msg)
             for port in self.params["ports"]:
                 try:
@@ -183,7 +186,7 @@ class Experiment:
                     pass
                 except Exception as error:
                     # ToDo update notes in control table
-                    print(f"Error {error}")
+                    log.info(f"Error {error}")
                     self.exit()
 
                 time.sleep(
@@ -192,7 +195,7 @@ class Experiment:
                 )
             self.pulse += 1  # update trial
         else:
-            print("\r" + self.msg, end="")
+            log.info("\r" + self.msg, end="")
             self.cal_idx += 1
             self.ports = self.params["ports"].copy()
             self.create_port_weight()
