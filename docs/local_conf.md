@@ -173,14 +173,6 @@ def setup_experiment_config():
     config.paths.add_path('interface', base_path / "interfaces")
     config.paths.add_path('calibration', base_path / "calibration")
     
-    # Add experiment settings
-    config.add_custom_param('experiment_type', 'behavior_tracking')
-    config.add_custom_param('camera_settings', {
-        'exposure': 100,
-        'gain': 1.5,
-        'fps': 30
-    })
-    
     # Save configuration
     config.save_configuration()
     

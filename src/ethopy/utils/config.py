@@ -12,6 +12,8 @@ from typing import Any, Dict, Optional, Union
 
 class ConfigurationManager:
     """Configuration manager for ethopy package settings."""
+    DEFAULT_FILE = Path.home() / ".ethopy" / "local_conf.json"
+    DEFAULT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
     def __init__(self, config_file: Optional[Union[str, Path]] = None):
         """Initialize configuration manager.
@@ -127,6 +129,8 @@ class ConfigurationManager:
     def save(self) -> None:
         """Save current configuration to file."""
         try:
+            if self.DEFAULT_FILE != self._config:
+                self.DEFAULT_FILE.write_text(json.dumps(self._config, indent=4))
             self.config_file.write_text(json.dumps(self._config, indent=4))
             self.logging.info(f"Saved configuration to {self.config_file}")
         except Exception as e:
