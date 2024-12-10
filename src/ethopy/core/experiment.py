@@ -511,7 +511,7 @@ class Task(dj.Lookup):
     ---
     protocol                    : varchar(4095)                # stimuli to be presented (array of dictionaries)
     description=""              : varchar(2048)                # task description
-    timestamp                   : timestamp
+    timestamp=CURRENT_TIMESTAMP : timestamp
     """
 
 
