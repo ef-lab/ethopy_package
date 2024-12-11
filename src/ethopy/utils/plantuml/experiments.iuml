@@ -21,7 +21,7 @@ arrow {
 * Experiment Schema
 ** Session\n----\n<size:9>Session logging</size>
 *** Notes\n----\n<size:9>Session notes</size>
-*** Protocol\n----\n<size:9>Protocol info</size>
+*** Task\n----\n<size:9>Task info</size>
 *** Excluded\n----\n<size:9>Excluded sessions</size>
 ** Trial\n----\n<size:9>Session trial</size>
 *** Aborted\n----\n<size:9>Aborted Trials</size>

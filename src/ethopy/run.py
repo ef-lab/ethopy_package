@@ -1,17 +1,24 @@
-# ethopy/run.py
+"""
+Main execution module for EthoPy experiments.
+
+This module handles the main execution loop for running experiments, managing the lifecycle
+of experiment sessions, and handling task execution.
+"""
 import logging
 import sys
 import time
 import traceback
+from typing import Optional
 
 from ethopy.core.logger import Logger
+from ethopy.utils.task import Task
 from ethopy.utils.start import PyWelcome
 
 log = logging.getLogger(__name__)  # Get logger for this module
 
 
-def run(protocol=False):
-    logger = Logger(protocol=protocol)
+def run(task: Optional[Task] = None) -> None:
+    logger = Logger(task=task)
 
     # # # # Waiting for instructions loop # # # # #
     while logger.setup_status != 'exit':
@@ -20,9 +27,9 @@ def run(protocol=False):
             PyWelcome(logger)
         if logger.setup_status == 'running':   # run experiment unless stopped
             try:
-                if logger.get_protocol():
+                if logger.get_task():
                     namespace = {"logger": logger}
-                    exec(open(logger.protocol_path, encoding="utf-8").read(), namespace)
+                    exec(open(logger.task_path, encoding="utf-8").read(), namespace)
             except Exception as e:
                 log.error("ERROR: %s", traceback.format_exc())
                 logger.update_setup_info({'state': 'ERROR!', 'notes': str(e), 'status': 'exit'})

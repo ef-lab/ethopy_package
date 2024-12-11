@@ -80,12 +80,12 @@ class ExperimentClass:
         self.params = {**self.default_key, **session_params}
         self.logger = logger
         self.logger.log_session({**self.default_key, **session_params, 'experiment_type': self.cond_tables[0]},
-                                log_protocol=True)
+                                log_task=True)
         self.beh = BehaviorClass()
         self.beh.setup(self)
         self.interface = self.beh.interface
         self.session_timer = Timer()
-        np.random.seed(0)   # fix random seed for repeatability, it can be overidden in the conf file
+        np.random.seed(0)   # fix random seed for repeatability, it can be overidden in the task file
 
     def start(self):
         states = dict()
@@ -321,14 +321,14 @@ class Session(dj.Manual):
     session_tmst=CURRENT_TIMESTAMP   : timestamp                    # session timestamp
     """
 
-    class Protocol(dj.Part):
+    class Task(dj.Part):
         definition = """
-        # Protocol info
+        # Task info
         -> Session
         ---
-        protocol_name        : varchar(256)                 # protocol filename
-        protocol_file        : blob                         # protocol text file
-        git_hash             : varchar(32)                  # github hash
+        task_name        : varchar(256)                 # task filename
+        task_file        : blob                         # task text file
+        git_hash             : varchar(32)              # github hash
         """
 
     class Notes(dj.Part):
@@ -509,7 +509,7 @@ class Task(dj.Lookup):
     # Experiment parameters
     task_idx                    : int                          # task identification number
     ---
-    protocol                    : varchar(4095)                # stimuli to be presented (array of dictionaries)
+    task                        : varchar(4095)                # stimuli to be presented (array of dictionaries)
     description=""              : varchar(2048)                # task description
     timestamp=CURRENT_TIMESTAMP : timestamp
     """

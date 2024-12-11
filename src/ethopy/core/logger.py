@@ -2,7 +2,6 @@ import importlib
 import inspect
 import logging
 import os
-import pathlib
 import platform
 import pprint
 import socket
@@ -13,6 +12,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from dataclasses import field as datafield
 from datetime import datetime
+from pathlib import Path
 from queue import PriorityQueue
 from typing import Any, Dict, List, Optional, Tuple, Union
 
@@ -23,6 +23,7 @@ from ethopy import SCHEMATA
 from ethopy import __version__ as VERSION
 from ethopy import local_conf
 from ethopy.utils.helper_functions import create_virtual_modules, rgetattr
+from ethopy.utils.task import Task, resolve_task
 from ethopy.utils.timer import Timer
 from ethopy.utils.writer import Writer
 
@@ -70,8 +71,8 @@ class Logger:
     Attributes:
         setup (str): The hostname of the machine running the experiment.
         is_pi (bool): Flag indicating if the current machine is a Raspberry Pi.
-        task_idx (int): Task index resolved from protocol parameters.
-        protocol_path (str): Path to the protocol file.
+        task_idx (int): Task index
+        task_path (str): Path to the task file.
         manual_run (bool): Flag indicating if the experiment is run manually.
         setup_status (str): Current status of the setup (e.g. 'running', 'ready').
         private_conn (Connection): Connection for internal database communication.
@@ -95,24 +96,19 @@ class Logger:
         getter_thread (Thread): Thread for periodically updating setup status.
 
     Methods:
-        __init__(protocol=False): Initializes the Logger instance.
+        __init__(task=False): Initializes the Logger instance.
         _check_if_raspberry_pi(): Checks if the current machine is a Raspberry Pi.
-        _resolve_protocol_parameters(protocol): Resolves protocol parameters.
         _inserter(): Inserts data into the database.
         _log_setup_info(setup, status): Logs setup information.
         _get_setup_status(): Get setup status.
     """
 
-    def __init__(self, protocol=False):
+    def __init__(self, task=False):
         self.setup = socket.gethostname()
         self.is_pi = self._check_if_raspberry_pi()
 
-        self.task_idx, self.protocol_path = self._resolve_protocol_parameters(protocol)
-
-        # if the protocol path or task id is defined we consider that it runs manually
-        self.manual_run = True if self.protocol_path else False
-
-        # if manual true run the experiment else set it to ready state
+        self.task = task or Task(path=None, id=None)
+        self.manual_run = bool(self.task.path or self.task.id)
         self.setup_status = 'running' if self.manual_run else 'ready'
 
         # separate connection for internal communication
@@ -153,100 +149,22 @@ class Logger:
         self.update_thread.start()
         self.logger_timer.start()
 
-    def _resolve_protocol_parameters(
-            self, protocol: Union[str, int, None]) -> Tuple[Optional[int], Optional[str]]:
-        """
-        Parses the input protocol to determine its type and corresponding path.
-
-        This method checks if the input protocol is a digit or a string. If it's a digit,
-        it assumes the protocol is an ID and finds its corresponding path from Task table.
-        If it's a string, it assumes the protocol is already a path. If the protocol
-        is None or doesn't match these conditions, it returns None for both the protocol
-        ID and path.
-
-        Args:
-            protocol (str|int|None): The input protocol, which can be an ID (digit) or a
-        path (string).
-
-        Returns:
-            tuple: A tuple containing the protocol ID (int|None) and the protocol path (str|None).
-        """
-        if isinstance(protocol, int):
-            return protocol, self._find_protocol_path(protocol)
-        elif isinstance(protocol, str) and protocol.isdigit():
-            protocol_id = int(protocol)
-            return protocol_id, self._find_protocol_path(protocol_id)
-        elif protocol:
-            return None, protocol
-        else:
-            return None, None
-
-    def get_protocol(self):
-        """
-        This method gets the protocol path.
-
-        If the run is not manual, it fetches the task index from the setup info.
-        It then finds the protocol path based on the task index and updates the protocol path.
-        In the case the run is manual the protocol_path has been defined in Logger __init__.
-        If the protocol path is not found, it raises a FileNotFoundError
-
-        Returns:
-            bool: True if the protocol path was successfully updated, False otherwise.
-        """
-        # find the protocol_path based on the task_id from the control table
-        if not self.manual_run:
-            self.task_idx = self.get_setup_info('task_idx')
-            self.protocol_path = self._find_protocol_path(self.task_idx)
-        # checks if the file exist
-        if not os.path.isfile(self.protocol_path):
-            error_msg = f"Protocol file does not exist at {self._protocol_path}"
-            log.error(error_msg)
-            raise FileNotFoundError(error_msg)
-        log.info("Protocol path: %s", self.protocol_path)
-        return True
-
     @property
-    def protocol_path(self) -> str:
+    def task_path(self) -> Optional[Path]:
+        """Get the task path."""
+        return self.task.path
+
+    def get_task(self) -> bool:
         """
-        Get the protocol path.
+        Get the task configuration.
 
         Returns:
-            str: The protocol path.
+            bool: True if task is available and valid
         """
-        return self._protocol_path
+        if not self.manual_run:
+            self.task = resolve_task(task_id=self.get_setup_info('task_idx'))
 
-    @protocol_path.setter
-    def protocol_path(self, protocol_path: str):
-        """
-        Set the protocol path.
-        if protocol_path has only filename set the protocol_path at the conf directory.
-
-        Args:
-            protocol_path (str): The protocol path.
-        """
-
-        if protocol_path:
-            path, filename = os.path.split(protocol_path)
-            if not path:
-                protocol_path = os.path.join(
-                    str(pathlib.Path(__file__).parent.absolute()), "..", "conf", filename
-                    )
-        else:
-            protocol_path = None
-        self._protocol_path = protocol_path
-
-    def _find_protocol_path(self, task_idx=None):
-        """find the protocol path from the task index"""
-        if task_idx:
-            task_query = experiment.Task() & dict(task_idx=task_idx)
-            if len(task_query) > 0:
-                return task_query.fetch1("protocol")
-            else:
-                error_msg = f"There is no task_idx:{task_idx} in the tables Tasks"
-                log.info(error_msg)
-                raise FileNotFoundError(error_msg)
-        else:
-            return False
+        return self.task_path is not None
 
     def _check_if_raspberry_pi(self) -> bool:
         system = platform.uname()
@@ -516,20 +434,20 @@ class Logger:
         ).fetch("session")
         return 0 if np.size(last_sessions) == 0 else np.max(last_sessions)
 
-    def log_session(self, params: Dict[str, Any], log_protocol: bool = False) -> None:
+    def log_session(self, params: Dict[str, Any], log_task: bool = False) -> None:
         """
-        Logs a session with the given parameters and optionally logs the protocol.
+        Logs a session with the given parameters and optionally logs the task.
 
         Args:
             params (Dict[str, Any]): Parameters for the session.
-            log_protocol (bool): Whether to log the protocol information.
+            log_task (bool): Whether to log the task information.
         """
         # Initializes session parameters and logs the session start.
         self._init_session_params(params)
 
-        # Save the protocol file, name and the git_hash in the database.
-        if log_protocol:
-            self._log_protocol_details()
+        # Save the task file, name and the git_hash in the database.
+        if log_task:
+            self._log_task_details()
 
         # update the configuration tables of behavior/stimulus schemas
         self._log_session_configs(params)
@@ -673,8 +591,9 @@ class Logger:
             "state": "",
         }
         # TODO in the case the task is the path of the config there is no update in Control table
-        if self.task_idx and isinstance(self.task_idx, int):
-            key["task_idx"] = self.task_idx
+        if self.task.id and isinstance(self.task.id, int):
+            key["task_idx"] = self.task.id
+
         # if in the start_time is defined in the configuration use this
         # otherwise use the Control table
         if "start_time" in params:
@@ -764,9 +683,9 @@ class Logger:
         self.setup_status = self.setup_info["status"]
         self.update_status.clear()
 
-    def _log_protocol_details(self) -> None:
+    def _log_task_details(self) -> None:
         """
-        Save the protocol file,name and the git_hash in the database.
+        Save the task file,name and the git_hash in the database.
         """
         try:
             git_hash = (
@@ -782,11 +701,11 @@ class Logger:
         log.info(f"hash: {hash}")
 
         self.put(
-            table="Session.Protocol",
+            table="Session.Task",
             tuple={
                 **self.trial_key,
-                "protocol_name": self.protocol_path,
-                "protocol_file": np.fromfile(self.protocol_path, dtype=np.int8),
+                "task_name": self.task_path,
+                "task_file": np.fromfile(self.task_path, dtype=np.int8),
                 "git_hash": hash,
             },
         )

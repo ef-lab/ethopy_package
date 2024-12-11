@@ -60,7 +60,7 @@ class Experiment:
             key={"setup_conf_idx": self.params["setup_conf_idx"]},
         )[0]
         interface = getattr(
-            import_module(f"interfaces.{interface_module}"), interface_module
+            import_module(f"ethopy.interfaces.{interface_module}"), interface_module
         )
 
         self.interface = interface(exp=self, callbacks=False)
@@ -176,7 +176,7 @@ class Experiment:
         """
         if self.pulse < self.params["pulsenum"][self.cal_idx]:
             self.msg = f"Pulse {self.pulse + 1}/{self.params['pulsenum'][self.cal_idx]}"
-            log.info("\r" + self.msg, end="")
+            log.info(f"\r{self.msg}")
             widget.set_title(self.msg)
             for port in self.params["ports"]:
                 try:
@@ -195,7 +195,6 @@ class Experiment:
                 )
             self.pulse += 1  # update trial
         else:
-            log.info("\r" + self.msg, end="")
             self.cal_idx += 1
             self.ports = self.params["ports"].copy()
             self.create_port_weight()

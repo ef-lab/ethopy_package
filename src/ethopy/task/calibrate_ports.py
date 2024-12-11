@@ -1,4 +1,3 @@
-global logger
 from ethopy.experiments.calibrate import Experiment
 
 # define calibration parameters

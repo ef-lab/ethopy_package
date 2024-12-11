@@ -67,7 +67,7 @@ nav:
     - Home: index.md
     - Installation: installation.md
     - Usage: usage.md
-    - Protocols: protocol.md
+    - Task: task.md
     - Local congiguration: local_conf.md
     - Plugin System: plugin.md
     - Schemas: database.md
