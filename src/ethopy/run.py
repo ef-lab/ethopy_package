@@ -21,7 +21,8 @@ def run(protocol=False):
         if logger.setup_status == 'running':   # run experiment unless stopped
             try:
                 if logger.get_protocol():
-                    exec(open(logger.protocol_path, encoding='utf-8').read())
+                    namespace = {"logger": logger}
+                    exec(open(logger.protocol_path, encoding="utf-8").read(), namespace)
             except Exception as e:
                 log.error("ERROR: %s", traceback.format_exc())
                 logger.update_setup_info({'state': 'ERROR!', 'notes': str(e), 'status': 'exit'})
@@ -32,6 +33,5 @@ def run(protocol=False):
                 logger.update_setup_info({'status': 'ready'})  # restart
         time.sleep(.1)
 
-    # # # # # Exit # # # # #
     logger.cleanup()
     sys.exit(0)
