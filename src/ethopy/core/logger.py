@@ -14,14 +14,13 @@ from dataclasses import field as datafield
 from datetime import datetime
 from pathlib import Path
 from queue import PriorityQueue
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional
 
 import datajoint as dj
 import numpy as np
 
-from ethopy import SCHEMATA
+from ethopy import SCHEMATA, local_conf
 from ethopy import __version__ as VERSION
-from ethopy import local_conf
 from ethopy.utils.helper_functions import create_virtual_modules, rgetattr
 from ethopy.utils.task import Task, resolve_task
 from ethopy.utils.timer import Timer
@@ -40,6 +39,7 @@ def set_connection():
         experiment: The virtual module for experiment.
         stimulus: The virtual module for stimulus.
         behavior: The virtual module for behavior.
+        interface: The virtual module for interface.
         recording: The virtual module for recording.
         mice: The virtual module for mice.
         public_conn: The connection object for public access.
@@ -47,13 +47,14 @@ def set_connection():
     Returns:
         None
     """
-    global experiment, stimulus, behavior, recording, mice, public_conn
+    global experiment, stimulus, behavior, interface, recording, mice, public_conn
     virtual_modules, public_conn = create_virtual_modules(SCHEMATA)
     experiment = virtual_modules["experiment"]
     stimulus = virtual_modules["stimulus"]
     behavior = virtual_modules["behavior"]
     recording = virtual_modules["recording"]
     mice = virtual_modules["mice"]
+    interface = virtual_modules["interface"]
 
 
 set_connection()
@@ -449,8 +450,8 @@ class Logger:
         if log_task:
             self._log_task_details()
 
-        # update the configuration tables of behavior/stimulus schemas
-        self._log_session_configs(params)
+        # update the configuration tables
+        self.log_session_configs(params)
 
         #  Init the informations(e.g. trial_id=0, session) in control table
         self._init_control_table(params)
@@ -502,14 +503,14 @@ class Logger:
         inner_classes = [value for value in outer_class_dict_values if isinstance(value, type)]
         return [outer_class.__name__+'.'+cls.__name__ for cls in inner_classes]
 
-    def _log_session_configs(self, params) -> None:
+    def log_session_configs(self, params) -> None:
         """
         Logs the parameters of a session into the appropriate schema tables.
 
         This method performs several key operations to ensure that the configuration of a session,
         including behavior and stimulus settings, is accurately logged into the database.It involves
         the following steps:
-        1. Identifies the relevant modules (e.g., core.Behavior, core.Stimulus) that contain
+        1. Identifies the relevant modules (e.g., ethopy.core.interface) that contain
         Configuration classes.
         2. Derives schema names from these modules, assuming the schema name matches the class
         name in lowercase.
@@ -519,7 +520,7 @@ class Logger:
         5. Calls a helper method to log the configuration of sub-tables for each schema.
         """
         # modules that have a Configuration classes
-        _modules = ['ethopy.core.behavior', 'ethopy.core.stimulus']
+        _modules = ['ethopy.core.interface']
         # consider that the module have the same name as the schema but in lower case
         # (e.g for class Behaviour the schema is the behavior)
         _schemas = [_module.split('.')[2].lower() for _module in _modules]
@@ -555,7 +556,7 @@ class Logger:
         """
         for config_table in config_tables:
             configuration_data = (
-                getattr(experiment.SetupConfiguration, config_table.split('.')[1])
+                getattr(interface.SetupConfiguration, config_table.split('.')[1])
                 & {"setup_conf_idx": params["setup_conf_idx"]}
             ).fetch(as_dict=True)
             # put the configuration data in the configuration table
@@ -590,7 +591,7 @@ class Logger:
             "difficulty": 1,
             "state": "",
         }
-        # TODO in the case the task is the path of the config there is no update in Control table
+        #  TODO in the case the task is the path of the config there is no update in Control table
         if self.task.id and isinstance(self.task.id, int):
             key["task_idx"] = self.task.id
 
@@ -609,28 +610,6 @@ class Logger:
             )
 
         self.update_setup_info({**key, "status": self.setup_info["status"]})
-
-    def check_connection(self, host="8.8.8.8", port=53, timeout=0.1):
-        """
-        Check if the internet connection is available by attempting to connect to a
-        specified host and port.
-
-        Args:
-            host (str): The host to connect to. Defaults to '8.8.8.8' (Google DNS).
-            port (int): The port to connect on. Defaults to 53 (DNS service).
-            timeout (int): The timeout in seconds for the connection attempt.
-            Defaults to 0.1 seconds.
-
-        Returns:
-            bool: True if the connection is successful, False otherwise.
-        """
-        try:
-            socket.setdefaulttimeout(timeout)
-            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                s.connect((host, port))
-                return True
-        except socket.error:
-            return False
 
     def update_setup_info(self, info: Dict[str, Any], key: Optional[Dict[str, Any]] = None):
         """
