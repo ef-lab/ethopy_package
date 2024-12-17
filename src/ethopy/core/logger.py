@@ -19,8 +19,7 @@ from typing import Any, Dict, List, Optional
 import datajoint as dj
 import numpy as np
 
-from ethopy import SCHEMATA, local_conf
-from ethopy import __version__ as VERSION
+from ethopy import SCHEMATA, __version__, local_conf
 from ethopy.utils.helper_functions import create_virtual_modules, rgetattr
 from ethopy.utils.task import Task, resolve_task
 from ethopy.utils.timer import Timer
@@ -64,10 +63,11 @@ class Logger:
     """
     Logger class for managing logging and data handling in an experimental setup.
 
-    This class is designed to handle the logging of experimental data, manage database connections,
-    and control the flow of data from source to target locations. It supports both manual and
-    automatic running modes of a session, integrates with a Python logging setup, and manages
-    threads for data insertion and setup status updates.
+    This class is designed to handle the logging of experimental data, manage database
+    connections, and control the flow of data from source to target locations. It
+    supports both manual and automatic running modes of a session, integrates with a
+    Python logging setup, and manages threads for data insertion and setup status
+    updates.
 
     Attributes:
         setup (str): The hostname of the machine running the experiment.
@@ -187,23 +187,28 @@ class Logger:
                 schema, value, create_tables=True, create_schema=True
             )
             self._schemata.update(
-                {schema: dj.create_virtual_module(schema, value, connection=self.private_conn)}
+                {
+                    schema: dj.create_virtual_module(
+                        schema, value, connection=self.private_conn
+                    )
+                }
             )
 
     def put(self, **kwargs: Any) -> None:
         """
         Put an item in the queue.
 
-        This method creates a `PrioritizedItem` from the given keyword arguments and puts it into
-        the queue. After putting an item in the queue, it checks the 'block' attribute of the item.
-        If 'block' is False, it marks the item as processed by calling `task_done()`. This is useful
-        in scenarios where items are processed asynchronously, and the queue needs to be notified
-        that a task is complete. If 'block' is True, it waits for all items in the queue to be
+        This method creates a `PrioritizedItem` from the given keyword arguments and
+        puts it into the queue. After putting an item in the queue, it checks the
+        'block' attribute of the item. If 'block' is False, it marks the item as
+        processed by calling `task_done()`. This is useful in scenarios where items are
+        processed asynchronously, and the queue needs to be notified that a task is
+        complete. If 'block' is True, it waits for all items in the queue to be
         processed by calling `join()`.
 
         Args:
-            **kwargs (Any): The keyword arguments used to create a `PrioritizedItem` and put it in
-            the queue.
+            **kwargs (Any): The keyword arguments used to create a `PrioritizedItem` and
+            put it in the queue.
         """
         item = PrioritizedItem(**kwargs)
         self.queue.put(item)
@@ -243,8 +248,8 @@ class Logger:
 
     def _handle_insert_error(self, item, table, exception, queue):
         """
-        Handles an error by logging the error message, set the item.error=True, increase priority
-        and add the item again in the queue for re-trying to insert later.
+        Handles an error by logging the error message, set the item.error=True, increase
+        priority and add the item again in the queue for re-trying to insert later.
 
         Args:
             item : Description of parameter `item`.
@@ -280,16 +285,17 @@ class Logger:
 
     def _inserter(self):
         """
-        This method continuously inserts items from the queue into their respective tables in
-        the database.
+        This method continuously inserts items from the queue into their respective
+        tables in the database.
 
-        It runs in a loop until the thread_end event is set. In each iteration, it checks if
-        the queue is empty. If it is, it sleeps for 0.5 seconds and then continues to the next
-        iteration.
-        If the queue is not empty, it gets an item from the queue, acquires the thread lock,
-        and tries to insert the item into it's table.
-        If an error occurs during the insertion, it handles the error. After the insertion,
-        it releases the thread lock. If the item was marked to block, it marks the task as done.
+        It runs in a loop until the thread_end event is set. In each iteration, it
+        checks if the queue is empty. If it is, it sleeps for 0.5 seconds and then
+        continues to the next iteration.
+        If the queue is not empty, it gets an item from the queue, acquires the thread
+        lock, and tries to insert the item into it's table.
+        If an error occurs during the insertion, it handles the error. After the
+        insertion, it releases the thread lock. If the item was marked to block, it
+        marks the task as done.
 
         Returns:
             None
@@ -307,8 +313,9 @@ class Logger:
                 except Exception as insert_error:
                     if item.error:
                         self.thread_end.set()
-                        log.error("Second time failed to insert:\n %s in %s With error:\n %s",
-                                  item.tuple, table, insert_error, exc_info=True)
+                        log.error(
+                            "Second time failed to insert:\n %s in %s With error:\n %s",
+                            item.tuple, table, insert_error, exc_info=True)
                         self.thread_exception = insert_error
                         break
                     self._handle_insert_error(item, table, insert_error, self.queue)
@@ -350,9 +357,9 @@ class Logger:
 
         This method checks if the elapsed time since the last ping exceeds the given
         update period. If it does, it resets the ping timer and updates the setup
-        information with the current state, queue size, trial index, total liquid reward,
-        and the current timestamp. The updated information is then stored in the "Control"
-        table with a priority of 1.
+        information with the current state, queue size, trial index, total liquid 
+        reward, and the current timestamp. The updated information is then stored
+        in the "Control" table with a priority of 1.
         """
         if self.ping_timer.elapsed_time() >= update_period:
             self.ping_timer.start()
@@ -368,14 +375,16 @@ class Logger:
 
     def log(self, table, data=None, **kwargs):
         """
-        This method logs the given data into the specified table in the experiment database.
+        This method logs the given data into the specified table in the experiment
+        database.
 
-        It first gets the elapsed time from the logger timer and adds it to the data dictionary.
-        It then puts the data into the specified table.
+        It first gets the elapsed time from the logger timer and adds it to the data
+        dictionary. It then puts the data into the specified table.
 
         Args:
             table (str): The name of the table in the experiment database.
-            data (dict, optional): The data to be logged. Defaults to an empty dictionary.
+            data (dict, optional): The data to be logged. Defaults to an empty
+            dictionary.
             **kwargs: Additional keyword arguments to be passed to the put method.
 
         Returns:
@@ -390,15 +399,16 @@ class Logger:
 
     def _log_setup_info(self, setup, setup_status='running'):
         """
-        This method logs the setup information into the Control table in the experiment database.
+        This method logs the setup information into the Control table in the experiment
+        database.
 
-        It first fetches the control information for the current setup. If no control information
-        is found, it creates a new dictionary with the setup information.It then adds the IP and
-        status information to the key.
+        It first fetches the control information for the current setup. If no control
+        information is found, it creates a new dictionary with the setup information.
+        It then adds the IP and status information to the key.
 
-        The method finally puts the key into the Control table, replacing any existing entry.
-        Because it blocks the queue until the operation is complete it needs the inserter_thread
-        to be running.
+        The method finally puts the key into the Control table, replacing any existing
+        entry. Because it blocks the queue until the operation is complete it needs the
+        inserter_thread to be running.
 
         Args:
             task (int, optional): The task index. Defaults to None.
@@ -420,12 +430,12 @@ class Logger:
 
     def _get_last_session(self):
         """
-        This method fetches the last session for a given animal_id from the experiment.Session.
+        Fetch last session for a given animal_id from the experiment.
 
         It first fetches all sessions for the given animal_id. If no sessions are found,
         it returns 0.
-        If sessions are found, it returns the maximum session number, which corresponds to
-        the last session.
+        If sessions are found, it returns the maximum session number, which corresponds
+        to the last session.
 
         Returns:
             int: The last session number or 0 if no sessions are found.
@@ -462,17 +472,17 @@ class Logger:
         """
         Initializes session parameters and logs the session start.
 
-        This method initializes the session parameters by setting the total reward to zero
-        and creating a trial key with the animal ID, trial index set to zero, and the session
-        number incremented by one from the last session. It logs the trial key and creates a
-        session key by merging the trial key with the provided session parameters, setup
-        information, and a default or provided user name. The session key is then logged and
-        stored in the database.
+        This method initializes the session parameters by setting the total reward to
+        zero and creating a trial key with the animal ID, trial index set to zero, and
+        the session number incremented by one from the last session. It logs the trial
+        key and creates a session key by merging the trial key with the provided session
+        parameters, setup information, and a default or provided user name. The session
+        key is then logged and stored in the database.
 
         Args:
-            params (Dict[str, Any]): A dictionary containing parameters for initializing the
-            session. This includes any additional information that should be merged into the
-            session key.
+            params (Dict[str, Any]): A dictionary containing parameters for initializing
+            the session. This includes any additional information that should be merged
+            into the session key.
         """
         self.total_reward = 0
         self.trial_key = {"animal_id": self.get_setup_info("animal_id"),
@@ -493,30 +503,33 @@ class Logger:
         Retrieve a list of names of all inner classes defined within an outer class.
 
         Args:
-            outer_class: The class object of the outer class containing the inner classes.
+            outer_class: The class object of the outer class containing the inner
+            classes.
 
         Returns:
-            A list of strings, each representing the fully qualified name of an inner class
-            defined within the outer class.
+            A list of strings, each representing the fully qualified name of an inner
+            class defined within the outer class.
         """
         outer_class_dict_values = outer_class.__dict__.values()
-        inner_classes = [value for value in outer_class_dict_values if isinstance(value, type)]
+        inner_classes = [value for value in outer_class_dict_values if isinstance(value,
+                                                                                  type)]
         return [outer_class.__name__+'.'+cls.__name__ for cls in inner_classes]
 
     def log_session_configs(self, params) -> None:
         """
         Logs the parameters of a session into the appropriate schema tables.
 
-        This method performs several key operations to ensure that the configuration of a session,
-        including behavior and stimulus settings, is accurately logged into the database.It involves
-        the following steps:
+        This method performs several key operations to ensure that the configuration of
+        a session, including behavior and stimulus settings, is accurately logged into
+        the database. It involves the following steps:
         1. Identifies the relevant modules (e.g., ethopy.core.interface) that contain
         Configuration classes.
-        2. Derives schema names from these modules, assuming the schema name matches the class
-        name in lowercase.
-        3. Logs the session and animal_id into the Configuration tables of the identified schemas.
-        4. Creates a dictionary mapping each schema to its respective Configuration class's
-        inner classes.
+        2. Derives schema names from these modules, assuming the schema name matches the
+        class name in lowercase.
+        3. Logs the session and animal_id into the Configuration tables of the
+        identified schemas.
+        4. Creates a dictionary mapping each schema to its respective Configuration
+        class's inner classes.
         5. Calls a helper method to log the configuration of sub-tables for each schema.
         """
         # modules that have a Configuration classes
@@ -527,8 +540,12 @@ class Logger:
 
         # Logs the session and animal_id in configuration tables of behavior/stimulus.
         for schema in _schemas:
-            self.put(table="Configuration", tuple=self.trial_key, schema=schema, priority=2,
-                     validate=True, block=True,)
+            self.put(table="Configuration",
+                     tuple=self.trial_key,
+                     schema=schema,
+                     priority=2,
+                     validate=True,
+                     block=True,)
 
         # create a dict with the configuration as key and the subclasses as values
         conf_table_schema = {}
@@ -545,9 +562,9 @@ class Logger:
         self, params: Dict[str, Any], config_tables: List, schema: str
     ) -> None:
         """
-        This method iterates over a list of configuration tables, retrieves the configuration data
-        for each table based on the provided parameters, and then logs this data into the respective
-        table within the given schema.
+        This method iterates over a list of configuration tables, retrieves the
+        configuration data for each table based on the provided parameters, and then
+        logs this data into the respective table within the given schema.
 
         Args:
             params (Dict[str, Any]): Parameters for the setup conf.
@@ -574,15 +591,17 @@ class Logger:
 
         This method sets various parameters related to the session setup, including
         session ID, number of trials, total liquid, difficulty level, and state. It also
-        optionally sets start and stop times if they are provided in the `params` argument.
+        optionally sets start and stop times if they are provided in the `params`
+        argument.
 
-        The start and stop times are expected to be in "%H:%M:%S" format. If they are provided,
-        this method calculates the time delta from "00:00:00" for each and updates the setup
-        information accordingly.
+        The start and stop times are expected to be in "%H:%M:%S" format. If they are
+        provided, this method calculates the time delta from "00:00:00" for each and
+        updates the setup information accordingly.
 
         Args:
-            params (Dict[str, Any]): A dictionary containing parameters for the session setup.
-                This may include 'start_time' and 'stop_time' among other setup parameters.
+            params (Dict[str, Any]): A dictionary containing parameters for the session
+            setup. This may include 'start_time' and 'stop_time' among other setup
+            parameters.
         """
         key = {
             "session": self.trial_key["session"],
@@ -611,13 +630,16 @@ class Logger:
 
         self.update_setup_info({**key, "status": self.setup_info["status"]})
 
-    def update_setup_info(self, info: Dict[str, Any], key: Optional[Dict[str, Any]] = None):
+    def update_setup_info(self,
+                          info: Dict[str, Any],
+                          key: Optional[Dict[str, Any]] = None):
         """
-        This method updates the setup information in Control table with the provided info and key.
+        This method updates the setup information in Control table with the provided
+        info and key.
 
-        It first fetches the existing setup information from the experiment's Control table,
-        then updates it with the provided info. If 'status' is in the provided info, it blocks
-        and validates the update operation.
+        It first fetches the existing setup information from the experiment's Control
+        table, then updates it with the provided info. If 'status' is in the provided
+        info, it blocks and validates the update operation.
 
         Args:
             info (dict): The information to update the setup with.
@@ -645,8 +667,10 @@ class Logger:
                            f"in {caller.filename} at line {caller.lineno}")
             log.info("Update status is set %s\n%s", info['status'], caller_info)
 
-        self.setup_info = {**(experiment.Control() & {**{"setup": self.setup}, **key}).fetch1(),
-                           **info}
+        self.setup_info = {
+            **(experiment.Control() & {**{"setup": self.setup}, **key}).fetch1(),
+            **info
+            }
 
         if 'notes' in info and len(info['notes']) > 255:
             info['notes'] = info['notes'][:255]
@@ -672,12 +696,12 @@ class Logger:
                 .decode("ascii")
                 .strip()
             )
-            hash = f"{git_hash}"
+            _hash = f"{git_hash}"
         except subprocess.CalledProcessError:
             from importlib.metadata import version
-            VERSION = version("ethopy")
-            hash = f"pip version {VERSION}"
-        log.info(f"hash: {hash}")
+            __version__ = version("ethopy")
+            _hash = f"pip version {__version__}"
+        log.info(f"hash: {_hash}")
 
         self.put(
             table="Session.Task",
@@ -730,9 +754,12 @@ class Logger:
         Retrieve the primary key of a specified table within a given schema.
 
         Args:
-            schema (str): The schema name where the table is located. Default is 'experiment'.
-            table (str): The table name from which to retrieve the keys. Default is 'Control'.
-            key (dict): A dict with the key to filter the table. Default is an empty dictionary.
+            schema (str): The schema name where the table is located. Default is
+            'experiment'.
+            table (str): The table name from which to retrieve the keys. Default is
+            'Control'.
+            key (dict): A dict with the key to filter the table. Default is an empty
+            dictionary.
 
         Returns:
             list: The primary key of the specified table.
@@ -827,7 +854,7 @@ class Logger:
             rec_key = dict(
                 rec_aim=dataset_name,
                 software="EthoPy",
-                version=VERSION,
+                version=__version__,
                 filename=filename,
                 source_path=path,
                 target_path=target_path,
@@ -846,10 +873,11 @@ class Logger:
         the provided recording key (rec_key) and the calculated recording index.
 
         Args:
-        - rec_key (dict): A dictionary containing the key information for the recording entry.
+        - rec_key (dict): A dictionary containing the key information for the recording
+        entry.
 
-        The method assumes the existence of a `get` method to retrieve existing recordings
-        and a `log` method to log the new recording entry.
+        The method assumes the existence of a `get` method to retrieve existing
+        recordings and a `log` method to log the new recording entry.
         """
         recs = self.get(
             schema="recording",
@@ -864,8 +892,8 @@ class Logger:
         """
         Closes all datasets managed by this instance.
 
-        Iterates through the datasets dictionary, calling the `exit` method on each dataset
-        object to properly close them.
+        Iterates through the datasets dictionary, calling the `exit` method on each
+        dataset object to properly close them.
         """
         for _, dataset in self.datasets.items():
             dataset.exit()
@@ -875,9 +903,9 @@ class Logger:
         """
         Retrieves the local IP address of the machine.
 
-        Attempts to establish a dummy connection to a public DNS server (8.8.8.8) to determine
-        the local network IP address of the machine. If the connection fails, defaults to
-        localhost (127.0.0.1).
+        Attempts to establish a dummy connection to a public DNS server (8.8.8.8) to
+        determine the local network IP address of the machine. If the connection fails,
+        defaults to localhost (127.0.0.1).
 
         Returns:
             str: The local IP address.
