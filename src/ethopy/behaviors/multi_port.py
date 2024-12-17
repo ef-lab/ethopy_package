@@ -29,31 +29,33 @@ class MultiPort(Behavior, dj.Manual):
         reward_type               : varchar(16)      # reward type
         """
 
-    cond_tables = ['MultiPort', 'MultiPort.Response', 'MultiPort.Reward']
-    required_fields = ['response_port', 'reward_port', 'reward_amount']
-    default_key = {'reward_type': 'water'}
-
-    def setup(self, exp):
-        super(MultiPort, self).setup(exp)
+    def __init__(self):
+        super().__init__()
+        self.cond_tables = ['MultiPort', 'MultiPort.Response', 'MultiPort.Reward']
+        self.required_fields = ['response_port', 'reward_port', 'reward_amount']
+        self.default_key = {'reward_type': 'water'}
 
     def is_ready(self, duration, since=False):
         position, ready_time, tmst = self.interface.in_position()
         if duration == 0:
             return True
         elif position == 0 or position.ready == 0:
-            return False   
+            return False
         elif not since:
             return ready_time > duration  # in position for specified duration
         elif tmst >= since:
-            return ready_time > duration  # has been in position for specified duration since timepoint
+            # has been in position for specified duration since timepoint
+            return ready_time > duration
         else:
-            return (ready_time + tmst - since) > duration  # has been in position for specified duration since timepoint
+            # has been in position for specified duration since timepoint
+            return (ready_time + tmst - since) > duration
 
     def is_correct(self):
         """check if the response port is correct
 
         if current response port is -1, then any response port is correct
-        otherwise if the response port is equal to the current response port/ports, then it is correct
+        otherwise if the response port is equal to the current response port/ports,
+        then it is correct
 
         Returns:
             bool: True if correct, False otherwise
