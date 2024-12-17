@@ -389,7 +389,7 @@ class Experiment:
         self.logger.put(
             table="PortCalibration",
             tuple=key,
-            schema="behavior",
+            schema="interface",
             priority=5,
             ignore_extra_fields=True,
             validate=True,
@@ -398,7 +398,7 @@ class Experiment:
         )
         self.logger.put(
             table="PortCalibration.Liquid",
-            schema="behavior",
+            schema="interface",
             replace=True,
             ignore_extra_fields=True,
             tuple=dict(
