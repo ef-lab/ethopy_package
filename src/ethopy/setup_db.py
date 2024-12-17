@@ -270,10 +270,12 @@ def get_import_commands() -> List[str]:
     return [
         "from ethopy.core.experiment import *",
         "from ethopy.core.stimulus import *",
+        "from ethopy.core.interface import *",
         "from ethopy.core.behavior import *",
         "from ethopy.stimuli import *",
         "from ethopy.behaviors import *",
         "from ethopy.experiments import *",
+        "from ethopy.interfaces import *",
     ]
 
 

@@ -1,6 +1,5 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 from dataclasses import field as datafield
-from dataclasses import fields
 from datetime import datetime, timedelta
 from importlib import import_module
 from queue import Queue
@@ -28,7 +27,7 @@ class Behavior:
         self.response, self.last_lick = BehActivity(), BehActivity()
         self.response_queue = Queue(maxsize=4)
         self.logging = True
-        interface_module = self.logger.get(schema='experiment',
+        interface_module = self.logger.get(schema='interface',
                                            table='SetupConfiguration',
                                            fields=['interface'],
                                            key={'setup_conf_idx': exp.params['setup_conf_idx']})[0]
@@ -187,11 +186,11 @@ class Behavior:
         start_time = self.logger.setup_info['start_time']
         if isinstance(start_time, str):
             dt = datetime.strptime(start_time, '%H:%M:%S')
-            start_time = timedelta(seconds=(dt.hour*3600 + dt.minute*60 + dt.second))
+            start_time = timedelta(seconds=dt.hour*3600 + dt.minute*60 + dt.second)
         stop_time = self.logger.setup_info['stop_time']
         if isinstance(stop_time, str):
             dt = datetime.strptime(stop_time, '%H:%M:%S')
-            stop_time = timedelta(seconds=(dt.hour * 3600 + dt.minute * 60 + dt.second))
+            stop_time = timedelta(seconds=dt.hour * 3600 + dt.minute * 60 + dt.second)
 
         start = now.replace(hour=0, minute=0, second=0) + start_time
         stop = now.replace(hour=0, minute=0, second=0) + stop_time
@@ -283,38 +282,6 @@ class Activity(dj.Manual):
         loc_y               : float               # y 2d location
         theta               : float               # direction in space
         time	     	    : int           	# time from session start (ms)
-        """
-
-
-@behavior.schema
-class Configuration(dj.Manual):
-    definition = """
-    # Session behavior configuration info
-    -> experiment.Session
-    """
-
-    class Port(dj.Part):
-        definition = """
-        # Probe identity
-        -> Configuration
-        port                     : tinyint                      # port id
-        type="Lick"              : varchar(24)                 # port type
-        ---
-        ready=0                  : tinyint                      # ready flag
-        response=0               : tinyint                      # response flag
-        reward=0                 : tinyint                      # reward flag
-        discription              : varchar(256)
-        """
-
-    class Ball(dj.Part):
-        definition = """
-        # Ball information
-        -> Configuration
-        ---
-        ball_radius=0.125        : float                   # in meters
-        material="styrofoam"     : varchar(64)             # ball material
-        coupling="bearings"      : enum('bearings','air')  # mechanical coupling
-        discription              : varchar(256)
         """
 
 

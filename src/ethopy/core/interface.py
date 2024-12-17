@@ -1,11 +1,12 @@
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 from dataclasses import field as datafield
-from dataclasses import fields
 from importlib import import_module
 
+import datajoint as dj
 import numpy as np
 
+from ethopy.core.logger import experiment, interface
 from ethopy.utils.helper_functions import reverse_lookup
 from ethopy.utils.timer import Timer
 
@@ -26,7 +27,10 @@ class Interface:
         self.camera = None
 
         # get port information
-        for port in self.logger.get(table='SetupConfiguration.Port', key=self.exp.params, as_dict=True):
+        for port in self.logger.get(schema="interface",
+                                    table='SetupConfiguration.Port',
+                                    key=self.exp.params,
+                                    as_dict=True):
             self.ports.append(Port(**port))
         self.ports = np.array(self.ports)
         self.proximity_ports = np.array([p.port for p in self.ports if p.type == 'Proximity'])
@@ -34,9 +38,12 @@ class Interface:
 
         # check is the setup idx has a camera and initialize it
         if self.exp.params["setup_conf_idx"] in self.logger.get(
-            table="SetupConfiguration.Camera", fields=["setup_conf_idx"]
+            schema="interface",
+            table="SetupConfiguration.Camera",
+            fields=["setup_conf_idx"]
         ):
             camera_params = self.logger.get(
+                schema="interface",
                 table="SetupConfiguration.Camera",
                 key=f"setup_conf_idx={self.exp.params['setup_conf_idx']}",
                 as_dict=True,
@@ -132,3 +139,156 @@ class Port:
         for k, v in kwargs.items():
             if k in names:
                 setattr(self, k, v)
+
+
+@interface.schema
+class SetupConfiguration(dj.Lookup, dj.Manual):
+    definition = """
+    # Setup configuration
+    setup_conf_idx           : tinyint                                            # configuration version
+    ---
+    interface                : enum('DummyPorts','RPPorts', 'PCPorts', 'RPVR')    # The Interface class for the setup
+    discription              : varchar(256)
+    """
+
+    contents = [[0, 'DummyPorts', 'Simulation'],]
+
+    class Port(dj.Lookup, dj.Part):
+        definition = """
+        # Probe identityrepeat_n = 1
+
+        port                     : tinyint                      # port id
+        type="Lick"              : enum('Lick','Proximity')     # port type
+        -> SetupConfiguration
+        ---
+        ready=0                  : tinyint                      # ready flag
+        response=0               : tinyint                      # response flag
+        reward=0                 : tinyint                      # reward flag
+        invert=0                 : tinyint                      # invert flag
+        discription              : varchar(256)
+        """
+
+        contents = [[1, 'Lick', 0, 0, 1, 1, 0, 'probe'],
+                    [2, 'Lick', 0, 0, 1, 1, 0, 'probe'],
+                    [3, 'Proximity', 0, 1, 0, 0, 0, 'probe']]
+
+    class Screen(dj.Lookup, dj.Part):
+        definition = """
+        # Screen information
+        screen_idx               : tinyint
+        -> SetupConfiguration
+        ---
+        intensity                : tinyint UNSIGNED
+        distance                 : float
+        center_x                 : float
+        center_y                 : float
+        aspect                   : float
+        size                     : float
+        fps                      : tinyint UNSIGNED
+        resolution_x             : smallint
+        resolution_y             : smallint
+        description              : varchar(256)
+        fullscreen               : tinyint
+        """
+
+        contents = [[1, 0, 64, 5.0, 0, -0.1, 1.66, 7.0, 30, 800, 480, 'Simulation', 0],]
+
+    class Ball(dj.Lookup, dj.Part):
+        definition = """
+        # Ball information
+        -> SetupConfiguration
+        ---
+        ball_radius=0.125        : float                   # in meters
+        material="styrofoam"     : varchar(64)             # ball material
+        coupling="bearings"      : enum('bearings','air')  # mechanical coupling
+        discription              : varchar(256)
+        """
+
+    class Speaker(dj.Lookup, dj.Part):
+        definition = """
+        # Speaker information
+        speaker_idx             : tinyint
+        -> SetupConfiguration
+        ---
+        sound_freq=10000        : int           # in Hz
+        duration=500            : int           # in ms
+        volume=50               : tinyint       # 0-100 percentage
+        discription             : varchar(256)
+        """
+
+    class Camera(dj.Lookup, dj.Part):
+        definition = """
+        # Camera information
+        camera_idx               : tinyint
+        -> SetupConfiguration
+        ---
+        fps                      : tinyint UNSIGNED
+        resolution_x             : smallint
+        resolution_y             : smallint
+        shutter_speed            : smallint
+        iso                      : smallint
+        file_format              : varchar(256)
+        video_aim                : enum('eye','body','openfield')
+        discription              : varchar(256)
+        """
+
+@interface.schema
+class Configuration(dj.Manual):
+    definition = """
+    # Session behavior configuration info
+    -> experiment.Session
+    """
+
+    class Port(dj.Part):
+        definition = """
+        # Probe identity
+        -> Configuration
+        port                     : tinyint                      # port id
+        type="Lick"              : varchar(24)                 # port type
+        ---
+        ready=0                  : tinyint                      # ready flag
+        response=0               : tinyint                      # response flag
+        reward=0                 : tinyint                      # reward flag
+        discription              : varchar(256)
+        """
+
+    class Ball(dj.Part):
+        definition = """
+        # Ball information
+        -> Configuration
+        ---
+        ball_radius=0.125        : float                   # in meters
+        material="styrofoam"     : varchar(64)             # ball material
+        coupling="bearings"      : enum('bearings','air')  # mechanical coupling
+        discription              : varchar(256)
+        """
+
+    class Screen(dj.Part):
+        definition = """
+        # Screen information
+        -> Configuration
+        screen_idx               : tinyint
+        ---
+        intensity                : tinyint UNSIGNED
+        distance         : float
+        center_x         : float
+        center_y         : float
+        aspect           : float
+        size             : float
+        fps                      : tinyint UNSIGNED
+        resolution_x             : smallint
+        resolution_y             : smallint
+        description              : varchar(256)
+        """
+
+    class Speaker(dj.Part):
+        definition = """
+        # Speaker information
+        speaker_idx             : tinyint
+        -> Configuration
+        ---
+        sound_freq=10000        : int           # in Hz
+        duration=500            : int           # in ms
+        volume=50               : tinyint       # 0-100 percentage
+        discription             : varchar(256)
+        """

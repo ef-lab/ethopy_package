@@ -6,18 +6,28 @@ from dataclasses import dataclass
 from dataclasses import field as datafield
 from queue import PriorityQueue
 
-from serial import Serial
-
 from ethopy.core.interface import Interface, Port
 
+try:
+    from serial import Serial
+    IMPORT_SERIAL = True
+except ImportError:
+    IMPORT_SERIAL = False
+
 log = logging.getLogger(__name__)
+
 
 class Arduino(Interface):
     thread_end, msg_queue, callbacks = threading.Event(), PriorityQueue(maxsize=1), True
 
     def __init__(self, **kwargs):
+        if not globals()["IMPORT_SERIAL"]:
+            raise ImportError(
+                "pyserial package could not be imported, install it before use!"
+            )
         super(Arduino, self).__init__(**kwargs)
-        self.port = self.logger.get(table='SetupConfiguration',
+        self.port = self.logger.get(schema="interface",
+                                    table='SetupConfiguration',
                                     key=self.exp.params,
                                     fields=['path'])[0]
         self.baud = 115200
