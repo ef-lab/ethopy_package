@@ -1,19 +1,70 @@
+"""
+Core behavior module handles behavioral variables, responses, and reward management.
+
+This module provides the core functionality for managing animal behavior in experimental
+setups, including response tracking, reward delivery, and behavioral data logging. It
+interfaces with hardware components and maintains experiment state.
+"""
+
 from dataclasses import dataclass, fields
 from dataclasses import field as datafield
 from datetime import datetime, timedelta
 from importlib import import_module
 from queue import Queue
+from typing import Any, Dict, List, Optional
 
 import datajoint as dj
 import numpy as np
 
-from ethopy.core.logger import behavior, experiment  # pylint: disable=W0611, # noqa: F401
+from ethopy.core.logger import (  # pylint: disable=W0611, # noqa: F401
+    behavior,
+    experiment,
+)
 
 
 class Behavior:
-    """ This class handles the behavior variables """
-    cond_tables, interface, required_fields, curr_cond, response, licked_port, logging = [], [], [], [], [], 0, False
-    default_key, reward_amount, choice_history, reward_history = dict(), dict(), list(), list()
+    """
+    Manages behavioral variables and interactions in experimental setups.
+
+    This class handles all aspects of behavioral monitoring and control:
+    - Response tracking and validation
+    - Reward delivery and management
+    - Behavioral data logging through logger module
+    - Condition management and history tracking
+    - Interface with hardware components through experiment module
+
+    Attributes:
+        interface (List[Any]): List of interface objects
+        required_fields (List[str]): Required fields for condition validation
+        curr_cond (List[Dict]): Current condition parameters
+        response (List[Any]): Current response data
+        licked_port (int): ID of the most recently licked port
+        logging (bool): Whether logging is enabled
+        reward_amount (Dict[int, float]): Reward amounts by port
+        choice_history (List[float]): History of animal choices
+        reward_history (List[float]): History of rewards given
+    """
+
+    def __init__(self) -> None:
+        self.cond_tables: List[str] = []
+        self.default_key: Dict[str, Any] = {}
+        self.interface: List[Any] = []
+        self.required_fields: List[str] = []
+        self.curr_cond: List[Dict[str, Any]] = []
+        self.response: List[Any] = []
+        self.licked_port: int = 0
+        self.logging: bool = False
+        self.reward_amount: Dict[int, float] = {}
+        self.choice_history: List[float] = []
+        self.reward_history: List[float] = []
+        self.punish_history: List[float] = []
+        self.choices: [np.float64] = np.array([])
+        self.response_queue: Queue = Queue(maxsize=4)
+        self.last_lick: Optional['BehActivity'] = None
+
+        self.params = None
+        self.exp = None
+        self.logger = None
 
     def setup(self, exp):
         self.params = exp.params
@@ -27,28 +78,32 @@ class Behavior:
         self.response, self.last_lick = BehActivity(), BehActivity()
         self.response_queue = Queue(maxsize=4)
         self.logging = True
-        interface_module = self.logger.get(schema='interface',
-                                           table='SetupConfiguration',
-                                           fields=['interface'],
-                                           key={'setup_conf_idx': exp.params['setup_conf_idx']})[0]
-        interface = getattr(import_module(f'ethopy.interfaces.{interface_module}'), interface_module)
+        interface_module = self.logger.get(
+            schema="interface",
+            table="SetupConfiguration",
+            fields=["interface"],
+            key={"setup_conf_idx": exp.params["setup_conf_idx"]},
+        )[0]
+        interface = getattr(
+            import_module(f'ethopy.interfaces.{interface_module}'),
+            interface_module
+            )
         self.interface = interface(exp=exp, beh=self)
         self.interface.load_calibration()
 
-    def is_ready(self, init_duration, since=0):
+    def is_ready(self, duration, since=0):
         return True, 0
 
     def get_response(self, since: int = 0, clear: bool = True) -> bool:
         """
-        Return a boolean indicating whether there is any response since the given time.
+        Check for valid behavioral responses since a given time point.
 
         Args:
-            since (int, optional): Time in milliseconds. Defaults to 0.
-            clear (bool, optional): If True, clears any existing response before checking for
-            new responses. Defaults to True.
+            since: Time reference point in milliseconds
+            clear: Whether to clear existing responses before checking
 
         Returns:
-            bool: True if there is any valid response since the given time, False otherwise.
+            Whether a valid response was detected
         """
 
         # set a flag to indicate whether there is a valid response since the given time
@@ -59,35 +114,35 @@ class Behavior:
             self.response = BehActivity()
             self.licked_port = 0
 
-        # loop through the response queue and check if there is any response since the given time
-        # keeps only the response that is oldest and get rest of the queue clear
         while not self.response_queue.empty():
             _response = self.response_queue.get()
             if not _valid_response and _response.time >= since and _response.port:
                 self.response = _response
                 _valid_response = True
 
-        # return True if there is any valid response since the given time, False otherwise
-        if _valid_response:
-            return True
-        return False
+        return _valid_response
 
-    def is_licking(self, since: int = 0, reward: bool = False, clear: bool = True) -> int:
-        """checks if there is any licking since the given time
+    def is_licking(
+        self, since: int = 0, reward: bool = False, clear: bool = True
+    ) -> int:
+        """
+        Check for licking activity since a given time point.
 
-        is_licking is used in two ways:
-        1. to check if there is any licking since the given time
-        2. in case flag reward == True, to check if there is any licking since the given time 
-           and also if the licked port is a reward port only then return the licked port number 
-           else return 0
+        This method can be used in two ways:
+        1. To detect any licking activity since the given time
+        2. To check for rewarded licking (when reward=True) where only licks at reward
+        ports count
+
 
         Args:
-            since (int, optional): Time in milliseconds. Defaults to 0.
-            reward (bool, optional): False. Defaults to False.
-            clear (bool, optional): if True reset last_lick to default BehActivity. Defaults to True.
+            since (int, optional): Time reference point in milliseconds. Defaults to 0.
+            reward (bool, optional): Whether to only count licks at reward ports.
+            Defaults to False.
+            clear (bool, optional): Whether to reset last_lick after checking.
+            Defaults to True.
 
         Returns:
-            int: licked port number else 0
+            int: Port number of valid lick (0 if no valid lick detected)
         """
         # check if there is any licking since the given time
         if self.last_lick.time >= since and self.last_lick.port:
@@ -102,27 +157,32 @@ class Behavior:
         # by default if it licked since the last time this function was called
         if clear:
             self.last_lick = BehActivity()
+
         return self.licked_port
 
     def reward(self):
+        """"Reward action"""
         return True
 
     def punish(self):
-        pass
+        """Punish action"""
 
     def exit(self):
+        """Clean up and exit the behavior module."""
         self.logging = False
 
     def log_activity(self, activity_key: dict):
-        """log the activity of the animal in the database, update the last_lick, licked_port
-        variables, append to the response queue if the queue is not full and return the time
-        of the activity
+        """
+        Log behavioral activity to the database.
+
+        Updates last_lick and licked_port variables, manages response queue,
+        and logs the activity in the database.
 
         Args:
-            activity_key (dict): _description_
+            activity_key (dict): Dictionary containing activity parameters
 
         Returns:
-            int: Time in milliseconds of the activity
+            int:Timestamp of the logged activity in milliseconds
         """
         activity = BehActivity(**activity_key)
         # if activity.time is not set, set it to the current time
@@ -144,44 +204,103 @@ class Behavior:
             self.licked_port = activity.port
         return key['time']
 
-    def log_reward(self, reward_amount):
+    def log_reward(self, reward_amount: float) -> None:
+        """
+        Log delivered reward to the database.
+
+        Args:
+            reward_amount (float): Amount of reward delivered
+        """
         if isinstance(self.curr_cond['reward_port'], list):
             self.curr_cond['reward_port'] = [self.licked_port]
             self.curr_cond['response_port'] = [self.licked_port]
-        self.logger.log('Rewards', {**self.curr_cond, 'reward_amount': reward_amount}, schema='behavior')
+        self.logger.log(
+            "Rewards",
+            {**self.curr_cond, "reward_amount": reward_amount},
+            schema="behavior",
+        )
 
-    def make_conditions(self, conditions):
-        """generate and store stimulus condition hashes"""
+    def make_conditions(self, conditions: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        Generate and store stimulus condition hashes.
+
+        Args:
+            conditions: List of condition dictionaries
+
+        Returns:
+            Dictionary containing processed conditions and metadata
+        """
         if self.cond_tables:
             for cond in conditions:
                 assert np.all([field in cond for field in self.required_fields])
-                cond.update({**self.default_key, **cond, 'behavior_class': self.cond_tables[0]})
-            return dict(conditions=conditions, condition_tables=['BehCondition'] + self.cond_tables,
-                        schema='behavior', hsh='beh_hash')
+                cond.update(
+                    {**self.default_key, **cond, "behavior_class": self.cond_tables[0]}
+                )
+            return dict(
+                conditions=conditions,
+                condition_tables=["BehCondition"] + self.cond_tables,
+                schema="behavior",
+                hsh="beh_hash",
+            )
         else:
             for cond in conditions:
                 cond.update({**self.default_key, **cond, 'behavior_class': 'None'})
             return dict(conditions=conditions, condition_tables=[], schema='behavior')
 
-    def prepare(self, condition):
+    def prepare(self, condition: Dict[str, Any]) -> None:
+        """
+        Prepare for a new trial with given conditions.
+
+        Args:
+            condition: Dictionary of trial conditions
+        """
         self.curr_cond = condition
         self.reward_amount = self.interface.calc_pulse_dur(condition['reward_amount'])
         self.logger.log('BehCondition.Trial', dict(beh_hash=self.curr_cond['beh_hash']),
                         schema='behavior')
 
-    def update_history(self, choice=np.nan, reward=np.nan, punish=np.nan):
-        if np.isnan(choice) and (~np.isnan(reward) or ~np.isnan(punish)) and self.response.time > 0:
+    def update_history(
+        self, choice: float = np.nan, reward: float = np.nan, punish: float = np.nan
+    ) -> None:
+        """
+        Update choice and reward history.
+
+        Args:
+            choice: Choice made (port number)
+            reward: Reward amount
+            punish: Punishment value
+        """
+        if (
+            np.isnan(choice)
+            and (~np.isnan(reward) or ~np.isnan(punish))
+            and self.response.time > 0
+        ):
             choice = self.response.port
         self.choice_history.append(choice)
         self.reward_history.append(reward)
         self.punish_history.append(punish)
         self.logger.total_reward = np.nansum(self.reward_history)
 
-    def get_false_history(self, h=10):
+    def get_false_history(self, h: int = 10) -> float:
+        """
+        Get history of false responses.
+
+        Args:
+            h: Number of trials to look back
+
+        Returns:
+            Cumulative product of false responses
+        """
         idx = np.nan_to_num(self.punish_history)
         return np.nansum(np.cumprod(np.flip(idx[-h:], axis=0)))
 
-    def is_sleep_time(self):
+    def is_sleep_time(self) -> bool:
+        """
+        Check if current time is within sleep period.
+
+        Returns:
+            Whether current time is in sleep period
+        """
         now = datetime.now()
         start_time = self.logger.setup_info['start_time']
         if isinstance(start_time, str):
@@ -199,7 +318,16 @@ class Behavior:
         time_restriction = now < start or now > stop
         return time_restriction
 
-    def is_hydrated(self, rew=False):
+    def is_hydrated(self, rew: Optional[float] = None) -> bool:
+        """
+        Check if animal has received enough reward.
+
+        Args:
+            rew: Optional override for maximum reward amount
+
+        Returns:
+            Whether maximum reward threshold has been reached
+        """
         if rew:
             return self.logger.total_reward >= rew
         elif self.params['max_reward']:
@@ -210,6 +338,21 @@ class Behavior:
 
 @dataclass
 class BehActivity:
+    """
+    Dataclass for tracking behavioral activity.
+
+    Attributes:
+        port: Port number where activity occurred
+        type: Type of activity (e.g., 'Lick', 'Touch')
+        time: Timestamp of activity
+        in_position: Position status
+        loc_x: X coordinate of activity
+        loc_y: Y coordinate of activity
+        theta: Angular position
+        ready: Ready status
+        reward: Whether activity was rewarded
+        response: Whether activity was a valid response
+    """
     port: int = datafield(compare=True, default=0, hash=True)
     type: str = datafield(compare=True, default='', hash=True)
     time: int = datafield(compare=False, default=0)
@@ -230,6 +373,8 @@ class BehActivity:
 
 @behavior.schema
 class Rewards(dj.Manual):
+    """DataJoint table for tracking reward trials."""
+
     definition = """
     # reward trials
     -> experiment.Trial
@@ -242,12 +387,16 @@ class Rewards(dj.Manual):
 
 @behavior.schema
 class Activity(dj.Manual):
+    """DataJoint table for tracking behavioral responses."""
+
     definition = """
     # Mouse behavioral response
     -> experiment.Trial
     """
 
     class Proximity(dj.Part):
+        """DataJoint table for tracking proximity port information."""
+
         definition = """
         # Center port information
         -> Activity
@@ -258,6 +407,7 @@ class Activity(dj.Manual):
         """
 
     class Lick(dj.Part):
+        """DataJoint table for licking"""
         definition = """
         # Lick timestamps
         -> Activity
@@ -266,6 +416,7 @@ class Activity(dj.Manual):
         """
 
     class Touch(dj.Part):
+        """DataJoint table for touch timestamps """
         definition = """
         # Touch timestamps
         -> Activity
@@ -275,24 +426,27 @@ class Activity(dj.Manual):
         """
 
     class Position(dj.Part):
+        """DataJoint table for 2D possition timestamps """
         definition = """
         # 2D possition timestamps
         -> Activity
-        loc_x               : float               # x 2d location
-        loc_y               : float               # y 2d location
-        theta               : float               # direction in space
+        loc_x               : float             # x 2d location
+        loc_y               : float             # y 2d location
+        theta               : float             # direction in space
         time	     	    : int           	# time from session start (ms)
         """
 
 
 @behavior.schema
 class BehCondition(dj.Manual):
+    """Datajoint table with a hash defining all the conditions"""
     definition = """
     # reward probe conditions
     beh_hash               : char(24)                     # unique reward hash
     """
 
     class Trial(dj.Part):
+        """Datajoint table for keeping the hash for each trial"""
         definition = """
         # movie clip conditions
         -> experiment.Trial
@@ -300,35 +454,3 @@ class BehCondition(dj.Manual):
         time			      : int 	                # time from session start (ms)
         """
 
-
-@behavior.schema
-class PortCalibration(dj.Manual):
-    definition = """
-    # Liquid delivery calibration sessions for each port with water availability
-    setup                        : varchar(256)                 # Setup name
-    port                         : tinyint                      # port id
-    date                         : date                         # session date (only one per day is allowed)
-    """
-
-    class Liquid(dj.Part):
-        definition = """
-        # Data for volume per pulse duty cycle estimation
-        -> PortCalibration
-        pulse_dur                    : int                  # duration of pulse in ms
-        ---
-        pulse_num                    : int                  # number of pulses
-        weight                       : float                # weight of total liquid released in gr
-        timestamp=CURRENT_TIMESTAMP  : timestamp            # timestamp
-        pressure=0                   : float                # air pressure (PSI)
-        """
-
-    class Test(dj.Part):
-        definition = """
-        # Lick timestamps
-        setup                        : varchar(256)                 # Setup name
-        port                         : tinyint                      # port id
-        timestamp=CURRENT_TIMESTAMP  : timestamp  
-        ___
-        result=null                  : enum('Passed','Failed')
-        pulses=null                  : int
-        """
