@@ -11,8 +11,8 @@ import traceback
 from typing import Optional
 
 from ethopy.core.logger import Logger
-from ethopy.utils.task import Task
 from ethopy.utils.start import PyWelcome
+from ethopy.utils.task import Task
 
 log = logging.getLogger(__name__)  # Get logger for this module
 
