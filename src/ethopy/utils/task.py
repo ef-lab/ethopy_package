@@ -18,7 +18,8 @@ class Task:
 
     @property
     def is_manual(self) -> bool:
-        """Return True if either path or id is specified, indicating manual task selection."""
+        """Return True if either path or id is specified, indicating manual
+        task selection"""
         return bool(self.path or self.id)
 
 
