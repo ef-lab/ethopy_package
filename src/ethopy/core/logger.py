@@ -495,7 +495,9 @@ class Logger:
                        "user_name": params.get("user_name", "bot")}
         log.info("session_key:\n%s", pprint.pformat(session_key))
         # Logs the new session id to the database
-        self.put(table="Session", tuple=session_key, priority=1, validate=True, block=True)
+        self.put(
+            table="Session", tuple=session_key, priority=1, validate=True, block=True
+        )
 
     @staticmethod
     def get_inner_classes_list(outer_class):
@@ -610,7 +612,7 @@ class Logger:
             "difficulty": 1,
             "state": "",
         }
-        #  TODO in the case the task is the path of the config there is no update in Control table
+        #  TODO if task is the path of the config there is no update in Control table
         if self.task.id and isinstance(self.task.id, int):
             key["task_idx"] = self.task.id
 
@@ -698,8 +700,6 @@ class Logger:
             )
             _hash = f"{git_hash}"
         except subprocess.CalledProcessError:
-            from importlib.metadata import version
-            __version__ = version("ethopy")
             _hash = f"pip version {__version__}"
         log.info(f"hash: {_hash}")
 
