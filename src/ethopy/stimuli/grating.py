@@ -5,6 +5,7 @@ import os
 import datajoint as dj
 import imageio
 import numpy as np
+import pygame
 
 from ethopy.core.logger import stimulus
 from ethopy.core.stimulus import Stimulus
@@ -28,16 +29,18 @@ class Grating(Stimulus, dj.Manual):
     duration               : smallint   # grating duration
     """
 
-    cond_tables = ['Grating']
-    default_key = {'theta'               : 0,
-                   'spatial_freq'        : .05,
-                   'phase'               : 0,
-                   'contrast'            : 100,
-                   'square'              : 0,
-                   'temporal_freq'       : 1,
-                   'flatness_correction' : 1,
-                   'duration'            : 3000,
-                   }
+    def __init__(self):
+        super().__init__()
+        self.cond_tables = ['Grating']
+        self.default_key = {'theta': 0,
+                            'spatial_freq': .05,
+                            'phase': 0,
+                            'contrast': 100,
+                            'square': 0,
+                            'temporal_freq': 1,
+                            'flatness_correction': 1,
+                            'duration': 3000,
+                            }
 
     class Movie(dj.Part):
         definition = """
@@ -79,7 +82,7 @@ class Grating(Stimulus, dj.Manual):
                     else:
                         transform = lambda x: x
                     for iframe in range(0, int(cond['duration']*self.monitor.fps/1000 + 10)):
-                        log.info('\r' + ('frame %d/%d' % (iframe, int(cond['duration']*self.monitor.fps/1000 + 10))), end='')
+                        log.info('frame %d/%d' % (iframe, int(cond['duration']*self.monitor.fps/1000 + 10)))
                         cond['phase'] += theta_frame_step
                         image = self._make_grating(**cond)
                         images = np.dstack((images, self._gray2rgb(transform(image[:self.monitor.resolution_x,
