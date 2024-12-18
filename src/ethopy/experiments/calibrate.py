@@ -4,8 +4,6 @@ from importlib import import_module
 
 import pygame
 
-# from core.experiment import *
-
 try:
     import pygame_menu
 
@@ -53,6 +51,7 @@ class Experiment:
         """
         self.params = params
         self.logger = logger
+
         interface_module = self.logger.get(
             schema="interface",
             table="SetupConfiguration",
@@ -66,8 +65,9 @@ class Experiment:
         self.interface = interface(exp=self, callbacks=False)
 
         pygame.init()
-        self.surface = pygame.display.set_mode((800, 480))
+        self.screen = pygame.display.set_mode((800, 480))
         if self.logger.is_pi:
+            self.props.setFullscreen(self.Fullscreen)
             self.screen = pygame.display.set_mode(
                 (self.screen_width, self.screen_height), pygame.FULLSCREEN
             )
@@ -105,24 +105,75 @@ class Experiment:
         """
         Calibration mainloop.
         """
+        try:
+            while not self.stop:  # Changed from self.stop == False for better style
+                events = pygame.event.get()
+                for event in events:
+                    if event.type == pygame.QUIT:
+                        self.stop = True
+                        break
 
-        # self.menu.mainloop(self.surface, disable_loop=test)
-        while self.stop == False:
-            events = pygame.event.get()
-            for event in events:
-                if event.type == pygame.QUIT:
-                    exit()
+                if self.menu.is_enabled() and not self.stop:  # Added stop check
+                    self.menu.update(events)
+                    try:
+                        self.menu.draw(self.screen)
+                        pygame.display.flip()
+                    except pygame.error:
+                        # Display was probably quit, exit gracefully
+                        break
+        finally:
+            self.cleanup()
 
-            if self.menu.is_enabled():
-                self.menu.update(events)
-                self.menu.draw(self.surface)
-
-            pygame.display.flip()
-
-        pygame_menu.events.CLOSE
-
+    def cleanup(self):
+        """Cleanup pygame and interface resources."""
         if pygame.get_init():
-            pygame.display.quit()
+            try:
+                # Clear any remaining events
+                pygame.event.clear()
+
+                if hasattr(self, "menu"):
+                    self.menu.disable()
+
+                pygame.display.quit()
+                pygame.quit()
+            except Exception as e:
+                log.warning(f"Error during pygame cleanup: {e}")
+
+        if hasattr(self, "interface"):
+            try:
+                self.interface.cleanup()
+            except Exception as e:
+                log.warning(f"Error during interface cleanup: {e}")
+
+        if hasattr(self, "logger"):
+            try:
+                self.logger.update_setup_info({"status": "ready"})
+            except Exception as e:
+                log.warning(f"Error updating logger status: {e}")
+
+    def exit(self):
+        """exit _summary_
+
+        exit function after the Experiment has finished
+        """
+        try:
+            self.menu.clear()
+            label = self.menu.add.label(
+                "Done calibrating!!", float=True, font_size=30
+            ).translate(20, 80)
+
+            # Draw final message
+            try:
+                self.menu.draw(self.screen)
+                pygame.display.flip()
+                time.sleep(2)
+            except pygame.error:
+                pass  # Display might already be quit
+
+            self.stop = True
+        except Exception as e:
+            log.warning(f"Error during exit: {e}")
+            self.stop = True
 
     def create_pressure_menu(self):
         """The First menu in Calibration where is definde the air pressure in PSI"""
@@ -186,7 +237,7 @@ class Experiment:
                     pass
                 except Exception as error:
                     # ToDo update notes in control table
-                    log.info(f"Error {error}")
+                    log.info(f"Calibration Error {error}")
                     self.exit()
 
                 time.sleep(
