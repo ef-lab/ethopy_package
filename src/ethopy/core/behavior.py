@@ -71,9 +71,9 @@ class Behavior:
         self.exp = exp
         self.logger = exp.logger
         self.choices = np.array(np.empty(0))
-        self.choice_history = list()  # History term for bias calculation
-        self.reward_history = list()  # History term for performance calculation
-        self.punish_history = list()
+        self.choice_history = []  # History term for bias calculation
+        self.reward_history = []  # History term for performance calculation
+        self.punish_history = []
         self.reward_amount = dict()
         self.response, self.last_lick = BehActivity(), BehActivity()
         self.response_queue = Queue(maxsize=4)
