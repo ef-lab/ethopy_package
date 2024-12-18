@@ -1,42 +1,73 @@
+"""Module for handling stimulus presentation in behavioral experiments.
+
+This module provides a base Stimulus class that handles the presentation of various
+types of stimuli during behavioral experiments. It includes functionality for stimulus
+preparation, presentation, logging, and cleanup.
+"""
+
 import os
+from typing import Any, Dict, List, Optional
 
 import datajoint as dj
 import numpy as np
 
-from ethopy.core.logger import experiment, stimulus  # pylint: disable=W0611, # noqa: F401
-from ethopy.utils.helper_functions import DictStruct
+from ethopy.core.logger import (  # pylint: disable=W0611, # noqa: F401
+    experiment,
+    stimulus,
+)
+from ethopy.utils.helper_functions import DictStruct, FillColors
 from ethopy.utils.presenter import Presenter
 from ethopy.utils.timer import Timer
 
 
-@stimulus.schema
-class StimCondition(dj.Manual):
-    definition = """
-    # This class handles the stimulus presentation use function overrides for each stimulus class
-    stim_hash            : char(24)                     # unique stimulus condition hash
+class Stimulus:
+    """Base class for handling stimulus presentation in behavioral experiments.
+
+    This class provides the core functionality for managing stimuli in behavioral
+    experiments, including initialization, presentation, logging, and cleanup. It can be
+    subclassed to implement specific types of stimuli.
+
+    Attributes:
+        cond_tables (List[str]): List of condition table names.
+        required_fields (List[str]): List of required fields for stimulus conditions.
+        default_key (Dict[str, Any]): Default key-value pairs for stimulus conditions.
+        curr_cond (Dict[str, Any]): Current stimulus condition parameters.
+        conditions (List[Dict[str, Any]]): List of all stimulus conditions.
+        timer (Timer): Timer object for tracking stimulus timing.
+        period (str): Current experimental period ('Trial' by default).
+        in_operation (bool): Flag indicating if stimulus is currently active.
+        flip_count (int): Counter for screen flips.
+        photodiode (bool): Flag for photodiode triggering.
+        rec_fliptimes (bool): Flag for recording flip times.
+        fill_colors (DictStruct): Structure containing color values for different states
     """
 
-    class Trial(dj.Part):
-        definition = """
-        # Stimulus onset timestamps
-        -> experiment.Trial
-        period='Trial'       : varchar(16)
-        ---
-        -> StimCondition
-        start_time           : int                          # start time from session start (ms)
-        end_time=NULL        : int                          # end time from session start (ms)
-        """
-
-
-class Stimulus:
-    """ This class handles the stimulus presentation use function overrides for each stimulus class """
-
-    cond_tables, required_fields, default_key, curr_cond, conditions, timer = [], [], dict(), dict(), [], Timer()
-    period, in_operation, flip_count, photodiode, rec_fliptimes = 'Trial', False, 0, False, False
-    fill_colors = DictStruct({'start': [], 'ready': [], 'reward': [], 'punish': [], 'background': (0, 0, 0)})
+    def __init__(self) -> None:
+        """Initialize stimulus attributes."""
+        self.cond_tables: List[str] = []
+        self.required_fields: List[str] = []
+        self.default_key: Dict[str, Any] = {}
+        self.curr_cond: Dict[str, Any] = {}
+        self.conditions: List[Dict[str, Any]] = []
+        self.timer: Timer = Timer()
+        self.period: str = 'Trial'
+        self.in_operation: bool = False
+        self.flip_count: int = 0
+        self.photodiode: bool = False
+        self.rec_fliptimes: bool = False
+        self.fill_colors: FillColors = FillColors()
+        self.logger = None
+        self.exp = None
+        self.monitor = None
+        self.Presenter = None
+        self.start_time: Optional[float] = None
 
     def init(self, exp):
-        """store parent objects """
+        """Initialize stimulus with experiment object and setup screen properties.
+
+        Args:
+            exp: Experiment object containing logger and interface components.
+        """
         self.logger = exp.logger
         self.exp = exp
         screen_properties = self.logger.get(schema="interface",
@@ -50,9 +81,15 @@ class Stimulus:
             exp.interface.setup_touch_exit()
 
     def setup(self):
-        """setup stimulation for presentation before experiment starts"""
-        self.Presenter = Presenter(self.logger, self.monitor, background_color=self.fill_colors.background,
-                                   photodiode=self.photodiode, rec_fliptimes=self.rec_fliptimes)
+        """Set up stimulus presentation environment.
+
+        Initializes the Presenter object with monitor settings and background color.
+        Should be called before starting the experiment.
+        """
+        self.Presenter = Presenter(self.logger, self.monitor,
+                                   background_color=self.fill_colors.background,
+                                   photodiode=self.photodiode,
+                                   rec_fliptimes=self.rec_fliptimes)
 
     def prepare(self, curr_cond=False, stim_period=''):
         """prepares stuff for presentation before trial starts"""
@@ -66,8 +103,11 @@ class Stimulus:
         self.timer.start()
 
     def present(self):
-        """stimulus presentation method"""
-        pass
+        """Present stimulus.
+
+        This is a placeholder method that should be overridden by subclasses
+        to implement specific stimulus presentation logic.
+        """
 
     def fill(self, color=False):
         """stimulus hidding method"""
@@ -115,18 +155,69 @@ class Stimulus:
         """Log stimulus condition start & stop time"""
         stop_time = self.logger.logger_timer.elapsed_time()
         self.exp.interface.sync_out(False)
-        self.logger.log('StimCondition.Trial', dict(period=self.period, stim_hash=self.curr_cond['stim_hash'],
-                                                    start_time=self.start_time, end_time=stop_time), schema='stimulus')
+        self.logger.log(
+            "StimCondition.Trial",
+            dict(
+                period=self.period,
+                stim_hash=self.curr_cond["stim_hash"],
+                start_time=self.start_time,
+                end_time=stop_time,
+            ),
+            schema="stimulus",
+        )
 
-    def make_conditions(self, conditions=[]):
-        """generate and store stimulus condition hashes"""
+    def make_conditions(
+        self, conditions: List[Dict[str, Any]] = None
+    ) -> List[Dict[str, Any]]:
+        """Generate and store stimulus condition hashes.
+
+        Args:
+            conditions: List of condition dictionaries to process.
+
+        Returns:
+            List of processed condition dictionaries with hashes.
+
+        Raises:
+            AssertionError: If required fields are missing from any condition.
+        """
         for cond in conditions:
             assert np.all([field in cond for field in self.required_fields])
             cond.update({**self.default_key, **cond})
-        conditions = self.exp.log_conditions(conditions, schema='stimulus', hsh='stim_hash',
-                                             condition_tables=['StimCondition'] + self.cond_tables)
+        conditions = self.exp.log_conditions(
+            conditions,
+            schema="stimulus",
+            hsh="stim_hash",
+            condition_tables=["StimCondition"] + self.cond_tables,
+        )
         self.conditions += conditions
         return conditions
 
     def name(self):
+        """Get the name of the stimulus class.
+
+        Returns:
+            Name of the current stimulus class.
+        """
         return type(self).__name__
+
+
+@stimulus.schema
+class StimCondition(dj.Manual):
+    """Datajoint table for the stimulus presentation hash"""
+    definition = """
+    # This class handles the stimulus presentation use function overrides for each
+    # stimulus class
+    stim_hash            : char(24)   # unique stimulus condition hash
+    """
+
+    class Trial(dj.Part):
+        """Datajoint table for the Stimulus onset timestamps"""
+        definition = """
+        # Stimulus onset timestamps
+        -> experiment.Trial
+        period='Trial'       : varchar(16)
+        ---
+        -> StimCondition
+        start_time           : int   # start time from session start (ms)
+        end_time=NULL        : int   # end time from session start (ms)
+        """
