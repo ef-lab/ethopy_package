@@ -58,9 +58,9 @@ class Behavior:
         self.choice_history: List[float] = []
         self.reward_history: List[float] = []
         self.punish_history: List[float] = []
-        self.choices: [np.float64] = np.array([])
+        self.choices = np.array([])
         self.response_queue: Queue = Queue(maxsize=4)
-        self.last_lick: Optional['BehActivity'] = None
+        self.last_lick = None
 
         self.params = None
         self.exp = None
@@ -453,4 +453,3 @@ class BehCondition(dj.Manual):
         -> BehCondition
         time			      : int 	                # time from session start (ms)
         """
-
