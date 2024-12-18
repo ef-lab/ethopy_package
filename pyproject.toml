@@ -35,6 +35,7 @@ dependencies = [
     "scipy",
     "scikit-learn",
     "pyopengl",
+    "imageio-ffmpeg"
 ]
 
 [project.optional-dependencies]
