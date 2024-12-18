@@ -28,7 +28,7 @@ class Interface:
     """
     Base interface class for hardware interaction in experimental setups.
 
-    This class manages hardware interfaces including ports, cameras, and other 
+    This class manages hardware interfaces including ports, cameras, and other
     peripherals.
     It provides methods for stimulus delivery, reward management, and hardware control.
 
@@ -151,26 +151,22 @@ class Interface:
                 **camera_params
             )
 
-    def give_liquid(
-        self, port: int, duration: Optional[float] = 0, log: bool = True
-    ) -> None:
+    def give_liquid(self, port: int, duration: Optional[float] = 0) -> None:
         """
         Deliver liquid reward through specified port.
 
         Args:
             port: Port number for delivery
             duration: Duration of delivery in milliseconds
-            log: Whether to log the delivery
         """
 
-    def give_odor(self, odor_idx: int, duration: float, log: bool = True) -> None:
+    def give_odor(self, odor_idx: int, duration: float) -> None:
         """
         Deliver odor stimulus.
 
         Args:
             odor_idx: Index of odor to deliver
             duration: Duration of delivery in milliseconds
-            log: Whether to log the delivery
         """
 
     def give_sound(self, sound_freq: float, duration: float, dutycycle: float) -> None:
@@ -337,7 +333,7 @@ class SetupConfiguration(dj.Lookup, dj.Manual):
     # Setup configuration
     setup_conf_idx           : tinyint      # configuration version
     ---
-    interface                : enum('DummyPorts','RPPorts', 'PCPorts', 'RPVR') # The Interface class for the setup
+    interface                : enum('DummyPorts','RPPorts', 'PCPorts', 'RPVR')
     discription              : varchar(256)
     """
 
