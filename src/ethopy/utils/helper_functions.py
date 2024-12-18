@@ -3,14 +3,55 @@ import functools
 import hashlib
 import logging
 import os
+from dataclasses import dataclass, field
 from datetime import datetime
 from getpass import getpass
 from itertools import product
+from typing import Any, Dict, Tuple
 
 import datajoint as dj
 import numpy as np
 from scipy import ndimage
 
+
+@dataclass
+class FillColors:
+    """Color configuration for different stimulus states.
+
+    Attributes:
+        start: Color for start state
+        ready: Color for ready state
+        reward: Color for reward state
+        punish: Color for punish state
+        background: Color for background
+    """
+
+    start: Tuple[int, int, int] = field(default=())
+    ready: Tuple[int, int, int] = field(default=())
+    reward: Tuple[int, int, int] = field(default=())
+    punish: Tuple[int, int, int] = field(default=())
+    background: Tuple[int, int, int] = (0, 0, 0)
+
+    def set(self, dictionary: Dict[str, Any]) -> None:
+        """Update color attributes from a dictionary.
+
+        Args:
+            dictionary: Dictionary containing color values to update.
+                      Keys should match existing attributes.
+        """
+        for key, value in dictionary.items():
+            if hasattr(self, key):
+                setattr(self, key, value)
+            else:
+                raise AttributeError(f"FillColors has no attribute '{key}'")
+
+    def values(self):
+        """Get all color values.
+
+        Returns:
+            A dictionary_values object containing all color values.
+        """
+        return self.__dict__.values()
 
 def create_virtual_modules(schemata, create_tables=True,  create_schema=True):
     try:
