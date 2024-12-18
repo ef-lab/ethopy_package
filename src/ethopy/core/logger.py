@@ -748,7 +748,7 @@ class Logger:
         table = rgetattr(eval(schema), table)
         return (table() & key).fetch(*fields, **kwargs)
 
-    def get_table_keys(self, schema='experiment', table='Control', 
+    def get_table_keys(self, schema='experiment', table='Control',
                        key: Optional[Dict] = None, key_type=Optional[str]):
         """
         Retrieve the primary key of a specified table within a given schema.
