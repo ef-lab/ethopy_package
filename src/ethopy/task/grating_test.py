@@ -7,6 +7,7 @@ from ethopy.stimuli.grating import Grating
 session_params = {
     "trial_selection": "staircase",
     "max_reward": 3000,
+    "min_reward": 30,
     "bias_window": 5,
     "staircase_window": 10,
     "stair_up": 0.7,
