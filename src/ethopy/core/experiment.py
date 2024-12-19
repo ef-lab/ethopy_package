@@ -91,8 +91,29 @@ class ExperimentClass:
 
     # move from State to State using a template method.
     class StateMachine:
-        """  STATE MACHINE """
-        def __init__(self, states):
+        """State machine implementation for experiment control flow.
+
+        Manages transitions between experiment states and ensures proper execution
+        of state entry/exit hooks. The state machine runs until it reaches the exit
+        state.
+
+        Attributes:
+            states (Dict[str, State]): Mapping of state names to state instances
+            futureState (State): Next state to transition to
+            currentState (State): Currently executing state
+            exitState (State): Final state that ends the state machine
+        """
+        def __init__(self, states: Dict[str, State]) -> None:
+            """Initialize the state machine.
+
+            Args:
+                states: Dictionary mapping state names to state instances
+            Raises:
+                ValueError: If required states (Entry, Exit) are missing
+            """
+            if 'Entry' not in states or 'Exit' not in states:
+                raise ValueError("StateMachine requires Entry and Exit states")
+
             self.states = states
             self.futureState = states['Entry']
             self.currentState = states['Entry']
@@ -100,15 +121,42 @@ class ExperimentClass:
 
         # # # # Main state loop # # # # #
         def run(self):
-            while self.futureState != self.exitState:
-                if self.currentState != self.futureState:
-                    self.currentState.exit()
-                    self.currentState = self.futureState
-                    self.currentState.entry()
-                self.currentState.run()
-                self.futureState = self.states[self.currentState.next()]
-            self.currentState.exit()
-            self.exitState.run()
+            """Execute the state machine until reaching exit state.
+
+            The machine will:
+            1. Check for state transition
+            2. Execute exit hook of current state if transitioning
+            3. Execute entry hook of new state if transitioning
+            4. Execute the current state's main logic
+            5. Determine next state
+
+            Raises:
+                KeyError: If a state requests transition to non-existent state
+                RuntimeError: If a state's next() method raises an exception
+            """
+            try:
+                while self.futureState != self.exitState:
+                    if self.currentState != self.futureState:
+                        self.currentState.exit()
+                        self.currentState = self.futureState
+                        self.currentState.entry()
+
+                    self.currentState.run()
+
+                    next_state = self.currentState.next()
+                    if next_state not in self.states:
+                        raise KeyError(f"Invalid state transition to: {next_state}")
+
+                    self.futureState = self.states[next_state]
+
+                self.currentState.exit()
+                self.exitState.run()
+
+            except Exception as e:
+                raise RuntimeError(
+                    f"""State machine error in state
+                     {self.currentState.__class__.__name__}: {str(e)}"""
+                ) from e
 
     def setup(self, logger, BehaviorClass, session_params):
         self.in_operation = False
