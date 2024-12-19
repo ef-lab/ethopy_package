@@ -1,7 +1,23 @@
+"""Core experiment module for experiment control.
+
+This module provides the base classes and functionality for running behavioral
+experiments. It includes:
+- State machine implementation for experiment flow control
+- Condition management and randomization
+- Trial preparation and execution
+- Performance tracking and analysis
+- Integration with stimulus and behavior modules
+
+The module is built around two main classes:
+- State: Base class for implementing experiment states
+- ExperimentClass: Base class for experiment implementation
+"""
+
 import itertools
 import logging
 import time
 from dataclasses import dataclass, field
+from typing import Any, Dict, Optional
 
 import datajoint as dj
 import numpy as np
@@ -16,27 +32,51 @@ log = logging.getLogger(__name__)
 
 
 class State:
-    state_timer, __shared_state = Timer(), {}
+    """Base class for implementing experiment states.
 
-    def __init__(self, parent=None):
+    This class provides the template for creating states in the experiment state
+    machine. Each state should inherit from this class and implement the required
+    methods.
+
+    Attributes:
+        state_timer: Timer instance shared across all states
+        __shared_state: Dictionary containing shared state variables
+    """
+
+    state_timer: Timer = Timer()
+    __shared_state: Dict[str, Any] = {}
+
+    def __init__(self, parent: Optional['ExperimentClass'] = None) -> None:
+        """Initialize state with optional parent experiment.
+
+        Args:
+            parent: Parent experiment instance this state belongs to
+        """
         self.__dict__ = self.__shared_state
         if parent:
             self.__dict__.update(parent.__dict__)
 
-    def entry(self):
-        """Entry transition method"""
+    def entry(self) -> None:
+        """Execute actions when entering this state."""
         pass
 
-    def run(self):
-        """Main run command"""
+    def run(self) -> None:
+        """Execute the main state logic."""
         pass
 
-    def next(self):
-        """Exit transition method"""
-        assert 0, "next not implemented"
+    def next(self) -> str:
+        """Determine the next state to transition to.
 
-    def exit(self):
-        """Exit transition method"""
+        Returns:
+            Name of the next state to transition to
+
+        Raises:
+            AssertionError: If next() is not implemented by child class
+        """
+        raise AssertionError("next not implemented")
+
+    def exit(self) -> None:
+        """Execute actions when exiting this state."""
         pass
 
 
@@ -228,7 +268,8 @@ class ExperimentClass:
         return np.random.choice(un_choices, 1, p=fixed_p/sum(fixed_p))
 
     def _get_performance(self):
-        idx = np.logical_or(~np.isnan(self.beh.reward_history), ~np.isnan(self.beh.punish_history))  # select valid
+        idx = np.logical_or(~np.isnan(self.beh.reward_history),
+                            ~np.isnan(self.beh.punish_history))  # select valid
         rew_h = np.asarray(self.beh.reward_history)
         rew_h = rew_h[idx]
         choice_h = np.int64(np.asarray(self.beh.choice_history)[idx])
@@ -315,10 +356,10 @@ class Session(dj.Manual):
     animal_id                        : smallint UNSIGNED            # animal id
     session                          : smallint UNSIGNED            # session number
     ---
-    user_name                        : varchar(16)                  # user performing the experiment
-    setup=null                       : varchar(256)                 # computer id
+    user_name                        : varchar(16)      # user performing the experiment
+    setup=null                       : varchar(256)     # computer id
     experiment_type                  : varchar(128)
-    session_tmst=CURRENT_TIMESTAMP   : timestamp                    # session timestamp
+    session_tmst=CURRENT_TIMESTAMP   : timestamp        # session timestamp
     """
 
     class Task(dj.Part):
@@ -367,10 +408,10 @@ class Trial(dj.Manual):
     definition = """
     # Trial information
     -> Session
-    trial_idx            : smallint UNSIGNED         # unique trial index
+    trial_idx            : smallint UNSIGNED       # unique trial index
     ---
     -> Condition
-    time                 : int                       # start time from session start (ms)
+    time                 : int                     # start time from session start (ms)
     """
 
     class Aborted(dj.Part):
@@ -387,15 +428,22 @@ class Trial(dj.Manual):
         state               : varchar(64)
         """
 
+
 @experiment.schema
 class Control(dj.Lookup):
     definition = """
     # Control table
     setup                       : varchar(256)                 # Setup name
     ---
-    status="exit"               : enum('ready','running','stop','sleeping','exit','offtime','wakeup')
-    animal_id=0                 : int                          # animal id
-    task_idx=0                  : int                          # task identification number
+    status="exit"               : enum('ready',
+                                        'running',
+                                        'stop',
+                                        'sleeping',
+                                        'exit',
+                                        'offtime',
+                                        'wakeup')
+    animal_id=0                 : int                       # animal id
+    task_idx=0                  : int                       # task identification number
     session=0                   : int
     trials=0                    : int
     total_liquid=0              : float
@@ -414,10 +462,10 @@ class Control(dj.Lookup):
 class Task(dj.Lookup):
     definition = """
     # Experiment parameters
-    task_idx                    : int                          # task identification number
+    task_idx                    : int           # task identification number
     ---
-    task                        : varchar(4095)                # stimuli to be presented (array of dictionaries)
-    description=""              : varchar(2048)                # task description
+    task                        : varchar(4095) # presented stimuli(array of dicts)
+    description=""              : varchar(2048) # task description
     timestamp=CURRENT_TIMESTAMP : timestamp
     """
 
