@@ -1,31 +1,131 @@
-# Configuration Manager Documentation
+# EthoPy Configuration Guide
 
-The ConfigurationManager provides a unified way to manage local configurations in your ethopy project across all operating systems. All configurations are stored in a consistent location within the user's home directory.
-
-## Configuration Location
-
-All configuration files are stored in a `.ethopy` directory in your home folder:
-
-- Windows: `C:\Users\<username>\.ethopy\local_conf.json`
-- Linux/macOS: `/home/<username>/.ethopy/local_conf.json`
-
-## Basic Usage
-
-### Initializing the Configuration Manager
+## Quick Start
 
 ```python
 from ethopy.core.config import ConfigurationManager
 
-# Basic initialization
+# Initialize with default configuration
 config = ConfigurationManager()
 
-# Initialize with existing configuration
-config = ConfigurationManager(import_config="path/to/your/local_conf.json")
+# Get a configuration value
+db_host = config.get('database.host')
+
+# Set a configuration value
+config.set('logging.level', 'DEBUG')
+
+# Save changes
+config.save()
 ```
 
-### Configuration Structure
+## Configuration File Location
 
-The configuration file uses JSON format with this structure:
+The configuration file is stored in:
+- Linux/macOS: `~/.ethopy/local_conf.json`
+- Windows: `%USERPROFILE%\.ethopy\local_conf.json`
+
+## Basic Configuration Structure
+
+```json
+{
+    "dj_local_conf": {
+        "database.host": "127.0.0.1",
+        "database.user": "root",
+        "database.password": "your_password",
+        "database.port": 3306
+    },
+    "source_path": "/path/to/data",
+    "target_path": "/path/to/backup",
+    "logging": {
+        "level": "INFO",
+        "directory": "~/.ethopy/",
+        "filename": "ethopy.log"
+    }
+}
+```
+
+## Using the Configuration Manager
+
+### Basic Operations
+
+```python
+# Initialize
+config = ConfigurationManager()
+
+# Get values (with optional default)
+db_host = config.get('database.host', 'localhost')
+log_level = config.get('logging.level', 'INFO')
+
+# Set values
+config.set('database.password', 'new_password')
+
+# Save changes
+config.save()
+
+# Get complete DataJoint config
+dj_config = config.get_datajoint_config()
+```
+
+### Working with Paths
+
+```python
+# Get standard paths
+source = config.get('source_path')
+target = config.get('target_path')
+
+# Create directories automatically
+from pathlib import Path
+Path(source).mkdir(parents=True, exist_ok=True)
+```
+
+## Advanced Usage
+
+### Environment Variables Override
+
+Set environment variables to override configuration:
+
+```bash
+export ETHOPY_DB_PASSWORD="secret"
+export ETHOPY_SOURCE_PATH="/custom/path"
+```
+
+### Custom Configuration File
+
+```python
+config = ConfigurationManager(config_file="custom_config.json")
+```
+
+### Configuration Validation
+
+The ConfigurationManager automatically validates and sets defaults for:
+- Database connection settings
+- Schema names
+- Logging configuration
+- Required paths
+
+## Configuration Sections
+
+### Database Settings (`dj_local_conf`)
+
+Essential settings for DataJoint database connection:
+
+```json
+{
+    "dj_local_conf": {
+        "database.host": "127.0.0.1",
+        "database.user": "root",
+        "database.password": "password",
+        "database.port": 3306,
+        "database.reconnect": true,
+        "database.use_tls": false,
+        "datajoint.loglevel": "WARNING"
+    }
+}
+```
+
+### Schema Mapping (`SCHEMATA`)
+
+Maps internal schema names to database schemas:
 
 ```json
 {
@@ -35,200 +135,230 @@ The configuration file uses JSON format with this structure:
         "behavior": "lab_behavior",
         "recording": "lab_recordings",
         "mice": "lab_mice"
-    },
-    "dj_local_conf": {
-        "database.host": "127.0.0.1",
-        "database.user": "root",
-        "database.password": "your_password",
-        "database.port": 3306,
-        "database.reconnect": true,
-        "database.use_tls": false,
-        "datajoint.loglevel": "WARNING"
-    },
-    "source_path": "~/ethopy_data",
-    "target_path": "/path to transfer data after completion",
+    }
 }
 ```
 
-## Working with Configurations
+### Logging Configuration
 
-### Database Settings
-
-```python
-# Access database settings
-db_host = config.db.host
-db_user = config.db.user
-db_port = config.db.port
-
-# Get DataJoint-compatible configuration
-dj_config = config.db.to_dict
+```json
+{
+    "logging": {
+        "level": "INFO",
+        "directory": "~/.ethopy/",
+        "filename": "ethopy.log",
+        "max_size": 31457280,
+        "backup_count": 5
+    }
+}
 ```
 
-### Schema Settings
+### Hardware Channel Configuration (`channels`)
 
-```python
-# Access schema names
-experiment_schema = config.schema.experiment
-behavior_schema = config.schema.behavior
+The `channels` configuration defines GPIO pin mappings for various hardware components. This is crucial for experiments that involve physical hardware interaction, particularly on Raspberry Pi systems.
+
+```json
+{
+    "channels": {
+        "Odor": {"1": 24, "2": 25},     // Odor delivery valves
+        "Liquid": {"1": 22, "2": 23},    // Liquid reward valves
+        "Lick": {"1": 17, "2": 27},      // Lick detection sensors
+        "Proximity": {"3": 9, "1": 5, "2": 6},  // Proximity sensors
+        "Sound": {"1": 13},              // Sound output
+        "Sync": {                        // Synchronization pins
+            "in": 21, 
+            "rec": 26, 
+            "out": 16
+        },
+        "Opto": 19,                      // Optogenetics control
+        "Status": 20                     // Status LED
+    }
+}
 ```
 
-### Managing Paths
+#### Channel Types and Their Uses
 
-```python
-# Access basic paths
-source_path = config.paths.source_path
-target_path = config.paths.target_path
+1. **Odor Channels**
+   - Purpose: Control odor delivery valves
+   - Format: `{"port_number": gpio_pin}`
+   - Example: `"1": 24` maps odor port 1 to GPIO pin 24
 
-# Add custom paths (automatically creates directories)
-config.paths.add_path('video_path', '~/ethopy_data/videos')
+2. **Liquid Channels**
+   - Purpose: Control water/liquid reward delivery
+   - Format: `{"port_number": gpio_pin}`
+   - Example: `"1": 22` maps liquid port 1 to GPIO pin 22
 
-# Get custom paths
-video_path = config.paths.get_path('video')
-```
+3. **Lick Channels**
+   - Purpose: Detect animal licking behavior
+   - Format: `{"port_number": gpio_pin}`
+   - Example: `"1": 17` maps lick detector 1 to GPIO pin 17
 
-### Custom Parameters
+4. **Proximity Channels**
+   - Purpose: Detect animal presence/position
+   - Format: `{"port_number": gpio_pin}`
+   - Example: `"3": 9` maps proximity sensor 3 to GPIO pin 9
 
-```python
-# Add custom parameters
-config.add_custom_param('camera_id', 'CAM01')
-config.add_custom_param('frame_rate', 30)
-config.add_custom_param('settings', {
-    'exposure': 100,
-    'gain': 1.5
-})
+5. **Sound Channel**
+   - Purpose: Control audio output
+   - Format: `{"port_number": gpio_pin}`
+   - Example: `"1": 13` maps sound output to GPIO pin 13
 
-# Access custom parameters
-camera_id = config.get_custom_param('camera_id')
-frame_rate = config.get_custom_param('frame_rate', default=25)
-```
+6. **Sync Channels**
+   - Purpose: Synchronization with external devices
+   - Components:
+     - `"in"`: Input synchronization signal
+     - `"rec"`: Recording trigger
+     - `"out"`: Output synchronization signal
 
-## Configuration Management
+7. **Special Channels**
+   - `"Opto"`: Single pin for optogenetics control
+   - `"Status"`: LED indicator for system status
 
-### Importing Configuration
+#### Hardware Setup Considerations
 
-You can import an existing configuration file:
+1. **Pin Conflicts**
+   - Ensure no GPIO pin is assigned to multiple channels
+   - Check pin capabilities (input/output/PWM support)
+   - Avoid system-reserved pins
 
-```python
-# Method 1: During initialization
-config = ConfigurationManager(import_config="path/to/local_conf.json")
+2. **Safety Checks**
+   ```python
+   # Example validation
+   pins_used = set()
+   for device, pins in config.get('channels').items():
+       if isinstance(pins, dict):
+           for pin in pins.values():
+               if pin in pins_used:
+                   raise ValueError(f"Pin {pin} used multiple times")
+               pins_used.add(pin)
+   ```
 
-# Method 2: After initialization
-config = ConfigurationManager()
-config.import_configuration("path/to/local_conf.json")
-```
+3. **Power Requirements**
+   - Consider current limitations of GPIO pins
+   - Use appropriate hardware drivers for high-power devices
+   - Include safety resistors where needed
 
-### Saving Configuration
+#### Common Hardware Configurations
 
-Save your current configuration:
+1. **Basic Setup (2 ports)**
+   ```json
+   {
+       "Liquid": {"1": 22, "2": 23},
+       "Lick": {"1": 17, "2": 27}
+   }
+   ```
 
-```python
-config.save_configuration()
-```
+2. **Advanced Setup (with all features)**
+   ```json
+   {
+       "Liquid": {"1": 22, "2": 23},
+       "Lick": {"1": 17, "2": 27},
+       "Proximity": {"1": 5, "2": 6},
+       "Odor": {"1": 24, "2": 25},
+       "Sound": {"1": 13},
+       "Sync": {"in": 21, "rec": 26, "out": 16},
+       "Opto": 19,
+       "Status": 20
+   }
+   ```
 
-## Environment Variables
+### Paths Configuration
 
-Override default settings using environment variables:
-
-Windows (PowerShell):
-```powershell
-$env:ETHOPY_CONFIG = "C:\custom\path\local_conf.json"
-$env:ETHOPY_DB_PASSWORD = "your_password"
-```
-
-Linux/macOS:
-```bash
-export ETHOPY_CONFIG="/custom/path/local_conf.json"
-export ETHOPY_DB_PASSWORD="your_password"
-```
-
-## Error Handling
-
-The ConfigurationManager uses custom exceptions for error handling:
-
-```python
-from ethopy.exceptions import ConfigurationError
-
-try:
-    config = ConfigurationManager()
-    config.import_configuration("non_existent.json")
-except ConfigurationError as e:
-    print(f"Configuration error: {e}")
-```
-
-## Complete Setup Example
-
-Here's a complete example of setting up a configuration:
-
-```python
-from pathlib import Path
-from ethopy.core.config import ConfigurationManager
-
-def setup_experiment_config():
-    # Initialize configuration manager
-    config = ConfigurationManager()
-    
-    # Set up experiment paths
-    base_path = Path.home() / "ethopy_data"
-    config.paths.add_path('video', base_path / "videos")
-    config.paths.add_path('interface', base_path / "interfaces")
-    config.paths.add_path('calibration', base_path / "calibration")
-    
-    # Save configuration
-    config.save_configuration()
-    
-    return config
-
-if __name__ == "__main__":
-    config = setup_experiment_config()
-    print(f"Configuration saved to: {config.CONFIG_PATH}")
+```json
+{
+    "source_path": "/path/to/data/source",
+    "target_path": "/path/to/data/target",
+    "plugin_path": "/path/to/plugins"
+}
 ```
 
 ## Best Practices
 
-1. **Path Management**
-   - Use relative paths when possible
-   - Use Path objects for path manipulation
-   - Use the `~` shortcut for home directory paths
+1. **Security**
+   - Never commit configuration files with sensitive data
+   - Use environment variables for passwords
+   - Keep backups of your configuration
 
-2. **Configuration Files**
-   - Keep a template configuration in version control
-   - Exclude actual configuration files with sensitive data
-   - Use environment variables for sensitive information
+2. **Path Management**
+   - Use absolute paths when possible
+   - Ensure write permissions for logs/data
+   - Regularly check available disk space
 
-3. **Cross-Platform Compatibility**
-   - Always use Path objects for paths
-   - Use os.path.join() or Path.joinpath() for path construction
-   - Avoid hardcoded path separators
+3. **Error Handling**
+   - Always check if paths exist before operations
+   - Handle missing configuration values gracefully
+   - Log configuration changes
 
-## Troubleshooting
+## Common Issues and Solutions
 
-Common issues and solutions:
+### Database Connection Issues
 
-1. **Configuration Not Found**
-   - Check if `.ethopy` directory exists in your home folder
-   - Verify file permissions
-   - Check if the path in ETHOPY_CONFIG environment variable is correct
+Problem: Cannot connect to database
+```python
+# Check connection settings
+config = ConfigurationManager()
+print(config.get_datajoint_config())
 
-2. **Permission Issues**
-   - Ensure you have write permission to your home directory
-   - Check file permissions on the configuration file
+# Verify database is reachable
+import socket
+s = socket.socket()
+try:
+    s.connect((config.get('database.host'), config.get('database.port')))
+    print("Database reachable")
+except Exception as e:
+    print(f"Cannot reach database: {e}")
+```
 
-3. **Invalid Configuration**
-   - Verify JSON syntax
-   - Check for missing required fields
-   - Ensure all paths use correct separators for your OS
+### Path Permission Issues
 
-4. **Path Issues**
-   - Use forward slashes (/) in paths, even on Windows
-   - Use absolute paths when having issues with relative paths
-   - Verify all referenced directories exist
+Problem: Cannot write to paths
+```python
+# Check path permissions
+from pathlib import Path
 
-## Getting Help
+path = Path(config.get('source_path'))
+if not path.exists():
+    print(f"Path does not exist: {path}")
+elif not os.access(path, os.W_OK):
+    print(f"Cannot write to path: {path}")
+```
 
-If you encounter issues:
+## Future Improvements
 
-1. Check the logs (ConfigurationManager uses Python's logging system)
-2. Verify your configuration file structure
-3. Ensure all paths exist and are accessible
-4. Check file permissions
-5. Verify environment variables are set correctly
+The configuration system is continually being improved. Planned features include:
+
+1. Schema validation using Pydantic
+2. Encrypted storage for sensitive data
+3. Configuration migration tools
+4. GUI configuration editor
+
+## Contributing
+
+To contribute to the configuration system:
+
+1. Fork the repository
+2. Create a feature branch
+3. Add tests for new features
+4. Submit a pull request
+
+## Testing Your Configuration
+
+```python
+from ethopy.core.config import ConfigurationManager
+
+def test_config():
+    config = ConfigurationManager()
+    
+    # Test database connection
+    dj_config = config.get_datajoint_config()
+    assert all(k in dj_config for k in ['database.host', 'database.user'])
+    
+    # Test paths
+    assert Path(config.get('source_path')).exists()
+    
+    # Test logging
+    assert config.get('logging.level') in ['DEBUG', 'INFO', 'WARNING', 'ERROR']
+
+if __name__ == '__main__':
+    test_config()
+```
