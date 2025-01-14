@@ -1,10 +1,15 @@
+"""
+Database setup module for EthoPy.
+
+Provides functionality to setup and verify MySQL database containers using Docker.
+"""
 import logging
 import os
 import socket
 import subprocess
 from pathlib import Path
 from time import sleep
-from typing import List, Optional, Tuple
+from typing import Optional, Tuple
 
 import click
 import datajoint as dj
@@ -42,7 +47,9 @@ def check_docker_status() -> Tuple[bool, str]:
         return False, f"Error checking Docker status: {str(e)}"
 
 
-def check_mysql_container(container_name: str = "mysql") -> Tuple[bool, bool, str]:
+def check_mysql_container(
+    container_name: str = "ethopy_sql_db",
+) -> Tuple[bool, bool, str]:
     """
     Check if MySQL container exists and its status.
 
@@ -109,28 +116,8 @@ def check_mysql_container(container_name: str = "mysql") -> Tuple[bool, bool, st
         return False, False, f"Error checking MySQL container status: {str(e)}"
 
 
-def find_mysql_container() -> str:
-    result = subprocess.run(
-        ["docker", "ps", "-a", "--format", "'{{.Names}}'"],
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-
-    # Split by newline to get list of container names
-    containers = result.stdout.strip().split("\n")
-
-    # Find first container with 'mysql' in the name
-    mysql_container = next(
-        (name.strip("'") for name in containers if "mysql" in name.lower()),
-        "",  # Default value if no mysql container found
-    )
-
-    return mysql_container
-
-
 def start_existing_container(
-    container_name: str = "mysql", max_retries: int = 5
+    container_name: str = "ethopy_sql_db", max_retries: int = 5
 ) -> bool:
     """
     Start an existing MySQL container.
@@ -144,9 +131,9 @@ def start_existing_container(
     """
     try:
         # Check if container is running
-        name = container_name = find_mysql_container()
+        # container_name = find_mysql_container()
         subprocess.run(
-            ["docker", "start", name],
+            ["docker", "start", f"mysql-docker-{container_name}-1"],
             capture_output=True,
             check=True,  # We want to know if the start command fails
         )
@@ -168,7 +155,9 @@ def start_existing_container(
 @click.option(
     "--mysql-path", type=click.Path(), help="Path to store MySQL Docker files"
 )
-@click.option("--container-name", default="mysql", help="Name for the MySQL container")
+@click.option(
+    "--container-name", default="ethopy_sql_db", help="Name for the MySQL container"
+)
 def setup_dj_docker(mysql_path: Optional[str], container_name: str):
     """
     Initialize the database environment using Docker.
@@ -193,9 +182,8 @@ def setup_dj_docker(mysql_path: Optional[str], container_name: str):
             if start_existing_container(container_name):
                 click.echo("Successfully started existing MySQL container")
                 return
-            click.echo(
-                "Failed to start existing container, will attempt to create new one"
-            )
+            click.echo("Failed to start existing container")
+            return
 
     try:
         # Determine MySQL setup directory
@@ -214,33 +202,25 @@ def setup_dj_docker(mysql_path: Optional[str], container_name: str):
             "Enter the MySQL root password", hide_input=True, confirmation_prompt=True
         )
 
-        click.echo("Downloading Docker configuration...")
-        subprocess.run(
-            [
-                "wget",
-                "https://raw.githubusercontent.com/datajoint/mysql-docker/master/docker-compose.yaml",
-            ],
-            capture_output=True,
-            check=True,  # Important for download to succeed
+        docker_content = (
+            f"version: '2.4'\n"
+            f"services:\n"
+            f"  {container_name}:\n"
+            f"    image: datajoint/mysql:5.7\n"
+            f"    environment:\n"
+            f"    - MYSQL_ROOT_PASSWORD={mysql_password}\n"
+            f"    ports:\n"
+            f"    - '3306:3306'\n"
+            f"    volumes:\n"
+            f"    - ./data_{container_name}:/var/lib/mysql"
         )
 
-        # Update docker-compose file with container name and password
-        with open("docker-compose.yaml", "r") as f:
-            content = f.read()
-        content = content.replace(
-            "MYSQL_ROOT_PASSWORD=simple", f"MYSQL_ROOT_PASSWORD={mysql_password}"
-        )
-        # Add container name if not default
-        if container_name != "mysql":
-            content = content.replace(
-                "container_name: mysql", f"container_name: {container_name}"
-            )
         with open("docker-compose.yaml", "w") as f:
-            f.write(content)
+            f.write(docker_content)
 
         click.echo("Starting Docker container...")
         subprocess.run(
-            ["docker-compose", "up", "-d"],
+            ["docker", "compose", "up", "-d"],
             capture_output=True,
             check=True,  # Important for container startup
         )
@@ -261,52 +241,63 @@ def setup_dj_docker(mysql_path: Optional[str], container_name: str):
         raise click.ClickException(f"Error during initialization: {str(e)}")
 
 
-def get_import_commands() -> List[str]:
-    """
-    Get list of commands to create schemas in correct order.
-    This preserves the original schema creation logic while making it accessible
-    through the CLI interface.
-    """
-    return [
-        "from ethopy.core.experiment import *",
-        "from ethopy.core.stimulus import *",
-        "from ethopy.core.interface import *",
-        "from ethopy.core.behavior import *",
-        "from ethopy.stimuli import *",
-        "from ethopy.behaviors import *",
-        "from ethopy.experiments import *",
-        "from ethopy.interfaces import *",
-    ]
-
-
 def check_db_connection():
     # Try to establish connection
     from ethopy import local_conf
 
     try:
         dj.config.update(local_conf.get("dj_local_conf"))
-        dj.logger.setLevel(local_conf.get("dj_local_conf")['datajoint.loglevel'])
+        dj.logger.setLevel(local_conf.get("dj_local_conf")["datajoint.loglevel"])
         _ = dj.conn()
     except Exception:
         logging.error("Failed to connect to database")
         raise Exception(f"Failed to connect to database {dj.config['database.host']}")
 
-    logging.info(f"Connected to {dj.config['database.user']}@{dj.config['database.host']} !!")
+    logging.info(
+        f"Connected to {dj.config['database.user']}@{dj.config['database.host']} !!"
+    )
 
 
 def createschema():
     """
     Create all required database schemas.
 
-    This command imports and initializes all schema definitions in the correct order,
-    setting up the database structure needed by ethopy.
+    This function:
+    1. Verifies database connection
+    2. Creates schemas in the correct order
+    3. Provides detailed feedback for each step
+
+    Raises:
+        ClickException: If schema creation fails with detailed error message
     """
     check_db_connection()
     logging.info("Creating schemas and tables...")
 
-    for cmd in get_import_commands():
+    # Import commands in dependency order
+    import_commands = [
+        ("core/experiment", "from ethopy.core.experiment import *"),
+        ("core/stimulus", "from ethopy.core.stimulus import *"),
+        ("core/interface", "from ethopy.core.interface import *"),
+        ("core/behavior", "from ethopy.core.behavior import *"),
+        ("stimuli", "from ethopy.stimuli import *"),
+        ("behaviors", "from ethopy.behaviors import *"),
+        ("experiments", "from ethopy.experiments import *"),
+        ("interfaces", "from ethopy.interfaces import *"),
+    ]
+
+    for schema_name, cmd in import_commands:
         try:
-            subprocess.run(["python", "-c", cmd], check=True)
-            click.echo(f"Successfully executed: {cmd}")
+            # Capture both stdout and stderr
+            _ = subprocess.run(
+                ["python", "-c", cmd], check=True, capture_output=True, text=True
+            )
+            click.echo(f"Successfully created tables for: {schema_name}")
+
         except subprocess.CalledProcessError as e:
-            raise click.ClickException(f"Error executing {cmd}: {str(e)}")
+            error_msg = f"""
+                        Failed to create schema: {schema_name}
+                        Command: {cmd}
+                        Error output: {e.stderr}
+                        """
+            logging.error(error_msg)
+            raise click.ClickException(error_msg)
