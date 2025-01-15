@@ -55,6 +55,7 @@ class ConfigurationManager:
                 "experiment": "lab_experiments",
                 "stimulus": "lab_stimuli",
                 "behavior": "lab_behavior",
+                "interface": "lab_interface",
                 "recording": "lab_recordings",
                 "mice": "lab_mice",
             },
