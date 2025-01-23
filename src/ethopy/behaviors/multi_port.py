@@ -69,8 +69,8 @@ class MultiPort(Behavior, dj.Manual):
     def reward(self, tmst=0):
         """give reward at latest licked port
 
-        After the animal has made a correct response, give the reward at the 
-        first licked port.
+        After the animal has made a correct response, give the reward at the
+        first port that animal has licked and is definded as reward.
 
         Args:
             tmst (int, optional): Time in milliseconds. Defaults to 0.
@@ -78,7 +78,7 @@ class MultiPort(Behavior, dj.Manual):
         Returns:
             bool: True if rewarded, False otherwise
         """
-        # if response and reward ports are the same no need of tmst 
+        # if response and reward ports are the same no need of tmst
         if self.response.reward:
             tmst = 0
         # check that the last licked port ia also a reward port
