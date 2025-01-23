@@ -160,20 +160,31 @@ class ExperimentClass:
 
     def setup(self, logger, BehaviorClass, session_params):
         self.in_operation = False
+
         self.conditions, self.iter, self.quit, self.curr_cond = [], [], False, dict()
+
         self.block_h, self.stims = [], dict()
+
         self.curr_trial, self.cur_block_sz = 0, 0
-        if "setup_conf_idx" not in self.default_key:
+
+        if "setup_conf_idx" not in session_params:
             self.default_key["setup_conf_idx"] = 0
+            session_params["setup_conf_idx"] = 0
+            log.info('setup_conf_idx is not defined 0 will be used as default.')
+
         self.params = {**self.default_key, **session_params}
+
         self.logger = logger
-        self.logger.log_session({**self.default_key, **session_params, 'experiment_type': self.cond_tables[0]},
+
+        self.logger.log_session(session_params,
+                                experiment_type=self.cond_tables[0],
                                 log_task=True)
+
         self.beh = BehaviorClass()
         self.beh.setup(self)
         self.interface = self.beh.interface
         self.session_timer = Timer()
-        np.random.seed(0)   # fix random seed for repeatability, it can be overidden in the task file
+        np.random.seed(0)   # fix random seed, it can be overidden in the task file
 
     def start(self):
         states = dict()

@@ -445,7 +445,10 @@ class Logger:
         ).fetch("session")
         return 0 if np.size(last_sessions) == 0 else np.max(last_sessions)
 
-    def log_session(self, params: Dict[str, Any], log_task: bool = False) -> None:
+    def log_session(self,
+                    session_params: Dict[str, Any],
+                    experiment_type: str,
+                    log_task: bool = False) -> None:
         """
         Logs a session with the given parameters and optionally logs the task.
 
@@ -454,21 +457,21 @@ class Logger:
             log_task (bool): Whether to log the task information.
         """
         # Initializes session parameters and logs the session start.
-        self._init_session_params(params)
+        self._init_session_params(session_params.get("user_name", "bot"), experiment_type)
 
         # Save the task file, name and the git_hash in the database.
         if log_task:
             self._log_task_details()
 
         # update the configuration tables
-        self.log_session_configs(params)
+        self.log_session_configs(session_params["setup_conf_idx"])
 
         #  Init the informations(e.g. trial_id=0, session) in control table
-        self._init_control_table(params)
+        self._init_control_table(session_params)
 
         self.logger_timer.start()  # Start session time
 
-    def _init_session_params(self, params: Dict[str, Any]) -> None:
+    def _init_session_params(self, user_name: str, experiment_type: str) -> None:
         """
         Initializes session parameters and logs the session start.
 
@@ -489,10 +492,13 @@ class Logger:
                           "trial_idx": 0,
                           "session": self._get_last_session() + 1}
         log.info("\n%s\n%s\n%s", "#" * 70, self.trial_key, "#" * 70)
-        # Creates a session key by merging trial key with session parameters.
-        # TODO: Read the user name from the Control Table
-        session_key = {**self.trial_key, **params, "setup": self.setup,
-                       "user_name": params.get("user_name", "bot")}
+
+        session_key = {"animal_id": self.get_setup_info("animal_id"),
+                       "session": self._get_last_session() + 1,
+                       "user_name": user_name,
+                       "setup": self.setup,
+                       "experiment_type": experiment_type
+                       }
         log.info("session_key:\n%s", pprint.pformat(session_key))
         # Logs the new session id to the database
         self.put(
@@ -517,7 +523,7 @@ class Logger:
                                                                                   type)]
         return [outer_class.__name__+'.'+cls.__name__ for cls in inner_classes]
 
-    def log_session_configs(self, params) -> None:
+    def log_session_configs(self, setup_conf_idx: int) -> None:
         """
         Logs the parameters of a session into the appropriate schema tables.
 
@@ -558,10 +564,10 @@ class Logger:
 
         # update the sub tables of Configuration table
         for schema, config_tables in conf_table_schema.items():
-            self._log_sub_tables_config(params, config_tables, schema)
+            self._log_sub_tables_config(setup_conf_idx, config_tables, schema)
 
     def _log_sub_tables_config(
-        self, params: Dict[str, Any], config_tables: List, schema: str
+        self, setup_conf_idx: int, config_tables: List, schema: str
     ) -> None:
         """
         This method iterates over a list of configuration tables, retrieves the
@@ -576,7 +582,7 @@ class Logger:
         for config_table in config_tables:
             configuration_data = (
                 getattr(interface.SetupConfiguration, config_table.split('.')[1])
-                & {"setup_conf_idx": params["setup_conf_idx"]}
+                & {"setup_conf_idx": setup_conf_idx}
             ).fetch(as_dict=True)
             # put the configuration data in the configuration table
             # it can be a list of configurations (e.g have two ports with different ids)
@@ -690,7 +696,7 @@ class Logger:
 
     def _log_task_details(self) -> None:
         """
-        Save the task file,name and the git_hash in the database.
+        Save the task file, name and git_hash in the database.
         """
         try:
             git_hash = (
