@@ -168,11 +168,11 @@ class ExperimentClass:
         self.curr_trial, self.cur_block_sz = 0, 0
 
         if "setup_conf_idx" not in session_params:
-            self.default_key["setup_conf_idx"] = 0
             session_params["setup_conf_idx"] = 0
             log.info('setup_conf_idx is not defined 0 will be used as default.')
 
-        self.params = {**self.default_key, **session_params}
+        self.params = {**self.default_key,
+                       "setup_conf_idx": session_params["setup_conf_idx"]}
 
         self.logger = logger
 
