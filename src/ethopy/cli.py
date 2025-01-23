@@ -55,3 +55,7 @@ def main(task_path: Path, task_id: int, debug: bool, log_console: bool) -> None:
     except (FileNotFoundError, ValueError) as e:
         logging.error(str(e))
         raise click.BadParameter(str(e))
+
+
+if __name__ == "__main__":
+    main()
