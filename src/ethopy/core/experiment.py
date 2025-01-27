@@ -158,7 +158,7 @@ class ExperimentClass:
     required_fields, default_key, conditions, cond_tables, quit = [], dict(), [], [], False
     in_operation, cur_block_sz = False, 0
 
-    def setup(self, logger, BehaviorClass, session_params):
+    def setup(self, logger, behavior_class, session_params):
         self.in_operation = False
 
         self.conditions, self.iter, self.quit, self.curr_cond = [], [], False, dict()
@@ -180,7 +180,7 @@ class ExperimentClass:
                                 experiment_type=self.cond_tables[0],
                                 log_task=True)
 
-        self.beh = BehaviorClass()
+        self.beh = behavior_class()
         self.beh.setup(self)
         self.interface = self.beh.interface
         self.session_timer = Timer()
