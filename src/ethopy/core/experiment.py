@@ -151,7 +151,7 @@ class StateMachine:
 
 class ExperimentClass:
     """  Parent Experiment """
-    curr_state, curr_trial, total_reward, cur_block, flip_count, states = '', 0, 0, 0, 0, dict()
+    curr_trial, total_reward, cur_block, flip_count, states = 0, 0, 0, 0, dict()
     stim, sync = False, False
     un_choices, blocks, iter, curr_cond, block_h, stims, response = [], [], [], dict(), [], dict(), []
     resp_ready = False
