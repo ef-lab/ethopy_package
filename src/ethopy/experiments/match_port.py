@@ -17,8 +17,8 @@ class Condition(dj.Manual):
         min_reward=500              : smallint
         hydrate_delay=0             : int # delay hydration in minutes
 
-        trial_selection='staircase' : enum('fixed','block','random','staircase', 'biased') 
-        difficulty                  : int   
+        trial_selection='staircase' : enum('fixed','block','random','staircase', 'biased')
+        difficulty                  : int
         bias_window=5               : smallint
         staircase_window=20         : smallint
         stair_up=0.7                : float
@@ -27,7 +27,7 @@ class Condition(dj.Manual):
         incremental_punishment=1    : tinyint(1)
         next_up=0                   : tinyint
         next_down=0                 : tinyint
-        metric='accuracy'           : enum('accuracy','dprime') 
+        metric='accuracy'           : enum('accuracy','dprime')
         antibias=1                  : tinyint(1)
 
         init_ready                  : int
@@ -36,18 +36,18 @@ class Condition(dj.Manual):
         trial_duration              : int
         reward_duration             : int
         punish_duration             : int
-        abort_duration              : int 
+        abort_duration              : int
         """
 
 
 class Experiment(State, ExperimentClass):
     cond_tables = ['MatchPort']
     required_fields = ['difficulty']
-    default_key = {'trial_selection': 'staircase',
-                   'max_reward': 3000,
+    default_key = {'max_reward': 3000,
                    'min_reward': 500,
                    'hydrate_delay': 0,
 
+                   'trial_selection': 'staircase',
                    'init_ready': 0,
                    'trial_ready': 0,
                    'intertrial_duration': 1000,
@@ -116,9 +116,9 @@ class Trial(Experiment):
             return 'Abort'
         elif self.response and not self.beh.is_correct():  # response to incorrect probe
             return 'Punish'
-        elif self.response and self.beh.is_correct():      # response to correct probe
+        elif self.response and self.beh.is_correct():  # response to correct probe
             return 'Reward'
-        elif self.state_timer.elapsed_time() > self.stim.curr_cond['trial_duration']:      # timed out
+        elif self.state_timer.elapsed_time() > self.stim.curr_cond['trial_duration']:  # timed out
             return 'Abort'
         elif self.is_stopped():
             return 'Exit'
@@ -187,7 +187,7 @@ class Punish(Experiment):
         self.stim.fill()
 
 
-class InterTrial(Experiment):        
+class InterTrial(Experiment):
     def run(self):
         if self.beh.is_licking() and self.curr_cond['noresponse_intertrial']:
             self.state_timer.start()
@@ -203,7 +203,7 @@ class InterTrial(Experiment):
             return 'PreTrial'
         else:
             return 'InterTrial'
-        
+
     def exit(self):
         self.stim.fill()
 
