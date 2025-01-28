@@ -18,6 +18,7 @@ import logging
 import time
 from dataclasses import dataclass, field
 from typing import Any, Dict, Optional
+from importlib import import_module
 
 import datajoint as dj
 import numpy as np
@@ -151,40 +152,79 @@ class StateMachine:
 
 class ExperimentClass:
     """  Parent Experiment """
-    curr_trial, total_reward, cur_block, flip_count, states = 0, 0, 0, 0, dict()
-    stim, sync = False, False
-    un_choices, blocks, iter, curr_cond, block_h, stims, response = [], [], [], dict(), [], dict(), []
+    curr_trial = 0  # the current trial number in the session
+    cur_block = 0  # the current block number in the session
+    states = {}  # dictionary wiht all states of the experiment
+    stims = {}  # dictionary with all stimulus classes
+    stim = False   # the current condition stimulus class
+    sync = False  # a boolean to make synchronization available
+    un_choices = []
+    blocks = []
+    iter = []
+    curr_cond = {}
+    block_h = []
+    response = []
     resp_ready = False
-    required_fields, default_key, conditions, cond_tables, quit = [], dict(), [], [], False
-    in_operation, cur_block_sz = False, 0
+    required_fields = []
+    default_key = {}
+    conditions = []
+    cond_tables = []
+    quit = False
+    in_operation = False
+    cur_block_sz = 0
+    params = None
+    logger = None
+    conditions = []
+    iter = []
+    setup_conf_idx = 0
+    interface = None
+    beh = None
 
     def setup(self, logger, behavior_class, session_params):
         self.in_operation = False
-
-        self.conditions, self.iter, self.quit, self.curr_cond = [], [], False, dict()
-
-        self.block_h, self.stims = [], dict()
-
-        self.curr_trial, self.cur_block_sz = 0, 0
-
-        if "setup_conf_idx" not in session_params:
-            session_params["setup_conf_idx"] = 0
-            log.info('setup_conf_idx is not defined 0 will be used as default.')
+        self.conditions = []
+        self.iter = []
+        self.quit = False
+        self.curr_cond = {}
+        self.block_h = []
+        self.stims = dict()
+        self.curr_trial = 0
+        self.cur_block_sz = 0
+        self.setup_conf_idx = session_params.get('setup_conf_idx', 0)
+        session_params["setup_conf_idx"] = self.setup_conf_idx
 
         self.params = {**self.default_key,
-                       "setup_conf_idx": session_params["setup_conf_idx"]}
+                       "setup_conf_idx": self.setup_conf_idx}
 
         self.logger = logger
+        self.beh = behavior_class()
+        self.interface = self._interface_setup(self.beh,
+                                               self.logger,
+                                               self.setup_conf_idx)
+        self.interface.load_calibration()
+        self.beh.setup(self)
 
         self.logger.log_session(session_params,
                                 experiment_type=self.cond_tables[0],
                                 log_task=True)
 
-        self.beh = behavior_class()
-        self.beh.setup(self)
-        self.interface = self.beh.interface
         self.session_timer = Timer()
+
         np.random.seed(0)   # fix random seed, it can be overidden in the task file
+
+    def _interface_setup(self, beh, logger, setup_conf_idx):
+        interface_module = logger.get(
+            schema="interface",
+            table="SetupConfiguration",
+            fields=["interface"],
+            key={"setup_conf_idx": setup_conf_idx},
+        )[0]
+        interface = getattr(
+            import_module(f'ethopy.interfaces.{interface_module}'),
+            interface_module
+            )
+
+        return interface(exp=self, beh=beh)
 
     def start(self):
         states = dict()
@@ -226,11 +266,11 @@ class ExperimentClass:
             conditions = self.stims[stim_name].make_conditions(factorize(conditions))
         else:
             cond = {}
-            for i in range(len(stim_periods)):
-                cond[stim_periods[i]] = self.stims[stim_name].make_conditions(
-                    conditions=factorize(conditions[stim_periods[i]])
+            for stim_period in stim_periods:
+                cond[stim_period] = self.stims[stim_name].make_conditions(
+                    conditions=factorize(conditions[stim_period])
                 )
-                conditions[stim_periods[i]] = []
+                conditions[stim_period] = []
             all_cond = [cond[stim_periods[i]] for i in range(len(stim_periods))]
             for comb in list(itertools.product(*all_cond)):
                 for i in range(len(stim_periods)):

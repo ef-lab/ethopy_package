@@ -9,7 +9,6 @@ interfaces with hardware components and maintains experiment state.
 from dataclasses import dataclass, fields
 from dataclasses import field as datafield
 from datetime import datetime, timedelta
-from importlib import import_module
 from queue import Queue
 from typing import Any, Dict, List, Optional
 
@@ -70,6 +69,8 @@ class Behavior:
         self.params = exp.params
         self.exp = exp
         self.logger = exp.logger
+        self.interface = exp.interface
+
         self.choices = np.array(np.empty(0))
         self.choice_history = []  # History term for bias calculation
         self.reward_history = []  # History term for performance calculation
@@ -78,18 +79,8 @@ class Behavior:
         self.response, self.last_lick = BehActivity(), BehActivity()
         self.response_queue = Queue(maxsize=4)
         self.logging = True
-        interface_module = self.logger.get(
-            schema="interface",
-            table="SetupConfiguration",
-            fields=["interface"],
-            key={"setup_conf_idx": exp.params["setup_conf_idx"]},
-        )[0]
-        interface = getattr(
-            import_module(f'ethopy.interfaces.{interface_module}'),
-            interface_module
-            )
-        self.interface = interface(exp=exp, beh=self)
-        self.interface.load_calibration()
+
+
 
     def is_ready(self, duration, since=0):
         return True, 0
