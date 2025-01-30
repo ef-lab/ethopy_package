@@ -491,7 +491,6 @@ class Logger:
         self.trial_key = {"animal_id": self.get_setup_info("animal_id"),
                           "trial_idx": 0,
                           "session": self._get_last_session() + 1}
-        log.info("\n%s\n%s\n%s", "#" * 70, self.trial_key, "#" * 70)
 
         session_key = {"animal_id": self.get_setup_info("animal_id"),
                        "session": self._get_last_session() + 1,
@@ -499,7 +498,22 @@ class Logger:
                        "setup": self.setup,
                        "experiment_type": experiment_type
                        }
-        log.info("session_key:\n%s", pprint.pformat(session_key))
+
+        # Convert np.int64 values to native Python int
+        session_key_cleaned = {
+            k: int(v) if isinstance(v, np.integer) else v
+            for k, v in session_key.items()
+        }
+        log.info(
+            "\n%s%s%s\n%s\n%s",
+            "#" * 22,
+            " Basic Session informations ",
+            "#"*22,
+            "\n".join(f"{k}: {v}" for k, v in session_key_cleaned.items()),
+            "#" * 71,
+        )
+
+        
         # Logs the new session id to the database
         self.put(
             table="Session", tuple=session_key, priority=1, validate=True, block=True
@@ -673,7 +687,7 @@ class Logger:
             caller = inspect.stack()[1]
             caller_info = (f"Function called by {caller.function} "
                            f"in {caller.filename} at line {caller.lineno}")
-            log.info("Update status is set %s\n%s", info['status'], caller_info)
+            log.debug("Update status is set %s\n%s", info['status'], caller_info)
 
         self.setup_info = {
             **(experiment.Control() & {**{"setup": self.setup}, **key}).fetch1(),
