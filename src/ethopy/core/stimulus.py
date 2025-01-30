@@ -169,7 +169,7 @@ class Stimulus:
     def make_conditions(
         self, conditions: List[Dict[str, Any]] = None
     ) -> List[Dict[str, Any]]:
-        """Generate and store stimulus condition hashes.
+        """Generate and store stimulus conditions.
 
         Args:
             conditions: List of condition dictionaries to process.
@@ -180,9 +180,12 @@ class Stimulus:
         Raises:
             AssertionError: If required fields are missing from any condition.
         """
+
         for cond in conditions:
-            assert np.all([field in cond for field in self.required_fields])
+            missing_fields = [field for field in self.required_fields if field not in cond]
+            assert not missing_fields, f"Missing Stimulus required fields: {missing_fields}"
             cond.update({**self.default_key, **cond})
+
         conditions = self.exp.log_conditions(
             conditions,
             schema="stimulus",
