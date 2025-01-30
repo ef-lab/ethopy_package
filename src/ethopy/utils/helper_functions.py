@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from getpass import getpass
 from itertools import product
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, List, Tuple
 
 import datajoint as dj
 import numpy as np
@@ -52,6 +52,7 @@ class FillColors:
             A dictionary_values object containing all color values.
         """
         return self.__dict__.values()
+
 
 def create_virtual_modules(schemata, create_tables=True,  create_schema=True):
     try:
@@ -99,7 +100,7 @@ def flat2curve(I, dist, mon_size, **kwargs):
 
     # Shift the origin to the closest point of the image.
     nrows, ncols = np.shape(I)
-    [yi, xi] = np.meshgrid(np.linspace(1, ncols, ncols),np.linspace(1, nrows, nrows))
+    [yi, xi] = np.meshgrid(np.linspace(1, ncols, ncols), np.linspace(1, nrows, nrows))
     yt = yi - ncols/2 + params['center_y']*nrows - 0.5
     xt = xi - nrows/2 - params['center_x']*nrows - 0.5
 
@@ -133,21 +134,42 @@ def reverse_lookup(dictionary, target):
     return next(key for key, value in dictionary.items() if value == target)
 
 
-def factorize(cond):
-    values = list(cond.values())
-    for i in range(0, len(values)):
-        if not isinstance(values[i], list):
-            values[i] = [values[i]]
+def factorize(cond: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """
+    Factorizes conditions into individual combinations.
 
-    conds = list(dict(zip(cond, x)) for x in product(*values))
-    for icond, cond in enumerate(conds):
-        values = list(cond.values())
-        names = list(cond.keys())
-        for ivalue, value in enumerate(values):
-            if type(value) is list:
-                value = tuple(value)
-            cond.update({names[ivalue]: value})
-        conds[icond] = cond
+    This function takes a dictionary of conditions and generates all possible combinations
+    of conditions, where each combination consists of one value for each key in the input
+    dictionary.
+
+    Args:
+    - cond (Dict[str, Any]): A dictionary representing conditions.
+
+    Returns:
+    - List[Dict[str, Any]]: List of factorized conditions.
+
+    Example:
+    Suppose we have the following conditions:
+    cond = {'param1': [1, 2], 'param2': [3, 4], 'param3': 'value', 'param4': (5, 6)}
+    This function will generate the following combinations:
+    [{'param1': 1, 'param2': 3, 'param3': 'value', 'param4': (5, 6)},
+     {'param1': 1, 'param2': 4, 'param3': 'value', 'param4': (5, 6)},
+     {'param1': 2, 'param2': 3, 'param3': 'value', 'param4': (5, 6)},
+     {'param1': 2, 'param2': 4, 'param3': 'value', 'param4': (5, 6)}]
+    """
+    # Ensure all values are wrapped in lists
+    values = [v if isinstance(v, list) else [v] for v in cond.values()]
+
+    # Generate all combinations of conditions
+    conds = []
+    for combination in product(*values):
+        # Create a dictionary representing each combination
+        combined_cond = dict(zip(cond.keys(), combination))
+        # Convert lists to tuples for immutability
+        combined_cond = {
+            k: tuple(v) if isinstance(v, list) else v for k, v in combined_cond.items()
+        }
+        conds.append(combined_cond)
 
     return conds
 
