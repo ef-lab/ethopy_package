@@ -80,8 +80,6 @@ class Behavior:
         self.response_queue = Queue(maxsize=4)
         self.logging = True
 
-
-
     def is_ready(self, duration, since=0):
         return True, 0
 
@@ -223,7 +221,8 @@ class Behavior:
         """
         if self.cond_tables:
             for cond in conditions:
-                assert np.all([field in cond for field in self.required_fields])
+                missing_fields = [field for field in self.required_fields if field not in cond]
+                assert not missing_fields, f"Missing behavior required fields: {missing_fields}"
                 cond.update(
                     {**self.default_key, **cond, "behavior_class": self.cond_tables[0]}
                 )
