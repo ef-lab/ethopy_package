@@ -48,7 +48,7 @@ class Grating(Stimulus, dj.Manual):
         -> Grating
         file_name                : varchar(256)
         ---
-        clip                     : longblob     
+        clip                     : longblob
         """
 
     def init(self, exp):
