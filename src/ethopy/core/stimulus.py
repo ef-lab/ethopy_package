@@ -189,7 +189,7 @@ class Stimulus:
         conditions = self.exp.log_conditions(
             conditions,
             schema="stimulus",
-            hsh="stim_hash",
+            hash_field="stim_hash",
             condition_tables=["StimCondition"] + self.cond_tables,
         )
         self.conditions += conditions

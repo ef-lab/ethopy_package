@@ -17,8 +17,8 @@ import itertools
 import logging
 import time
 from dataclasses import dataclass, field
-from typing import Any, Dict, Optional
 from importlib import import_module
+from typing import Any, Dict, List, Optional
 
 import datajoint as dj
 import numpy as np
@@ -326,36 +326,97 @@ class ExperimentClass:
         if not self.in_operation:
             self.in_operation = True
 
-    def name(self): return type(self).__name__
+    def name(self):
+        return type(self).__name__
 
-    def log_conditions(self, conditions, condition_tables=['Condition'],
-                       schema='experiment', hsh='cond_hash', priority=2):
-        fields_key, hash_dict = list(), dict()
-        for ctable in condition_tables:
-            fields_key += list(self.logger.get_table_keys(schema, ctable))
-        for cond in conditions:
-            insert_priority = priority
+    def log_conditions(
+        self,
+        conditions,
+        condition_tables=None,
+        schema="experiment",
+        hash_field="cond_hash",
+        priority=2,
+    ) -> List[Dict]:
+        """
+        Logs experimental conditions to specified tables with hashes tracking.
+
+        Args:
+            logger: Database logger instance
+            conditions: List of condition dictionaries to log
+            condition_tables: List of table names to log to
+            schema: Database schema name
+            hash_field: Name of the hash field
+            priority: for the insertion order of the logger
+
+        Returns:
+            List of processed conditions with added hashes
+        """
+        if not conditions:
+            return []
+
+        if condition_tables is None:
+            condition_tables = ["Condition"]
+
+        # get all fields from condition tables except hash
+        fields_key = {
+            key
+            for ctable in condition_tables
+            for key in self.logger.get_table_keys(schema, ctable)
+        }
+        fields_key.discard(hash_field)
+
+        processed_conditions = conditions.copy()
+        for condition in processed_conditions:
             # find all dependant fields and generate hash
-            key = {sel_key: cond[sel_key] for sel_key in fields_key if sel_key != hsh and sel_key in cond}
-            cond.update({hsh: make_hash(key)})
-            hash_dict[cond[hsh]] = cond[hsh]
-            for ctable in condition_tables:  # insert dependant condition tables
-                core = [field for field in self.logger.get_table_keys(schema,
-                                                                      ctable,
-                                                                      key_type='primary') if field != hsh]
-                fields = [field for field in self.logger.get_table_keys(schema, ctable)]
-                if not np.all([np.any(np.array(k) == list(cond.keys())) for k in fields]):
-                    if self.logger.manual_run:
-                        log.info(f"skipping {ctable}")
-                    continue  # only insert complete tuples
-                if core and hasattr(cond[core[0]], '__iter__'):
-                    for idx, pcond in enumerate(cond[core[0]]):
-                        cond_key = {k: cond[k] if type(cond[k]) in [int, float, str] else cond[k][idx] for k in fields}
-                        self.logger.put(table=ctable, tuple=cond_key, schema=schema, priority=insert_priority)
+            key = {k: condition[k] for k in fields_key if k in condition}
+            condition.update({hash_field: make_hash(key)})
+
+            # insert dependant condition on each table tables
+            for ctable in condition_tables:
+                # Get table metadata
+                fields = set(self.logger.get_table_keys(schema, ctable))
+                primary_keys = set(
+                    self.logger.get_table_keys(schema, ctable, key_type="primary")
+                )
+                core = [key for key in primary_keys if key != hash_field]
+
+                # Validate condition has all required fields
+                missing_keys = set(fields) - set(condition.keys())
+                if missing_keys:
+                    log.warning(f"Skipping {ctable}, Missing keys:{missing_keys}")
+                    continue
+
+                # check if there is a primary key which is not hash and it is iterable
+                if core and hasattr(condition[core[0]], "__iter__"):
+                    # TODO make a function for this and clarify it
+                    # If any of the primary keys is iterable all the rest should be.
+                    # The first element of the iterable will be matched with the first
+                    # element of the rest of the keys
+                    for idx, _ in enumerate(condition[core[0]]):
+                        cond_key = {
+                            k: condition[k]
+                            if isinstance(condition[k], (int, float, str))
+                            else condition[k][idx]
+                            for k in fields
+                        }
+
+                        self.logger.put(
+                            table=ctable,
+                            tuple=cond_key,
+                            schema=schema,
+                            priority=priority,
+                        )
+
                 else:
-                    self.logger.put(table=ctable, tuple=cond.copy(), schema=schema, priority=insert_priority)
-                insert_priority += 1
-        return conditions
+                    self.logger.put(
+                        table=ctable, tuple=condition, schema=schema, priority=priority
+                    )
+
+                # Increment the priority for each subsequent table
+                # to ensure they are inserted in the correct order
+                priority += 1
+
+        return processed_conditions
 
     def _anti_bias(self, choice_h, un_choices):
         choice_h = np.array([make_hash(c) for c in choice_h[-self.curr_cond['bias_window']:]])

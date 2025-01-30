@@ -230,7 +230,7 @@ class Behavior:
                 conditions=conditions,
                 condition_tables=["BehCondition"] + self.cond_tables,
                 schema="behavior",
-                hsh="beh_hash",
+                hash_field="beh_hash",
             )
         else:
             for cond in conditions:
