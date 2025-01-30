@@ -232,10 +232,9 @@ class Behavior:
                 schema="behavior",
                 hash_field="beh_hash",
             )
-        else:
-            for cond in conditions:
-                cond.update({**self.default_key, **cond, 'behavior_class': 'None'})
-            return dict(conditions=conditions, condition_tables=[], schema='behavior')
+        for cond in conditions:
+            cond.update({**self.default_key, **cond, 'behavior_class': 'None'})
+        return dict(conditions=conditions, condition_tables=[], schema='behavior')
 
     def prepare(self, condition: Dict[str, Any]) -> None:
         """
