@@ -9,7 +9,6 @@ import os
 from typing import Any, Dict, List, Optional
 
 import datajoint as dj
-import numpy as np
 
 from ethopy.core.logger import (  # pylint: disable=W0611, # noqa: F401
     experiment,
@@ -48,7 +47,6 @@ class Stimulus:
         self.required_fields: List[str] = []
         self.default_key: Dict[str, Any] = {}
         self.curr_cond: Dict[str, Any] = {}
-        self.conditions: List[Dict[str, Any]] = []
         self.timer: Timer = Timer()
         self.period: str = 'Trial'
         self.in_operation: bool = False
@@ -180,19 +178,18 @@ class Stimulus:
         Raises:
             AssertionError: If required fields are missing from any condition.
         """
-
+        # check for any missing field from the required fields and add the default keys
         for cond in conditions:
             missing_fields = [field for field in self.required_fields if field not in cond]
             assert not missing_fields, f"Missing Stimulus required fields: {missing_fields}"
             cond.update({**self.default_key, **cond})
-
+        # log stim conditions
         conditions = self.exp.log_conditions(
             conditions,
             schema="stimulus",
             hash_field="stim_hash",
             condition_tables=["StimCondition"] + self.cond_tables,
         )
-        self.conditions += conditions
         return conditions
 
     def name(self):
