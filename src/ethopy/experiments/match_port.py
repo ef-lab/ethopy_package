@@ -54,9 +54,10 @@ class Experiment(State, ExperimentClass):
                    'trial_duration': 1000,
                    'reward_duration': 2000,
                    'punish_duration': 1000,
-                   'abort_duration': 0}
+                   'abort_duration': 0,
+                   **ExperimentClass.Block().dict()}
 
-    def entry(self):  # updates stateMachine from Database entry - override for timing critical transitions
+    def entry(self):
         self.logger.curr_state = self.name()
         self.start_time = self.logger.log('Trial.StateOnset', {'state': self.name()})
         self.resp_ready = False
@@ -81,15 +82,20 @@ class PreTrial(Experiment):
             self.stim.start_stim()
 
     def run(self):
-        if not self.is_stopped() and self.beh.is_ready(self.curr_cond['init_ready'], self.start_time):
+        if not self.is_stopped() and self.beh.is_ready(self.curr_cond['init_ready'],
+                                                       self.start_time):
             self.resp_ready = True
 
     def next(self):
         is_sleep_time = self.beh.is_sleep_time()
         if self.is_stopped():
             return 'Exit'
-        elif is_sleep_time and not self.beh.is_hydrated(self.params['min_reward']) and self.curr_trial > 1:
-            return 'Hydrate'
+        elif (
+            is_sleep_time
+            and not self.beh.is_hydrated(self.params["min_reward"])
+            and self.curr_trial > 1
+        ):
+            return "Hydrate"
         elif is_sleep_time:
             return 'Offtime'
         elif self.resp_ready:
@@ -107,7 +113,10 @@ class Trial(Experiment):
     def run(self):
         self.stim.present()  # Start Stimulus
         self.response = self.beh.get_response(self.start_time)
-        if self.beh.is_ready(self.stim.curr_cond['trial_ready'], self.start_time) and not self.resp_ready:
+        if (
+            self.beh.is_ready(self.stim.curr_cond['trial_ready'], self.start_time)
+            and not self.resp_ready
+        ):
             self.resp_ready = True
             self.stim.ready_stim()
 
@@ -118,7 +127,7 @@ class Trial(Experiment):
             return 'Punish'
         elif self.response and self.beh.is_correct():  # response to correct probe
             return 'Reward'
-        elif self.state_timer.elapsed_time() > self.stim.curr_cond['trial_duration']:  # timed out
+        elif self.state_timer.elapsed_time() > self.stim.curr_cond['trial_duration']:
             return 'Abort'
         elif self.is_stopped():
             return 'Exit'
@@ -210,7 +219,10 @@ class InterTrial(Experiment):
 
 class Hydrate(Experiment):
     def run(self):
-        if self.beh.get_response() and self.state_timer.elapsed_time() > self.params['hydrate_delay']*60*1000:
+        if (
+            self.beh.get_response()
+            and self.state_timer.elapsed_time() > self.params['hydrate_delay']*60*1000
+        ):
             self.stim.ready_stim()
             self.beh.reward()
             time.sleep(1)
@@ -236,11 +248,11 @@ class Offtime(Experiment):
         time.sleep(1)
 
     def next(self):
-        if self.is_stopped():  # if wake up then update session
+        if self.is_stopped():
             return 'Exit'
         elif self.logger.setup_status == 'wakeup' and not self.beh.is_sleep_time():
             return 'PreTrial'
-        elif self.logger.setup_status == 'sleeping' and not self.beh.is_sleep_time():  # if wake up then update session
+        elif self.logger.setup_status == 'sleeping' and not self.beh.is_sleep_time():
             return 'Exit'
         elif not self.beh.is_hydrated() and not self.beh.is_sleep_time():
             return 'Exit'
