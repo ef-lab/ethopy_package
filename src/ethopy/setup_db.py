@@ -14,7 +14,7 @@ from typing import Optional, Tuple
 import click
 import datajoint as dj
 
-from ethopy.utils.logging import setup_logging
+from ethopy.utils.ethopy_logging import setup_logging
 
 setup_logging()
 
