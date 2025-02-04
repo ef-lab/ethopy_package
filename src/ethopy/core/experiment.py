@@ -341,12 +341,11 @@ class ExperimentClass:
         Logs experimental conditions to specified tables with hashes tracking.
 
         Args:
-            logger: Database logger instance
-            conditions: List of condition dictionaries to log
-            condition_tables: List of table names to log to
-            schema: Database schema name
-            hash_field: Name of the hash field
-            priority: for the insertion order of the logger
+            conditions (List): List of condition dictionaries to log
+            condition_tables (List): List of table names to log to
+            schema (db.shcema): Database schema name
+            hash_field (str): Name of the hash field
+            priority (int): for the insertion order of the logger
 
         Returns:
             List of processed conditions with added hashes
