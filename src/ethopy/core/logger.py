@@ -275,7 +275,7 @@ class Logger:
         if an exception is raised within the block.
 
         Args:
-            lock: The lock object to acquire and release.
+            lock (threading.Lock): The lock object to acquire and release.
         """
         lock.acquire()
         try:
@@ -665,8 +665,7 @@ class Logger:
 
         Args:
             info (dict): The information to update the setup with.
-            key (dict, optional): Additional keys to fetch the setup information with.
-            Defaults to an empty dict.
+            key (dict, optional): Additional keys to fetch the setup information with. Defaults to None.
 
         Side Effects:
             Updates the setup_info attribute with the new setup information.
@@ -759,7 +758,7 @@ class Logger:
             **kwargs: Additional keyword arguments.
 
         Returns:
-            The fetched data.
+            (numpy.ndarray): The fetched data.
         """
         if key is None:
             key = dict()
