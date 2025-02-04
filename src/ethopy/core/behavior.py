@@ -125,10 +125,8 @@ class Behavior:
 
         Args:
             since (int, optional): Time reference point in milliseconds. Defaults to 0.
-            reward (bool, optional): Whether to only count licks at reward ports.
-            Defaults to False.
-            clear (bool, optional): Whether to reset last_lick after checking.
-            Defaults to True.
+            reward (bool, optional): Whether to only count licks at reward ports. Defaults to False.
+            clear (bool, optional): Whether to reset last_lick after checking. Defaults to True.
 
         Returns:
             int: Port number of valid lick (0 if no valid lick detected)
@@ -171,7 +169,7 @@ class Behavior:
             activity_key (dict): Dictionary containing activity parameters
 
         Returns:
-            int:Timestamp of the logged activity in milliseconds
+            (int):Timestamp of the logged activity in milliseconds
         """
         activity = BehActivity(**activity_key)
         # if activity.time is not set, set it to the current time
