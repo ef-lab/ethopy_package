@@ -45,4 +45,5 @@ if __name__ == "__main__":
     parameters_gr = get_parameters(Grating)
     parameters_exp = get_parameters(Experiment)
     parameters_mp = get_parameters(MultiPort)
-    print(format_params_print({**parameters_gr, **parameters_exp, **parameters_mp}))
+    print("All parameters needed for Grating, MatchPort and MultiPort:\n",
+          format_params_print({**parameters_gr, **parameters_exp, **parameters_mp}))
