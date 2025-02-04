@@ -112,7 +112,7 @@ class Trial(Experiment):
 
     def run(self):
         self.stim.present()  # Start Stimulus
-        self.response = self.beh.get_response(self.start_time)
+        self.has_responded = self.beh.get_response(self.start_time)
         if (
             self.beh.is_ready(self.stim.curr_cond['trial_ready'], self.start_time)
             and not self.resp_ready
@@ -123,9 +123,9 @@ class Trial(Experiment):
     def next(self):
         if not self.resp_ready and self.beh.is_off_proximity():  # did not wait
             return 'Abort'
-        elif self.response and not self.beh.is_correct():  # response to incorrect probe
+        elif self.has_responded and not self.beh.is_correct():  # response to incorrect probe
             return 'Punish'
-        elif self.response and self.beh.is_correct():  # response to correct probe
+        elif self.has_responded and self.beh.is_correct():  # response to correct probe
             return 'Reward'
         elif self.state_timer.elapsed_time() > self.stim.curr_cond['trial_duration']:
             return 'Abort'

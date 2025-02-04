@@ -163,7 +163,7 @@ class ExperimentClass:
     iter = []
     curr_cond = {}
     block_h = []
-    response = []
+    has_responded = False
     resp_ready = False
     required_fields = []
     default_key = {}
