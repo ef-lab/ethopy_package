@@ -64,7 +64,7 @@ class Stimulus:
         """Initialize stimulus with experiment object and setup screen properties.
 
         Args:
-            exp: Experiment object containing logger and interface components.
+            exp (core.experiment): Experiment object containing logger and interface components.
         """
         self.logger = exp.logger
         self.exp = exp
@@ -196,7 +196,7 @@ class Stimulus:
         """Get the name of the stimulus class.
 
         Returns:
-            Name of the current stimulus class.
+            (str):Name of the current stimulus class.
         """
         return type(self).__name__
 
