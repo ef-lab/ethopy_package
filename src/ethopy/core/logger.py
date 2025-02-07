@@ -3,7 +3,6 @@ import inspect
 import logging
 import os
 import platform
-import pprint
 import socket
 import subprocess
 import threading
