@@ -1,12 +1,13 @@
 [project]
 name = "ethopy"
 dynamic = ["version"]
-description = "Python Boilerplate contains all the boilerplate you need to create a Python package."
+description = "State control system for automated, high-throughput behavioral training."
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT License"}
 authors = [
-    {name = "Alex Evangelou", email = "admin@example.com"},
+    {name = "Alex Evangelou", email = "evangelou.alexandr@gmail.com"},
+    {name = "Emmanouil Froudarakis", email = "admin@example.com"},
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -35,7 +36,8 @@ dependencies = [
     "scipy",
     "scikit-learn",
     "pyopengl",
-    "imageio-ffmpeg"
+    "imageio-ffmpeg",
+    "pyfiglet",
 ]
 
 [project.optional-dependencies]
@@ -77,15 +79,6 @@ ethopy-setup-schema = "ethopy.setup_db:createschema"
 packages = ["src/ethopy"]
 only-include = ["src/ethopy"]
 
-[tool.black]
-line-length = 88
-target-version = ["py38", "py39", "py310", "py311"]
-
-[tool.isort]
-profile = "black"
-line_length = 88
-multi_line_output = 3
-
 [tool.mypy]
 python_version = "3.8"
 strict = true
@@ -95,9 +88,22 @@ disallow_untyped_defs = true
 
 [tool.ruff]
 line-length = 88
-target-version = "py38"
-select = ["E", "F", "I", "N", "W", "UP", "B", "A"]
-ignore = ["B008"]
+select = ["E", "F", "W", "I", "ANN", "D", "S"]
+ignore = ["S113", "D101", "D106"]
+fixable = ["F401", "F841", "E", "W", "I"]
+target-version = "py310"
+src = ["src", "tests"]
+exclude = [".venv", "migrations"]
+
+[tool.ruff.isort]
+known-first-party = ["ethopy"]
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "double"
+
+[tool.ruff.mccabe]
+max-complexity = 10
+
 
 [tool.pytest.ini_options]
 addopts = "-ra -q --cov=ethopy"
