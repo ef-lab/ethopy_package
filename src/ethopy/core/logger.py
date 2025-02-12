@@ -647,14 +647,14 @@ class Logger:
         # if in the start_time is defined in the configuration use this
         # otherwise use the Control table
         if "start_time" in params:
-            def tdelta(t):
+            def _tdelta(t: str) -> datetime:
                 return datetime.strptime(t, "%H:%M:%S") - datetime.strptime(
                     "00:00:00", "%H:%M:%S"
                 )
             key.update(
                 {
-                    "start_time": str(tdelta(params["start_time"])),
-                    "stop_time": str(tdelta(params["stop_time"])),
+                    "start_time": str(_tdelta(params["start_time"])),
+                    "stop_time": str(_tdelta(params["stop_time"])),
                 }
             )
 
