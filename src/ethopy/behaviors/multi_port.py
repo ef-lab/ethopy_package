@@ -81,9 +81,9 @@ class MultiPort(Behavior, dj.Manual):
         # if response and reward ports are the same no need of tmst
         if self.response.reward:
             tmst = 0
-        # check that the last licked port ia also a reward port
+        # check that the last licked port is also a reward port
         licked_port = self.is_licking(since=tmst, reward=True)
-        if licked_port:
+        if licked_port == self.curr_cond['reward_port']:
             self.interface.give_liquid(licked_port)
             self.log_reward(self.reward_amount[self.licked_port])
             self.update_history(self.response.port, self.reward_amount[self.licked_port])
