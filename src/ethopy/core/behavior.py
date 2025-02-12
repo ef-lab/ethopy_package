@@ -1,5 +1,4 @@
-"""
-Core behavior module handles behavioral variables, responses, and reward management.
+"""Core behavior module handles behavioral variables, responses, and reward management.
 
 This module provides the core functionality for managing animal behavior in experimental
 setups, including response tracking, reward delivery, and behavioral data logging. It
@@ -10,11 +9,12 @@ from dataclasses import dataclass, fields
 from dataclasses import field as datafield
 from datetime import datetime, timedelta
 from queue import Queue
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import datajoint as dj
 import numpy as np
 
+from ethopy.core.experiment import ExperimentClass
 from ethopy.core.logger import (  # pylint: disable=W0611, # noqa: F401
     behavior,
     experiment,
@@ -22,8 +22,7 @@ from ethopy.core.logger import (  # pylint: disable=W0611, # noqa: F401
 
 
 class Behavior:
-    """
-    Manages behavioral variables and interactions in experimental setups.
+    """Manages behavioral variables and interactions in experimental setups.
 
     This class handles all aspects of behavioral monitoring and control:
     - Response tracking and validation
@@ -42,6 +41,7 @@ class Behavior:
         reward_amount (Dict[int, float]): Reward amounts by port
         choice_history (List[float]): History of animal choices
         reward_history (List[float]): History of rewards given
+
     """
 
     def __init__(self) -> None:
@@ -65,7 +65,7 @@ class Behavior:
         self.exp = None
         self.logger = None
 
-    def setup(self, exp):
+    def setup(self, exp: ExperimentClass) -> None:
         self.params = exp.params
         self.exp = exp
         self.logger = exp.logger
@@ -80,12 +80,12 @@ class Behavior:
         self.response_queue = Queue(maxsize=4)
         self.logging = True
 
-    def is_ready(self, duration, since=0):
+    def is_ready(self, duration: int, since: int = 0) -> Tuple[bool, int]:
+        """Check if has been in position for a duration."""
         return True, 0
 
     def get_response(self, since: int = 0, clear: bool = True) -> bool:
-        """
-        Check for valid behavioral responses since a given time point.
+        """Check for valid behavioral responses since a given time point.
 
         Args:
             since: Time reference point in milliseconds
@@ -93,8 +93,8 @@ class Behavior:
 
         Returns:
             Whether a valid response was detected
-        """
 
+        """
         # set a flag to indicate whether there is a valid response since the given time
         _valid_response = False
 
@@ -114,8 +114,7 @@ class Behavior:
     def is_licking(
         self, since: int = 0, reward: bool = False, clear: bool = True
     ) -> int:
-        """
-        Check for licking activity since a given time point.
+        """Check for licking activity since a given time point.
 
         This method can be used in two ways:
         1. To detect any licking activity since the given time
@@ -125,11 +124,14 @@ class Behavior:
 
         Args:
             since (int, optional): Time reference point in milliseconds. Defaults to 0.
-            reward (bool, optional): Whether to only count licks at reward ports. Defaults to False.
-            clear (bool, optional): Whether to reset last_lick after checking. Defaults to True.
+            reward (bool, optional): Whether to only count licks at reward ports.
+            Defaults to False.
+            clear (bool, optional): Whether to reset last_lick after checking.
+            Defaults to True.
 
         Returns:
             int: Port number of valid lick (0 if no valid lick detected)
+
         """
         # check if there is any licking since the given time
         if self.last_lick.time >= since and self.last_lick.port:
@@ -147,20 +149,19 @@ class Behavior:
 
         return self.licked_port
 
-    def reward(self):
-        """"Reward action"""
+    def reward(self) -> None:
+        """"Reward action."""
         return True
 
-    def punish(self):
-        """Punish action"""
+    def punish(self) -> None:
+        """Punish action."""
 
-    def exit(self):
+    def exit(self) -> None:
         """Clean up and exit the behavior module."""
         self.logging = False
 
-    def log_activity(self, activity_key: dict):
-        """
-        Log behavioral activity to the database.
+    def log_activity(self, activity_key: dict) -> int:
+        """Log behavioral activity to the database.
 
         Updates last_lick and licked_port variables, manages response queue,
         and logs the activity in the database.
@@ -170,6 +171,7 @@ class Behavior:
 
         Returns:
             (int):Timestamp of the logged activity in milliseconds
+
         """
         activity = BehActivity(**activity_key)
         # if activity.time is not set, set it to the current time
@@ -192,11 +194,11 @@ class Behavior:
         return key['time']
 
     def log_reward(self, reward_amount: float) -> None:
-        """
-        Log delivered reward to the database.
+        """Log delivered reward to the database.
 
         Args:
             reward_amount (float): Amount of reward delivered
+
         """
         if isinstance(self.curr_cond['reward_port'], list):
             self.curr_cond['reward_port'] = [self.licked_port]
@@ -208,38 +210,36 @@ class Behavior:
         )
 
     def make_conditions(self, conditions: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """
-        Generate and store stimulus condition hashes.
+        """Validate, update with default_key and log/generate hash for stimulus conditions.
 
         Args:
             conditions: List of condition dictionaries
 
         Returns:
             Dictionary containing processed conditions and metadata
+
         """
+        for cond in conditions:
+            missing_fields = [field for field in self.required_fields if field not in cond]
+            assert not missing_fields, f"Missing behavior required fields: {missing_fields}"
+            cond.update({**self.default_key, **cond})
+
         if self.cond_tables:
-            for cond in conditions:
-                missing_fields = [field for field in self.required_fields if field not in cond]
-                assert not missing_fields, f"Missing behavior required fields: {missing_fields}"
-                cond.update(
-                    {**self.default_key, **cond, "behavior_class": self.cond_tables[0]}
-                )
-            return dict(
+            return self.exp.log_conditions(
                 conditions=conditions,
                 condition_tables=["BehCondition"] + self.cond_tables,
                 schema="behavior",
                 hash_field="beh_hash",
             )
-        for cond in conditions:
-            cond.update({**self.default_key, **cond, 'behavior_class': 'None'})
-        return dict(conditions=conditions, condition_tables=[], schema='behavior')
+
+        return self.exp.log_conditions(conditions=conditions, condition_tables=[], schema='behavior')
 
     def prepare(self, condition: Dict[str, Any]) -> None:
-        """
-        Prepare for a new trial with given conditions.
+        """Prepare for a new trial with given conditions.
 
         Args:
             condition: Dictionary of trial conditions
+
         """
         self.curr_cond = condition
         self.reward_amount = self.interface.calc_pulse_dur(condition['reward_amount'])
@@ -249,13 +249,13 @@ class Behavior:
     def update_history(
         self, choice: float = np.nan, reward: float = np.nan, punish: float = np.nan
     ) -> None:
-        """
-        Update choice and reward history.
+        """Update choice and reward history.
 
         Args:
             choice: Choice made (port number)
             reward: Reward amount
             punish: Punishment value
+
         """
         if (
             np.isnan(choice)
@@ -269,24 +269,24 @@ class Behavior:
         self.logger.total_reward = np.nansum(self.reward_history)
 
     def get_false_history(self, h: int = 10) -> float:
-        """
-        Get history of false responses.
+        """Get history of false responses.
 
         Args:
             h: Number of trials to look back
 
         Returns:
             Cumulative product of false responses
+
         """
         idx = np.nan_to_num(self.punish_history)
         return np.nansum(np.cumprod(np.flip(idx[-h:], axis=0)))
 
     def is_sleep_time(self) -> bool:
-        """
-        Check if current time is within sleep period.
+        """Check if current time is within sleep period.
 
         Returns:
             Whether current time is in sleep period
+
         """
         now = datetime.now()
         start_time = self.logger.setup_info['start_time']
@@ -306,14 +306,14 @@ class Behavior:
         return time_restriction
 
     def is_hydrated(self, rew: Optional[float] = None) -> bool:
-        """
-        Check if animal has received enough reward.
+        """Check if animal has received enough reward.
 
         Args:
             rew: Optional override for maximum reward amount
 
         Returns:
             Whether maximum reward threshold has been reached
+
         """
         if rew:
             return self.logger.total_reward >= rew
@@ -325,8 +325,7 @@ class Behavior:
 
 @dataclass
 class BehActivity:
-    """
-    Dataclass for tracking behavioral activity.
+    """Dataclass for tracking behavioral activity.
 
     Attributes:
         port: Port number where activity occurred
@@ -339,7 +338,9 @@ class BehActivity:
         ready: Ready status
         reward: Whether activity was rewarded
         response: Whether activity was a valid response
+
     """
+
     port: int = datafield(compare=True, default=0, hash=True)
     type: str = datafield(compare=True, default='', hash=True)
     time: int = datafield(compare=False, default=0)
@@ -351,7 +352,7 @@ class BehActivity:
     reward: bool = datafield(compare=False, default=False)
     response: bool = datafield(compare=False, default=False)
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Dict[str, Any]):
         names = set([f.name for f in fields(self)])
         for k, v in kwargs.items():
             if k in names:
@@ -394,7 +395,8 @@ class Activity(dj.Manual):
         """
 
     class Lick(dj.Part):
-        """DataJoint table for licking"""
+        """DataJoint table for licking."""
+
         definition = """
         # Lick timestamps
         -> Activity
@@ -403,7 +405,8 @@ class Activity(dj.Manual):
         """
 
     class Touch(dj.Part):
-        """DataJoint table for touch timestamps """
+        """DataJoint table for touch timestamps."""
+
         definition = """
         # Touch timestamps
         -> Activity
@@ -413,7 +416,8 @@ class Activity(dj.Manual):
         """
 
     class Position(dj.Part):
-        """DataJoint table for 2D possition timestamps """
+        """DataJoint table for 2D possition timestamps."""
+
         definition = """
         # 2D possition timestamps
         -> Activity
@@ -426,14 +430,16 @@ class Activity(dj.Manual):
 
 @behavior.schema
 class BehCondition(dj.Manual):
-    """Datajoint table with a hash defining all the conditions"""
+    """Datajoint table with a hash defining all the conditions."""
+
     definition = """
     # reward probe conditions
     beh_hash               : char(24)                     # unique reward hash
     """
 
     class Trial(dj.Part):
-        """Datajoint table for keeping the hash for each trial"""
+        """Datajoint table for keeping the hash for each trial."""
+
         definition = """
         # movie clip conditions
         -> experiment.Trial
