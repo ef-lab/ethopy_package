@@ -1,4 +1,4 @@
-site_name: ethopy
+site_name: EthoPy
 site_description: Python Boilerplate contains all the boilerplate you need to create a Python package.
 site_author: alexevag
 site_url: https://alexevag.github.io/ethopy
@@ -8,14 +8,8 @@ copyright: "Copyright &copy; 2024 - 2024 Alex Evangelou"
 
 theme:
     palette:
-        - scheme: default
-          #   primary: blue
-          #   accent: indigo
-          toggle:
-              icon: material/toggle-switch-off-outline
-              name: Switch to dark mode
         - scheme: slate
-          primary: indigo
+          primary: blue
           accent: indigo
           toggle:
               icon: material/toggle-switch
