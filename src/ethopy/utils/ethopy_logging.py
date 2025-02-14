@@ -49,7 +49,7 @@ class LoggingManager:
 
         # First, remove ALL existing handlers from root logger
         self._root_logger.handlers.clear()
-        
+
         # Remove any existing handlers from our logger
         self._logger.handlers.clear()
 
