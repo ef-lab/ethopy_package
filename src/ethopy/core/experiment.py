@@ -13,20 +13,23 @@ The module is built around two main classes:
 - ExperimentClass: Base class for experiment implementation
 """
 
-import itertools
 import logging
 import time
 from dataclasses import dataclass, field
 from importlib import import_module
-from typing import Any, Dict, List, Optional
+from itertools import product
+from typing import Any, Dict, List, Optional, Tuple
 
 import datajoint as dj
 import numpy as np
 from scipy import stats
 from sklearn.metrics import roc_auc_score
 
-from ethopy.core.logger import experiment, mice
+from ethopy.core.interface import Interface
+from ethopy.core.logger import Logger, experiment, mice
+from ethopy.core.stimulus import Stimulus
 from ethopy.utils.helper_functions import factorize, make_hash
+from ethopy.utils.task_helper_funcs import format_params_print, get_parameters
 from ethopy.utils.timer import Timer
 
 log = logging.getLogger(__name__)
@@ -42,16 +45,18 @@ class State:
     Attributes:
         state_timer: Timer instance shared across all states
         __shared_state: Dictionary containing shared state variables
+
     """
 
     state_timer: Timer = Timer()
     __shared_state: Dict[str, Any] = {}
 
-    def __init__(self, parent: Optional['ExperimentClass'] = None) -> None:
+    def __init__(self, parent: Optional["ExperimentClass"] = None) -> None:
         """Initialize state with optional parent experiment.
 
         Args:
             parent: Parent experiment instance this state belongs to
+
         """
         self.__dict__ = self.__shared_state
         if parent:
@@ -73,6 +78,7 @@ class State:
 
         Raises:
             AssertionError: If next() is not implemented by child class
+
         """
         raise AssertionError("next not implemented")
 
@@ -93,25 +99,29 @@ class StateMachine:
         futureState (State): Next state to transition to
         currentState (State): Currently executing state
         exitState (State): Final state that ends the state machine
+
     """
+
     def __init__(self, states: Dict[str, State]) -> None:
         """Initialize the state machine.
 
         Args:
             states: Dictionary mapping state names to state instances
+
         Raises:
             ValueError: If required states (Entry, Exit) are missing
+
         """
-        if 'Entry' not in states or 'Exit' not in states:
+        if "Entry" not in states or "Exit" not in states:
             raise ValueError("StateMachine requires Entry and Exit states")
 
         self.states = states
-        self.futureState = states['Entry']
-        self.currentState = states['Entry']
-        self.exitState = states['Exit']
+        self.futureState = states["Entry"]
+        self.currentState = states["Entry"]
+        self.exitState = states["Exit"]
 
     # # # # Main state loop # # # # #
-    def run(self):
+    def run(self) -> None:
         """Execute the state machine until reaching exit state.
 
         The machine will:
@@ -124,6 +134,7 @@ class StateMachine:
         Raises:
             KeyError: If a state requests transition to non-existent state
             RuntimeError: If a state's next() method raises an exception
+
         """
         try:
             while self.futureState != self.exitState:
@@ -151,12 +162,13 @@ class StateMachine:
 
 
 class ExperimentClass:
-    """  Parent Experiment """
+    """Parent Experiment."""
+
     curr_trial = 0  # the current trial number in the session
     cur_block = 0  # the current block number in the session
     states = {}  # dictionary wiht all states of the experiment
     stims = {}  # dictionary with all stimulus classes
-    stim = False   # the current condition stimulus class
+    stim = False  # the current condition stimulus class
     sync = False  # a boolean to make synchronization available
     un_choices = []
     blocks = []
@@ -179,8 +191,9 @@ class ExperimentClass:
     setup_conf_idx = 0
     interface = None
     beh = None
+    trial_start = 0  # time in ms of the trial start
 
-    def setup(self, logger, behavior_class, session_params):
+    def setup(self, logger: Logger, behavior_class, session_params: Dict):
         self.in_operation = False
         self.conditions = []
         self.iter = []
@@ -190,39 +203,40 @@ class ExperimentClass:
         self.stims = dict()
         self.curr_trial = 0
         self.cur_block_sz = 0
-        self.setup_conf_idx = session_params.get('setup_conf_idx', 0)
+        self.setup_conf_idx = session_params.get("setup_conf_idx", 0)
         session_params["setup_conf_idx"] = self.setup_conf_idx
 
-        self.params = {**self.default_key,
-                       "setup_conf_idx": self.setup_conf_idx}
+        self.params = {**self.default_key, "setup_conf_idx": self.setup_conf_idx}
 
         self.logger = logger
         self.beh = behavior_class()
-        self.interface = self._interface_setup(self.beh,
-                                               self.logger,
-                                               self.setup_conf_idx)
+        self.interface = self._interface_setup(
+            self.beh, self.logger, self.setup_conf_idx
+        )
         self.interface.load_calibration()
         self.beh.setup(self)
 
-        self.logger.log_session(session_params,
-                                experiment_type=self.cond_tables[0],
-                                log_task=True)
+        self.logger.log_session(
+            session_params, experiment_type=self.cond_tables[0], log_task=True
+        )
 
         self.session_timer = Timer()
 
-        np.random.seed(0)   # fix random seed, it can be overidden in the task file
+        np.random.seed(0)  # fix random seed, it can be overidden in the task file
 
-    def _interface_setup(self, beh, logger, setup_conf_idx):
+    def _interface_setup(
+        self, beh, logger: Logger, setup_conf_idx: int
+    ) -> Interface:
         interface_module = logger.get(
             schema="interface",
             table="SetupConfiguration",
             fields=["interface"],
             key={"setup_conf_idx": setup_conf_idx},
         )[0]
+        log.info(f"Interface: {interface_module}")
         interface = getattr(
-            import_module(f'ethopy.interfaces.{interface_module}'),
-            interface_module
-            )
+            import_module(f"ethopy.interfaces.{interface_module}"), interface_module
+        )
 
         return interface(exp=self, beh=beh)
 
@@ -240,69 +254,204 @@ class ExperimentClass:
         self.beh.exit()
         if self.sync:
             while self.interface.is_recording():
-                log.info('Waiting for recording to end...')
+                log.info("Waiting for recording to end...")
                 time.sleep(1)
         self.logger.closeDatasets()
         self.in_operation = False
 
     def is_stopped(self):
-        self.quit = self.quit or self.logger.setup_status in ['stop', 'exit']
-        if self.quit and self.logger.setup_status not in ['stop', 'exit']:
-            self.logger.update_setup_info({'status': 'stop'})
+        self.quit = self.quit or self.logger.setup_status in ["stop", "exit"]
+        if self.quit and self.logger.setup_status not in ["stop", "exit"]:
+            self.logger.update_setup_info({"status": "stop"})
         if self.quit:
             self.in_operation = False
         return self.quit
 
-    def make_conditions(self, stim_class, conditions, stim_periods=None):
+    def _stim_init(self, stim_class: Stimulus, stims: Dict) -> Dict:
         # get stimulus class name
         stim_name = stim_class.name()
-        if stim_name not in self.stims:
+        if stim_name not in stims:
             stim_class.init(self)
-            self.stims[stim_name] = stim_class
-        conditions.update({'stimulus_class': stim_name})
+            stims[stim_name] = stim_class
+        return stims
 
-        # Create conditions with permutation of variables
-        if not stim_periods:
-            conditions = self.stims[stim_name].make_conditions(factorize(conditions))
-        else:
-            cond = {}
-            for stim_period in stim_periods:
-                cond[stim_period] = self.stims[stim_name].make_conditions(
-                    conditions=factorize(conditions[stim_period])
+    def get_keys_from_dict(self, data: Dict, keys: List) -> Dict:
+        """Efficiently extract specific keys from a dictionary.
+
+        Args:
+            data (dict): The input dictionary.
+            keys (list): The list of keys to extract.
+
+        Returns:
+            dict: A new dictionary with only the specified keys if they exist.
+
+        """
+        keys_set = set(keys)  # Convert list to set for O(1) lookup
+        return {key: data[key] for key in keys_set.intersection(data)}
+
+    def _get_task_classes(self, stim_class: Stimulus) -> Dict:
+        exp_name = {"experiment_class": self.cond_tables[0]}
+        beh_name = {
+            "behavior_class": self.beh.cond_tables[0] if self.cond_tables else None
+        }
+        stim_name = {"stimulus_class": stim_class.name()}
+        return {**exp_name, **beh_name, **stim_name}
+
+    def make_conditions(
+        self,
+        stim_class: Stimulus,
+        conditions: Dict[str, Any],
+        stim_periods: List[str] = None,
+    ):
+        """Create experiment conditions by combining stimulus, behavior, and experiment."""
+        log.debug("-------------- Make conditions --------------")
+        self.stims = self._stim_init(stim_class, self.stims)
+        used_keys = set()  # all the keys used from dictionary conditions
+
+        # Handle stimulus conditions
+        stim_conditions, stim_keys = self._process_stim_conditions(
+            stim_class, conditions, stim_periods
+        )
+        used_keys.update(stim_keys)
+
+        # Process behavior conditions
+        beh_conditions, beh_keys = self._process_behavior_conditions(conditions)
+        used_keys.update(beh_keys)
+
+        # Process experiment conditions
+        exp_conditions, exp_keys = self._process_experiment_conditions(
+            self._get_task_classes(stim_class), conditions
+        )
+        used_keys.update(exp_keys)
+
+        # Combine results and handle unused parameters
+        partial_results = [exp_conditions, beh_conditions, stim_conditions]
+        unused_conditions = self._handle_unused_parameters(conditions, used_keys)
+        if unused_conditions:
+            partial_results.append(unused_conditions)
+        log.debug("-----------------------------------------------")
+        return [
+            {k: v for d in comb for k, v in d.items()}
+            for comb in product(*partial_results)
+        ]
+
+    def _process_stim_conditions(
+        self, stim_class: Stimulus, conditions: Dict, stim_periods: List
+    ) -> Tuple[List, List]:
+        """Process stimulus-specific conditions."""
+        if stim_periods:
+            period_conditions = {}
+            for period in stim_periods:
+                stim_dict = self.get_keys_from_dict(
+                    conditions[period], get_parameters(stim_class).keys()
                 )
-                conditions[stim_period] = []
-            all_cond = [cond[stim_periods[i]] for i in range(len(stim_periods))]
-            for comb in list(itertools.product(*all_cond)):
-                for i in range(len(stim_periods)):
-                    conditions[stim_periods[i]].append(comb[i])
-            conditions = factorize(conditions)
-        conditions = self.log_conditions(**self.beh.make_conditions(conditions))
+                log.debug(
+                    f"Stimulus period: {period} use default conditions:"
+                    f"\n{get_parameters(stim_class).keys() - stim_dict.keys()}"
+                )
+                period_conditions[period] = factorize(stim_dict)
+                period_conditions[period] = self.stims[
+                    stim_class.name()
+                ].make_conditions(period_conditions[period])
+                for i, stim_condition in enumerate(period_conditions[period]):
+                    log.debug(
+                        f"Stimulus condition {i}:\n {format_params_print(stim_condition)}"
+                    )
+            stim_conditions = factorize(period_conditions)
+            return stim_conditions, stim_periods
 
-        # Verify all required fields are set
-        for cond in conditions:
-            missing_fields = set(self.required_fields) - set(cond)
-            if missing_fields:
-                raise ValueError(f"Missing required fields: {missing_fields}")
-            cond.update({**self.default_key, **self.params, **cond, 'experiment_class': self.cond_tables[0]})
+        stim_dict = self.get_keys_from_dict(
+            conditions, get_parameters(stim_class).keys()
+        )
+        log.debug(
+            f"Stimulus use default conditions:\n"
+            f"{get_parameters(stim_class).keys() - stim_dict.keys()}"
+        )
+        stim_conditions = factorize(stim_dict)
+        stim_conditions = self.stims[stim_class.name()].make_conditions(stim_conditions)
+        for i, stim_condition in enumerate(stim_conditions):
+            log.debug(f"Stimulus condition {i}:\n{format_params_print(stim_condition)}")
+        return stim_conditions, stim_dict.keys()
 
-        # Generate correct table name and Log conditions
-        cond_tables = ['Condition.' + table for table in self.cond_tables]
-        conditions = self.log_conditions(conditions, condition_tables=['Condition'] + cond_tables)
-        return conditions
+    def _process_behavior_conditions(self, conditions: Dict) -> Tuple[List, List]:
+        """Process behavior-related conditions."""
+        beh_dict = self.get_keys_from_dict(conditions, get_parameters(self.beh).keys())
+        log.debug(
+            f"Behavior use default conditions:\n{get_parameters(self.beh).keys() - beh_dict.keys()}"
+        )
+        beh_conditions = factorize(beh_dict)
+        beh_conditions = self.beh.make_conditions(beh_conditions)
+        for i, beh_condition in enumerate(beh_conditions):
+            log.debug(f"Behavior condition {i}:\n{format_params_print(beh_condition)}")
+        return beh_conditions, beh_dict.keys()
 
-    def push_conditions(self, conditions):
+    def _process_experiment_conditions(
+        self, task_classes: List, conditions: Dict
+    ) -> Tuple[List, list]:
+        """Process experiment-wide conditions."""
+        exp_dict = self.get_keys_from_dict(conditions, get_parameters(self).keys())
+        exp_dict.update(task_classes)
+        log.debug(
+            f"Experiment use default conditions:\n{get_parameters(self).keys() - exp_dict.keys()}"
+        )
+        exp_conditions = factorize(exp_dict)
+
+        for cond in exp_conditions:
+            self.validate_condition(cond)
+            cond.update({**self.default_key, **self.params, **cond})
+        cond_tables = ["Condition." + table for table in self.cond_tables]
+        conditions_list = self.log_conditions(
+            exp_conditions, condition_tables=["Condition"] + cond_tables
+        )
+        for i, exp_condition in enumerate(exp_conditions):
+            log.debug(
+                f"Experiment condition {i}:\n{format_params_print(exp_condition)}"
+            )
+        return conditions_list, exp_dict.keys()
+
+    def _handle_unused_parameters(self, conditions, used_keys):
+        """Process any unused parameters."""
+        unused_keys = set(conditions.keys()) - used_keys
+        if unused_keys:
+            log.warning(
+                f"Keys: {unused_keys} are in condition but are not used from Experiment, Behavior or Stimulus"
+            )
+            unused_dict = self.get_keys_from_dict(conditions, unused_keys)
+            return factorize(unused_dict)
+        return None
+
+    def validate_condition(self, condition: Dict) -> None:
+        """Validate a condition dictionary against the required fields.
+
+        Args:
+            condition (Dict): The condition dictionary to validate.
+
+        Raises:
+            ValueError: If required fields are missing from the condition.
+
+        """
+        missing_fields = set(self.required_fields) - set(condition)
+        if missing_fields:
+            raise ValueError(f"Missing experiment required fields: {missing_fields}")
+
+    def push_conditions(self, conditions: List):
+        log.info(f"Number of conditions: {len(conditions)}")
         self.conditions = conditions
-        resp_cond = self.params['resp_cond'] if 'resp_cond' in self.params else 'response_port'
-        self.blocks = np.array([cond['difficulty'] for cond in self.conditions])
+        resp_cond = (
+            self.params["resp_cond"] if "resp_cond" in self.params else "response_port"
+        )
+        self.blocks = np.array([cond["difficulty"] for cond in self.conditions])
         if np.all([resp_cond in cond for cond in conditions]):
             self.choices = np.array(
-                [make_hash([d[resp_cond], d['difficulty']]) for d in conditions]
-                )
+                [make_hash([d[resp_cond], d["difficulty"]]) for d in conditions]
+            )
             self.un_choices, un_idx = np.unique(self.choices, axis=0, return_index=True)
             self.un_blocks = self.blocks[un_idx]
         #  select random condition for first trial initialization
         self.cur_block = min(self.blocks)
-        self.curr_cond = np.random.choice([i for (i, v) in zip(self.conditions, self.blocks == self.cur_block) if v])
+        self.curr_cond = np.random.choice(
+            [i for (i, v) in zip(self.conditions, self.blocks == self.cur_block) if v]
+        )
 
     def prepare_trial(self):
         old_cond = self.curr_cond
@@ -311,23 +460,46 @@ class ExperimentClass:
         if not self.curr_cond or self.logger.thread_end.is_set():
             self.quit = True
             return
-        if 'stimulus_class' not in old_cond or self.curr_trial == 0 \
-                or old_cond['stimulus_class'] != self.curr_cond['stimulus_class']:
-            if 'stimulus_class' in old_cond and self.curr_trial != 0:
+        if (
+            "stimulus_class" not in old_cond
+            or self.curr_trial == 0
+            or old_cond["stimulus_class"] != self.curr_cond["stimulus_class"]
+        ):
+            if "stimulus_class" in old_cond and self.curr_trial != 0:
                 self.stim.exit()
-            self.stim = self.stims[self.curr_cond['stimulus_class']]
-            log.info('setting up stimulus')
+            self.stim = self.stims[self.curr_cond["stimulus_class"]]
+            log.debug("setting up stimulus")
             self.stim.setup()
-            log.info('stimuli is done')
+            log.debug("stimuli is done")
         self.curr_trial += 1
         self.logger.update_trial_idx(self.curr_trial)
         self.trial_start = self.logger.logger_timer.elapsed_time()
-        self.logger.log('Trial', dict(cond_hash=self.curr_cond['cond_hash'], time=self.trial_start), priority=3)
+        self.logger.log(
+            "Trial",
+            dict(cond_hash=self.curr_cond["cond_hash"], time=self.trial_start),
+            priority=3,
+        )
         if not self.in_operation:
             self.in_operation = True
 
     def name(self):
         return type(self).__name__
+
+    def make_cond_hash(
+        self, conditions: List[Dict], hash_field: str, schema: dj.schema, condition_tables: List
+    ) -> List[Dict]:
+        # get all fields from condition tables except hash
+        fields_key = {
+            key
+            for ctable in condition_tables
+            for key in self.logger.get_table_keys(schema, ctable)
+        }
+        fields_key.discard(hash_field)
+        for condition in conditions:
+            # find all dependant fields and generate hash
+            key = {k: condition[k] for k in fields_key if k in condition}
+            condition.update({hash_field: make_hash(key)})
+        return conditions
 
     def log_conditions(
         self,
@@ -337,8 +509,7 @@ class ExperimentClass:
         hash_field="cond_hash",
         priority=2,
     ) -> List[Dict]:
-        """
-        Logs experimental conditions to specified tables with hashes tracking.
+        """Log experimental conditions to specified tables with hashes tracking.
 
         Args:
             conditions (List): List of condition dictionaries to log
@@ -349,6 +520,7 @@ class ExperimentClass:
 
         Returns:
             List of processed conditions with added hashes
+
         """
         if not conditions:
             return []
@@ -356,21 +528,13 @@ class ExperimentClass:
         if condition_tables is None:
             condition_tables = ["Condition"]
 
-        # get all fields from condition tables except hash
-        fields_key = {
-            key
-            for ctable in condition_tables
-            for key in self.logger.get_table_keys(schema, ctable)
-        }
-        fields_key.discard(hash_field)
+        conditions = self.make_cond_hash(
+            conditions, hash_field, schema, condition_tables
+        )
 
         processed_conditions = conditions.copy()
         for condition in processed_conditions:
-            # find all dependant fields and generate hash
-            key = {k: condition[k] for k in fields_key if k in condition}
-            condition.update({hash_field: make_hash(key)})
-
-            # insert dependant condition on each table tables
+            # insert conditions fields to the correspond table
             for ctable in condition_tables:
                 # Get table metadata
                 fields = set(self.logger.get_table_keys(schema, ctable))
@@ -392,12 +556,12 @@ class ExperimentClass:
                     # The first element of the iterable will be matched with the first
                     # element of the rest of the keys
                     for idx, _ in enumerate(condition[core[0]]):
-                        cond_key = {
-                            k: condition[k]
-                            if isinstance(condition[k], (int, float, str))
-                            else condition[k][idx]
-                            for k in fields
-                        }
+                        cond_key = {}
+                        for k in fields:
+                            if isinstance(condition[k], (int, float, str)):
+                                cond_key[k] = condition[k]
+                            else:
+                                cond_key[k] = condition[k][idx]
 
                         self.logger.put(
                             table=ctable,
@@ -418,88 +582,106 @@ class ExperimentClass:
         return processed_conditions
 
     def _anti_bias(self, choice_h, un_choices):
-        choice_h = np.array([make_hash(c) for c in choice_h[-self.curr_cond['bias_window']:]])
-        if len(choice_h) < self.curr_cond['bias_window']:
+        choice_h = np.array(
+            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"] :]]
+        )
+        if len(choice_h) < self.curr_cond["bias_window"]:
             choice_h = self.choices
         fixed_p = 1 - np.array([np.mean(choice_h == un) for un in un_choices])
         if sum(fixed_p) == 0:
             fixed_p = np.ones(np.shape(fixed_p))
-        return np.random.choice(un_choices, 1, p=fixed_p/sum(fixed_p))
+        return np.random.choice(un_choices, 1, p=fixed_p / sum(fixed_p))
 
     def _get_performance(self):
-        idx = np.logical_or(~np.isnan(self.beh.reward_history),
-                            ~np.isnan(self.beh.punish_history))  # select valid
+        idx = np.logical_or(
+            ~np.isnan(self.beh.reward_history), ~np.isnan(self.beh.punish_history)
+        )  # select valid
         rew_h = np.asarray(self.beh.reward_history)
         rew_h = rew_h[idx]
         choice_h = np.int64(np.asarray(self.beh.choice_history)[idx])
         perf = np.nan
-        window = self.curr_cond['staircase_window']
-        if self.curr_cond['metric'] == 'accuracy':
+        window = self.curr_cond["staircase_window"]
+        if self.curr_cond["metric"] == "accuracy":
             perf = np.nanmean(np.greater(rew_h[-window:], 0))
-        elif self.curr_cond['metric'] == 'dprime':
-            y_true = [c if r > 0 else c % 2 + 1 for (c, r) in zip(choice_h[-window:], rew_h[-window:])]
+        elif self.curr_cond["metric"] == "dprime":
+            y_true = [
+                c if r > 0 else c % 2 + 1
+                for (c, r) in zip(choice_h[-window:], rew_h[-window:])
+            ]
             if len(np.unique(y_true)) > 1:
-                perf = np.sqrt(2) * stats.norm.ppf(roc_auc_score(y_true, np.array(choice_h[-window:])))
+                perf = np.sqrt(2) * stats.norm.ppf(
+                    roc_auc_score(y_true, np.array(choice_h[-window:]))
+                )
             if self.logger.manual_run:
-                log.info((f'perf: {perf if not np.isnan(perf) else 0} '
-                          f'accuracy: {np.nanmean(np.greater(rew_h[-window:], 0)) or 0}'))
+                log.debug(
+                    f"perf: {perf if not np.isnan(perf) else 0} "
+                    f"accuracy: {np.nanmean(np.greater(rew_h[-window:], 0)) or 0}"
+                )
         else:
-            log.error('Performance method not implemented!')
+            log.error("Performance method not implemented!")
             self.quit = True
         choice_h = [[c, d] for c, d in zip(choice_h, np.asarray(self.block_h)[idx])]
         return perf, choice_h
 
     def _get_new_cond(self):
-        """ Get curr condition & create random block of all conditions """
-        if self.curr_cond['trial_selection'] == 'fixed':
+        """Get curr condition & create random block of all conditions"""
+        if self.curr_cond["trial_selection"] == "fixed":
             self.curr_cond = [] if len(self.conditions) == 0 else self.conditions.pop(0)
-        elif self.curr_cond['trial_selection'] == 'block':
+        elif self.curr_cond["trial_selection"] == "block":
             if np.size(self.iter) == 0:
                 self.iter = np.random.permutation(np.size(self.conditions))
             cond = self.conditions[self.iter[0]]
             self.iter = self.iter[1:]
             self.curr_cond = cond
-        elif self.curr_cond['trial_selection'] == 'random':
+        elif self.curr_cond["trial_selection"] == "random":
             self.curr_cond = np.random.choice(self.conditions)
-        elif self.curr_cond['trial_selection'] == 'staircase':
+        elif self.curr_cond["trial_selection"] == "staircase":
             perf, choice_h = self._get_performance()
             if np.size(self.beh.choice_history) and self.beh.choice_history[-1:][0] > 0:
                 self.cur_block_sz += 1  # current block trial counter
-            if self.cur_block_sz >= self.curr_cond['staircase_window']:
-                if perf >= self.curr_cond['stair_up']:
-                    self.cur_block = self.curr_cond['next_up']
+            if self.cur_block_sz >= self.curr_cond["staircase_window"]:
+                if perf >= self.curr_cond["stair_up"]:
+                    self.cur_block = self.curr_cond["next_up"]
                     self.cur_block_sz = 0
-                    self.logger.update_setup_info({'difficulty': self.cur_block})
-                elif perf < self.curr_cond['stair_down']:
-                    self.cur_block = self.curr_cond['next_down']
+                    self.logger.update_setup_info({"difficulty": self.cur_block})
+                elif perf < self.curr_cond["stair_down"]:
+                    self.cur_block = self.curr_cond["next_down"]
                     self.cur_block_sz = 0
-                    self.logger.update_setup_info({'difficulty': self.cur_block})
-            if self.curr_cond['antibias']:
-                anti_bias = self._anti_bias(choice_h, self.un_choices[self.un_blocks == self.cur_block])
-                condition_idx = np.logical_and(self.choices == anti_bias, self.blocks == self.cur_block)
+                    self.logger.update_setup_info({"difficulty": self.cur_block})
+            if self.curr_cond["antibias"]:
+                anti_bias = self._anti_bias(
+                    choice_h, self.un_choices[self.un_blocks == self.cur_block]
+                )
+                condition_idx = np.logical_and(
+                    self.choices == anti_bias, self.blocks == self.cur_block
+                )
             else:
                 condition_idx = self.blocks == self.cur_block
-            self.curr_cond = np.random.choice([i for (i, v) in zip(self.conditions, condition_idx) if v])
+            self.curr_cond = np.random.choice(
+                [i for (i, v) in zip(self.conditions, condition_idx) if v]
+            )
             self.block_h.append(self.cur_block)
-        elif self.curr_cond['trial_selection'] == 'biased':
+        elif self.curr_cond["trial_selection"] == "biased":
             perf, choice_h = self._get_performance()
             condition_idx = self.choices == self._anti_bias(choice_h, self.un_choices)
-            self.curr_cond = np.random.choice([i for (i, v) in zip(self.conditions, condition_idx) if v])
+            self.curr_cond = np.random.choice(
+                [i for (i, v) in zip(self.conditions, condition_idx) if v]
+            )
         else:
-            log.error('Selection method not implemented!')
+            log.error("Selection method not implemented!")
             self.quit = True
 
     @dataclass
     class Block:
         difficulty: int = field(compare=True, default=0, hash=True)
-        stair_up: float = field(compare=False, default=.7)
+        stair_up: float = field(compare=False, default=0.7)
         stair_down: float = field(compare=False, default=0.55)
         next_up: int = field(compare=False, default=0)
         next_down: int = field(compare=False, default=0)
         staircase_window: int = field(compare=False, default=20)
         bias_window: int = field(compare=False, default=5)
-        trial_selection: str = field(compare=False, default='fixed')
-        metric: str = field(compare=False, default='accuracy')
+        trial_selection: str = field(compare=False, default="fixed")
+        metric: str = field(compare=False, default="accuracy")
         antibias: bool = field(compare=False, default=True)
         noresponse_intertrial: bool = field(compare=False, default=True)
         incremental_punishment: bool = field(compare=False, default=False)
