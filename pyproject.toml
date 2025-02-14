@@ -91,7 +91,7 @@ disallow_untyped_defs = true
 [tool.ruff]
 line-length = 88
 select = ["E", "F", "W", "I", "ANN", "D", "S"]
-ignore = ["S113", "D101", "D106", "ANN001", "D107", "ANN204", "D102", "ANN201"]
+ignore = ["S113", "D101", "D106", "ANN001"]
 fixable = ["F401", "F841", "E", "W", "I"]
 target-version = "py310"
 src = ["src", "tests"]
