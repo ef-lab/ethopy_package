@@ -26,23 +26,33 @@ log_manager = LoggingManager("ethopy")
     type=int,
     help="Task ID from database",
 )
-@click.option("--debug", is_flag=True, help="Enable debug mode with verbose logging")
 @click.option(
     "--log-console",
     is_flag=True,
     help="Enable console logging",
 )
+@click.option(
+    "--log-level",
+    type=str,
+    help="logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)",
+)
 @click.version_option()
-def main(task_path: Path, task_id: int, debug: bool, log_console: bool) -> None:
+def main(
+    task_path: Path, task_id: int, log_console: bool, log_level: str = None
+) -> None:
     """EthoPy - Behavioral Training Control System."""
     # Load configuration
     local_conf = ConfigurationManager()
+
+    # Set a configuration value
+    if not log_level:
+        log_level = local_conf.get("logging")["level"]
 
     # Configure logging before anything else happens
     log_manager.configure(
         log_dir=local_conf.get("logging")["directory"],
         console=log_console,
-        log_level=local_conf.get("logging")["level"],
+        log_level=log_level,
         log_file=local_conf.get("logging")["filename"],
     )
 
