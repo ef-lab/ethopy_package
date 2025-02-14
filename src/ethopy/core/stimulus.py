@@ -64,7 +64,7 @@ class Stimulus:
         """Initialize stimulus with experiment object and setup screen properties.
 
         Args:
-            exp (core.experiment): Experiment object containing logger and interface components.
+            exp (Experiment): Experiment object containing logger and interface components.
         """
         self.logger = exp.logger
         self.exp = exp
@@ -145,7 +145,7 @@ class Stimulus:
             self.fill(self.fill_colors.start)
 
     def log_start(self):
-        """Start time logging"""
+        """Start timer for the log of stimlus condition"""
         self.start_time = self.logger.logger_timer.elapsed_time()
         self.exp.interface.sync_out(True)
 
