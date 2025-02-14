@@ -27,14 +27,11 @@ dependencies = [
     "matplotlib",
     "pandas>=2.0.0",
     "pillow",
-    "pytest",
-    "Panda3D",
     "h5py",
     "pygame",
     "pygame-menu",
     "numpy",
     "scipy",
-    "scikit-learn",
     "pyopengl",
     "imageio-ffmpeg",
     "pyfiglet",
@@ -54,6 +51,11 @@ docs = [
     "mkdocs-material>=9.0.0",
     "mkdocstrings",
     "mkdocs-jupyter"
+]
+
+obj = [
+    "Panda3D",
+    "scikit-learn"
 ]
 
 [project.urls]
@@ -89,11 +91,18 @@ disallow_untyped_defs = true
 [tool.ruff]
 line-length = 88
 select = ["E", "F", "W", "I", "ANN", "D", "S"]
-ignore = ["S113", "D101", "D106"]
+ignore = ["S113", "D101", "D106", "ANN001", "D107", "ANN204", "D102", "ANN201"]
 fixable = ["F401", "F841", "E", "W", "I"]
 target-version = "py310"
 src = ["src", "tests"]
-exclude = [".venv", "migrations"]
+exclude = [
+  ".venv",
+  ".mypy_cache",
+  "tests",
+  "docs/_build",
+  "path/to/generated_code",
+  "another/folder/*",
+]
 
 [tool.ruff.isort]
 known-first-party = ["ethopy"]
