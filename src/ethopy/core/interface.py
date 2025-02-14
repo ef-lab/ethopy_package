@@ -1,5 +1,4 @@
-"""
-Core interface module for EthoPy.
+"""Core interface module for EthoPy.
 
 This module provides the base interface for hardware interaction and configuration of
 hardware based on setup index.
@@ -9,7 +8,7 @@ import logging
 from dataclasses import dataclass, fields
 from dataclasses import field as datafield
 from importlib import import_module
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import datajoint as dj
 import numpy as np
@@ -25,8 +24,7 @@ log = logging.getLogger()
 
 
 class Interface:
-    """
-    Base interface class for hardware interaction in experimental setups.
+    """Base interface class for hardware interaction in experimental setups.
 
     This class manages hardware interfaces including ports, cameras, and other
     peripherals.
@@ -48,21 +46,22 @@ class Interface:
         pulse_dur (Dict[int, float]): Pulse durations by port
         channels (Dict[str, Any]): Channel mappings
         position_dur (int): Position duration
+
     """
 
     def __init__(
         self,
-        exp: Optional[Any] = None,
-        beh: Optional[Any] = None,
+        exp: Optional = None,
+        beh: Optional = None,
         callbacks: bool = True,
     ) -> None:
-        """
-        Initialize the interface with experiment and behavior objects.
+        """Initialize the interface with experiment and behavior objects.
 
         Args:
             exp: Experiment object containing parameters and logger
             beh: Behavior object for tracking responses
             callbacks: Whether to enable callback functions
+
         """
         # Initialize basic attributes
         self.callbacks = callbacks
@@ -96,8 +95,7 @@ class Interface:
             self._initialize_hardware()
 
     def _initialize_hardware(self) -> None:
-        """
-        Initialize hardware components based on setup configuration.
+        """Initialize hardware components based on setup configuration.
 
         This method sets up ports and camera if configured in the experiment parameters.
         """
@@ -152,65 +150,65 @@ class Interface:
             )
 
     def give_liquid(self, port: int, duration: Optional[float] = 0) -> None:
-        """
-        Deliver liquid reward through specified port.
+        """Deliver liquid reward through specified port.
 
         Args:
             port: Port number for delivery
             duration: Duration of delivery in milliseconds
+
         """
 
     def give_odor(self, odor_idx: int, duration: float) -> None:
-        """
-        Deliver odor stimulus.
+        """Deliver odor stimulus.
 
         Args:
             odor_idx: Index of odor to deliver
             duration: Duration of delivery in milliseconds
+
         """
 
     def give_sound(self, sound_freq: float, duration: float, dutycycle: float) -> None:
-        """
-        Generate sound stimulus.
+        """Generate sound stimulus.
 
         Args:
             sound_freq: Frequency of sound in Hz
             duration: Duration of sound in milliseconds
             dutycycle: Duty cycle for sound generation (0-1)
+
         """
 
-    def in_position(self) -> tuple[bool, float]:
-        """
-        Check if subject is in correct position.
+    def in_position(self) -> Tuple[bool, float]:
+        """Check if subject is in correct position.
 
         Returns:
             Tuple of (position status, position time)
+
         """
         return True, 0
 
     def create_pulse(self, port: int, duration: float) -> None:
-        """
-        Create a pulse for stimulus delivery.
+        """Create a pulse for stimulus delivery.
 
         Args:
             port: Port number for pulse
             duration: Duration of pulse in milliseconds
+
         """
 
     def sync_out(self, state: bool = False) -> None:
-        """
-        Send synchronization signal.
+        """Send synchronization signal.
 
         Args:
             state: Synchronization state to set
+
         """
 
     def set_operation_status(self, operation_status: bool) -> None:
-        """
-        Set operation status of interface.
+        """Set operation status of interface.
 
         Args:
             operation_status: Status to set
+
         """
 
     def cleanup(self) -> None:
@@ -224,14 +222,14 @@ class Interface:
                 self.camera.stop_rec()
 
     def load_calibration(self):
-        """
-        Load port calibration data from database.
+        """Load port calibration data from database.
 
         This method loads the most recent calibration data for each reward port,
         including pulse durations and weights.
 
         Raises:
             RuntimeError: If no calibration data is found
+
         """
         for port in list(set(self.rew_ports)):
             self.pulse_rew[port] = dict()
@@ -254,14 +252,14 @@ class Interface:
             self.weight_per_pulse[port] = np.divide(weight, pulse_num)
 
     def calc_pulse_dur(self, reward_amount: float) -> Dict[int, float]:
-        """
-        Calculate pulse duration for desired reward amount.
+        """Calculate pulse duration for desired reward amount.
 
         Args:
             reward_amount: Desired reward amount in microliters
 
         Returns:
             Dictionary mapping ports to actual reward amounts
+
         """
         actual_rew = {}
         for port in self.rew_ports:
@@ -277,8 +275,7 @@ class Interface:
         return actual_rew
 
     def _channel2port(self, channel: Optional[int], category: str = 'Proximity'):
-        """
-        Convert channel number to port object.
+        """Convert channel number to port object.
 
         Args:
             channel: Channel number to convert
@@ -286,6 +283,7 @@ class Interface:
 
         Returns:
             Corresponding port or None if not found
+
         """
         port = reverse_lookup(self.channels[category], channel) if channel else 0
         if port:
@@ -295,8 +293,7 @@ class Interface:
 
 @dataclass
 class Port:
-    """
-    Dataclass representing a hardware port configuration.
+    """Dataclass representing a hardware port configuration.
 
     Attributes:
         port (int): Port identifier
@@ -306,7 +303,9 @@ class Port:
         response (bool): Whether port accepts responses
         invert (bool): Whether to invert port signal
         state (bool): Current port state
+
     """
+
     port: int = datafield(compare=True, default=0, hash=True)
     type: str = datafield(compare=True, default='', hash=True)
     ready: bool = datafield(compare=False, default=False)
@@ -439,7 +438,8 @@ class Configuration(dj.Manual):
     """
 
     class Port(dj.Part):
-        """Port configuration table"""
+        """Port configuration table."""
+
         definition = """
         # Probe identity
         -> Configuration
@@ -453,7 +453,8 @@ class Configuration(dj.Manual):
         """
 
     class Ball(dj.Part):
-        """Ball configuration table"""
+        """Ball configuration table."""
+
         definition = """
         # Ball information
         -> Configuration
@@ -465,7 +466,8 @@ class Configuration(dj.Manual):
         """
 
     class Screen(dj.Part):
-        """Screen configuration table"""
+        """Screen configuration table."""
+
         definition = """
         # Screen information
         -> Configuration
@@ -484,7 +486,8 @@ class Configuration(dj.Manual):
         """
 
     class Speaker(dj.Part):
-        """Speaker configuration table"""
+        """Speaker configuration table."""
+
         definition = """
         # Speaker information
         speaker_idx             : tinyint
@@ -499,8 +502,8 @@ class Configuration(dj.Manual):
 
 @interface.schema
 class PortCalibration(dj.Manual):
-    """Datajoint table for liquid delivery calibration sessions for each port with water
-    availability"""
+    """Datajoint table for liquid delivery calibration sessions for each port with water availability."""
+
     definition = """
     # Liquid delivery calibration sessions for each port with water availability
     setup                        : varchar(256)  # Setup name
@@ -509,7 +512,7 @@ class PortCalibration(dj.Manual):
     """
 
     class Liquid(dj.Part):
-        """Datajoint table for volume per pulse duty cycle estimation"""
+        """Datajoint table for volume per pulse duty cycle estimation."""
 
         definition = """
         # Data for volume per pulse duty cycle estimation
@@ -523,7 +526,8 @@ class PortCalibration(dj.Manual):
         """
 
     class Test(dj.Part):
-        """Datajoint table for Lick Test"""
+        """Datajoint table for Lick Test."""
+
         definition = """
         # Lick timestamps
         setup                        : varchar(256)                 # Setup name
