@@ -379,7 +379,7 @@ class Logger:
         self,
         table: str,
         data: Optional[Dict[str, Any]] = None,
-        **kwargs: dict[str, Any],
+        **kwargs: Dict[str, Any],
     ) -> float:
         """Log the given data into the specified table in the experiment database.
 
@@ -738,7 +738,7 @@ class Logger:
             },
         )
 
-    def get_setup_info(self, field: str) -> int | str:
+    def get_setup_info(self, field: str):
         """Retrieve specific setup information from an experiment control table.
 
         Args:
