@@ -6,10 +6,10 @@ experiments. It includes:
 - Condition management and randomization
 - Trial preparation and execution
 - Performance tracking and analysis
-- Integration with stimulus and behavior modules
 
-The module is built around two main classes:
+The module is built around three main classes:
 - State: Base class for implementing experiment states
+- StateMachine: Control the flow of the experiment
 - ExperimentClass: Base class for experiment implementation
 """
 
@@ -18,7 +18,7 @@ import time
 from dataclasses import dataclass, field
 from importlib import import_module
 from itertools import product
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 import datajoint as dj
 import numpy as np
@@ -303,7 +303,7 @@ class ExperimentClass:
         conditions: Dict[str, Any],
         stim_periods: List[str] = None,
     ):
-        """Create experiment conditions by combining stimulus, behavior, and experiment."""
+        """Create conditions by combining stimulus, behavior, and experiment."""
         log.debug("-------------- Make conditions --------------")
         self.stims = self._stim_init(stim_class, self.stims)
         used_keys = set()  # all the keys used from dictionary conditions
@@ -355,7 +355,8 @@ class ExperimentClass:
                 ].make_conditions(period_conditions[period])
                 for i, stim_condition in enumerate(period_conditions[period]):
                     log.debug(
-                        f"Stimulus condition {i}:\n {format_params_print(stim_condition)}"
+                        f"Stimulus condition {i}:\n"
+                        f"{format_params_print(stim_condition)}"
                     )
             stim_conditions = factorize(period_conditions)
             return stim_conditions, stim_periods
@@ -377,7 +378,8 @@ class ExperimentClass:
         """Process behavior-related conditions."""
         beh_dict = self.get_keys_from_dict(conditions, get_parameters(self.beh).keys())
         log.debug(
-            f"Behavior use default conditions:\n{get_parameters(self.beh).keys() - beh_dict.keys()}"
+            f"Behavior use default conditions:\n"
+            f"{get_parameters(self.beh).keys() - beh_dict.keys()}"
         )
         beh_conditions = factorize(beh_dict)
         beh_conditions = self.beh.make_conditions(beh_conditions)
@@ -392,7 +394,8 @@ class ExperimentClass:
         exp_dict = self.get_keys_from_dict(conditions, get_parameters(self).keys())
         exp_dict.update(task_classes)
         log.debug(
-            f"Experiment use default conditions:\n{get_parameters(self).keys() - exp_dict.keys()}"
+            f"Experiment use default conditions:\n"
+            f"{get_parameters(self).keys() - exp_dict.keys()}"
         )
         exp_conditions = factorize(exp_dict)
 
@@ -409,12 +412,13 @@ class ExperimentClass:
             )
         return conditions_list, exp_dict.keys()
 
-    def _handle_unused_parameters(self, conditions, used_keys):
+    def _handle_unused_parameters(self, conditions, used_keys) -> Union[List, None]:
         """Process any unused parameters."""
         unused_keys = set(conditions.keys()) - used_keys
         if unused_keys:
             log.warning(
-                f"Keys: {unused_keys} are in condition but are not used from Experiment, Behavior or Stimulus"
+                f"Keys: {unused_keys} are in condition but are not used from"
+                f"Experiment, Behavior or Stimulus"
             )
             unused_dict = self.get_keys_from_dict(conditions, unused_keys)
             return factorize(unused_dict)
@@ -434,7 +438,21 @@ class ExperimentClass:
         if missing_fields:
             raise ValueError(f"Missing experiment required fields: {missing_fields}")
 
-    def push_conditions(self, conditions: List):
+    def push_conditions(self, conditions: List) -> None:
+        """Set the experimental conditions and initializes related data structures.
+
+        This method takes a list of condition dictionaries, prepares data structures
+        for tracking choices, blocks, and the current condition.  It also determines
+        unique choice hashes based on the response condition and difficulty.
+
+        Args:
+            conditions: A list of dictionaries, where each dictionary
+                represents an experimental condition.  Each condition
+                dictionary is expected to contain at least a "difficulty"
+                key.  If a `resp_cond` key (or the default "response_port")
+                is present, it's used to create unique choice hashes.
+
+        """
         log.info(f"Number of conditions: {len(conditions)}")
         self.conditions = conditions
         resp_cond = (
@@ -453,7 +471,8 @@ class ExperimentClass:
             [i for (i, v) in zip(self.conditions, self.blocks == self.cur_block) if v]
         )
 
-    def prepare_trial(self):
+    def prepare_trial(self) -> None:
+        """Prepare trial conditions, stimuli and update trial index."""
         old_cond = self.curr_cond
         self._get_new_cond()
 
@@ -482,12 +501,18 @@ class ExperimentClass:
         if not self.in_operation:
             self.in_operation = True
 
-    def name(self):
+    def name(self) -> str:
+        """Name of experiment class."""
         return type(self).__name__
 
-    def make_cond_hash(
-        self, conditions: List[Dict], hash_field: str, schema: dj.schema, condition_tables: List
+    def _make_cond_hash(
+        self,
+        conditions: List[Dict],
+        hash_field: str,
+        schema: dj.schema,
+        condition_tables: List
     ) -> List[Dict]:
+        """Make unique hash based on all fields from condition tables."""
         # get all fields from condition tables except hash
         fields_key = {
             key
@@ -528,7 +553,7 @@ class ExperimentClass:
         if condition_tables is None:
             condition_tables = ["Condition"]
 
-        conditions = self.make_cond_hash(
+        conditions = self._make_cond_hash(
             conditions, hash_field, schema, condition_tables
         )
 
@@ -583,7 +608,7 @@ class ExperimentClass:
 
     def _anti_bias(self, choice_h, un_choices):
         choice_h = np.array(
-            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"] :]]
+            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"]:]]
         )
         if len(choice_h) < self.curr_cond["bias_window"]:
             choice_h = self.choices
@@ -592,84 +617,238 @@ class ExperimentClass:
             fixed_p = np.ones(np.shape(fixed_p))
         return np.random.choice(un_choices, 1, p=fixed_p / sum(fixed_p))
 
-    def _get_performance(self):
-        idx = np.logical_or(
-            ~np.isnan(self.beh.reward_history), ~np.isnan(self.beh.punish_history)
-        )  # select valid
-        rew_h = np.asarray(self.beh.reward_history)
-        rew_h = rew_h[idx]
-        choice_h = np.int64(np.asarray(self.beh.choice_history)[idx])
-        perf = np.nan
-        window = self.curr_cond["staircase_window"]
-        if self.curr_cond["metric"] == "accuracy":
-            perf = np.nanmean(np.greater(rew_h[-window:], 0))
-        elif self.curr_cond["metric"] == "dprime":
-            y_true = [
-                c if r > 0 else c % 2 + 1
-                for (c, r) in zip(choice_h[-window:], rew_h[-window:])
-            ]
-            if len(np.unique(y_true)) > 1:
-                perf = np.sqrt(2) * stats.norm.ppf(
-                    roc_auc_score(y_true, np.array(choice_h[-window:]))
-                )
-            if self.logger.manual_run:
-                log.debug(
-                    f"perf: {perf if not np.isnan(perf) else 0} "
-                    f"accuracy: {np.nanmean(np.greater(rew_h[-window:], 0)) or 0}"
-                )
-        else:
-            log.error("Performance method not implemented!")
-            self.quit = True
-        choice_h = [[c, d] for c, d in zip(choice_h, np.asarray(self.block_h)[idx])]
-        return perf, choice_h
+    def _get_new_cond(self) -> None:
+        """Get next condition based on trial selection method."""
+        selection_method = self.curr_cond["trial_selection"]
+        selection_handlers = {
+            "fixed": self._fixed_selection,
+            "block": self._block_selection,
+            "random": self._random_selection,
+            "staircase": self._staircase_selection,
+            "biased": self._biased_selection
+        }
 
-    def _get_new_cond(self):
-        """Get curr condition & create random block of all conditions"""
-        if self.curr_cond["trial_selection"] == "fixed":
-            self.curr_cond = [] if len(self.conditions) == 0 else self.conditions.pop(0)
-        elif self.curr_cond["trial_selection"] == "block":
-            if np.size(self.iter) == 0:
-                self.iter = np.random.permutation(np.size(self.conditions))
-            cond = self.conditions[self.iter[0]]
-            self.iter = self.iter[1:]
-            self.curr_cond = cond
-        elif self.curr_cond["trial_selection"] == "random":
-            self.curr_cond = np.random.choice(self.conditions)
-        elif self.curr_cond["trial_selection"] == "staircase":
-            perf, choice_h = self._get_performance()
-            if np.size(self.beh.choice_history) and self.beh.choice_history[-1:][0] > 0:
-                self.cur_block_sz += 1  # current block trial counter
-            if self.cur_block_sz >= self.curr_cond["staircase_window"]:
-                if perf >= self.curr_cond["stair_up"]:
-                    self.cur_block = self.curr_cond["next_up"]
-                    self.cur_block_sz = 0
-                    self.logger.update_setup_info({"difficulty": self.cur_block})
-                elif perf < self.curr_cond["stair_down"]:
-                    self.cur_block = self.curr_cond["next_down"]
-                    self.cur_block_sz = 0
-                    self.logger.update_setup_info({"difficulty": self.cur_block})
-            if self.curr_cond["antibias"]:
-                anti_bias = self._anti_bias(
-                    choice_h, self.un_choices[self.un_blocks == self.cur_block]
-                )
-                condition_idx = np.logical_and(
-                    self.choices == anti_bias, self.blocks == self.cur_block
-                )
-            else:
-                condition_idx = self.blocks == self.cur_block
-            self.curr_cond = np.random.choice(
-                [i for (i, v) in zip(self.conditions, condition_idx) if v]
-            )
-            self.block_h.append(self.cur_block)
-        elif self.curr_cond["trial_selection"] == "biased":
-            perf, choice_h = self._get_performance()
-            condition_idx = self.choices == self._anti_bias(choice_h, self.un_choices)
-            self.curr_cond = np.random.choice(
-                [i for (i, v) in zip(self.conditions, condition_idx) if v]
+        handler = selection_handlers.get(selection_method)
+        if handler:
+            self.curr_cond = handler()
+        else:
+            log.error(f"Selection method '{selection_method}' not implemented!")
+            self.quit = True
+
+    def _fixed_selection(self) -> Dict:
+        """Select next condition by popping from ordered list."""
+        return [] if len(self.conditions) == 0 else self.conditions.pop(0)
+
+    def _block_selection(self) -> Dict:
+        """Select random condition from a block.
+
+        Select a condition from a block of conditions until all
+        conditions has been selected, then repeat them randomnly.
+        """
+        if np.size(self.iter) == 0:
+            self.iter = np.random.permutation(np.size(self.conditions))
+        cond = self.conditions[self.iter[0]]
+        self.iter = self.iter[1:]
+        return cond
+
+    def _random_selection(self) -> Dict:
+        """Select random condition from available conditions."""
+        return np.random.choice(self.conditions)
+
+    def _update_block_difficulty(self, perf: float) -> None:
+        """Update block difficulty based on performance.
+
+        Args:
+            perf: Current performance metric
+
+        """
+        if self.cur_block_sz >= self.curr_cond["staircase_window"]:
+            if perf >= self.curr_cond["stair_up"]:
+                self.cur_block = self.curr_cond["next_up"]
+                self.cur_block_sz = 0
+                self.logger.update_setup_info({"difficulty": self.cur_block})
+            elif perf < self.curr_cond["stair_down"]:
+                self.cur_block = self.curr_cond["next_down"]
+                self.cur_block_sz = 0
+                self.logger.update_setup_info({"difficulty": self.cur_block})
+
+    def _get_valid_conditions(self, condition_idx: np.ndarray) -> List[Dict]:
+        """Get list of valid conditions based on condition index.
+
+        Args:
+            condition_idx: Boolean array indicating valid conditions
+
+        Returns:
+            List of valid condition dictionaries
+
+        """
+        return [c for c, v in zip(self.conditions, condition_idx) if v]
+
+    def _staircase_selection(self) -> Dict:
+        """Select next condition using staircase method."""
+        # Get performance metrics
+        perf, choice_h = self._get_performance()
+
+        # Update block size if there was a choice in last trial
+        if (np.size(self.beh.choice_history) and self.beh.choice_history[-1:][0] > 0):
+            self.cur_block_sz += 1
+
+        # Update difficulty if needed
+        self._update_block_difficulty(perf)
+
+        # Select condition based on current block and anti-bias
+        if self.curr_cond["antibias"]:
+            valid_choices = self.un_choices[self.un_blocks == self.cur_block]
+            anti_bias = self._anti_bias(choice_h, valid_choices)
+            condition_idx = np.logical_and(
+                self.choices == anti_bias,
+                self.blocks == self.cur_block
             )
         else:
-            log.error("Selection method not implemented!")
+            condition_idx = self.blocks == self.cur_block
+
+        valid_conditions = self._get_valid_conditions(condition_idx)
+        self.block_h.append(self.cur_block)
+        return np.random.choice(valid_conditions)
+
+    def _biased_selection(self) -> Dict:
+        """Select next condition using anti-bias method."""
+        perf, choice_h = self._get_performance()
+        anti_bias = self._anti_bias(choice_h, self.un_choices)
+        condition_idx = self.choices == anti_bias
+        valid_conditions = self._get_valid_conditions(condition_idx)
+        return np.random.choice(valid_conditions)
+
+    def add_selection_method(self, name: str, handler: Callable[[], Dict]) -> None:
+        """Add a new trial selection method.
+
+        Args:
+            name: Name of the selection method
+            handler: Function that returns next condition
+
+        Example:
+            def my_selection_method(self):
+                # Custom selection logic
+                return selected_condition
+
+            experiment.add_selection_method('custom', my_selection_method)
+
+        """
+        if not hasattr(self, f"_{name}_selection"):
+            setattr(self, f"_{name}_selection", handler)
+            log.info(f"Added new selection method: {name}")
+        else:
+            log.warning(f"Selection method '{name}' already exists")
+
+    def _get_performance(self) -> Tuple[float, List[List[int]]]:
+        """Calculate performance metrics based on trial history."""
+        rewards, choices, blocks = self._extract_valid_trial_data()
+
+        if not rewards.size:  # Check if there are any valid trials
+            return np.nan, []
+
+        window = self.curr_cond["staircase_window"]
+        recent_rewards = rewards[-window:]
+        recent_choices = choices[-window:]
+        recent_blocks = blocks[-window:] if blocks is not None else None
+
+        performance = self._calculate_metric(
+            recent_rewards, recent_choices, recent_blocks
+        )
+
+        choice_history = self._get_choice_history(choices, blocks)
+
+        log.debug(f"\nstaircase_window: {window},\n"
+                  f"rewards: {recent_rewards},\n"
+                  f"choices: {recent_choices},\n"
+                  f"blocks: {recent_blocks},\n"
+                  f"performace: {performance}")
+
+        return performance, choice_history
+
+    def _extract_valid_trial_data(
+        self,
+    ) -> Tuple[np.ndarray, np.ndarray, Optional[np.ndarray]]:
+        """Extract valid trial data from history."""
+        valid_idx = np.logical_or(
+            ~np.isnan(self.beh.reward_history), ~np.isnan(self.beh.punish_history)
+        )
+
+        rewards = np.asarray(self.beh.reward_history)[valid_idx]
+        choices = np.int64(np.asarray(self.beh.choice_history)[valid_idx])
+        blocks = np.asarray(self.block_h)[valid_idx] if self.block_h else None
+
+        return rewards, choices, blocks
+
+    def _calculate_accuracy(
+        self, rewards: np.ndarray, choices: np.ndarray, blocks: Optional[np.ndarray]
+    ) -> float:
+        """Calculate accuracy from trial data."""
+        return np.nanmean(np.greater(rewards, 0))
+
+    def _calculate_dprime(
+        self, rewards: np.ndarray, choices: np.ndarray, blocks: Optional[np.ndarray]
+    ) -> float:
+        """Calculate d-prime from trial data."""
+        y_true = [c if r > 0 else c % 2 + 1 for (c, r) in zip(choices, rewards)]
+
+        if len(np.unique(y_true)) > 1:
+            auc = roc_auc_score(y_true, choices)
+            return np.sqrt(2) * stats.norm.ppf(auc)
+
+        return np.nan
+
+    def _calculate_metric(
+        self, rewards: np.ndarray, choices: np.ndarray, blocks: Optional[np.ndarray]
+    ) -> float:
+        """Calculate performance metric specified in current condition."""
+        metric_handlers = {
+            "accuracy": self._calculate_accuracy,
+            "dprime": self._calculate_dprime,
+        }
+
+        handler = metric_handlers.get(self.curr_cond["metric"])
+        if handler:
+            return handler(rewards, choices, blocks)
+        else:
+            log.error(
+                f"Performance metric '{self.curr_cond['metric']}' not implemented!"
+            )
             self.quit = True
+            return np.nan
+
+    def _get_choice_history(
+        self, choices: np.ndarray, blocks: Optional[np.ndarray]
+    ) -> List[List[int]]:
+        """Create choice history with difficulty levels."""
+        if blocks is not None:
+            return [[c, d] for c, d in zip(choices, blocks)]
+        return [[c, 0] for c in choices]
+
+    def add_performance_metric(
+        self,
+        name: str,
+        handler: Callable[[np.ndarray, np.ndarray, Optional[np.ndarray]], float],
+    ) -> None:
+        """Add a new performance metric calculation method.
+
+        Args:
+            name: Name of the metric
+            handler: Function that takes ValidTrials and returns performance score
+
+        Example:
+            def calculate_custom_metric(trials):
+                # Custom metric calculation
+                return score
+
+            experiment.add_performance_metric('custom', calculate_custom_metric)
+
+        """
+        if not hasattr(self, f"_calculate_{name}"):
+            setattr(self, f"_calculate_{name}", handler)
+            log.info(f"Added new performance metric: {name}")
+        else:
+            log.warning(f"Performance metric '{name}' already exists")
 
     @dataclass
     class Block:
@@ -686,7 +865,8 @@ class ExperimentClass:
         noresponse_intertrial: bool = field(compare=False, default=True)
         incremental_punishment: bool = field(compare=False, default=False)
 
-        def dict(self):
+        def dict(self) -> Dict:
+            """Rerurn parameters as dictionary."""
             return self.__dict__
 
 
