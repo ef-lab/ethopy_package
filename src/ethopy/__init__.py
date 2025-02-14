@@ -5,7 +5,7 @@ import datajoint as dj
 from ethopy.plugin_manager import PluginManager
 from ethopy.utils.config import ConfigurationManager
 
-__version__ = "0.0.1"
+__version__ = "0.0.5"
 
 # Set environment variables
 environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
