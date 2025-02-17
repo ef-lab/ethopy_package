@@ -769,7 +769,13 @@ class ExperimentClass:
     def _extract_valid_trial_data(
         self,
     ) -> Tuple[np.ndarray, np.ndarray, Optional[np.ndarray]]:
-        """Extract valid trial data from history."""
+        """Extract trials that are either punish or reward.
+
+        rewards: reward amount given at trials that have been rewarded else nan
+        choices: selected port in reward & punish trials
+        blocks: block index in each trial that is reward or punish
+
+        """
         valid_idx = np.logical_or(
             ~np.isnan(self.beh.reward_history), ~np.isnan(self.beh.punish_history)
         )
@@ -844,8 +850,8 @@ class ExperimentClass:
             experiment.add_performance_metric('custom', calculate_custom_metric)
 
         """
-        if not hasattr(self, f"_calculate_{name}"):
-            setattr(self, f"_calculate_{name}", handler)
+        if not hasattr(self, f"{name}"):
+            setattr(self, f"{name}", handler)
             log.info(f"Added new performance metric: {name}")
         else:
             log.warning(f"Performance metric '{name}' already exists")
