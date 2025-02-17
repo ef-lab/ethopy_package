@@ -1,13 +1,30 @@
 # Ethopy
-State control system for automated, high-throughput behavioral training based on Python. 
-It is tightly integrated with Database storage & control using the [Datajoint] framework. 
-It can run on Linux, MacOS, Windows and it is optimized for use with Raspberry pi boards. 
 
-It is comprised of several overridable modules that define the structure of experiment, stimulus and behavioral control.
+[![PyPI Version](https://img.shields.io/pypi/v/ethopy.svg)](https://pypi.python.org/pypi/ethopy)
+[![Python Versions](https://img.shields.io/pypi/pyversions/ethopy.svg)](https://pypi.org/project/ethopy/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[![image](https://img.shields.io/pypi/v/ethopy.svg)](https://pypi.python.org/pypi/ethopy)
+Ethopy is a state control system for automated, high-throughput behavioral training based on Python. It provides a flexible framework for designing and running behavioral experiments with:
 
-A diagram that illustrates the relationship between the core modules:
+- Tight integration with database storage & control using [Datajoint]
+- Cross-platform support (Linux, macOS, Windows)
+- Optimized for Raspberry Pi boards
+- Modular architecture with overridable components
+- Built-in support for various experiment types, stimuli, and behavioral interfaces
+
+## Features
+
+- **Modular Design**: Comprised of several overridable modules that define the structure of experiments, stimuli, and behavioral control
+- **Database Integration**: Automatic storage and management of experimental data using Datajoint
+- **Multiple Experiment Types**: Support for various experiment paradigms (MatchToSample, Navigation, Passive Viewing, etc.)
+- **Hardware Integration**: Interfaces with multiple hardware setups (MultiPort, VRBall, Touchscreen)
+- **Stimulus Control**: Various stimulus types supported (Gratings, Movies, Olfactory, 3D Objects)
+- **Real-time Control**: State-based experiment control with precise timing
+- **Extensible**: Easy to add new experiment types, stimuli, or behavioral interfaces
+
+## System Architecture
+
+The following diagram illustrates the relationship between the core modules:
 
 <img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/modules.iuml">
 
@@ -93,114 +110,20 @@ Handles all communication with hardware
 
 ---
 
-## HOW TO RUN
-Can be run either as a service that is controled by the Control table
-```bash
-sudo python3 run.py
-```
+## How to run
 
-or can specify a task_idx to run directly. After it completes, the process ends.
-```bash
-sudo python3 run.py 1 
-```
+You can run experiments in two modes:
 
+1. **Service Mode**: Controlled by the Control table in the database
+2. **Direct Mode**: Run a specific task directly
+
+Example of running a task:
+```bash
+# Run a grating test experiment
+ethopy -p grating_test.py
+
+# Run a specific task by ID
+ethopy --task-idx 1
+```
 
 This process can be automated by either a bash script that runs on startup or through control from a salt server. 
-
-## INSTALLATION INSTRUCTIONS (for Raspberry pi)
-Get latest raspbian OS
-in raspi-config:
- - enable ssh
- - disable screen blanking
- - enable Desktop auto-login
-
-Change hostname - Optional, but it will make it easier to identify later
-```bash
-sed -r -i s/raspberrypi/<<HOSTNAME>>/g /etc/hostname /etc/hostname
-sed -r -i s/raspberrypi/<<HOSTNAME>>/g /etc/hosts /etc/hosts
-```
-
-Change username - Optional
-```bash
-sudo useradd -s /bin/bash -d /home/<<USERNAME>>/ -m -G sudo <<USERNAME>>
-sudo passwd <<USERNAME>>
-mkhomedir_helper <<USERNAME>>
-sudo userdel -r -f pi
-```
-
-Install salt for remote control, you need to have a salt-master server! - Optional
-```bash
-sudo apt install salt-minion -y
-echo 'master: <<YOUR_SALT-MASTER_IP>>' | sudo tee -a /etc/salt/minion
-echo 'id: <<HOSTNAME>>' | sudo tee -a /etc/salt/minion
-echo 'master_finger: <<MASTER-FINGER>>' | sudo tee -a /etc/salt/minion
-sudo service salt-minion restart
-```
-
-X display settings for ssh run, important for Panda stimulus
-```bash
-sed -i -e '$aexport DISPLAY=:0' ~/.profile
-sed -i -e '$axhost +  > /dev/null' ~/.profile
-```
-
-Install dependent libraries
-```bash
-sudo apt update
-sudo apt install python-dev libatlas-base-dev build-essential libavformat-dev libavcodec-dev libswscale-dev libsquish-dev libeigen3-dev libopenal-dev libfreetype6-dev zlib1g-dev libx11-dev libjpeg-dev libvorbis-dev libogg-dev libassimp-dev libode-dev libssl-dev libgles2 libgles1 libegl1 -y
-```
-
-Install python packages
-```bash
-sudo pip3 install 'numpy>=1.19.1' pygame==1.9.6 cython pybind11 scipy datajoint omxplayer-wrapper imageio imageio-ffmpeg
-```
-
-Install correct multitouch driver for 7" inch raspberry pi screen
-```bash
-git clone http://github.com/ef-lab/python-multitouch ~/github/python-multitouch
-cd ~/github/python-multitouch/library
-sudo python3 setup.py install
-```
-
-Install panda3d version for raspberry pi
-```bash
-wget ftp://eflab.org/shared/panda3d1.11_1.11.0_armhf.deb
-sudo dpkg -i panda3d1.11_1.11.0_armhf.deb
-```
-
-Enable pigpio service
-```bash
-wget https://raw.githubusercontent.com/joan2937/pigpio/master/util/pigpiod.servicesudo cp pigpiod.service /etc/systemd/system
-sudo systemctl enable pigpiod.service
-sudo systemctl start pigpiod.service
-```
-
-Get EthoPy
-```bash
-git clone http://github.com/ef-lab/EthoPy ~/github/EthoPy
-```
-
-Create dj_local_conf.json with the correct parameters in the EthoPy folder:
-```json
-{
-   "database.host": "YOUR DATABASE",
-    "database.user": "USERNAME",
-    "database.password": "PASSWORD",
-    "database.port": "PORT",
-    "database.reconnect": true,
-    "database.enable_python_native_blobs": true,
-    "source_path" : "LOCAL_RECORDINGS_DIRECTORY",
-    "target_path" : "TARGET_RECORDINGS_DIRECTORY"
-}
-```
-
-Create tables
-```bash
-cd ~/github/EthoPy
-python3 -c 'from core.Experiment import *'
-python3 -c 'from core.Stimulus import *'
-python3 -c 'from core.Behavior import *'
-python3 -c 'from Stimuli import *'
-python3 -c 'from Behaviors import *'
-python3 -c 'from Experiments import *'
-```
-
