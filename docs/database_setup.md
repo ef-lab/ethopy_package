@@ -27,7 +27,7 @@ This command will:
 5. Start the container
 
 The Docker container uses:
-- Image: `datajoint/mysql:5.7`
+- Image: `datajoint/mysql:5.7` (https://github.com/datajoint/mysql-docker)
 - Port: 3306 (standard MySQL port)
 - Volume: `./data_ethopy_sql_db:/var/lib/mysql` for persistent data storage
 
