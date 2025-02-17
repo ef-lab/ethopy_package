@@ -209,7 +209,7 @@ class Logger:
 
         Args:
             **kwargs (Any): The keyword arguments used to create a `PrioritizedItem` and
-            put it in the queue.
+                put it in the queue.
 
         """
         item = PrioritizedItem(**kwargs)
@@ -389,7 +389,7 @@ class Logger:
         Args:
             table (str): The name of the table in the experiment database.
             data (dict, optional): The data to be logged. Defaults to an empty
-            dictionary.
+                dictionary.
             **kwargs: Additional keyword arguments to be passed to the put method.
 
         Returns:
@@ -533,11 +533,11 @@ class Logger:
 
         Args:
             outer_class: The class object of the outer class containing the inner
-            classes.
+                classes.
 
         Returns:
             A list of strings, each representing the fully qualified name of an inner
-            class defined within the outer class.
+                class defined within the outer class.
 
         """
         outer_class_dict_values = outer_class.__dict__.values()
@@ -672,7 +672,7 @@ class Logger:
         Args:
             info (dict): The information to update the setup with.
             key (dict, optional): Additional keys to fetch the setup information with.
-            Defaults to None.
+                Defaults to None.
 
         Side Effects:
             Updates the setup_info attribute with the new setup information.
@@ -738,12 +738,12 @@ class Logger:
             },
         )
 
-    def get_setup_info(self, field: str):
+    def get_setup_info(self, field: str) -> np.int64:
         """Retrieve specific setup information from an experiment control table.
 
         Args:
             field (str): The name of the field to fetch from the experiment control
-            setup.
+                setup.
 
         Returns:
             The value of the specified field from the experiment control setup.
@@ -784,11 +784,11 @@ class Logger:
 
         Args:
             schema (str): The schema name where the table is located. Default is
-            'experiment'.
+                'experiment'.
             table (str): The table name from which to retrieve the keys. Default is
-            'Control'.
+                'Control'.
             key (dict): A dict with the key to filter the table. Default is an empty
-            dictionary.
+                dictionary.
             key_type (str): type of keys to return from the table
 
         Returns:
@@ -843,12 +843,11 @@ class Logger:
         """Create a dataset and return the dataset object.
 
         Args:
-            target_path (str): The target path for the dataset.
             dataset_name (str): The name of the dataset.
             dataset_type (type): The datatype of the dataset.
             filename (str, optional): The filename for the h5 file. If not provided,
-            a default filename will be generated based on the dataset name, animal ID,
-            session, and current timestamp.
+                a default filename will be generated based on the dataset name,
+                animal ID, session, and current timestamp.
             log (bool, optional): If True call the log_recording
 
         Returns:
