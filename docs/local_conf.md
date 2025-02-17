@@ -328,9 +328,8 @@ elif not os.access(path, os.W_OK):
 The configuration system is continually being improved. Planned features include:
 
 1. Schema validation using Pydantic
-2. Encrypted storage for sensitive data
-3. Configuration migration tools
-4. GUI configuration editor
+2. Configuration migration tools
+3. GUI configuration editor
 
 ## Contributing
 
