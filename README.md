@@ -15,6 +15,57 @@ A diagram that illustrates the relationship between the core modules:
 
 --- 
 
+## Intallation: how to use EthoPy
+Can be run either as a service that is controled by the Control table
+```bash
+pip install ethopy
+```
+
+### setup database in docker
+```bash
+ethopy-setup-djdocker
+```
+### Define local configuration:
+The configuration file by default is stored in:
+- Linux/macOS: `~/.ethopy/local_conf.json`
+- Windows: `%USERPROFILE%\.ethopy\local_conf.json`
+
+#### Basic Configuration Structure
+```json
+{
+    "dj_local_conf": {
+        "database.host": "127.0.0.1",
+        "database.user": "root",
+        "database.password": "your_password",
+        "database.port": 3306
+    },
+    "source_path": "/path/to/data",
+    "target_path": "/path/to/backup",
+    "logging": {
+        "level": "INFO",
+        "filename": "ethopy.log"
+    }
+}
+```
+
+### Check the connection with the database:
+```
+ethopy-db-connection
+```
+
+### create schema
+```bash
+ethopy-setup-schema
+```
+
+### Run a task on local machine for test
+or can specify a task_idx to run directly. After it completes, the process ends.
+```bash
+ethopy -p grating_test.py
+```
+
+---
+
 ## Core modules:
 
 ### Experiment
@@ -32,8 +83,9 @@ Each of the states is discribed by 4 overridable funcions:
 
 Tables that are needed for the experiment that discribe the setup:
 
-> SetupConfiguration  
-> SetupConfiguration.Port  
+> SetupConfiguration
+
+> SetupConfiguration.Port
 > SetupConfiguration.Screen
 
 The experiment parameters are specified in *.py script configuration files that are entered in the Task table within the lab_experriment schema.
@@ -92,115 +144,4 @@ lab_stimuli:
 Handles all communication with hardware
 
 ---
-
-## HOW TO RUN
-Can be run either as a service that is controled by the Control table
-```bash
-sudo python3 run.py
-```
-
-or can specify a task_idx to run directly. After it completes, the process ends.
-```bash
-sudo python3 run.py 1 
-```
-
-
-This process can be automated by either a bash script that runs on startup or through control from a salt server. 
-
-## INSTALLATION INSTRUCTIONS (for Raspberry pi)
-Get latest raspbian OS
-in raspi-config:
- - enable ssh
- - disable screen blanking
- - enable Desktop auto-login
-
-Change hostname - Optional, but it will make it easier to identify later
-```bash
-sed -r -i s/raspberrypi/<<HOSTNAME>>/g /etc/hostname /etc/hostname
-sed -r -i s/raspberrypi/<<HOSTNAME>>/g /etc/hosts /etc/hosts
-```
-
-Change username - Optional
-```bash
-sudo useradd -s /bin/bash -d /home/<<USERNAME>>/ -m -G sudo <<USERNAME>>
-sudo passwd <<USERNAME>>
-mkhomedir_helper <<USERNAME>>
-sudo userdel -r -f pi
-```
-
-Install salt for remote control, you need to have a salt-master server! - Optional
-```bash
-sudo apt install salt-minion -y
-echo 'master: <<YOUR_SALT-MASTER_IP>>' | sudo tee -a /etc/salt/minion
-echo 'id: <<HOSTNAME>>' | sudo tee -a /etc/salt/minion
-echo 'master_finger: <<MASTER-FINGER>>' | sudo tee -a /etc/salt/minion
-sudo service salt-minion restart
-```
-
-X display settings for ssh run, important for Panda stimulus
-```bash
-sed -i -e '$aexport DISPLAY=:0' ~/.profile
-sed -i -e '$axhost +  > /dev/null' ~/.profile
-```
-
-Install dependent libraries
-```bash
-sudo apt update
-sudo apt install python-dev libatlas-base-dev build-essential libavformat-dev libavcodec-dev libswscale-dev libsquish-dev libeigen3-dev libopenal-dev libfreetype6-dev zlib1g-dev libx11-dev libjpeg-dev libvorbis-dev libogg-dev libassimp-dev libode-dev libssl-dev libgles2 libgles1 libegl1 -y
-```
-
-Install python packages
-```bash
-sudo pip3 install 'numpy>=1.19.1' pygame==1.9.6 cython pybind11 scipy datajoint omxplayer-wrapper imageio imageio-ffmpeg
-```
-
-Install correct multitouch driver for 7" inch raspberry pi screen
-```bash
-git clone http://github.com/ef-lab/python-multitouch ~/github/python-multitouch
-cd ~/github/python-multitouch/library
-sudo python3 setup.py install
-```
-
-Install panda3d version for raspberry pi
-```bash
-wget ftp://eflab.org/shared/panda3d1.11_1.11.0_armhf.deb
-sudo dpkg -i panda3d1.11_1.11.0_armhf.deb
-```
-
-Enable pigpio service
-```bash
-wget https://raw.githubusercontent.com/joan2937/pigpio/master/util/pigpiod.servicesudo cp pigpiod.service /etc/systemd/system
-sudo systemctl enable pigpiod.service
-sudo systemctl start pigpiod.service
-```
-
-Get EthoPy
-```bash
-git clone http://github.com/ef-lab/EthoPy ~/github/EthoPy
-```
-
-Create dj_local_conf.json with the correct parameters in the EthoPy folder:
-```json
-{
-   "database.host": "YOUR DATABASE",
-    "database.user": "USERNAME",
-    "database.password": "PASSWORD",
-    "database.port": "PORT",
-    "database.reconnect": true,
-    "database.enable_python_native_blobs": true,
-    "source_path" : "LOCAL_RECORDINGS_DIRECTORY",
-    "target_path" : "TARGET_RECORDINGS_DIRECTORY"
-}
-```
-
-Create tables
-```bash
-cd ~/github/EthoPy
-python3 -c 'from core.Experiment import *'
-python3 -c 'from core.Stimulus import *'
-python3 -c 'from core.Behavior import *'
-python3 -c 'from Stimuli import *'
-python3 -c 'from Behaviors import *'
-python3 -c 'from Experiments import *'
-```
 
