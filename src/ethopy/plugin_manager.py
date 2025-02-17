@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 
 @dataclass
 class PluginInfo:
-    """Information about a discovered plugin"""
+    """Information about a discovered plugin."""
 
     name: str
     path: str
@@ -21,8 +21,8 @@ class PluginInfo:
 
 
 class PluginManager:
-    """
-    Plugin manager for ethopy that enables dynamic loading of user plugins.
+    """Plugin manager for ethopy that enables dynamic loading of user plugins.
+
     Handles both standalone modules and structured plugins with duplicate detection,
     including checks against the main ethopy package.
     """
@@ -50,7 +50,7 @@ class PluginManager:
         self._initialize_plugin_imports()
 
     def _get_ethopy_path(self) -> Optional[str]:
-        """Get the installation path of the main ethopy package"""
+        """Get the installation path of the main ethopy package."""
         try:
             import ethopy
 
@@ -60,12 +60,12 @@ class PluginManager:
             return None
 
     def _scan_core_modules(self):
-        """Scan the main ethopy package for modules"""
+        """Scan main ethopy package for modules."""
         if not self._ethopy_path:
             return
 
         def scan_package(package_path: str, package_name: str = "ethopy"):
-            """Recursively scan a package for modules"""
+            """Scan recursively a package for modules."""
             if not os.path.isdir(package_path):
                 return
 
@@ -98,7 +98,7 @@ class PluginManager:
         scan_package(self._ethopy_path)
 
     def _setup_plugin_paths(self):
-        """Setup default plugin paths and from environment variable"""
+        """Setup default plugin paths and from environment variable."""
         default_paths = [
             Path.home() / ".ethopy" / "ethopy_plugins",
             # Path.cwd() / "ethopy_plugins",
@@ -120,14 +120,14 @@ class PluginManager:
         plugin_type: str,
         is_core: bool = False,
     ):
-        """
-        Register a plugin, handling duplicates with warnings.
+        """Register a plugin, handling duplicates with warnings.
 
         Args:
             import_path: Full import path (e.g., 'ethopy.mymodule')
             plugin_path: Path to the plugin file
             plugin_type: 'standalone', 'core', or category name
             is_core: Whether this is from the main ethopy package
+
         """
         name = import_path.split(".")[-1]
 
@@ -174,11 +174,11 @@ class PluginManager:
         )
 
     def add_plugin_path(self, path: str) -> None:
-        """
-        Add a new plugin directory to the system.
+        """Add a new plugin directory to the system.
 
         Args:
             path: Directory path containing plugins
+
         """
         path = os.path.abspath(path)
         if not os.path.isdir(path):
@@ -201,7 +201,7 @@ class PluginManager:
             importlib.invalidate_caches()
 
     def _scan_plugins(self, path: str):
-        """Scan directory for plugins and register them"""
+        """Scan directory for plugins and register them."""
         # Scan standalone modules
         for item in os.listdir(path):
             if item.endswith(".py") and not item.startswith("_"):
@@ -222,10 +222,10 @@ class PluginManager:
                         self._register_plugin(import_path, plugin_path, category)
 
     def _initialize_plugin_imports(self):
-        """Initialize the plugin import hook system"""
+        """Initialize the plugin import hook system."""
 
         class EthopyPluginFinder:
-            """Custom import finder for ethopy plugins"""
+            """Custom import finder for ethopy plugins."""
 
             def __init__(self, plugin_manager):
                 self.plugin_manager = plugin_manager
@@ -249,8 +249,7 @@ class PluginManager:
     def list_plugins(
         self, show_duplicates: bool = False, include_core: bool = True
     ) -> Dict[str, List[Dict]]:
-        """
-        List all available plugins.
+        """List all available plugins.
 
         Args:
             show_duplicates: If True, include information about duplicate plugins
@@ -258,6 +257,7 @@ class PluginManager:
 
         Returns:
             Dictionary with plugin categories and their plugins
+
         """
         result = {
             "standalone": [],
@@ -286,5 +286,5 @@ class PluginManager:
         return result
 
     def get_plugin_info(self, import_path: str) -> PluginInfo:
-        """Get information about a specific plugin"""
+        """Get information about a specific plugin."""
         return self._plugins.get(import_path)
