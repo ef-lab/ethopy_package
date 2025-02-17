@@ -2,8 +2,7 @@ import numpy as np
 
 
 def get_parameters(_class):
-    """Creates a dictionary with required fields set to '...' and default values
-    included.
+    """Create a dictionary with required fields set to '...' and default values included.
 
     Args:
         _class (class): A class object to extract required fields and default values.
@@ -11,6 +10,7 @@ def get_parameters(_class):
     Returns:
         dict: A dictionary containing all keys with required fields set to '...'
         and defaults included.
+
     """
     required_fields = _class.required_fields
     default_key = _class.default_key
@@ -38,9 +38,9 @@ def format_params_print(parameters):
 
 
 if __name__ == "__main__":
-    from ethopy.stimuli.grating import Grating
-    from ethopy.experiments.match_port import Experiment
     from ethopy.behaviors.multi_port import MultiPort
+    from ethopy.experiments.match_port import Experiment
+    from ethopy.stimuli.grating import Grating
 
     parameters_gr = get_parameters(Grating())
     parameters_exp = get_parameters(Experiment())
