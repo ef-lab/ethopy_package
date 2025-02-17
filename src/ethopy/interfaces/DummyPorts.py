@@ -6,6 +6,7 @@ from ethopy.core.interface import Interface, Port
 
 log = logging.getLogger(__name__)
 
+
 class DummyPorts(Interface):
     def __init__(self, **kwargs):
         super(DummyPorts, self).__init__(**kwargs)
