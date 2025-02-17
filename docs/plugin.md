@@ -1,39 +1,62 @@
 # Plugin System
 
-The ethopy plugin system allows users to extend the functionality of ethopy by adding custom modules, behaviors, experiments, interfaces, and stimuli. This guide explains how to create and use plugins.
+The Ethopy plugin system provides a flexible way to extend the functionality by adding custom modules, behaviors, experiments, interfaces, and stimuli. The system supports both core modules and user plugins with intelligent conflict resolution.
 
-## Directory Structure
+## Plugin Categories
 
-Plugins can be placed in any of these locations:
+Ethopy supports two types of plugins:
 
-1. User's home directory: `~/ethopy_plugins/`
-2. Current working directory: `./ethopy_plugins/`
-3. Custom locations specified by the `ETHOPY_PLUGIN_PATH` environment variable
+1. **Standalone Modules**: Individual Python files in the plugin directory
+2. **Categorized Plugins**: Modules organized in specific categories:
+   - `behaviors`: Custom behavior implementations
+   - `experiments`: Experiment definitions
+   - `interfaces`: Hardware interface modules
+   - `stimuli`: Stimulus control modules
 
-The plugin directory can contain both standalone modules and categorized plugins:
+## Plugin Locations
+
+Plugins can be placed in the following locations (in order of precedence):
+
+1. Default locations:
+   - `~/.ethopy/ethopy_plugins/` (User's home directory)
+
+2. Custom locations specified by the `ETHOPY_PLUGIN_PATH` environment variable:
+   ```bash
+   export ETHOPY_PLUGIN_PATH=/path/to/plugins,/another/plugin/path
+   ```
+
+The plugin directory structure should follow this pattern:
 
 ```
 ethopy_plugins/
 ├── mymodule.py                    # Standalone module
 ├── another_module.py              # Another standalone module
-├── Behaviors/                     # Behavior plugins
+├── behaviors/                     # Behavior plugins
 │   └── custom_behavior.py
-├── Experiments/                   # Experiment plugins
+├── experiments/                   # Experiment plugins
 │   └── custom_experiment.py
-├── Interfaces/                    # Interface plugins
+├── interfaces/                    # Interface plugins
 │   └── custom_interface.py
-└── Stimuli/                      # Stimulus plugins
+└── stimuli/                      # Stimulus plugins
     └── custom_stimulus.py
 ```
 
 ## Creating Plugins
+
+### Plugin Naming
+
+Plugins are imported using the `ethopy` namespace. For example:
+- Standalone module: `ethopy.mymodule`
+- Categorized plugin: `ethopy.behaviors.custom_behavior`
+
+Make sure to avoid naming conflicts with core Ethopy modules, as core modules take precedence over plugins.
 
 ### Standalone Modules
 
 Create a Python file in the root of your plugin directory:
 
 ```python
-# ~/ethopy_plugins/mymodule.py
+# ~/.ethopy/ethopy_plugins/mymodule.py
 class MyModule:
     def __init__(self):
         self.name = "My Custom Module"
@@ -44,10 +67,10 @@ class MyModule:
 
 ### Behavior Plugins
 
-Create a Python file in the `Behaviors` directory:
+Create a Python file in the `behaviors` directory:
 
 ```python
-# ~/ethopy_plugins/Behaviors/custom_behavior.py
+# ~/.ethopy/ethopy_plugins/behaviors/custom_behavior.py
 from ethopy.core.behavior import Behavior
 
 class CustomBehavior(Behavior):
@@ -62,13 +85,13 @@ class CustomBehavior(Behavior):
 
 ### Experiment Plugins
 
-Create a Python file in the `Experiments` directory:
+Create a Python file in the `experiments` directory:
 
 ```python
-# ~/ethopy_plugins/Experiments/custom_experiment.py
+# ~/.ethopy/ethopy_plugins/experiments/custom_experiment.py
 from ethopy.core.experiment import ExperimentClass, State
 
-class Experiment(State, ExperimentClass):
+class CustomExperiment(State, ExperimentClass):
     def __init__(self):
         super().__init__()
         # Your initialization code
@@ -78,49 +101,57 @@ class Experiment(State, ExperimentClass):
         pass
 ```
 
+### Plugin Registration
+
+Plugins are automatically discovered and registered when:
+1. They are placed in a recognized plugin directory
+2. The file name doesn't start with an underscore
+3. The file has a `.py` extension
+
 ## Using Plugins
 
-Import and use plugins just like regular ethopy modules:
+### Importing Plugins
+
+Import and use plugins just like regular Ethopy modules:
 
 ```python
 # Import standalone module
 from ethopy.mymodule import MyModule
 
 # Import behavior plugin
-from ethopy.Behaviors.custom_behavior import CustomBehavior
+from ethopy.behaviors.custom_behavior import CustomBehavior
 
-# Use standalone module
+# Import experiment plugin
+from ethopy.experiments.custom_experiment import CustomExperiment
+
+# Use plugins
 my_module = MyModule()
-print(my_module.do_something())
-
-# Use behavior plugin
 behavior = CustomBehavior()
+experiment = CustomExperiment()
 ```
 
-## Plugin Discovery
+### Plugin Management
 
-### Setting Plugin Paths
+The plugin system is managed by the `PluginManager` class, which handles:
+- Plugin discovery and registration
+- Import path management
+- Conflict resolution
+- Plugin information tracking
 
-You can add plugin directories in several ways:
-
-1. Environment variable:
-```bash
-export ETHOPY_PLUGIN_PATH=/path/to/plugins,/another/plugin/path
-```
-
-2. Programmatically:
 ```python
-from ethopy.core.plugin_manager import plugin_manager
+from ethopy.plugin_manager import PluginManager
+
+# Create plugin manager instance
+plugin_manager = PluginManager()
+
+# Add custom plugin path
 plugin_manager.add_plugin_path('/path/to/plugins')
-```
 
-### Listing Available Plugins
-
-```python
-from ethopy.core.plugin_manager import plugin_manager
-
-# List all plugins with duplicate information
-plugins = plugin_manager.list_plugins(show_duplicates=True)
+# List available plugins
+plugins = plugin_manager.list_plugins(
+    show_duplicates=True,  # Show duplicate plugin information
+    include_core=True      # Include core Ethopy modules
+)
 
 # Print plugin information
 for category, items in plugins.items():
@@ -131,60 +162,147 @@ for category, items in plugins.items():
             print("    Duplicate versions found in:")
             for dup in plugin['duplicates']:
                 print(f"      - {dup}")
-```
 
-## Duplicate Handling
-
-The plugin system handles duplicates with the following precedence rules:
-
-1. Core ethopy modules take precedence over plugins with the same name
-2. For conflicts between plugins:
-   - Later added paths take precedence over earlier ones
-   - Environment variable paths override default paths
-
-When duplicates are found, warnings are displayed:
-
-```
-WARNING: Duplicate plugin found for 'ethopy.mymodule':
-  Using:     /home/user/ethopy_plugins/mymodule.py
-  Ignoring:  /current/dir/ethopy_plugins/mymodule.py
-```
-
-## Best Practices
-
-1. **Avoid Used Names**: Don't create plugins with the same names as ethopy modules
-2. **Use Consistent Structure**: Follow the directory structure for different plugin types
-3. **Clear Naming**: Use descriptive names for your plugins to avoid conflicts
-4. **Inheritance**: Extend appropriate base classes for behaviors, experiments, etc.
-5. **Documentation**: Document your plugins with docstrings and comments
-
-## Common Issues
-
-1. **Plugin Not Found**: Check if the plugin directory is in the correct location
-2. **Import Errors**: Ensure all dependencies are installed
-3. **Duplicate Warnings**: Review plugin paths for unintended duplicates
-4. **Core Conflicts**: Avoid using names that match core ethopy modules
-
-## Plugin Development Tips
-
-1. Use the plugin manager to check for existing plugins:
-```python
-plugins = plugin_manager.list_plugins()
-print("Existing plugins:", plugins)
-```
-
-2. Get information about specific plugins:
-```python
+# Get information about a specific plugin
 info = plugin_manager.get_plugin_info('ethopy.mymodule')
 if info:
     print(f"Plugin: {info.name}")
     print(f"Path: {info.path}")
     print(f"Type: {info.type}")
+    print(f"Is Core: {info.is_core}")
 ```
 
-3. During development, you can reload plugins:
-```python
-plugin_manager.reload_plugins()
+## Plugin Resolution
+
+### Load Order
+
+Plugins are loaded in the following order:
+1. Core Ethopy modules (from main package)
+2. Default plugin directories
+3. Custom plugin paths from environment variable
+
+### Conflict Resolution
+
+The plugin system uses the following precedence rules:
+
+1. **Core vs Plugin Conflicts**:
+   - Core Ethopy modules always take precedence over plugins
+   - Warning is issued when a plugin conflicts with a core module
+
+2. **Plugin vs Plugin Conflicts**:
+   - Later added paths take precedence over earlier ones
+   - Warning is displayed showing which version is used/ignored
+
+Example conflict warning:
+```
+WARNING: Plugin 'ethopy.mymodule' from /path/to/plugin conflicts with core ethopy module. Core module will be used.
+
+WARNING: Duplicate plugin found for 'ethopy.behaviors.custom':
+  Using:     /home/user/.ethopy/ethopy_plugins/behaviors/custom.py
+  Ignoring:  /another/path/behaviors/custom.py
 ```
 
-## Examples
+## Best Practices
+
+### Plugin Development
+
+1. **Namespace Awareness**:
+   - Avoid using names that conflict with core Ethopy modules
+   - Use descriptive, unique names for your plugins
+   - Follow Python naming conventions
+
+2. **Structure and Organization**:
+   - Place plugins in the correct category directory
+   - Use appropriate base classes for each plugin type
+   - Keep plugin files focused and single-purpose
+
+3. **Documentation**:
+   - Add docstrings to your plugin classes and methods
+   - Include usage examples in the documentation
+   - Document any special requirements or dependencies
+
+4. **Error Handling**:
+   - Implement proper error handling in your plugins
+   - Provide meaningful error messages
+   - Handle resource cleanup properly
+
+### Plugin Distribution
+
+1. **Dependencies**:
+   - Clearly specify any additional dependencies
+   - Use standard Python package management
+   - Test with different Python versions
+
+2. **Version Control**:
+   - Use version control for your plugins
+   - Tag releases with version numbers
+   - Maintain a changelog
+
+3. **Testing**:
+   - Write tests for your plugins
+   - Test integration with Ethopy
+   - Verify behavior with different configurations
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Plugin Not Found**:
+   - Verify plugin directory location
+   - Check file permissions
+   - Ensure correct Python path
+   - Validate plugin file naming
+
+2. **Import Errors**:
+   - Check for missing dependencies
+   - Verify Python version compatibility
+   - Look for syntax errors in plugin code
+   - Check for circular imports
+
+3. **Plugin Conflicts**:
+   - Review plugin naming for conflicts
+   - Check plugin path order
+   - Examine duplicate warnings
+   - Verify core module conflicts
+
+### Debugging Tips
+
+1. **Enable Debug Logging**:
+   ```python
+   import logging
+   logging.getLogger('ethopy').setLevel(logging.DEBUG)
+   ```
+
+2. **Check Plugin Registration**:
+   ```python
+   # List all registered plugins
+   plugins = plugin_manager.list_plugins(show_duplicates=True)
+   
+   # Check specific plugin
+   info = plugin_manager.get_plugin_info('ethopy.mymodule')
+   if info:
+       print(f"Plugin registered at: {info.path}")
+       print(f"Plugin type: {info.type}")
+   else:
+       print("Plugin not registered")
+   ```
+
+3. **Verify Plugin Paths**:
+   ```python
+   # Print current plugin search paths
+   print("Plugin paths:")
+   for path in plugin_manager._plugin_paths:
+       print(f"- {path}")
+   ```
+
+## Additional Resources
+
+1. **Documentation**:
+   - [Ethopy Core Documentation](https://alexevag.github.io/ethopy)
+   - [DataJoint Documentation](https://docs.datajoint.org/)
+   - [Python Packaging Guide](https://packaging.python.org/guides/distributing-packages-using-setuptools/)
+
+2. **Community**:
+   - [GitHub Issues](https://github.com/alexevag/ethopy/issues)
+   - [Discussion Forum](https://github.com/alexevag/ethopy/discussions)
+   - [Contributing Guidelines](https://github.com/alexevag/ethopy/blob/main/CONTRIBUTING.md)
