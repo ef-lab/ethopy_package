@@ -91,7 +91,7 @@ class Interface:
         self.timer_ready = Timer()
         self.response: List[Any] = []
 
-        if exp and hasattr(exp, 'params'):
+        if exp and hasattr(exp, "params"):
             self._initialize_hardware()
 
     def _initialize_hardware(self) -> None:
@@ -102,9 +102,9 @@ class Interface:
         # Initialize ports
         port_configs = self.logger.get(
             schema="interface",
-            table='SetupConfiguration.Port',
+            table="SetupConfiguration.Port",
             key=self.exp.params,
-            as_dict=True
+            as_dict=True,
         )
 
         for port_config in port_configs:
@@ -124,7 +124,7 @@ class Interface:
         setup_cameras = self.logger.get(
             schema="interface",
             table="SetupConfiguration.Camera",
-            fields=["setup_conf_idx"]
+            fields=["setup_conf_idx"],
         )
 
         if self.exp.params["setup_conf_idx"] in setup_cameras:
@@ -136,17 +136,16 @@ class Interface:
             )[0]
 
             camera_class = getattr(
-                import_module("Interfaces.Camera"),
-                camera_params["discription"]
+                import_module("Interfaces.Camera"), camera_params["discription"]
             )
 
             self.camera = camera_class(
                 filename=f"{self.logger.trial_key['animal_id']}"
-                         f"_{self.logger.trial_key['session']}",
+                f"_{self.logger.trial_key['session']}",
                 logger=self.logger,
                 logger_timer=self.logger.logger_timer,
-                video_aim=camera_params.pop('video_aim'),
-                **camera_params
+                video_aim=camera_params.pop("video_aim"),
+                **camera_params,
             )
 
     def give_liquid(self, port: int, duration: Optional[float] = 0) -> None:
@@ -214,14 +213,14 @@ class Interface:
     def cleanup(self) -> None:
         """Clean up interface resources."""
 
-    def release(self):
+    def release(self) -> None:
         """Release hardware resources, especially camera."""
         if self.camera:
-            log.info("Release camear"*10)
+            log.info("Release camear" * 10)
             if self.camera.recording.is_set():
                 self.camera.stop_rec()
 
-    def load_calibration(self):
+    def load_calibration(self) -> None:
         """Load port calibration data from database.
 
         This method loads the most recent calibration data for each reward port,
@@ -234,20 +233,25 @@ class Interface:
         for port in list(set(self.rew_ports)):
             self.pulse_rew[port] = dict()
             key = dict(setup=self.logger.setup, port=port)
-            dates = self.logger.get(schema='interface', table='PortCalibration.Liquid',
-                                    key=key, fields=['date'], order_by='date')
+            dates = self.logger.get(
+                schema="interface",
+                table="PortCalibration.Liquid",
+                key=key,
+                fields=["date"],
+                order_by="date",
+            )
             if np.size(dates) < 1:
-                log.error('No PortCalibration found!')
+                log.error("No PortCalibration found!")
                 self.exp.quit = True
                 break
 
-            key['date'] = dates[-1]  # use most recent calibration
+            key["date"] = dates[-1]  # use most recent calibration
 
             self.pulse_dur[port], pulse_num, weight = self.logger.get(
-                schema='behavior',
-                table='PortCalibration.Liquid',
+                schema="behavior",
+                table="PortCalibration.Liquid",
                 key=key,
-                fields=['pulse_dur', 'pulse_num', 'weight']
+                fields=["pulse_dur", "pulse_num", "weight"],
             )
             self.weight_per_pulse[port] = np.divide(weight, pulse_num)
 
@@ -264,17 +268,19 @@ class Interface:
         actual_rew = {}
         for port in self.rew_ports:
             if reward_amount not in self.pulse_rew[port]:
-                self.duration[port] = np.interp(reward_amount/1000,
-                                                self.weight_per_pulse[port],
-                                                self.pulse_dur[port])
-                self.pulse_rew[port][reward_amount] = np.max((
-                    np.min(self.weight_per_pulse[port]),
-                    reward_amount/1000
-                )) * 1000  # in uL
+                self.duration[port] = np.interp(
+                    reward_amount / 1000,
+                    self.weight_per_pulse[port],
+                    self.pulse_dur[port],
+                )
+                self.pulse_rew[port][reward_amount] = (
+                    np.max((np.min(self.weight_per_pulse[port]), reward_amount / 1000))
+                    * 1000
+                )  # in uL
             actual_rew[port] = self.pulse_rew[port][reward_amount]
         return actual_rew
 
-    def _channel2port(self, channel: Optional[int], category: str = 'Proximity'):
+    def _channel2port(self, channel: Optional[int], category: str = "Proximity"):
         """Convert channel number to port object.
 
         Args:
@@ -307,7 +313,7 @@ class Port:
     """
 
     port: int = datafield(compare=True, default=0, hash=True)
-    type: str = datafield(compare=True, default='', hash=True)
+    type: str = datafield(compare=True, default="", hash=True)
     ready: bool = datafield(compare=False, default=False)
     reward: bool = datafield(compare=False, default=False)
     response: bool = datafield(compare=False, default=False)
@@ -336,7 +342,9 @@ class SetupConfiguration(dj.Lookup, dj.Manual):
     discription              : varchar(256)
     """
 
-    contents = [[0, 'DummyPorts', 'Simulation'],]
+    contents = [
+        [0, "DummyPorts", "Simulation"],
+    ]
 
     class Port(dj.Lookup, dj.Part):
         """Port configuration table."""
@@ -355,9 +363,11 @@ class SetupConfiguration(dj.Lookup, dj.Manual):
         discription              : varchar(256)
         """
 
-        contents = [[1, 'Lick', 0, 0, 1, 1, 0, 'probe'],
-                    [2, 'Lick', 0, 0, 1, 1, 0, 'probe'],
-                    [3, 'Proximity', 0, 1, 0, 0, 0, 'probe']]
+        contents = [
+            [1, "Lick", 0, 0, 1, 1, 0, "probe"],
+            [2, "Lick", 0, 0, 1, 1, 0, "probe"],
+            [3, "Proximity", 0, 1, 0, 0, 0, "probe"],
+        ]
 
     class Screen(dj.Lookup, dj.Part):
         """Screen configuration table."""
@@ -380,7 +390,9 @@ class SetupConfiguration(dj.Lookup, dj.Manual):
         fullscreen               : tinyint
         """
 
-        contents = [[1, 0, 64, 5.0, 0, -0.1, 1.66, 7.0, 30, 800, 480, 'Simulation', 0],]
+        contents = [
+            [1, 0, 64, 5.0, 0, -0.1, 1.66, 7.0, 30, 800, 480, "Simulation", 0],
+        ]
 
     class Ball(dj.Lookup, dj.Part):
         """Ball configuration table."""
@@ -502,7 +514,7 @@ class Configuration(dj.Manual):
 
 @interface.schema
 class PortCalibration(dj.Manual):
-    """Datajoint table for liquid delivery calibration sessions for each port with water availability."""
+    """Liquid delivery calibration sessions for each port with water availability."""
 
     definition = """
     # Liquid delivery calibration sessions for each port with water availability
