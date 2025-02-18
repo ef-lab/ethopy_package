@@ -112,7 +112,7 @@ class Logger:
 
         self.task = task or Task(path=None, id=None)
         self.manual_run = bool(self.task.path or self.task.id)
-        self.setup_status = 'running' if self.manual_run else 'ready'
+        self.setup_status = "running" if self.manual_run else "ready"
 
         # separate connection for internal communication
         self._schemata, self.private_conn = create_virtual_modules(
@@ -121,7 +121,7 @@ class Logger:
 
         self.writer = Writer
         self.rec_fliptimes = True
-        self.trial_key = {'animal_id': 0, 'session': 1, 'trial_idx': 0}
+        self.trial_key = {"animal_id": 0, "session": 1, "trial_idx": 0}
         self.setup_info = {}
         self.datasets = {}
         self.lock = False
@@ -165,7 +165,7 @@ class Logger:
 
         """
         if not self.manual_run:
-            self.task = resolve_task(task_id=self.get_setup_info('task_idx'))
+            self.task = resolve_task(task_id=self.get_setup_info("task_idx"))
 
         return self.task_path is not None
 
@@ -262,13 +262,17 @@ class Logger:
         """
         log.warning(
             "Failed to insert:\n%s in %s\n With error:%s\nWill retry later",
-            item.tuple, table, exception, exc_info=True,)
+            item.tuple,
+            table,
+            exception,
+            exc_info=True,
+        )
         item.error = True
         item.priority = item.priority + 2
         queue.put(item)
 
     @contextmanager
-    def acquire_lock(self, lock):
+    def acquire_lock(self, lock):  # noqa: ANN201
         """Acquire a lock, yield control, and release the lock.
 
         This context manager ensures that the given lock is acquired before
@@ -316,7 +320,11 @@ class Logger:
                         self.thread_end.set()
                         log.error(
                             "Second time failed to insert:\n %s in %s With error:\n %s",
-                            item.tuple, table, insert_error, exc_info=True)
+                            item.tuple,
+                            table,
+                            insert_error,
+                            exc_info=True,
+                        )
                         self.thread_exception = insert_error
                         break
                     self._handle_insert_error(item, table, insert_error, self.queue)
@@ -403,7 +411,7 @@ class Logger:
             log.info("State: %s", data["state"])
         return tmst
 
-    def _log_setup_info(self, setup: str, setup_status: str = 'running') -> None:
+    def _log_setup_info(self, setup: str, setup_status: str = "running") -> None:
         """Log setup information into the Control table in the experiment database.
 
         It first fetches the control information for the current setup. If no control
@@ -451,10 +459,12 @@ class Logger:
         ).fetch("session")
         return 0 if np.size(last_sessions) == 0 else np.max(last_sessions)
 
-    def log_session(self,
-                    session_params: Dict[str, Any],
-                    experiment_type: str,
-                    log_task: bool = False) -> None:
+    def log_session(
+        self,
+        session_params: Dict[str, Any],
+        experiment_type: str,
+        log_task: bool = False,
+    ) -> None:
         """Log session with the given parameters and optionally log the task.
 
         Args:
@@ -464,8 +474,9 @@ class Logger:
 
         """
         # Initializes session parameters and logs the session start.
-        self._init_session_params(session_params.get("user_name", "bot"),
-                                  experiment_type)
+        self._init_session_params(
+            session_params.get("user_name", "bot"), experiment_type
+        )
 
         # Save the task file, name and the git_hash in the database.
         if log_task:
@@ -495,16 +506,19 @@ class Logger:
 
         """
         self.total_reward = 0
-        self.trial_key = {"animal_id": self.get_setup_info("animal_id"),
-                          "trial_idx": 0,
-                          "session": self._get_last_session() + 1}
+        self.trial_key = {
+            "animal_id": self.get_setup_info("animal_id"),
+            "trial_idx": 0,
+            "session": self._get_last_session() + 1,
+        }
 
-        session_key = {"animal_id": self.get_setup_info("animal_id"),
-                       "session": self._get_last_session() + 1,
-                       "user_name": user_name,
-                       "setup": self.setup,
-                       "experiment_type": experiment_type
-                       }
+        session_key = {
+            "animal_id": self.get_setup_info("animal_id"),
+            "session": self._get_last_session() + 1,
+            "user_name": user_name,
+            "setup": self.setup,
+            "experiment_type": experiment_type,
+        }
 
         # Convert np.int64 values to native Python int
         session_key_cleaned = {
@@ -512,12 +526,12 @@ class Logger:
             for k, v in session_key.items()
         }
 
-        log.info("\n%s", figlet_format('EthoPy'))
+        log.info("\n%s", figlet_format("EthoPy"))
         log.info(
             "\n%s%s%s\n%s\n%s",
             "-" * 22,
             " Basic Session informations ",
-            "-"*22,
+            "-" * 22,
             "\n".join(f"{k}: {v}" for k, v in session_key_cleaned.items()),
             "-" * 72,
         )
@@ -541,9 +555,10 @@ class Logger:
 
         """
         outer_class_dict_values = outer_class.__dict__.values()
-        inner_classes = [value for value in outer_class_dict_values if isinstance(value,
-                                                                                  type)]
-        return [outer_class.__name__+'.'+cls.__name__ for cls in inner_classes]
+        inner_classes = [
+            value for value in outer_class_dict_values if isinstance(value, type)
+        ]
+        return [outer_class.__name__ + "." + cls.__name__ for cls in inner_classes]
 
     def log_session_configs(self, setup_conf_idx: int) -> None:
         """Log parameter of a session into the appropriate schema tables.
@@ -562,19 +577,21 @@ class Logger:
         5. Calls a helper method to log the configuration of sub-tables for each schema.
         """
         # modules that have a Configuration classes
-        _modules = ['ethopy.core.interface']
+        _modules = ["ethopy.core.interface"]
         # consider that the module have the same name as the schema but in lower case
         # (e.g for class Behaviour the schema is the behavior)
-        _schemas = [_module.split('.')[2].lower() for _module in _modules]
+        _schemas = [_module.split(".")[2].lower() for _module in _modules]
 
         # Logs the session and animal_id in configuration tables of behavior/stimulus.
         for schema in _schemas:
-            self.put(table="Configuration",
-                     tuple=self.trial_key,
-                     schema=schema,
-                     priority=2,
-                     validate=True,
-                     block=True,)
+            self.put(
+                table="Configuration",
+                tuple=self.trial_key,
+                schema=schema,
+                priority=2,
+                validate=True,
+                block=True,
+            )
 
         # create a dict with the configuration as key and the subclasses as values
         conf_table_schema = {}
@@ -587,8 +604,9 @@ class Logger:
         for schema, config_tables in conf_table_schema.items():
             self._log_sub_tables_config(setup_conf_idx, config_tables, schema)
 
-    def _log_sub_tables_config(self, setup_conf_idx: int,
-                               config_tables: List[str], schema: str) -> None:
+    def _log_sub_tables_config(
+        self, setup_conf_idx: int, config_tables: List[str], schema: str
+    ) -> None:
         """Log conifguration data in the respective tables.
 
         This method iterates over a list of configuration tables, retrieves the
@@ -603,7 +621,7 @@ class Logger:
         """
         for config_table in config_tables:
             configuration_data = (
-                getattr(interface.SetupConfiguration, config_table.split('.')[1])
+                getattr(interface.SetupConfiguration, config_table.split(".")[1])
                 & {"setup_conf_idx": setup_conf_idx}
             ).fetch(as_dict=True)
             # put the configuration data in the configuration table
@@ -647,10 +665,12 @@ class Logger:
         # if in the start_time is defined in the configuration use this
         # otherwise use the Control table
         if "start_time" in params:
+
             def _tdelta(t: str) -> datetime:
                 return datetime.strptime(t, "%H:%M:%S") - datetime.strptime(
                     "00:00:00", "%H:%M:%S"
                 )
+
             key.update(
                 {
                     "start_time": str(_tdelta(params["start_time"])),
@@ -660,9 +680,9 @@ class Logger:
 
         self.update_setup_info({**key, "status": self.setup_info["status"]})
 
-    def update_setup_info(self,
-                          info: Dict[str, Any],
-                          key: Optional[Dict[str, Any]] = None) -> None:
+    def update_setup_info(
+        self, info: Dict[str, Any], key: Optional[Dict[str, Any]] = None
+    ) -> None:
         """Update the setup information in Control table with the provided info and key.
 
         It first fetches the existing setup information from the experiment's Control
@@ -692,17 +712,19 @@ class Logger:
         if block:
             self.update_status.set()
             caller = inspect.stack()[1]
-            caller_info = (f"Function called by {caller.function} "
-                           f"in {caller.filename} at line {caller.lineno}")
-            log.debug("Update status is set %s\n%s", info['status'], caller_info)
+            caller_info = (
+                f"Function called by {caller.function} "
+                f"in {caller.filename} at line {caller.lineno}"
+            )
+            log.debug("Update status is set %s\n%s", info["status"], caller_info)
 
         self.setup_info = {
             **(experiment.Control() & {**{"setup": self.setup}, **key}).fetch1(),
-            **info
-            }
+            **info,
+        }
 
-        if 'notes' in info and len(info['notes']) > 255:
-            info['notes'] = info['notes'][:255]
+        if "notes" in info and len(info["notes"]) > 255:
+            info["notes"] = info["notes"][:255]
 
         self.put(
             table="Control",
@@ -752,9 +774,12 @@ class Logger:
         return (experiment.Control() & dict(setup=self.setup)).fetch1(field)
 
     def get(
-        self, schema: str = 'experiment', table: str = 'Control',
-        fields: Optional[List] = None, key: Optional[Dict] = None,
-        **kwargs: Dict[str, Any]
+        self,
+        schema: str = "experiment",
+        table: str = "Control",
+        fields: Optional[List] = None,
+        key: Optional[Dict] = None,
+        **kwargs: Dict[str, Any],
     ) -> np.ndarray:
         """Fetch data from a specified table in a schema.
 
@@ -773,12 +798,15 @@ class Logger:
             key = dict()
         if fields is None:
             fields = []
-        table = rgetattr(eval(schema), table)
+        table = rgetattr(eval(schema), table)  # noqa: S307
         return (table() & key).fetch(*fields, **kwargs)
 
     def get_table_keys(
-        self, schema: str = 'experiment', table: str = 'Control',
-        key: Optional[Dict] = None, key_type: Optional[str] = None
+        self,
+        schema: str = "experiment",
+        table: str = "Control",
+        key: Optional[Dict] = None,
+        key_type: Optional[str] = None,
     ) -> List[str]:
         """Retrieve the primary key of a specified table within a given schema.
 
@@ -797,8 +825,8 @@ class Logger:
         """
         if key is None:
             key = []
-        table = rgetattr(eval(schema), table)
-        if key_type == 'primary':
+        table = rgetattr(globals()[schema], table)  # noqa: S307
+        if key_type == "primary":
             return (table() & key).primary_key
         return (table() & key).heading.names
 
@@ -812,8 +840,8 @@ class Logger:
             trial_idx (int): The new trial index to be updated.
 
         """
-        self.trial_key['trial_idx'] = trial_idx
-        log.info("\nTrial idx: %s",  self.trial_key['trial_idx'])
+        self.trial_key["trial_idx"] = trial_idx
+        log.info("\nTrial idx: %s", self.trial_key["trial_idx"])
         if self.thread_exception:
             self.thread_exception = None
             raise Exception("Thread exception occurred: %s", self.thread_exception)
@@ -826,20 +854,20 @@ class Logger:
         the logging thread to terminate.
         """
         while not self.queue.empty() and not self.thread_end.is_set():
-            log.info('Waiting for empty queue... qsize: %d', self.queue.qsize())
+            log.info("Waiting for empty queue... qsize: %d", self.queue.qsize())
             time.sleep(1)
         self.thread_end.set()
 
         if not self.queue.empty():
-            log.warning('Clean up finished but queue size is: %d', self.queue.qsize())
+            log.warning("Clean up finished but queue size is: %d", self.queue.qsize())
 
     def createDataset(
-                    self,
-                    dataset_name: str,
-                    dataset_type: type,
-                    filename: Optional[str] = None,
-                    db_log: Optional[bool] = True,
-                ) -> Dict:
+        self,
+        dataset_name: str,
+        dataset_type: type,
+        filename: Optional[str] = None,
+        db_log: Optional[bool] = True,
+    ) -> Dict:
         """Create a dataset and return the dataset object.
 
         Args:
@@ -854,14 +882,15 @@ class Logger:
             Tuple[str, Any]: A tuple containing the filename and the dataset object.
 
         """
-        folder = (f"Recordings/{self.trial_key['animal_id']}"
-                  f"_{self.trial_key['session']}/")
+        folder = (
+            f"Recordings/{self.trial_key['animal_id']}" f"_{self.trial_key['session']}/"
+        )
         path = self.source_path + folder
         if not os.path.isdir(path):
             os.makedirs(path)  # create path if necessary
 
         if not os.path.isdir(self.target_path):
-            log.info('No target directory set! Autocopying will not work.')
+            log.info("No target directory set! Autocopying will not work.")
             target_path = False
         else:
             target_path = self.target_path + folder
@@ -870,9 +899,11 @@ class Logger:
 
         # Generate filename if not provided
         if filename is None:
-            filename = (f"{dataset_name}_{self.trial_key['animal_id']}_"
-                        f"{self.trial_key['session']}_"
-                        f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.h5")
+            filename = (
+                f"{dataset_name}_{self.trial_key['animal_id']}_"
+                f"{self.trial_key['session']}_"
+                f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.h5"
+            )
         if filename not in self.datasets:
             # create h5 file if not exists
             self.datasets[filename] = self.writer(path + filename, target_path)
@@ -904,8 +935,8 @@ class Logger:
         the provided recording key (rec_key) and the calculated recording index.
 
         Args:
-            rec_key (dict): A dictionary containing the key information for the recording
-        entry.
+            rec_key (dict): A dictionary containing the key information for the
+                recording entry.
 
         The method assumes the existence of a `get` method to retrieve existing
         recordings and a `log` method to log the new recording entry.
@@ -918,7 +949,7 @@ class Logger:
             fields=["rec_idx"],
         )
         rec_idx = 1 if not recs else max(recs) + 1
-        self.log('Recording', data={**rec_key, 'rec_idx': rec_idx}, schema='recording')
+        self.log("Recording", data={**rec_key, "rec_idx": rec_idx}, schema="recording")
 
     def closeDatasets(self) -> None:
         """Close all datasets managed by this instance.
@@ -956,9 +987,9 @@ class Logger:
 class PrioritizedItem:
     table: str = datafield(compare=False)
     tuple: Any = datafield(compare=False)
-    field: str = datafield(compare=False, default='')
-    value: Any = datafield(compare=False, default='')
-    schema: str = datafield(compare=False, default='experiment')
+    field: str = datafield(compare=False, default="")
+    value: Any = datafield(compare=False, default="")
+    schema: str = datafield(compare=False, default="experiment")
     replace: bool = datafield(compare=False, default=False)
     block: bool = datafield(compare=False, default=False)
     validate: bool = datafield(compare=False, default=False)
