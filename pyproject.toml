@@ -63,10 +63,9 @@ obj = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/alexevag/ethopy"
-Documentation = "https://alexevag.github.io/ethopy"
-Repository = "https://github.com/alexevag/ethopy.git"
-Changelog = "https://github.com/alexevag/ethopy/releases"
+Documentation = "https://ef-lab.github.io/ethopy_package/"
+Repository = "https://github.com/ef-lab/ethopy_package"
+Changelog = "https://github.com/ef-lab/ethopy_package/releases"
 
 [build-system]
 requires = ["hatchling>=1.18.0"]

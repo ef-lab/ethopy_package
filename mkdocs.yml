@@ -1,8 +1,8 @@
 site_name: EthoPy
 site_description: Python Boilerplate contains all the boilerplate you need to create a Python package.
-site_author: alexevag
-site_url: https://alexevag.github.io/ethopy
-repo_url: https://github.com/alexevag/ethopy
+site_author: olakiril, alexevag
+site_url: https://ef-lab.github.io/ethopy_package/
+repo_url: https://github.com/ef-lab/ethopy_package
 
 copyright: "Copyright &copy; 2024 - 2024 Alex Evangelou"
 
@@ -64,11 +64,11 @@ nav:
     - Database Setup: database.md
     - Task: task.md
     - Plugin System: plugin.md
-    - Gui: gui.md
+    # - Gui: gui.md
     - Contributing: contributing.md
-    - FAQ: faq.md
+    # - FAQ: faq.md
     - Changelog: changelog.md
-    - Report Issues: https://github.com/alexevag/ethopy/issues
+    - Report Issues: https://github.com/ef-lab/ethopy_package/issues
     - Examples:
         - examples/intro.ipynb
     - API Reference:

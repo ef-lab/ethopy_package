@@ -298,11 +298,10 @@ WARNING: Duplicate plugin found for 'ethopy.behaviors.custom':
 ## Additional Resources
 
 1. **Documentation**:
-   - [Ethopy Core Documentation](https://alexevag.github.io/ethopy)
+   - [Ethopy Core Documentation](https://ef-lab.github.io/ethopy_package/)
    - [DataJoint Documentation](https://docs.datajoint.org/)
    - [Python Packaging Guide](https://packaging.python.org/guides/distributing-packages-using-setuptools/)
 
 2. **Community**:
-   - [GitHub Issues](https://github.com/alexevag/ethopy/issues)
-   - [Discussion Forum](https://github.com/alexevag/ethopy/discussions)
-   - [Contributing Guidelines](https://github.com/alexevag/ethopy/blob/main/CONTRIBUTING.md)
+   - [GitHub Issues](https://github.com/ef-lab/ethopy_package/issues)
+   - [Contributing Guidelines](https://github.com/ef-lab/ethopy_package/blob/main/CONTRIBUTING.md)

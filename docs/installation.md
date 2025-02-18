@@ -38,13 +38,13 @@ pip install "ethopy[docs]"
 To install the latest development version:
 
 ```bash
-pip install git+https://github.com/alexevag/ethopy
+pip install git+https://github.com/ef-lab/ethopy_package
 ```
 
 For development installation:
 
 ```bash
-git clone https://github.com/alexevag/ethopy.git
+git clone https://github.com/ef-lab/ethopy_package/.git
 cd ethopy
 pip install -e ".[dev,docs]"
 ```

@@ -190,7 +190,7 @@ Manages hardware communication and control.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/alexevag/ethopy.git  # Main repository
+git clone https://github.com/ef-lab/ethopy_package/  # Main repository
 cd ethopy
 ```
 
@@ -224,10 +224,10 @@ mkdocs serve
 
 ### License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/alexevag/ethopy/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/ef-lab/ethopy_package/blob/master/LICENSE) file for details.
 
 ### Support
 
 For questions and support:
-- Open an issue on [GitHub](https://github.com/alexevag/ethopy/issues)
-- Check the [full documentation](https://alexevag.github.io/ethopy/latest/)
+- Open an issue on [GitHub](https://github.com/ef-lab/ethopy_package/issues)
+- Check the [full documentation](https://ef-lab.github.io/ethopy_package/)
