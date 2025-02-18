@@ -18,6 +18,7 @@ log = logging.getLogger(__name__)  # Get logger for this module
 
 
 def run(task: Optional[Task] = None) -> None:
+    """Run the main execution loop for the experiment."""
     logger = Logger(task=task)
 
     # # # # Waiting for instructions loop # # # # #

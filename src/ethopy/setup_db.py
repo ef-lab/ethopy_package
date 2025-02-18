@@ -1,8 +1,8 @@
-"""
-Database setup module for EthoPy.
+"""Database setup module for EthoPy.
 
 Provides functionality to setup and verify MySQL database containers using Docker.
 """
+
 import logging
 import os
 import socket
@@ -20,11 +20,11 @@ setup_logging()
 
 
 def check_docker_status() -> Tuple[bool, str]:
-    """
-    Check if Docker daemon is running and accessible.
+    """Check if Docker daemon is running and accessible.
 
     Returns:
         Tuple of (is_running: bool, message: str)
+
     """
     try:
         result = subprocess.run(
@@ -50,14 +50,14 @@ def check_docker_status() -> Tuple[bool, str]:
 def check_mysql_container(
     container_name: str = "ethopy_sql_db",
 ) -> Tuple[bool, bool, str]:
-    """
-    Check if MySQL container exists and its status.
+    """Check if MySQL container exists and its status.
 
     Args:
         container_name: Name of the MySQL container
 
     Returns:
         Tuple of (exists: bool, is_running: bool, message: str)
+
     """
     try:
         # Check if container exists
@@ -119,8 +119,7 @@ def check_mysql_container(
 def start_existing_container(
     container_name: str = "ethopy_sql_db", max_retries: int = 5
 ) -> bool:
-    """
-    Start an existing MySQL container.
+    """Start an existing MySQL container.
 
     Args:
         container_name: Name of the MySQL container
@@ -128,6 +127,7 @@ def start_existing_container(
 
     Returns:
         bool: True if container started successfully
+
     """
     try:
         # Check if container is running
@@ -158,9 +158,8 @@ def start_existing_container(
 @click.option(
     "--container-name", default="ethopy_sql_db", help="Name for the MySQL container"
 )
-def setup_dj_docker(mysql_path: Optional[str], container_name: str):
-    """
-    Initialize the database environment using Docker.
+def setup_dj_docker(mysql_path: Optional[str], container_name: str) -> None:
+    """Initialize the database environment using Docker.
 
     This command sets up a MySQL database in Docker, configures it for use with
     ethopy, and prepares the initial environment.
@@ -241,8 +240,8 @@ def setup_dj_docker(mysql_path: Optional[str], container_name: str):
         raise click.ClickException(f"Error during initialization: {str(e)}")
 
 
-def check_db_connection():
-    # Try to establish connection
+def check_db_connection() -> None:
+    """Check if connection with db is established."""
     from ethopy import local_conf
 
     try:
@@ -258,9 +257,8 @@ def check_db_connection():
     )
 
 
-def createschema():
-    """
-    Create all required database schemas.
+def createschema() -> None:
+    """Create all required database schemas.
 
     This function:
     1. Verifies database connection
@@ -269,6 +267,7 @@ def createschema():
 
     Raises:
         ClickException: If schema creation fails with detailed error message
+
     """
     check_db_connection()
     logging.info("Creating schemas and tables...")
