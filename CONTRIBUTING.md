@@ -26,8 +26,6 @@ We use GitHub to host code, track issues and feature requests, and accept pull r
    ```
 3. Write your code and add tests:
    - Add unit tests for new features
-   - Include integration tests if needed
-   - Add example notebooks for new features
 4. Ensure code quality:
    - Run tests: `pytest`
    - Check code style: `ruff check .`
