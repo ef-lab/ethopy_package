@@ -1,0 +1,3391 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Python Boilerplate contains all the boilerplate you need to create a Python package.">
+      
+      
+        <meta name="author" content="alexevag">
+      
+      
+        <link rel="canonical" href="https://alexevag.github.io/ethopy/behavior/">
+      
+      
+        <link rel="prev" href="../logger/">
+      
+      
+        <link rel="next" href="../experiment/">
+      
+      
+      <link rel="icon" href="../assets/LabPageBrain.gif">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+    
+    
+      
+        <title>Behavior module - EthoPy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:300,300i,400,400i,700,700i%7CRegular:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Google Sans";--md-code-font:"Regular"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#core-behavior-module" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="EthoPy" class="md-header__button md-logo" aria-label="EthoPy" data-md-component="logo">
+      
+  <img src="../assets/LabPageBrain.gif" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            EthoPy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Behavior module
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/alexevag/ethopy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="EthoPy" class="md-nav__button md-logo" aria-label="EthoPy" data-md-component="logo">
+      
+  <img src="../assets/LabPageBrain.gif" alt="logo">
+
+    </a>
+    EthoPy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/alexevag/ethopy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../local_conf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Local congiguration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../task/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gui
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/alexevag/ethopy/issues" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Report Issues
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logger/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logger module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Behavior module
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Behavior module
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      ethopy.core.behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Activity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activity
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Activity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Activity.Lick" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lick
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Activity.Position" class="md-nav__link">
+    <span class="md-ellipsis">
+      Position
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Activity.Proximity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proximity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Activity.Touch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Touch
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.BehActivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      BehActivity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.BehCondition" class="md-nav__link">
+    <span class="md-ellipsis">
+      BehCondition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BehCondition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.BehCondition.Trial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Behavior
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Behavior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      exit()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.get_false_history" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_false_history()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.get_response" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_response()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.is_hydrated" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_hydrated()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.is_licking" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_licking()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.is_ready" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_ready()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.is_sleep_time" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_sleep_time()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.log_activity" class="md-nav__link">
+    <span class="md-ellipsis">
+      log_activity()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.log_reward" class="md-nav__link">
+    <span class="md-ellipsis">
+      log_reward()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.make_conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      make_conditions()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.prepare" class="md-nav__link">
+    <span class="md-ellipsis">
+      prepare()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.punish" class="md-nav__link">
+    <span class="md-ellipsis">
+      punish()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.reward" class="md-nav__link">
+    <span class="md-ellipsis">
+      reward()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.update_history" class="md-nav__link">
+    <span class="md-ellipsis">
+      update_history()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Rewards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rewards
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experiment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Experiment module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stimulus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stimulus module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      ethopy.core.behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Activity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activity
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Activity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Activity.Lick" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lick
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Activity.Position" class="md-nav__link">
+    <span class="md-ellipsis">
+      Position
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Activity.Proximity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proximity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Activity.Touch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Touch
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.BehActivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      BehActivity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.BehCondition" class="md-nav__link">
+    <span class="md-ellipsis">
+      BehCondition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BehCondition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.BehCondition.Trial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Behavior
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Behavior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      exit()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.get_false_history" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_false_history()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.get_response" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_response()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.is_hydrated" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_hydrated()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.is_licking" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_licking()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.is_ready" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_ready()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.is_sleep_time" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_sleep_time()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.log_activity" class="md-nav__link">
+    <span class="md-ellipsis">
+      log_activity()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.log_reward" class="md-nav__link">
+    <span class="md-ellipsis">
+      log_reward()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.make_conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      make_conditions()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.prepare" class="md-nav__link">
+    <span class="md-ellipsis">
+      prepare()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.punish" class="md-nav__link">
+    <span class="md-ellipsis">
+      punish()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.reward" class="md-nav__link">
+    <span class="md-ellipsis">
+      reward()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.update_history" class="md-nav__link">
+    <span class="md-ellipsis">
+      update_history()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Rewards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rewards
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+
+                  
+
+  
+  
+
+
+<h1 id="core-behavior-module">Core Behavior module<a class="headerlink" href="#core-behavior-module" title="Permanent link">&para;</a></h1>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="ethopy.core.behavior"></a>
+    <div class="doc doc-contents first">
+
+      <p>Core behavior module handles behavioral variables, responses, and reward management.</p>
+<p>This module provides the core functionality for managing animal behavior in experimental
+setups, including response tracking, reward delivery, and behavioral data logging. It
+interfaces with hardware components and maintains experiment state.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="ethopy.core.behavior.Activity" class="doc doc-heading">
+        <code>
+Activity            (<span title="datajoint.user_tables.Manual">Manual</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.behavior.Activity" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>DataJoint table for tracking behavioral responses.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code># Mouse behavioral response
+-&gt; experiment.Trial
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Activity</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;DataJoint table for tracking behavioral responses.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Mouse behavioral response</span>
+<span class="s2">    -&gt; experiment.Trial</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Proximity</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;DataJoint table for tracking proximity port information.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Center port information</span>
+<span class="s2">        -&gt; Activity</span>
+<span class="s2">        port                 : tinyint          # port id</span>
+<span class="s2">        time	     	  	 : int           	# time from session start (ms)</span>
+<span class="s2">        ---</span>
+<span class="s2">        in_position          : tinyint</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Lick</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;DataJoint table for licking.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Lick timestamps</span>
+<span class="s2">        -&gt; Activity</span>
+<span class="s2">        port                 : tinyint          # port id</span>
+<span class="s2">        time	     	  	 : int           	# time from session start (ms)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Touch</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;DataJoint table for touch timestamps.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Touch timestamps</span>
+<span class="s2">        -&gt; Activity</span>
+<span class="s2">        loc_x               : int               # x touch location</span>
+<span class="s2">        loc_y               : int               # y touch location</span>
+<span class="s2">        time	     	    : int           	# time from session start (ms)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Position</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;DataJoint table for 2D possition timestamps.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # 2D possition timestamps</span>
+<span class="s2">        -&gt; Activity</span>
+<span class="s2">        loc_x               : float             # x 2d location</span>
+<span class="s2">        loc_y               : float             # y 2d location</span>
+<span class="s2">        theta               : float             # direction in space</span>
+<span class="s2">        time	     	    : int           	# time from session start (ms)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.behavior.Activity.Lick" class="doc doc-heading">
+        <code>
+Lick            (<span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.behavior.Activity.Lick" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>DataJoint table for licking.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Lick timestamps
+    -&gt; Activity
+    port                 : tinyint          # port id
+    time                     : int                  # time from session start (ms)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Lick</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;DataJoint table for licking.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Lick timestamps</span>
+<span class="s2">    -&gt; Activity</span>
+<span class="s2">    port                 : tinyint          # port id</span>
+<span class="s2">    time	     	  	 : int           	# time from session start (ms)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.behavior.Activity.Position" class="doc doc-heading">
+        <code>
+Position            (<span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.behavior.Activity.Position" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>DataJoint table for 2D possition timestamps.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code>    # 2D possition timestamps
+    -&gt; Activity
+    loc_x               : float             # x 2d location
+    loc_y               : float             # y 2d location
+    theta               : float             # direction in space
+    time                : int               # time from session start (ms)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Position</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;DataJoint table for 2D possition timestamps.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # 2D possition timestamps</span>
+<span class="s2">    -&gt; Activity</span>
+<span class="s2">    loc_x               : float             # x 2d location</span>
+<span class="s2">    loc_y               : float             # y 2d location</span>
+<span class="s2">    theta               : float             # direction in space</span>
+<span class="s2">    time	     	    : int           	# time from session start (ms)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.behavior.Activity.Proximity" class="doc doc-heading">
+        <code>
+Proximity            (<span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.behavior.Activity.Proximity" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>DataJoint table for tracking proximity port information.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Center port information
+    -&gt; Activity
+    port                 : tinyint          # port id
+    time                     : int                  # time from session start (ms)
+    ---
+    in_position          : tinyint
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Proximity</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;DataJoint table for tracking proximity port information.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Center port information</span>
+<span class="s2">    -&gt; Activity</span>
+<span class="s2">    port                 : tinyint          # port id</span>
+<span class="s2">    time	     	  	 : int           	# time from session start (ms)</span>
+<span class="s2">    ---</span>
+<span class="s2">    in_position          : tinyint</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.behavior.Activity.Touch" class="doc doc-heading">
+        <code>
+Touch            (<span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.behavior.Activity.Touch" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>DataJoint table for touch timestamps.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Touch timestamps
+    -&gt; Activity
+    loc_x               : int               # x touch location
+    loc_y               : int               # y touch location
+    time                : int               # time from session start (ms)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Touch</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;DataJoint table for touch timestamps.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Touch timestamps</span>
+<span class="s2">    -&gt; Activity</span>
+<span class="s2">    loc_x               : int               # x touch location</span>
+<span class="s2">    loc_y               : int               # y touch location</span>
+<span class="s2">    time	     	    : int           	# time from session start (ms)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="ethopy.core.behavior.BehActivity" class="doc doc-heading">
+        <code>
+BehActivity        </code>
+
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#ethopy.core.behavior.BehActivity" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Dataclass for tracking behavioral activity.</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>int</code></td>
+        <td><p>Port number where activity occurred</p></td>
+      </tr>
+      <tr>
+        <td><code>type</code></td>
+        <td><code>str</code></td>
+        <td><p>Type of activity (e.g., 'Lick', 'Touch')</p></td>
+      </tr>
+      <tr>
+        <td><code>time</code></td>
+        <td><code>int</code></td>
+        <td><p>Timestamp of activity</p></td>
+      </tr>
+      <tr>
+        <td><code>in_position</code></td>
+        <td><code>int</code></td>
+        <td><p>Position status</p></td>
+      </tr>
+      <tr>
+        <td><code>loc_x</code></td>
+        <td><code>int</code></td>
+        <td><p>X coordinate of activity</p></td>
+      </tr>
+      <tr>
+        <td><code>loc_y</code></td>
+        <td><code>int</code></td>
+        <td><p>Y coordinate of activity</p></td>
+      </tr>
+      <tr>
+        <td><code>theta</code></td>
+        <td><code>int</code></td>
+        <td><p>Angular position</p></td>
+      </tr>
+      <tr>
+        <td><code>ready</code></td>
+        <td><code>bool</code></td>
+        <td><p>Ready status</p></td>
+      </tr>
+      <tr>
+        <td><code>reward</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether activity was rewarded</p></td>
+      </tr>
+      <tr>
+        <td><code>response</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether activity was a valid response</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">BehActivity</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataclass for tracking behavioral activity.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        port: Port number where activity occurred</span>
+<span class="sd">        type: Type of activity (e.g., &#39;Lick&#39;, &#39;Touch&#39;)</span>
+<span class="sd">        time: Timestamp of activity</span>
+<span class="sd">        in_position: Position status</span>
+<span class="sd">        loc_x: X coordinate of activity</span>
+<span class="sd">        loc_y: Y coordinate of activity</span>
+<span class="sd">        theta: Angular position</span>
+<span class="sd">        ready: Ready status</span>
+<span class="sd">        reward: Whether activity was rewarded</span>
+<span class="sd">        response: Whether activity was a valid response</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">in_position</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">loc_x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">loc_y</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">theta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ready</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">reward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">response</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)])</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="ethopy.core.behavior.BehCondition" class="doc doc-heading">
+        <code>
+BehCondition            (<span title="datajoint.user_tables.Manual">Manual</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.behavior.BehCondition" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Datajoint table with a hash defining all the conditions.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code># reward probe conditions
+beh_hash               : char(24)                     # unique reward hash
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">BehCondition</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table with a hash defining all the conditions.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # reward probe conditions</span>
+<span class="s2">    beh_hash               : char(24)                     # unique reward hash</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Trial</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Datajoint table for keeping the hash for each trial.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # movie clip conditions</span>
+<span class="s2">        -&gt; experiment.Trial</span>
+<span class="s2">        -&gt; BehCondition</span>
+<span class="s2">        time			      : int 	                # time from session start (ms)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.behavior.BehCondition.Trial" class="doc doc-heading">
+        <code>
+Trial            (<span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.behavior.BehCondition.Trial" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Datajoint table for keeping the hash for each trial.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>    # movie clip conditions
+    -&gt; experiment.Trial
+    -&gt; BehCondition
+    time                          : int                     # time from session start (ms)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Trial</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for keeping the hash for each trial.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # movie clip conditions</span>
+<span class="s2">    -&gt; experiment.Trial</span>
+<span class="s2">    -&gt; BehCondition</span>
+<span class="s2">    time			      : int 	                # time from session start (ms)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="ethopy.core.behavior.Behavior" class="doc doc-heading">
+        <code>
+Behavior        </code>
+
+
+
+<a href="#ethopy.core.behavior.Behavior" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Manages behavioral variables and interactions in experimental setups.</p>
+<p>This class handles all aspects of behavioral monitoring and control:
+- Response tracking and validation
+- Reward delivery and management
+- Behavioral data logging through logger module
+- Condition management and history tracking
+- Interface with hardware components through experiment module</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>interface</code></td>
+        <td><code>List[Any]</code></td>
+        <td><p>List of interface objects</p></td>
+      </tr>
+      <tr>
+        <td><code>required_fields</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>Required fields for condition validation</p></td>
+      </tr>
+      <tr>
+        <td><code>curr_cond</code></td>
+        <td><code>List[Dict]</code></td>
+        <td><p>Current condition parameters</p></td>
+      </tr>
+      <tr>
+        <td><code>response</code></td>
+        <td><code>List[Any]</code></td>
+        <td><p>Current response data</p></td>
+      </tr>
+      <tr>
+        <td><code>licked_port</code></td>
+        <td><code>int</code></td>
+        <td><p>ID of the most recently licked port</p></td>
+      </tr>
+      <tr>
+        <td><code>logging</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether logging is enabled</p></td>
+      </tr>
+      <tr>
+        <td><code>reward_amount</code></td>
+        <td><code>Dict[int, float]</code></td>
+        <td><p>Reward amounts by port</p></td>
+      </tr>
+      <tr>
+        <td><code>choice_history</code></td>
+        <td><code>List[float]</code></td>
+        <td><p>History of animal choices</p></td>
+      </tr>
+      <tr>
+        <td><code>reward_history</code></td>
+        <td><code>List[float]</code></td>
+        <td><p>History of rewards given</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Behavior</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Manages behavioral variables and interactions in experimental setups.</span>
+
+<span class="sd">    This class handles all aspects of behavioral monitoring and control:</span>
+<span class="sd">    - Response tracking and validation</span>
+<span class="sd">    - Reward delivery and management</span>
+<span class="sd">    - Behavioral data logging through logger module</span>
+<span class="sd">    - Condition management and history tracking</span>
+<span class="sd">    - Interface with hardware components through experiment module</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        interface (List[Any]): List of interface objects</span>
+<span class="sd">        required_fields (List[str]): Required fields for condition validation</span>
+<span class="sd">        curr_cond (List[Dict]): Current condition parameters</span>
+<span class="sd">        response (List[Any]): Current response data</span>
+<span class="sd">        licked_port (int): ID of the most recently licked port</span>
+<span class="sd">        logging (bool): Whether logging is enabled</span>
+<span class="sd">        reward_amount (Dict[int, float]): Reward amounts by port</span>
+<span class="sd">        choice_history (List[float]): History of animal choices</span>
+<span class="sd">        reward_history (List[float]): History of rewards given</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_amount</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">choice_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">punish_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="p">:</span> <span class="n">Queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exp</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp</span><span class="p">:</span> <span class="n">ExperimentClass</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exp</span> <span class="o">=</span> <span class="n">exp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">interface</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">choice_history</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># History term for bias calculation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_history</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># History term for performance calculation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">punish_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_amount</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span> <span class="o">=</span> <span class="n">BehActivity</span><span class="p">(),</span> <span class="n">BehActivity</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logging</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">is_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">since</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if has been in position for a duration.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">get_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">since</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">clear</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for valid behavioral responses since a given time point.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            since: Time reference point in milliseconds</span>
+<span class="sd">            clear: Whether to clear existing responses before checking</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Whether a valid response was detected</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># set a flag to indicate whether there is a valid response since the given time</span>
+        <span class="n">_valid_response</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># clear existing response if clear is True</span>
+        <span class="k">if</span> <span class="n">clear</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="n">BehActivity</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+            <span class="n">_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">_valid_response</span> <span class="ow">and</span> <span class="n">_response</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="n">since</span> <span class="ow">and</span> <span class="n">_response</span><span class="o">.</span><span class="n">port</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="n">_response</span>
+                <span class="n">_valid_response</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="n">_valid_response</span>
+
+    <span class="k">def</span> <span class="nf">is_licking</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">since</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">reward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">clear</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for licking activity since a given time point.</span>
+
+<span class="sd">        This method can be used in two ways:</span>
+<span class="sd">        1. To detect any licking activity since the given time</span>
+<span class="sd">        2. To check for rewarded licking (when reward=True) where only licks at reward</span>
+<span class="sd">        ports count</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            since (int, optional): Time reference point in milliseconds. Defaults to 0.</span>
+<span class="sd">            reward (bool, optional): Whether to only count licks at reward ports.</span>
+<span class="sd">                Defaults to False.</span>
+<span class="sd">            clear (bool, optional): Whether to reset last_lick after checking.</span>
+<span class="sd">                Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Port number of valid lick (0 if no valid lick detected)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># check if there is any licking since the given time</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="n">since</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span><span class="o">.</span><span class="n">port</span><span class="p">:</span>
+            <span class="c1"># if reward == False return the licked port number</span>
+            <span class="c1"># if reward == True check if the licked port is alse a reward port</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">reward</span> <span class="ow">or</span> <span class="p">(</span><span class="n">reward</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span><span class="o">.</span><span class="n">reward</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span><span class="o">.</span><span class="n">port</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># by default if it licked since the last time this function was called</span>
+        <span class="k">if</span> <span class="n">clear</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span> <span class="o">=</span> <span class="n">BehActivity</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span>
+
+    <span class="k">def</span> <span class="nf">reward</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;Reward action.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">punish</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Punish action.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clean up and exit the behavior module.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logging</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">log_activity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">activity_key</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Log behavioral activity to the database.</span>
+
+<span class="sd">        Updates last_lick and licked_port variables, manages response queue,</span>
+<span class="sd">        and logs the activity in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            activity_key (dict): Dictionary containing activity parameters</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (int):Timestamp of the logged activity in milliseconds</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">activity</span> <span class="o">=</span> <span class="n">BehActivity</span><span class="p">(</span><span class="o">**</span><span class="n">activity_key</span><span class="p">)</span>
+        <span class="c1"># if activity.time is not set, set it to the current time</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">activity</span><span class="o">.</span><span class="n">time</span><span class="p">:</span>
+            <span class="n">activity</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trial_key</span><span class="p">,</span> <span class="o">**</span><span class="n">activity</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">}</span>
+        <span class="c1"># log the activity in the database</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">in_operation</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">logging</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Activity&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Activity.&#39;</span> <span class="o">+</span> <span class="n">activity</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">)</span>
+        <span class="c1"># if activity.type == &#39;Response&#39;: append to the response queue</span>
+        <span class="k">if</span> <span class="n">activity</span><span class="o">.</span><span class="n">response</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">full</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span>
+        <span class="c1"># get the last lick and licked port to use it in is_licking function</span>
+        <span class="k">if</span> <span class="n">activity</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;Lick&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span> <span class="o">=</span> <span class="n">activity</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span> <span class="o">=</span> <span class="n">activity</span><span class="o">.</span><span class="n">port</span>
+        <span class="k">return</span> <span class="n">key</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">log_reward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward_amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Log delivered reward to the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            reward_amount (float): Amount of reward delivered</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;reward_port&#39;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;reward_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;response_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+            <span class="s2">&quot;Rewards&quot;</span><span class="p">,</span>
+            <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">,</span> <span class="s2">&quot;reward_amount&quot;</span><span class="p">:</span> <span class="n">reward_amount</span><span class="p">},</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;behavior&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conditions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate, update with default_key and generate hash for stimulus conditions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            conditions: List of condition dictionaries</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary containing processed conditions and metadata</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">:</span>
+            <span class="n">missing_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">field</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cond</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">missing_fields</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Missing behavior required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">cond</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="o">**</span><span class="n">cond</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">log_conditions</span><span class="p">(</span>
+                <span class="n">conditions</span><span class="o">=</span><span class="n">conditions</span><span class="p">,</span>
+                <span class="n">condition_tables</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;BehCondition&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">,</span>
+                <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;behavior&quot;</span><span class="p">,</span>
+                <span class="n">hash_field</span><span class="o">=</span><span class="s2">&quot;beh_hash&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">log_conditions</span><span class="p">(</span><span class="n">conditions</span><span class="o">=</span><span class="n">conditions</span><span class="p">,</span> <span class="n">condition_tables</span><span class="o">=</span><span class="p">[],</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepare for a new trial with given conditions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            condition: Dictionary of trial conditions</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span> <span class="o">=</span> <span class="n">condition</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_amount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">calc_pulse_dur</span><span class="p">(</span><span class="n">condition</span><span class="p">[</span><span class="s1">&#39;reward_amount&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;BehCondition.Trial&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">beh_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;beh_hash&#39;</span><span class="p">]),</span>
+                        <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">update_history</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">choice</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">reward</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">punish</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update choice and reward history.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            choice: Choice made (port number)</span>
+<span class="sd">            reward: Reward amount</span>
+<span class="sd">            punish: Punishment value</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span> <span class="ow">or</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">punish</span><span class="p">))</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="p">):</span>
+            <span class="n">choice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">choice_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">punish_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">punish</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reward_history</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_false_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get history of false responses.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            h: Number of trials to look back</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Cumulative product of false responses</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">punish_history</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">idx</span><span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="nf">is_sleep_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if current time is within sleep period.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Whether current time is in sleep period</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span><span class="o">*</span><span class="mi">3600</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+        <span class="n">stop_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s1">&#39;stop_time&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stop_time</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">stop_time</span><span class="p">,</span> <span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
+            <span class="n">stop_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">start_time</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">stop_time</span>
+        <span class="k">if</span> <span class="n">stop</span> <span class="o">&lt;</span> <span class="n">start</span><span class="p">:</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">time_restriction</span> <span class="o">=</span> <span class="n">now</span> <span class="o">&lt;</span> <span class="n">start</span> <span class="ow">or</span> <span class="n">now</span> <span class="o">&gt;</span> <span class="n">stop</span>
+        <span class="k">return</span> <span class="n">time_restriction</span>
+
+    <span class="k">def</span> <span class="nf">is_hydrated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rew</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if animal has received enough reward.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            rew: Optional override for maximum reward amount</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Whether maximum reward threshold has been reached</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">rew</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="n">rew</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_reward&#39;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_reward&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.exit" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.exit" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Clean up and exit the behavior module.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean up and exit the behavior module.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logging</span> <span class="o">=</span> <span class="kc">False</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.get_false_history" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_false_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.get_false_history" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get history of false responses.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>h</code></td>
+        <td><code>int</code></td>
+        <td><p>Number of trials to look back</p></td>
+        <td><code>10</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>float</code></td>
+      <td><p>Cumulative product of false responses</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_false_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get history of false responses.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        h: Number of trials to look back</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Cumulative product of false responses</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">punish_history</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">idx</span><span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)))</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.get_response" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">since</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.get_response" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Check for valid behavioral responses since a given time point.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>since</code></td>
+        <td><code>int</code></td>
+        <td><p>Time reference point in milliseconds</p></td>
+        <td><code>0</code></td>
+      </tr>
+      <tr>
+        <td><code>clear</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to clear existing responses before checking</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>Whether a valid response was detected</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">since</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">clear</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check for valid behavioral responses since a given time point.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        since: Time reference point in milliseconds</span>
+<span class="sd">        clear: Whether to clear existing responses before checking</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Whether a valid response was detected</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># set a flag to indicate whether there is a valid response since the given time</span>
+    <span class="n">_valid_response</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># clear existing response if clear is True</span>
+    <span class="k">if</span> <span class="n">clear</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="n">BehActivity</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+        <span class="n">_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_valid_response</span> <span class="ow">and</span> <span class="n">_response</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="n">since</span> <span class="ow">and</span> <span class="n">_response</span><span class="o">.</span><span class="n">port</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="n">_response</span>
+            <span class="n">_valid_response</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="n">_valid_response</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.is_hydrated" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">is_hydrated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rew</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.is_hydrated" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Check if animal has received enough reward.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>rew</code></td>
+        <td><code>Optional[float]</code></td>
+        <td><p>Optional override for maximum reward amount</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>Whether maximum reward threshold has been reached</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_hydrated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rew</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if animal has received enough reward.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        rew: Optional override for maximum reward amount</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Whether maximum reward threshold has been reached</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">rew</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="n">rew</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_reward&#39;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_reward&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.is_licking" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">is_licking</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">since</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">reward</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.is_licking" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Check for licking activity since a given time point.</p>
+<p>This method can be used in two ways:
+1. To detect any licking activity since the given time
+2. To check for rewarded licking (when reward=True) where only licks at reward
+ports count</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>since</code></td>
+        <td><code>int</code></td>
+        <td><p>Time reference point in milliseconds. Defaults to 0.</p></td>
+        <td><code>0</code></td>
+      </tr>
+      <tr>
+        <td><code>reward</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to only count licks at reward ports.
+Defaults to False.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>clear</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to reset last_lick after checking.
+Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>int</code></td>
+      <td><p>Port number of valid lick (0 if no valid lick detected)</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_licking</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">since</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">reward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">clear</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check for licking activity since a given time point.</span>
+
+<span class="sd">    This method can be used in two ways:</span>
+<span class="sd">    1. To detect any licking activity since the given time</span>
+<span class="sd">    2. To check for rewarded licking (when reward=True) where only licks at reward</span>
+<span class="sd">    ports count</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        since (int, optional): Time reference point in milliseconds. Defaults to 0.</span>
+<span class="sd">        reward (bool, optional): Whether to only count licks at reward ports.</span>
+<span class="sd">            Defaults to False.</span>
+<span class="sd">        clear (bool, optional): Whether to reset last_lick after checking.</span>
+<span class="sd">            Defaults to True.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: Port number of valid lick (0 if no valid lick detected)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check if there is any licking since the given time</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="n">since</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span><span class="o">.</span><span class="n">port</span><span class="p">:</span>
+        <span class="c1"># if reward == False return the licked port number</span>
+        <span class="c1"># if reward == True check if the licked port is alse a reward port</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">reward</span> <span class="ow">or</span> <span class="p">(</span><span class="n">reward</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span><span class="o">.</span><span class="n">reward</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span><span class="o">.</span><span class="n">port</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># by default if it licked since the last time this function was called</span>
+    <span class="k">if</span> <span class="n">clear</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span> <span class="o">=</span> <span class="n">BehActivity</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.is_ready" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">is_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">since</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.is_ready" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Check if has been in position for a duration.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">since</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if has been in position for a duration.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.is_sleep_time" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">is_sleep_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.is_sleep_time" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Check if current time is within sleep period.</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>Whether current time is in sleep period</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_sleep_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if current time is within sleep period.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Whether current time is in sleep period</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span><span class="o">*</span><span class="mi">3600</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+    <span class="n">stop_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s1">&#39;stop_time&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stop_time</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">stop_time</span><span class="p">,</span> <span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="n">stop_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">start_time</span>
+    <span class="n">stop</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">stop_time</span>
+    <span class="k">if</span> <span class="n">stop</span> <span class="o">&lt;</span> <span class="n">start</span><span class="p">:</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">time_restriction</span> <span class="o">=</span> <span class="n">now</span> <span class="o">&lt;</span> <span class="n">start</span> <span class="ow">or</span> <span class="n">now</span> <span class="o">&gt;</span> <span class="n">stop</span>
+    <span class="k">return</span> <span class="n">time_restriction</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.log_activity" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">log_activity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">activity_key</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.log_activity" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Log behavioral activity to the database.</p>
+<p>Updates last_lick and licked_port variables, manages response queue,
+and logs the activity in the database.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>activity_key</code></td>
+        <td><code>dict</code></td>
+        <td><p>Dictionary containing activity parameters</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>(int)</code></td>
+      <td><p>Timestamp of the logged activity in milliseconds</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">log_activity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">activity_key</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Log behavioral activity to the database.</span>
+
+<span class="sd">    Updates last_lick and licked_port variables, manages response queue,</span>
+<span class="sd">    and logs the activity in the database.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        activity_key (dict): Dictionary containing activity parameters</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (int):Timestamp of the logged activity in milliseconds</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">activity</span> <span class="o">=</span> <span class="n">BehActivity</span><span class="p">(</span><span class="o">**</span><span class="n">activity_key</span><span class="p">)</span>
+    <span class="c1"># if activity.time is not set, set it to the current time</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">activity</span><span class="o">.</span><span class="n">time</span><span class="p">:</span>
+        <span class="n">activity</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trial_key</span><span class="p">,</span> <span class="o">**</span><span class="n">activity</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">}</span>
+    <span class="c1"># log the activity in the database</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">in_operation</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">logging</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Activity&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Activity.&#39;</span> <span class="o">+</span> <span class="n">activity</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">)</span>
+    <span class="c1"># if activity.type == &#39;Response&#39;: append to the response queue</span>
+    <span class="k">if</span> <span class="n">activity</span><span class="o">.</span><span class="n">response</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">full</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span>
+    <span class="c1"># get the last lick and licked port to use it in is_licking function</span>
+    <span class="k">if</span> <span class="n">activity</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;Lick&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span> <span class="o">=</span> <span class="n">activity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span> <span class="o">=</span> <span class="n">activity</span><span class="o">.</span><span class="n">port</span>
+    <span class="k">return</span> <span class="n">key</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.log_reward" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">log_reward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward_amount</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.log_reward" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Log delivered reward to the database.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>reward_amount</code></td>
+        <td><code>float</code></td>
+        <td><p>Amount of reward delivered</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">log_reward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward_amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Log delivered reward to the database.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        reward_amount (float): Amount of reward delivered</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;reward_port&#39;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;reward_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;response_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+        <span class="s2">&quot;Rewards&quot;</span><span class="p">,</span>
+        <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">,</span> <span class="s2">&quot;reward_amount&quot;</span><span class="p">:</span> <span class="n">reward_amount</span><span class="p">},</span>
+        <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;behavior&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.make_conditions" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">make_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conditions</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.make_conditions" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Validate, update with default_key and generate hash for stimulus conditions.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>conditions</code></td>
+        <td><code>List[Dict[str, Any]]</code></td>
+        <td><p>List of condition dictionaries</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Dict[str, Any]</code></td>
+      <td><p>Dictionary containing processed conditions and metadata</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">make_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conditions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate, update with default_key and generate hash for stimulus conditions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        conditions: List of condition dictionaries</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary containing processed conditions and metadata</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">:</span>
+        <span class="n">missing_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">field</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cond</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">missing_fields</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Missing behavior required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">cond</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="o">**</span><span class="n">cond</span><span class="p">})</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">log_conditions</span><span class="p">(</span>
+            <span class="n">conditions</span><span class="o">=</span><span class="n">conditions</span><span class="p">,</span>
+            <span class="n">condition_tables</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;BehCondition&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">,</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;behavior&quot;</span><span class="p">,</span>
+            <span class="n">hash_field</span><span class="o">=</span><span class="s2">&quot;beh_hash&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">log_conditions</span><span class="p">(</span><span class="n">conditions</span><span class="o">=</span><span class="n">conditions</span><span class="p">,</span> <span class="n">condition_tables</span><span class="o">=</span><span class="p">[],</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.prepare" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.prepare" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Prepare for a new trial with given conditions.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>condition</code></td>
+        <td><code>Dict[str, Any]</code></td>
+        <td><p>Dictionary of trial conditions</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare for a new trial with given conditions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        condition: Dictionary of trial conditions</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span> <span class="o">=</span> <span class="n">condition</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reward_amount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">calc_pulse_dur</span><span class="p">(</span><span class="n">condition</span><span class="p">[</span><span class="s1">&#39;reward_amount&#39;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;BehCondition.Trial&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">beh_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;beh_hash&#39;</span><span class="p">]),</span>
+                    <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.punish" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">punish</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.punish" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Punish action.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">punish</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Punish action.&quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.reward" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">reward</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.reward" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>"Reward action.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">reward</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;Reward action.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">True</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.update_history" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">update_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choice</span><span class="o">=</span><span class="n">nan</span><span class="p">,</span> <span class="n">reward</span><span class="o">=</span><span class="n">nan</span><span class="p">,</span> <span class="n">punish</span><span class="o">=</span><span class="n">nan</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.update_history" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Update choice and reward history.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>choice</code></td>
+        <td><code>float</code></td>
+        <td><p>Choice made (port number)</p></td>
+        <td><code>nan</code></td>
+      </tr>
+      <tr>
+        <td><code>reward</code></td>
+        <td><code>float</code></td>
+        <td><p>Reward amount</p></td>
+        <td><code>nan</code></td>
+      </tr>
+      <tr>
+        <td><code>punish</code></td>
+        <td><code>float</code></td>
+        <td><p>Punishment value</p></td>
+        <td><code>nan</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">update_history</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">choice</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">reward</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">punish</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update choice and reward history.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        choice: Choice made (port number)</span>
+<span class="sd">        reward: Reward amount</span>
+<span class="sd">        punish: Punishment value</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span> <span class="ow">or</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">punish</span><span class="p">))</span>
+        <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="p">):</span>
+        <span class="n">choice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">port</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">choice_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reward_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">punish_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">punish</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reward_history</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="ethopy.core.behavior.Rewards" class="doc doc-heading">
+        <code>
+Rewards            (<span title="datajoint.user_tables.Manual">Manual</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.behavior.Rewards" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>DataJoint table for tracking reward trials.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code># reward trials
+-&gt; experiment.Trial
+time                                : int              # time from session start (ms)
+---
+reward_type             : varchar(16)
+reward_amount           : float            # reward amount
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Rewards</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;DataJoint table for tracking reward trials.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # reward trials</span>
+<span class="s2">    -&gt; experiment.Trial</span>
+<span class="s2">    time			        : int 	           # time from session start (ms)</span>
+<span class="s2">    ---</span>
+<span class="s2">    reward_type             : varchar(16)</span>
+<span class="s2">    reward_amount           : float            # reward amount</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2024 Alex Evangelou
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>

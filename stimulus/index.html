@@ -1,0 +1,2367 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Python Boilerplate contains all the boilerplate you need to create a Python package.">
+      
+      
+        <meta name="author" content="alexevag">
+      
+      
+        <link rel="canonical" href="https://alexevag.github.io/ethopy/stimulus/">
+      
+      
+        <link rel="prev" href="../interface/">
+      
+      
+      
+      <link rel="icon" href="../assets/LabPageBrain.gif">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+    
+    
+      
+        <title>Stimulus module - EthoPy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:300,300i,400,400i,700,700i%7CRegular:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Google Sans";--md-code-font:"Regular"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#core-stimulus-module" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="EthoPy" class="md-header__button md-logo" aria-label="EthoPy" data-md-component="logo">
+      
+  <img src="../assets/LabPageBrain.gif" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            EthoPy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Stimulus module
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/alexevag/ethopy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="EthoPy" class="md-nav__button md-logo" aria-label="EthoPy" data-md-component="logo">
+      
+  <img src="../assets/LabPageBrain.gif" alt="logo">
+
+    </a>
+    EthoPy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/alexevag/ethopy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../local_conf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Local congiguration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../task/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gui
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/alexevag/ethopy/issues" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Report Issues
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logger/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logger module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../behavior/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Behavior module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experiment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Experiment module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Stimulus module
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Stimulus module
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus" class="md-nav__link">
+    <span class="md-ellipsis">
+      ethopy.core.stimulus
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.StimCondition" class="md-nav__link">
+    <span class="md-ellipsis">
+      StimCondition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="StimCondition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.StimCondition.Trial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stimulus
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stimulus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      __init__()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      exit()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.fill" class="md-nav__link">
+    <span class="md-ellipsis">
+      fill()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.init" class="md-nav__link">
+    <span class="md-ellipsis">
+      init()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.log_start" class="md-nav__link">
+    <span class="md-ellipsis">
+      log_start()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.log_stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      log_stop()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.make_conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      make_conditions()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.name" class="md-nav__link">
+    <span class="md-ellipsis">
+      name()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.prepare" class="md-nav__link">
+    <span class="md-ellipsis">
+      prepare()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.present" class="md-nav__link">
+    <span class="md-ellipsis">
+      present()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.punish_stim" class="md-nav__link">
+    <span class="md-ellipsis">
+      punish_stim()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.ready_stim" class="md-nav__link">
+    <span class="md-ellipsis">
+      ready_stim()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.reward_stim" class="md-nav__link">
+    <span class="md-ellipsis">
+      reward_stim()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      setup()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.start" class="md-nav__link">
+    <span class="md-ellipsis">
+      start()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.start_stim" class="md-nav__link">
+    <span class="md-ellipsis">
+      start_stim()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      stop()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus" class="md-nav__link">
+    <span class="md-ellipsis">
+      ethopy.core.stimulus
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.StimCondition" class="md-nav__link">
+    <span class="md-ellipsis">
+      StimCondition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="StimCondition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.StimCondition.Trial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stimulus
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stimulus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      __init__()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      exit()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.fill" class="md-nav__link">
+    <span class="md-ellipsis">
+      fill()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.init" class="md-nav__link">
+    <span class="md-ellipsis">
+      init()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.log_start" class="md-nav__link">
+    <span class="md-ellipsis">
+      log_start()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.log_stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      log_stop()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.make_conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      make_conditions()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.name" class="md-nav__link">
+    <span class="md-ellipsis">
+      name()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.prepare" class="md-nav__link">
+    <span class="md-ellipsis">
+      prepare()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.present" class="md-nav__link">
+    <span class="md-ellipsis">
+      present()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.punish_stim" class="md-nav__link">
+    <span class="md-ellipsis">
+      punish_stim()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.ready_stim" class="md-nav__link">
+    <span class="md-ellipsis">
+      ready_stim()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.reward_stim" class="md-nav__link">
+    <span class="md-ellipsis">
+      reward_stim()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      setup()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.start" class="md-nav__link">
+    <span class="md-ellipsis">
+      start()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.start_stim" class="md-nav__link">
+    <span class="md-ellipsis">
+      start_stim()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.stimulus.Stimulus.stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      stop()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+
+                  
+
+  
+  
+
+
+<h1 id="core-stimulus-module">Core Stimulus module<a class="headerlink" href="#core-stimulus-module" title="Permanent link">&para;</a></h1>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="ethopy.core.stimulus"></a>
+    <div class="doc doc-contents first">
+
+      <p>Module for handling stimulus presentation in behavioral experiments.</p>
+<p>This module provides a base Stimulus class that handles the presentation of various
+types of stimuli during behavioral experiments. It includes functionality for stimulus
+preparation, presentation, logging, and cleanup.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="ethopy.core.stimulus.StimCondition" class="doc doc-heading">
+        <code>
+StimCondition            (<span title="datajoint.user_tables.Manual">Manual</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.stimulus.StimCondition" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Datajoint table for the stimulus presentation hash
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code># This class handles the stimulus presentation use function overrides for each
+# stimulus class
+stim_hash            : char(24)   # unique stimulus condition hash
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">StimCondition</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for the stimulus presentation hash&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # This class handles the stimulus presentation use function overrides for each</span>
+<span class="s2">    # stimulus class</span>
+<span class="s2">    stim_hash            : char(24)   # unique stimulus condition hash</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Trial</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Datajoint table for the Stimulus onset timestamps&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Stimulus onset timestamps</span>
+<span class="s2">        -&gt; experiment.Trial</span>
+<span class="s2">        period=&#39;Trial&#39;       : varchar(16)</span>
+<span class="s2">        ---</span>
+<span class="s2">        -&gt; StimCondition</span>
+<span class="s2">        start_time           : int   # start time from session start (ms)</span>
+<span class="s2">        end_time=NULL        : int   # end time from session start (ms)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.stimulus.StimCondition.Trial" class="doc doc-heading">
+        <code>
+Trial            (<span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.stimulus.StimCondition.Trial" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Datajoint table for the Stimulus onset timestamps
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Stimulus onset timestamps
+    -&gt; experiment.Trial
+    period=&#39;Trial&#39;       : varchar(16)
+    ---
+    -&gt; StimCondition
+    start_time           : int   # start time from session start (ms)
+    end_time=NULL        : int   # end time from session start (ms)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Trial</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for the Stimulus onset timestamps&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Stimulus onset timestamps</span>
+<span class="s2">    -&gt; experiment.Trial</span>
+<span class="s2">    period=&#39;Trial&#39;       : varchar(16)</span>
+<span class="s2">    ---</span>
+<span class="s2">    -&gt; StimCondition</span>
+<span class="s2">    start_time           : int   # start time from session start (ms)</span>
+<span class="s2">    end_time=NULL        : int   # end time from session start (ms)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="ethopy.core.stimulus.Stimulus" class="doc doc-heading">
+        <code>
+Stimulus        </code>
+
+
+
+<a href="#ethopy.core.stimulus.Stimulus" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Base class for handling stimulus presentation in behavioral experiments.</p>
+<p>This class provides the core functionality for managing stimuli in behavioral
+experiments, including initialization, presentation, logging, and cleanup. It can be
+subclassed to implement specific types of stimuli.</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>cond_tables</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>List of condition table names.</p></td>
+      </tr>
+      <tr>
+        <td><code>required_fields</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>List of required fields for stimulus conditions.</p></td>
+      </tr>
+      <tr>
+        <td><code>default_key</code></td>
+        <td><code>Dict[str, Any]</code></td>
+        <td><p>Default key-value pairs for stimulus conditions.</p></td>
+      </tr>
+      <tr>
+        <td><code>curr_cond</code></td>
+        <td><code>Dict[str, Any]</code></td>
+        <td><p>Current stimulus condition parameters.</p></td>
+      </tr>
+      <tr>
+        <td><code>conditions</code></td>
+        <td><code>List[Dict[str, Any]]</code></td>
+        <td><p>List of all stimulus conditions.</p></td>
+      </tr>
+      <tr>
+        <td><code>timer</code></td>
+        <td><code>Timer</code></td>
+        <td><p>Timer object for tracking stimulus timing.</p></td>
+      </tr>
+      <tr>
+        <td><code>period</code></td>
+        <td><code>str</code></td>
+        <td><p>Current experimental period ('Trial' by default).</p></td>
+      </tr>
+      <tr>
+        <td><code>in_operation</code></td>
+        <td><code>bool</code></td>
+        <td><p>Flag indicating if stimulus is currently active.</p></td>
+      </tr>
+      <tr>
+        <td><code>flip_count</code></td>
+        <td><code>int</code></td>
+        <td><p>Counter for screen flips.</p></td>
+      </tr>
+      <tr>
+        <td><code>photodiode</code></td>
+        <td><code>bool</code></td>
+        <td><p>Flag for photodiode triggering.</p></td>
+      </tr>
+      <tr>
+        <td><code>rec_fliptimes</code></td>
+        <td><code>bool</code></td>
+        <td><p>Flag for recording flip times.</p></td>
+      </tr>
+      <tr>
+        <td><code>fill_colors</code></td>
+        <td><code>DictStruct</code></td>
+        <td><p>Structure containing color values for different states</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Stimulus</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for handling stimulus presentation in behavioral experiments.</span>
+
+<span class="sd">    This class provides the core functionality for managing stimuli in behavioral</span>
+<span class="sd">    experiments, including initialization, presentation, logging, and cleanup. It can be</span>
+<span class="sd">    subclassed to implement specific types of stimuli.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        cond_tables (List[str]): List of condition table names.</span>
+<span class="sd">        required_fields (List[str]): List of required fields for stimulus conditions.</span>
+<span class="sd">        default_key (Dict[str, Any]): Default key-value pairs for stimulus conditions.</span>
+<span class="sd">        curr_cond (Dict[str, Any]): Current stimulus condition parameters.</span>
+<span class="sd">        conditions (List[Dict[str, Any]]): List of all stimulus conditions.</span>
+<span class="sd">        timer (Timer): Timer object for tracking stimulus timing.</span>
+<span class="sd">        period (str): Current experimental period (&#39;Trial&#39; by default).</span>
+<span class="sd">        in_operation (bool): Flag indicating if stimulus is currently active.</span>
+<span class="sd">        flip_count (int): Counter for screen flips.</span>
+<span class="sd">        photodiode (bool): Flag for photodiode triggering.</span>
+<span class="sd">        rec_fliptimes (bool): Flag for recording flip times.</span>
+<span class="sd">        fill_colors (DictStruct): Structure containing color values for different states</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize stimulus attributes.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">:</span> <span class="n">Timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">period</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Trial&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flip_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">photodiode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rec_fliptimes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="p">:</span> <span class="n">FillColors</span> <span class="o">=</span> <span class="n">FillColors</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exp</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize stimulus with experiment object and setup screen properties.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            exp (Experiment): Experiment object containing logger and interface components.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exp</span> <span class="o">=</span> <span class="n">exp</span>
+        <span class="n">screen_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
+                                            <span class="n">table</span><span class="o">=</span><span class="s1">&#39;SetupConfiguration.Screen&#39;</span><span class="p">,</span>
+                                            <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+                                            <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span> <span class="o">=</span> <span class="n">DictStruct</span><span class="p">(</span><span class="n">screen_properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">is_pi</span><span class="p">:</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;echo </span><span class="si">%d</span><span class="s1"> &gt; /sys/class/backlight/rpi_backlight/brightness&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="o">.</span><span class="n">intensity</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+            <span class="n">exp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">setup_touch_exit</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set up stimulus presentation environment.</span>
+
+<span class="sd">        Initializes the Presenter object with monitor settings and background color.</span>
+<span class="sd">        Should be called before starting the experiment.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span> <span class="o">=</span> <span class="n">Presenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="p">,</span>
+                                   <span class="n">background_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span><span class="p">,</span>
+                                   <span class="n">photodiode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">photodiode</span><span class="p">,</span>
+                                   <span class="n">rec_fliptimes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rec_fliptimes</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curr_cond</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stim_period</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;prepares stuff for presentation before trial starts&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span> <span class="o">=</span> <span class="n">curr_cond</span> <span class="k">if</span> <span class="n">stim_period</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="n">curr_cond</span><span class="p">[</span><span class="n">stim_period</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">period</span> <span class="o">=</span> <span class="n">stim_period</span>
+
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;start stimulus&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_start</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">present</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Present stimulus.</span>
+
+<span class="sd">        This is a placeholder method that should be overridden by subclasses</span>
+<span class="sd">        to implement specific stimulus presentation logic.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;stimulus hidding method&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">color</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;stop stimulus&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;exit stimulus stuff&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">ready_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stim Cue for ready&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">ready</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">ready</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">reward_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stim Cue for reward&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">reward</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">reward</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">punish_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stim Cue for punishment&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">punish</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">punish</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">start_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stim Cue for start&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">start</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">log_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start timer for the log of stimlus condition&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">sync_out</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">log_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Log stimulus condition start &amp; stop time&quot;&quot;&quot;</span>
+        <span class="n">stop_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">sync_out</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+            <span class="s2">&quot;StimCondition.Trial&quot;</span><span class="p">,</span>
+            <span class="nb">dict</span><span class="p">(</span>
+                <span class="n">period</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">period</span><span class="p">,</span>
+                <span class="n">stim_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;stim_hash&quot;</span><span class="p">],</span>
+                <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span>
+                <span class="n">end_time</span><span class="o">=</span><span class="n">stop_time</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;stimulus&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_conditions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">conditions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate and store stimulus conditions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            conditions: List of condition dictionaries to process.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of processed condition dictionaries with hashes.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            AssertionError: If required fields are missing from any condition.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># check for any missing field from the required fields and add the default keys</span>
+        <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">:</span>
+            <span class="n">missing_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">field</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cond</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">missing_fields</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Missing Stimulus required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">cond</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="o">**</span><span class="n">cond</span><span class="p">})</span>
+        <span class="c1"># log stim conditions</span>
+        <span class="n">conditions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">log_conditions</span><span class="p">(</span>
+            <span class="n">conditions</span><span class="p">,</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;stimulus&quot;</span><span class="p">,</span>
+            <span class="n">hash_field</span><span class="o">=</span><span class="s2">&quot;stim_hash&quot;</span><span class="p">,</span>
+            <span class="n">condition_tables</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;StimCondition&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">conditions</span>
+
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the name of the stimulus class.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (str):Name of the current stimulus class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a href="#ethopy.core.stimulus.Stimulus.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize stimulus attributes.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize stimulus attributes.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">:</span> <span class="n">Timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">period</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Trial&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">flip_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">photodiode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rec_fliptimes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="p">:</span> <span class="n">FillColors</span> <span class="o">=</span> <span class="n">FillColors</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">exp</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.exit" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.exit" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>exit stimulus stuff</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;exit stimulus stuff&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.fill" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.fill" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>stimulus hidding method</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;stimulus hidding method&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">color</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.init" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.init" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize stimulus with experiment object and setup screen properties.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>exp</code></td>
+        <td><code>Experiment</code></td>
+        <td><p>Experiment object containing logger and interface components.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize stimulus with experiment object and setup screen properties.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        exp (Experiment): Experiment object containing logger and interface components.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">logger</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">exp</span> <span class="o">=</span> <span class="n">exp</span>
+    <span class="n">screen_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
+                                        <span class="n">table</span><span class="o">=</span><span class="s1">&#39;SetupConfiguration.Screen&#39;</span><span class="p">,</span>
+                                        <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+                                        <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span> <span class="o">=</span> <span class="n">DictStruct</span><span class="p">(</span><span class="n">screen_properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">is_pi</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;echo </span><span class="si">%d</span><span class="s1"> &gt; /sys/class/backlight/rpi_backlight/brightness&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="o">.</span><span class="n">intensity</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+        <span class="n">exp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">setup_touch_exit</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.log_start" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">log_start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.log_start" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Start timer for the log of stimlus condition</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">log_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start timer for the log of stimlus condition&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">sync_out</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.log_stop" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">log_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.log_stop" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Log stimulus condition start &amp; stop time</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">log_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Log stimulus condition start &amp; stop time&quot;&quot;&quot;</span>
+    <span class="n">stop_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">sync_out</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+        <span class="s2">&quot;StimCondition.Trial&quot;</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">period</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">period</span><span class="p">,</span>
+            <span class="n">stim_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;stim_hash&quot;</span><span class="p">],</span>
+            <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span>
+            <span class="n">end_time</span><span class="o">=</span><span class="n">stop_time</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;stimulus&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.make_conditions" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">make_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conditions</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.make_conditions" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Generate and store stimulus conditions.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>conditions</code></td>
+        <td><code>List[Dict[str, Any]]</code></td>
+        <td><p>List of condition dictionaries to process.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>List[Dict[str, Any]]</code></td>
+      <td><p>List of processed condition dictionaries with hashes.</p></td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>AssertionError</code></td>
+        <td><p>If required fields are missing from any condition.</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">make_conditions</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">conditions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate and store stimulus conditions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        conditions: List of condition dictionaries to process.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of processed condition dictionaries with hashes.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        AssertionError: If required fields are missing from any condition.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check for any missing field from the required fields and add the default keys</span>
+    <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">:</span>
+        <span class="n">missing_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">field</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cond</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">missing_fields</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Missing Stimulus required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">cond</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="o">**</span><span class="n">cond</span><span class="p">})</span>
+    <span class="c1"># log stim conditions</span>
+    <span class="n">conditions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">log_conditions</span><span class="p">(</span>
+        <span class="n">conditions</span><span class="p">,</span>
+        <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;stimulus&quot;</span><span class="p">,</span>
+        <span class="n">hash_field</span><span class="o">=</span><span class="s2">&quot;stim_hash&quot;</span><span class="p">,</span>
+        <span class="n">condition_tables</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;StimCondition&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">conditions</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.name" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.name" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get the name of the stimulus class.</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>(str)</code></td>
+      <td><p>Name of the current stimulus class.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the name of the stimulus class.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (str):Name of the current stimulus class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.prepare" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curr_cond</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stim_period</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.prepare" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>prepares stuff for presentation before trial starts</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curr_cond</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stim_period</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;prepares stuff for presentation before trial starts&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span> <span class="o">=</span> <span class="n">curr_cond</span> <span class="k">if</span> <span class="n">stim_period</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="n">curr_cond</span><span class="p">[</span><span class="n">stim_period</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">period</span> <span class="o">=</span> <span class="n">stim_period</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.present" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">present</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.present" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Present stimulus.</p>
+<p>This is a placeholder method that should be overridden by subclasses
+to implement specific stimulus presentation logic.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">present</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Present stimulus.</span>
+
+<span class="sd">    This is a placeholder method that should be overridden by subclasses</span>
+<span class="sd">    to implement specific stimulus presentation logic.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.punish_stim" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">punish_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.punish_stim" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Stim Cue for punishment</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">punish_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stim Cue for punishment&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">punish</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">punish</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.ready_stim" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">ready_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.ready_stim" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Stim Cue for ready</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ready_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stim Cue for ready&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">ready</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">ready</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.reward_stim" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">reward_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.reward_stim" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Stim Cue for reward</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">reward_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stim Cue for reward&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">reward</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">reward</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.setup" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.setup" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Set up stimulus presentation environment.</p>
+<p>Initializes the Presenter object with monitor settings and background color.
+Should be called before starting the experiment.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set up stimulus presentation environment.</span>
+
+<span class="sd">    Initializes the Presenter object with monitor settings and background color.</span>
+<span class="sd">    Should be called before starting the experiment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span> <span class="o">=</span> <span class="n">Presenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="p">,</span>
+                               <span class="n">background_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span><span class="p">,</span>
+                               <span class="n">photodiode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">photodiode</span><span class="p">,</span>
+                               <span class="n">rec_fliptimes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rec_fliptimes</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.start" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.start" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>start stimulus</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;start stimulus&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log_start</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.start_stim" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">start_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.start_stim" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Stim Cue for start</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">start_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stim Cue for start&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">start</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.stimulus.Stimulus.stop" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.stimulus.Stimulus.stop" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>stop stimulus</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;stop stimulus&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log_stop</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">False</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2024 Alex Evangelou
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>

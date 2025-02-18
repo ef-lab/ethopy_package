@@ -1,0 +1,3979 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Python Boilerplate contains all the boilerplate you need to create a Python package.">
+      
+      
+        <meta name="author" content="alexevag">
+      
+      
+        <link rel="canonical" href="https://alexevag.github.io/ethopy/interface/">
+      
+      
+        <link rel="prev" href="../experiment/">
+      
+      
+        <link rel="next" href="../stimulus/">
+      
+      
+      <link rel="icon" href="../assets/LabPageBrain.gif">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+    
+    
+      
+        <title>Interface module - EthoPy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:300,300i,400,400i,700,700i%7CRegular:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Google Sans";--md-code-font:"Regular"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#core-interface-module" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="EthoPy" class="md-header__button md-logo" aria-label="EthoPy" data-md-component="logo">
+      
+  <img src="../assets/LabPageBrain.gif" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            EthoPy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Interface module
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/alexevag/ethopy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="EthoPy" class="md-nav__button md-logo" aria-label="EthoPy" data-md-component="logo">
+      
+  <img src="../assets/LabPageBrain.gif" alt="logo">
+
+    </a>
+    EthoPy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/alexevag/ethopy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../local_conf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Local congiguration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../task/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gui
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/alexevag/ethopy/issues" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Report Issues
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logger/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logger module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../behavior/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Behavior module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experiment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Experiment module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Interface module
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Interface module
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      ethopy.core.interface
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Configuration.Ball" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ball
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Configuration.Port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Configuration.Screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Screen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Configuration.Speaker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speaker
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      __init__()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.calc_pulse_dur" class="md-nav__link">
+    <span class="md-ellipsis">
+      calc_pulse_dur()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      cleanup()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.create_pulse" class="md-nav__link">
+    <span class="md-ellipsis">
+      create_pulse()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.give_liquid" class="md-nav__link">
+    <span class="md-ellipsis">
+      give_liquid()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.give_odor" class="md-nav__link">
+    <span class="md-ellipsis">
+      give_odor()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.give_sound" class="md-nav__link">
+    <span class="md-ellipsis">
+      give_sound()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.in_position" class="md-nav__link">
+    <span class="md-ellipsis">
+      in_position()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.load_calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      load_calibration()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.release" class="md-nav__link">
+    <span class="md-ellipsis">
+      release()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.set_operation_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      set_operation_status()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.sync_out" class="md-nav__link">
+    <span class="md-ellipsis">
+      sync_out()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.interface.PortCalibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      PortCalibration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PortCalibration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.PortCalibration.Liquid" class="md-nav__link">
+    <span class="md-ellipsis">
+      Liquid
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.PortCalibration.Test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.interface.SetupConfiguration" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetupConfiguration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SetupConfiguration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.SetupConfiguration.Ball" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ball
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.SetupConfiguration.Camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      Camera
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.SetupConfiguration.Port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.SetupConfiguration.Screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Screen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.SetupConfiguration.Speaker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speaker
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stimulus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stimulus module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      ethopy.core.interface
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Configuration.Ball" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ball
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Configuration.Port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Configuration.Screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Screen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Configuration.Speaker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speaker
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      __init__()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.calc_pulse_dur" class="md-nav__link">
+    <span class="md-ellipsis">
+      calc_pulse_dur()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      cleanup()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.create_pulse" class="md-nav__link">
+    <span class="md-ellipsis">
+      create_pulse()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.give_liquid" class="md-nav__link">
+    <span class="md-ellipsis">
+      give_liquid()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.give_odor" class="md-nav__link">
+    <span class="md-ellipsis">
+      give_odor()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.give_sound" class="md-nav__link">
+    <span class="md-ellipsis">
+      give_sound()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.in_position" class="md-nav__link">
+    <span class="md-ellipsis">
+      in_position()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.load_calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      load_calibration()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.release" class="md-nav__link">
+    <span class="md-ellipsis">
+      release()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.set_operation_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      set_operation_status()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Interface.sync_out" class="md-nav__link">
+    <span class="md-ellipsis">
+      sync_out()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.interface.PortCalibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      PortCalibration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PortCalibration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.PortCalibration.Liquid" class="md-nav__link">
+    <span class="md-ellipsis">
+      Liquid
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.PortCalibration.Test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethopy.core.interface.SetupConfiguration" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetupConfiguration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SetupConfiguration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.SetupConfiguration.Ball" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ball
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.SetupConfiguration.Camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      Camera
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.SetupConfiguration.Port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.SetupConfiguration.Screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Screen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.SetupConfiguration.Speaker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speaker
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+
+                  
+
+  
+  
+
+
+<h1 id="core-interface-module">Core Interface module<a class="headerlink" href="#core-interface-module" title="Permanent link">&para;</a></h1>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="ethopy.core.interface"></a>
+    <div class="doc doc-contents first">
+
+      <p>Core interface module for EthoPy.</p>
+<p>This module provides the base interface for hardware interaction and configuration of
+hardware based on setup index.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="ethopy.core.interface.Configuration" class="doc doc-heading">
+        <code>
+Configuration            (<span title="datajoint.user_tables.Manual">Manual</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.Configuration" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>DataJoint table for saving setup configurations for each session.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code># Session behavior configuration info
+-&gt; experiment.Session
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Configuration</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;DataJoint table for saving setup configurations for each session.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Session behavior configuration info</span>
+<span class="s2">    -&gt; experiment.Session</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Port</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Port configuration table.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Probe identity</span>
+<span class="s2">        -&gt; Configuration</span>
+<span class="s2">        port                     : tinyint                      # port id</span>
+<span class="s2">        type=&quot;Lick&quot;              : varchar(24)                 # port type</span>
+<span class="s2">        ---</span>
+<span class="s2">        ready=0                  : tinyint                      # ready flag</span>
+<span class="s2">        response=0               : tinyint                      # response flag</span>
+<span class="s2">        reward=0                 : tinyint                      # reward flag</span>
+<span class="s2">        discription              : varchar(256)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Ball</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ball configuration table.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Ball information</span>
+<span class="s2">        -&gt; Configuration</span>
+<span class="s2">        ---</span>
+<span class="s2">        ball_radius=0.125        : float                   # in meters</span>
+<span class="s2">        material=&quot;styrofoam&quot;     : varchar(64)             # ball material</span>
+<span class="s2">        coupling=&quot;bearings&quot;      : enum(&#39;bearings&#39;,&#39;air&#39;)  # mechanical coupling</span>
+<span class="s2">        discription              : varchar(256)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Screen</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Screen configuration table.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Screen information</span>
+<span class="s2">        -&gt; Configuration</span>
+<span class="s2">        screen_idx               : tinyint</span>
+<span class="s2">        ---</span>
+<span class="s2">        intensity                : tinyint UNSIGNED</span>
+<span class="s2">        distance         : float</span>
+<span class="s2">        center_x         : float</span>
+<span class="s2">        center_y         : float</span>
+<span class="s2">        aspect           : float</span>
+<span class="s2">        size             : float</span>
+<span class="s2">        fps                      : tinyint UNSIGNED</span>
+<span class="s2">        resolution_x             : smallint</span>
+<span class="s2">        resolution_y             : smallint</span>
+<span class="s2">        description              : varchar(256)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Speaker</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Speaker configuration table.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Speaker information</span>
+<span class="s2">        speaker_idx             : tinyint</span>
+<span class="s2">        -&gt; Configuration</span>
+<span class="s2">        ---</span>
+<span class="s2">        sound_freq=10000        : int           # in Hz</span>
+<span class="s2">        duration=500            : int           # in ms</span>
+<span class="s2">        volume=50               : tinyint       # 0-100 percentage</span>
+<span class="s2">        discription             : varchar(256)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.interface.Configuration.Ball" class="doc doc-heading">
+        <code>
+Ball            (<span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.Configuration.Ball" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Ball configuration table.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Ball information
+    -&gt; Configuration
+    ---
+    ball_radius=0.125        : float                   # in meters
+    material=&quot;styrofoam&quot;     : varchar(64)             # ball material
+    coupling=&quot;bearings&quot;      : enum(&#39;bearings&#39;,&#39;air&#39;)  # mechanical coupling
+    discription              : varchar(256)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Ball</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ball configuration table.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Ball information</span>
+<span class="s2">    -&gt; SetupConfiguration</span>
+<span class="s2">    ---</span>
+<span class="s2">    ball_radius=0.125        : float                   # in meters</span>
+<span class="s2">    material=&quot;styrofoam&quot;     : varchar(64)             # ball material</span>
+<span class="s2">    coupling=&quot;bearings&quot;      : enum(&#39;bearings&#39;,&#39;air&#39;)  # mechanical coupling</span>
+<span class="s2">    discription              : varchar(256)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.interface.Configuration.Port" class="doc doc-heading">
+        <code>
+Port            (<span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.Configuration.Port" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Port configuration table.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Probe identity
+    -&gt; Configuration
+    port                     : tinyint                      # port id
+    type=&quot;Lick&quot;              : varchar(24)                 # port type
+    ---
+    ready=0                  : tinyint                      # ready flag
+    response=0               : tinyint                      # response flag
+    reward=0                 : tinyint                      # reward flag
+    discription              : varchar(256)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Port</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataclass representing a hardware port configuration.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        port (int): Port identifier</span>
+<span class="sd">        type (str): Port type (e.g., &#39;Lick&#39;, &#39;Proximity&#39;)</span>
+<span class="sd">        ready (bool): Whether port is in ready state</span>
+<span class="sd">        reward (bool): Whether port can deliver rewards</span>
+<span class="sd">        response (bool): Whether port accepts responses</span>
+<span class="sd">        invert (bool): Whether to invert port signal</span>
+<span class="sd">        state (bool): Current port state</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ready</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">reward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">response</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)])</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.interface.Configuration.Screen" class="doc doc-heading">
+        <code>
+Screen            (<span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.Configuration.Screen" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Screen configuration table.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Screen information
+    -&gt; Configuration
+    screen_idx               : tinyint
+    ---
+    intensity                : tinyint UNSIGNED
+    distance         : float
+    center_x         : float
+    center_y         : float
+    aspect           : float
+    size             : float
+    fps                      : tinyint UNSIGNED
+    resolution_x             : smallint
+    resolution_y             : smallint
+    description              : varchar(256)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Screen</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Screen configuration table.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Screen information</span>
+<span class="s2">    screen_idx               : tinyint</span>
+<span class="s2">    -&gt; SetupConfiguration</span>
+<span class="s2">    ---</span>
+<span class="s2">    intensity                : tinyint UNSIGNED</span>
+<span class="s2">    distance                 : float</span>
+<span class="s2">    center_x                 : float</span>
+<span class="s2">    center_y                 : float</span>
+<span class="s2">    aspect                   : float</span>
+<span class="s2">    size                     : float</span>
+<span class="s2">    fps                      : tinyint UNSIGNED</span>
+<span class="s2">    resolution_x             : smallint</span>
+<span class="s2">    resolution_y             : smallint</span>
+<span class="s2">    description              : varchar(256)</span>
+<span class="s2">    fullscreen               : tinyint</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="n">contents</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.66</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="s1">&#39;Simulation&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],]</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.interface.Configuration.Speaker" class="doc doc-heading">
+        <code>
+Speaker            (<span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.Configuration.Speaker" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Speaker configuration table.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Speaker information
+    speaker_idx             : tinyint
+    -&gt; Configuration
+    ---
+    sound_freq=10000        : int           # in Hz
+    duration=500            : int           # in ms
+    volume=50               : tinyint       # 0-100 percentage
+    discription             : varchar(256)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Speaker</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Speaker configuration table.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Speaker information</span>
+<span class="s2">    speaker_idx             : tinyint</span>
+<span class="s2">    -&gt; SetupConfiguration</span>
+<span class="s2">    ---</span>
+<span class="s2">    sound_freq=10000        : int           # in Hz</span>
+<span class="s2">    duration=500            : int           # in ms</span>
+<span class="s2">    volume=50               : tinyint       # 0-100 percentage</span>
+<span class="s2">    discription             : varchar(256)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="ethopy.core.interface.Interface" class="doc doc-heading">
+        <code>
+Interface        </code>
+
+
+
+<a href="#ethopy.core.interface.Interface" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Base interface class for hardware interaction in experimental setups.</p>
+<p>This class manages hardware interfaces including ports, cameras, and other
+peripherals.
+It provides methods for stimulus delivery, reward management, and hardware control.</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>int</code></td>
+        <td><p>Current active port</p></td>
+      </tr>
+      <tr>
+        <td><code>resp_tmst</code></td>
+        <td><code>int</code></td>
+        <td><p>Response timestamp</p></td>
+      </tr>
+      <tr>
+        <td><code>ready_dur</code></td>
+        <td><code>int</code></td>
+        <td><p>Ready duration</p></td>
+      </tr>
+      <tr>
+        <td><code>activity_tmst</code></td>
+        <td><code>int</code></td>
+        <td><p>Activity timestamp</p></td>
+      </tr>
+      <tr>
+        <td><code>ready_tmst</code></td>
+        <td><code>int</code></td>
+        <td><p>Ready state timestamp</p></td>
+      </tr>
+      <tr>
+        <td><code>pulse_rew</code></td>
+        <td><code>Dict[int, Dict]</code></td>
+        <td><p>Reward pulse settings by port</p></td>
+      </tr>
+      <tr>
+        <td><code>ports</code></td>
+        <td><code>List[Port]</code></td>
+        <td><p>List of available ports</p></td>
+      </tr>
+      <tr>
+        <td><code>response</code></td>
+        <td><code>List</code></td>
+        <td><p>List of responses</p></td>
+      </tr>
+      <tr>
+        <td><code>duration</code></td>
+        <td><code>Dict[int, float]</code></td>
+        <td><p>Duration settings by port</p></td>
+      </tr>
+      <tr>
+        <td><code>ready</code></td>
+        <td><code>bool</code></td>
+        <td><p>Ready state flag</p></td>
+      </tr>
+      <tr>
+        <td><code>timer_ready</code></td>
+        <td><code>Timer</code></td>
+        <td><p>Timer for ready state</p></td>
+      </tr>
+      <tr>
+        <td><code>weight_per_pulse</code></td>
+        <td><code>Dict[int, float]</code></td>
+        <td><p>Calibration weights per pulse</p></td>
+      </tr>
+      <tr>
+        <td><code>pulse_dur</code></td>
+        <td><code>Dict[int, float]</code></td>
+        <td><p>Pulse durations by port</p></td>
+      </tr>
+      <tr>
+        <td><code>channels</code></td>
+        <td><code>Dict[str, Any]</code></td>
+        <td><p>Channel mappings</p></td>
+      </tr>
+      <tr>
+        <td><code>position_dur</code></td>
+        <td><code>int</code></td>
+        <td><p>Position duration</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Interface</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base interface class for hardware interaction in experimental setups.</span>
+
+<span class="sd">    This class manages hardware interfaces including ports, cameras, and other</span>
+<span class="sd">    peripherals.</span>
+<span class="sd">    It provides methods for stimulus delivery, reward management, and hardware control.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        port (int): Current active port</span>
+<span class="sd">        resp_tmst (int): Response timestamp</span>
+<span class="sd">        ready_dur (int): Ready duration</span>
+<span class="sd">        activity_tmst (int): Activity timestamp</span>
+<span class="sd">        ready_tmst (int): Ready state timestamp</span>
+<span class="sd">        pulse_rew (Dict[int, Dict]): Reward pulse settings by port</span>
+<span class="sd">        ports (List[Port]): List of available ports</span>
+<span class="sd">        response (List): List of responses</span>
+<span class="sd">        duration (Dict[int, float]): Duration settings by port</span>
+<span class="sd">        ready (bool): Ready state flag</span>
+<span class="sd">        timer_ready (Timer): Timer for ready state</span>
+<span class="sd">        weight_per_pulse (Dict[int, float]): Calibration weights per pulse</span>
+<span class="sd">        pulse_dur (Dict[int, float]): Pulse durations by port</span>
+<span class="sd">        channels (Dict[str, Any]): Channel mappings</span>
+<span class="sd">        position_dur (int): Position duration</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">exp</span><span class="p">:</span> <span class="n">Optional</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">beh</span><span class="p">:</span> <span class="n">Optional</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">callbacks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the interface with experiment and behavior objects.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            exp: Experiment object containing parameters and logger</span>
+<span class="sd">            beh: Behavior object for tracking responses</span>
+<span class="sd">            callbacks: Whether to enable callback functions</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initialize basic attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beh</span> <span class="o">=</span> <span class="n">beh</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exp</span> <span class="o">=</span> <span class="n">exp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">logger</span> <span class="k">if</span> <span class="n">exp</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">Port</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position_tmst</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_per_pulse</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pulse_dur</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Initialize timing variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resp_tmst</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ready_dur</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activity_tmst</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ready_tmst</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position_dur</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Initialize state variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ready</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer_ready</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="n">exp</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_hardware</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_initialize_hardware</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize hardware components based on setup configuration.</span>
+
+<span class="sd">        This method sets up ports and camera if configured in the experiment parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initialize ports</span>
+        <span class="n">port_configs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="s1">&#39;SetupConfiguration.Port&#39;</span><span class="p">,</span>
+            <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">port_config</span> <span class="ow">in</span> <span class="n">port_configs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Port</span><span class="p">(</span><span class="o">**</span><span class="n">port_config</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ports</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proximity_ports</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">port</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;Proximity&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rew_ports</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">port</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">reward</span><span class="p">])</span>
+
+        <span class="c1"># Initialize camera if configured</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_camera</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_initialize_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize camera if configured in setup.&quot;&quot;&quot;</span>
+        <span class="n">setup_cameras</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration.Camera&quot;</span><span class="p">,</span>
+            <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">setup_cameras</span><span class="p">:</span>
+            <span class="n">camera_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
+                <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration.Camera&quot;</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;setup_conf_idx=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="n">camera_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                <span class="n">import_module</span><span class="p">(</span><span class="s2">&quot;Interfaces.Camera&quot;</span><span class="p">),</span>
+                <span class="n">camera_params</span><span class="p">[</span><span class="s2">&quot;discription&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">camera_class</span><span class="p">(</span>
+                <span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;animal_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+                         <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span>
+                <span class="n">logger_timer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="p">,</span>
+                <span class="n">video_aim</span><span class="o">=</span><span class="n">camera_params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;video_aim&#39;</span><span class="p">),</span>
+                <span class="o">**</span><span class="n">camera_params</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">give_liquid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Deliver liquid reward through specified port.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            port: Port number for delivery</span>
+<span class="sd">            duration: Duration of delivery in milliseconds</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">give_odor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">odor_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Deliver odor stimulus.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            odor_idx: Index of odor to deliver</span>
+<span class="sd">            duration: Duration of delivery in milliseconds</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">give_sound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sound_freq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dutycycle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate sound stimulus.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sound_freq: Frequency of sound in Hz</span>
+<span class="sd">            duration: Duration of sound in milliseconds</span>
+<span class="sd">            dutycycle: Duty cycle for sound generation (0-1)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">in_position</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if subject is in correct position.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple of (position status, position time)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">create_pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a pulse for stimulus delivery.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            port: Port number for pulse</span>
+<span class="sd">            duration: Duration of pulse in milliseconds</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">sync_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send synchronization signal.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            state: Synchronization state to set</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_operation_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operation_status</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set operation status of interface.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            operation_status: Status to set</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clean up interface resources.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">release</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Release hardware resources, especially camera.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Release camear&quot;</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">recording</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">stop_rec</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">load_calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load port calibration data from database.</span>
+
+<span class="sd">        This method loads the most recent calibration data for each reward port,</span>
+<span class="sd">        including pulse durations and weights.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: If no calibration data is found</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rew_ports</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">setup</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span>
+            <span class="n">dates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="s1">&#39;interface&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;PortCalibration.Liquid&#39;</span><span class="p">,</span>
+                                    <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No PortCalibration found!&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+
+            <span class="n">key</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># use most recent calibration</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">pulse_dur</span><span class="p">[</span><span class="n">port</span><span class="p">],</span> <span class="n">pulse_num</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">,</span>
+                <span class="n">table</span><span class="o">=</span><span class="s1">&#39;PortCalibration.Liquid&#39;</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+                <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pulse_dur&#39;</span><span class="p">,</span> <span class="s1">&#39;pulse_num&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weight_per_pulse</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">pulse_num</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">calc_pulse_dur</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward_amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate pulse duration for desired reward amount.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            reward_amount: Desired reward amount in microliters</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary mapping ports to actual reward amounts</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">actual_rew</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rew_ports</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">reward_amount</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">reward_amount</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">weight_per_pulse</span><span class="p">[</span><span class="n">port</span><span class="p">],</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">pulse_dur</span><span class="p">[</span><span class="n">port</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="n">reward_amount</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">((</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight_per_pulse</span><span class="p">[</span><span class="n">port</span><span class="p">]),</span>
+                    <span class="n">reward_amount</span><span class="o">/</span><span class="mi">1000</span>
+                <span class="p">))</span> <span class="o">*</span> <span class="mi">1000</span>  <span class="c1"># in uL</span>
+            <span class="n">actual_rew</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="n">reward_amount</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">actual_rew</span>
+
+    <span class="k">def</span> <span class="nf">_channel2port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">category</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Proximity&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert channel number to port object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            channel: Channel number to convert</span>
+<span class="sd">            category: Port category to match</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Corresponding port or None if not found</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">reverse_lookup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">[</span><span class="n">category</span><span class="p">],</span> <span class="n">channel</span><span class="p">)</span> <span class="k">if</span> <span class="n">channel</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">port</span><span class="p">:</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="n">Port</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">category</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">port</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.interface.Interface.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">beh</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a href="#ethopy.core.interface.Interface.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize the interface with experiment and behavior objects.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>exp</code></td>
+        <td><code>Optional</code></td>
+        <td><p>Experiment object containing parameters and logger</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>beh</code></td>
+        <td><code>Optional</code></td>
+        <td><p>Behavior object for tracking responses</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>callbacks</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to enable callback functions</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">exp</span><span class="p">:</span> <span class="n">Optional</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">beh</span><span class="p">:</span> <span class="n">Optional</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">callbacks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the interface with experiment and behavior objects.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        exp: Experiment object containing parameters and logger</span>
+<span class="sd">        beh: Behavior object for tracking responses</span>
+<span class="sd">        callbacks: Whether to enable callback functions</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Initialize basic attributes</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">beh</span> <span class="o">=</span> <span class="n">beh</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">exp</span> <span class="o">=</span> <span class="n">exp</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">logger</span> <span class="k">if</span> <span class="n">exp</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">Port</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">position_tmst</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">weight_per_pulse</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pulse_dur</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Initialize timing variables</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">resp_tmst</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ready_dur</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">activity_tmst</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ready_tmst</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">position_dur</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Initialize state variables</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ready</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">timer_ready</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">exp</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_hardware</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.interface.Interface.calc_pulse_dur" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">calc_pulse_dur</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward_amount</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.interface.Interface.calc_pulse_dur" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Calculate pulse duration for desired reward amount.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>reward_amount</code></td>
+        <td><code>float</code></td>
+        <td><p>Desired reward amount in microliters</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Dict[int, float]</code></td>
+      <td><p>Dictionary mapping ports to actual reward amounts</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">calc_pulse_dur</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward_amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate pulse duration for desired reward amount.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        reward_amount: Desired reward amount in microliters</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary mapping ports to actual reward amounts</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">actual_rew</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rew_ports</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">reward_amount</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">reward_amount</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">weight_per_pulse</span><span class="p">[</span><span class="n">port</span><span class="p">],</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">pulse_dur</span><span class="p">[</span><span class="n">port</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="n">reward_amount</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">((</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight_per_pulse</span><span class="p">[</span><span class="n">port</span><span class="p">]),</span>
+                <span class="n">reward_amount</span><span class="o">/</span><span class="mi">1000</span>
+            <span class="p">))</span> <span class="o">*</span> <span class="mi">1000</span>  <span class="c1"># in uL</span>
+        <span class="n">actual_rew</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="n">reward_amount</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">actual_rew</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.interface.Interface.cleanup" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.interface.Interface.cleanup" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Clean up interface resources.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean up interface resources.&quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.interface.Interface.create_pulse" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">create_pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.interface.Interface.create_pulse" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Create a pulse for stimulus delivery.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>int</code></td>
+        <td><p>Port number for pulse</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>duration</code></td>
+        <td><code>float</code></td>
+        <td><p>Duration of pulse in milliseconds</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">create_pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a pulse for stimulus delivery.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        port: Port number for pulse</span>
+<span class="sd">        duration: Duration of pulse in milliseconds</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.interface.Interface.give_liquid" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">give_liquid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.interface.Interface.give_liquid" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Deliver liquid reward through specified port.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>int</code></td>
+        <td><p>Port number for delivery</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>duration</code></td>
+        <td><code>Optional[float]</code></td>
+        <td><p>Duration of delivery in milliseconds</p></td>
+        <td><code>0</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">give_liquid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Deliver liquid reward through specified port.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        port: Port number for delivery</span>
+<span class="sd">        duration: Duration of delivery in milliseconds</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.interface.Interface.give_odor" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">give_odor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">odor_idx</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.interface.Interface.give_odor" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Deliver odor stimulus.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>odor_idx</code></td>
+        <td><code>int</code></td>
+        <td><p>Index of odor to deliver</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>duration</code></td>
+        <td><code>float</code></td>
+        <td><p>Duration of delivery in milliseconds</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">give_odor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">odor_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Deliver odor stimulus.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        odor_idx: Index of odor to deliver</span>
+<span class="sd">        duration: Duration of delivery in milliseconds</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.interface.Interface.give_sound" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">give_sound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sound_freq</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">dutycycle</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.interface.Interface.give_sound" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Generate sound stimulus.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>sound_freq</code></td>
+        <td><code>float</code></td>
+        <td><p>Frequency of sound in Hz</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>duration</code></td>
+        <td><code>float</code></td>
+        <td><p>Duration of sound in milliseconds</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>dutycycle</code></td>
+        <td><code>float</code></td>
+        <td><p>Duty cycle for sound generation (0-1)</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">give_sound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sound_freq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dutycycle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate sound stimulus.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sound_freq: Frequency of sound in Hz</span>
+<span class="sd">        duration: Duration of sound in milliseconds</span>
+<span class="sd">        dutycycle: Duty cycle for sound generation (0-1)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.interface.Interface.in_position" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">in_position</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.interface.Interface.in_position" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Check if subject is in correct position.</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tuple[bool, float]</code></td>
+      <td><p>Tuple of (position status, position time)</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">in_position</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if subject is in correct position.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple of (position status, position time)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.interface.Interface.load_calibration" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">load_calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.interface.Interface.load_calibration" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Load port calibration data from database.</p>
+<p>This method loads the most recent calibration data for each reward port,
+including pulse durations and weights.</p>
+
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>RuntimeError</code></td>
+        <td><p>If no calibration data is found</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load port calibration data from database.</span>
+
+<span class="sd">    This method loads the most recent calibration data for each reward port,</span>
+<span class="sd">    including pulse durations and weights.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        RuntimeError: If no calibration data is found</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rew_ports</span><span class="p">)):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">setup</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span>
+        <span class="n">dates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="s1">&#39;interface&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;PortCalibration.Liquid&#39;</span><span class="p">,</span>
+                                <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">order_by</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No PortCalibration found!&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">break</span>
+
+        <span class="n">key</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># use most recent calibration</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pulse_dur</span><span class="p">[</span><span class="n">port</span><span class="p">],</span> <span class="n">pulse_num</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="s1">&#39;PortCalibration.Liquid&#39;</span><span class="p">,</span>
+            <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+            <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pulse_dur&#39;</span><span class="p">,</span> <span class="s1">&#39;pulse_num&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_per_pulse</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">pulse_num</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.interface.Interface.release" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">release</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.interface.Interface.release" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Release hardware resources, especially camera.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">release</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Release hardware resources, especially camera.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Release camear&quot;</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">recording</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">stop_rec</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.interface.Interface.set_operation_status" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">set_operation_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operation_status</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.interface.Interface.set_operation_status" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Set operation status of interface.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>operation_status</code></td>
+        <td><code>bool</code></td>
+        <td><p>Status to set</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">set_operation_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operation_status</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set operation status of interface.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        operation_status: Status to set</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.interface.Interface.sync_out" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">sync_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.interface.Interface.sync_out" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Send synchronization signal.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>state</code></td>
+        <td><code>bool</code></td>
+        <td><p>Synchronization state to set</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">sync_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Send synchronization signal.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        state: Synchronization state to set</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="ethopy.core.interface.Port" class="doc doc-heading">
+        <code>
+Port        </code>
+
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#ethopy.core.interface.Port" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Dataclass representing a hardware port configuration.</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>int</code></td>
+        <td><p>Port identifier</p></td>
+      </tr>
+      <tr>
+        <td><code>type</code></td>
+        <td><code>str</code></td>
+        <td><p>Port type (e.g., 'Lick', 'Proximity')</p></td>
+      </tr>
+      <tr>
+        <td><code>ready</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether port is in ready state</p></td>
+      </tr>
+      <tr>
+        <td><code>reward</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether port can deliver rewards</p></td>
+      </tr>
+      <tr>
+        <td><code>response</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether port accepts responses</p></td>
+      </tr>
+      <tr>
+        <td><code>invert</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to invert port signal</p></td>
+      </tr>
+      <tr>
+        <td><code>state</code></td>
+        <td><code>bool</code></td>
+        <td><p>Current port state</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Port</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataclass representing a hardware port configuration.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        port (int): Port identifier</span>
+<span class="sd">        type (str): Port type (e.g., &#39;Lick&#39;, &#39;Proximity&#39;)</span>
+<span class="sd">        ready (bool): Whether port is in ready state</span>
+<span class="sd">        reward (bool): Whether port can deliver rewards</span>
+<span class="sd">        response (bool): Whether port accepts responses</span>
+<span class="sd">        invert (bool): Whether to invert port signal</span>
+<span class="sd">        state (bool): Current port state</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ready</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">reward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">response</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)])</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="ethopy.core.interface.PortCalibration" class="doc doc-heading">
+        <code>
+PortCalibration            (<span title="datajoint.user_tables.Manual">Manual</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.PortCalibration" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Datajoint table for liquid delivery calibration sessions for each port with water availability.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code># Liquid delivery calibration sessions for each port with water availability
+setup                        : varchar(256)  # Setup name
+port                         : tinyint       # port id
+date                         : date # session date (only one per day is allowed)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">PortCalibration</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for liquid delivery calibration sessions for each port with water availability.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Liquid delivery calibration sessions for each port with water availability</span>
+<span class="s2">    setup                        : varchar(256)  # Setup name</span>
+<span class="s2">    port                         : tinyint       # port id</span>
+<span class="s2">    date                         : date # session date (only one per day is allowed)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Liquid</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Datajoint table for volume per pulse duty cycle estimation.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Data for volume per pulse duty cycle estimation</span>
+<span class="s2">        -&gt; PortCalibration</span>
+<span class="s2">        pulse_dur                    : int       # duration of pulse in ms</span>
+<span class="s2">        ---</span>
+<span class="s2">        pulse_num                    : int       # number of pulses</span>
+<span class="s2">        weight                       : float     # weight of total liquid released in gr</span>
+<span class="s2">        timestamp=CURRENT_TIMESTAMP  : timestamp # timestamp</span>
+<span class="s2">        pressure=0                   : float     # air pressure (PSI)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Datajoint table for Lick Test.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Lick timestamps</span>
+<span class="s2">        setup                        : varchar(256)                 # Setup name</span>
+<span class="s2">        port                         : tinyint                      # port id</span>
+<span class="s2">        timestamp=CURRENT_TIMESTAMP  : timestamp</span>
+<span class="s2">        ___</span>
+<span class="s2">        result=null                  : enum(&#39;Passed&#39;,&#39;Failed&#39;)</span>
+<span class="s2">        pulses=null                  : int</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.interface.PortCalibration.Liquid" class="doc doc-heading">
+        <code>
+Liquid            (<span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.PortCalibration.Liquid" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Datajoint table for volume per pulse duty cycle estimation.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Data for volume per pulse duty cycle estimation
+    -&gt; PortCalibration
+    pulse_dur                    : int       # duration of pulse in ms
+    ---
+    pulse_num                    : int       # number of pulses
+    weight                       : float     # weight of total liquid released in gr
+    timestamp=CURRENT_TIMESTAMP  : timestamp # timestamp
+    pressure=0                   : float     # air pressure (PSI)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Liquid</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for volume per pulse duty cycle estimation.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Data for volume per pulse duty cycle estimation</span>
+<span class="s2">    -&gt; PortCalibration</span>
+<span class="s2">    pulse_dur                    : int       # duration of pulse in ms</span>
+<span class="s2">    ---</span>
+<span class="s2">    pulse_num                    : int       # number of pulses</span>
+<span class="s2">    weight                       : float     # weight of total liquid released in gr</span>
+<span class="s2">    timestamp=CURRENT_TIMESTAMP  : timestamp # timestamp</span>
+<span class="s2">    pressure=0                   : float     # air pressure (PSI)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.interface.PortCalibration.Test" class="doc doc-heading">
+        <code>
+Test            (<span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.PortCalibration.Test" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Datajoint table for Lick Test.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Lick timestamps
+    setup                        : varchar(256)                 # Setup name
+    port                         : tinyint                      # port id
+    timestamp=CURRENT_TIMESTAMP  : timestamp
+    ___
+    result=null                  : enum(&#39;Passed&#39;,&#39;Failed&#39;)
+    pulses=null                  : int
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for Lick Test.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Lick timestamps</span>
+<span class="s2">    setup                        : varchar(256)                 # Setup name</span>
+<span class="s2">    port                         : tinyint                      # port id</span>
+<span class="s2">    timestamp=CURRENT_TIMESTAMP  : timestamp</span>
+<span class="s2">    ___</span>
+<span class="s2">    result=null                  : enum(&#39;Passed&#39;,&#39;Failed&#39;)</span>
+<span class="s2">    pulses=null                  : int</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="ethopy.core.interface.SetupConfiguration" class="doc doc-heading">
+        <code>
+SetupConfiguration            (<span title="datajoint.user_tables.Lookup">Lookup</span>, <span title="datajoint.user_tables.Manual">Manual</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.SetupConfiguration" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>DataJoint table for configuring the setup interfaces.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>The user can define all harware configuration by defining only the setup index.
+</code></pre></div></td></tr></table></div>
+<p>Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code># Setup configuration
+setup_conf_idx           : tinyint      # configuration version
+---
+interface                : enum(&#39;DummyPorts&#39;,&#39;RPPorts&#39;, &#39;PCPorts&#39;, &#39;RPVR&#39;)
+discription              : varchar(256)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">SetupConfiguration</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;DataJoint table for configuring the setup interfaces.</span>
+
+<span class="sd">    The user can define all harware configuration by defining only the setup index.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Setup configuration</span>
+<span class="s2">    setup_conf_idx           : tinyint      # configuration version</span>
+<span class="s2">    ---</span>
+<span class="s2">    interface                : enum(&#39;DummyPorts&#39;,&#39;RPPorts&#39;, &#39;PCPorts&#39;, &#39;RPVR&#39;)</span>
+<span class="s2">    discription              : varchar(256)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="n">contents</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;DummyPorts&#39;</span><span class="p">,</span> <span class="s1">&#39;Simulation&#39;</span><span class="p">],]</span>
+
+    <span class="k">class</span> <span class="nc">Port</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Port configuration table.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Probe identityrepeat_n = 1</span>
+
+<span class="s2">        port                     : tinyint                      # port id</span>
+<span class="s2">        type=&quot;Lick&quot;              : enum(&#39;Lick&#39;,&#39;Proximity&#39;)     # port type</span>
+<span class="s2">        -&gt; SetupConfiguration</span>
+<span class="s2">        ---</span>
+<span class="s2">        ready=0                  : tinyint                      # ready flag</span>
+<span class="s2">        response=0               : tinyint                      # response flag</span>
+<span class="s2">        reward=0                 : tinyint                      # reward flag</span>
+<span class="s2">        invert=0                 : tinyint                      # invert flag</span>
+<span class="s2">        discription              : varchar(256)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Lick&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;probe&#39;</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Lick&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;probe&#39;</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Proximity&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;probe&#39;</span><span class="p">]]</span>
+
+    <span class="k">class</span> <span class="nc">Screen</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Screen configuration table.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Screen information</span>
+<span class="s2">        screen_idx               : tinyint</span>
+<span class="s2">        -&gt; SetupConfiguration</span>
+<span class="s2">        ---</span>
+<span class="s2">        intensity                : tinyint UNSIGNED</span>
+<span class="s2">        distance                 : float</span>
+<span class="s2">        center_x                 : float</span>
+<span class="s2">        center_y                 : float</span>
+<span class="s2">        aspect                   : float</span>
+<span class="s2">        size                     : float</span>
+<span class="s2">        fps                      : tinyint UNSIGNED</span>
+<span class="s2">        resolution_x             : smallint</span>
+<span class="s2">        resolution_y             : smallint</span>
+<span class="s2">        description              : varchar(256)</span>
+<span class="s2">        fullscreen               : tinyint</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.66</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="s1">&#39;Simulation&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],]</span>
+
+    <span class="k">class</span> <span class="nc">Ball</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ball configuration table.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Ball information</span>
+<span class="s2">        -&gt; SetupConfiguration</span>
+<span class="s2">        ---</span>
+<span class="s2">        ball_radius=0.125        : float                   # in meters</span>
+<span class="s2">        material=&quot;styrofoam&quot;     : varchar(64)             # ball material</span>
+<span class="s2">        coupling=&quot;bearings&quot;      : enum(&#39;bearings&#39;,&#39;air&#39;)  # mechanical coupling</span>
+<span class="s2">        discription              : varchar(256)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Speaker</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Speaker configuration table.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Speaker information</span>
+<span class="s2">        speaker_idx             : tinyint</span>
+<span class="s2">        -&gt; SetupConfiguration</span>
+<span class="s2">        ---</span>
+<span class="s2">        sound_freq=10000        : int           # in Hz</span>
+<span class="s2">        duration=500            : int           # in ms</span>
+<span class="s2">        volume=50               : tinyint       # 0-100 percentage</span>
+<span class="s2">        discription             : varchar(256)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Camera</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Camera configuration table.&quot;&quot;&quot;</span>
+
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Camera information</span>
+<span class="s2">        camera_idx               : tinyint</span>
+<span class="s2">        -&gt; SetupConfiguration</span>
+<span class="s2">        ---</span>
+<span class="s2">        fps                      : tinyint UNSIGNED</span>
+<span class="s2">        resolution_x             : smallint</span>
+<span class="s2">        resolution_y             : smallint</span>
+<span class="s2">        shutter_speed            : smallint</span>
+<span class="s2">        iso                      : smallint</span>
+<span class="s2">        file_format              : varchar(256)</span>
+<span class="s2">        video_aim                : enum(&#39;eye&#39;,&#39;body&#39;,&#39;openfield&#39;)</span>
+<span class="s2">        discription              : varchar(256)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.interface.SetupConfiguration.Ball" class="doc doc-heading">
+        <code>
+Ball            (<span title="datajoint.user_tables.Lookup">Lookup</span>, <span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.SetupConfiguration.Ball" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Ball configuration table.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Ball information
+    -&gt; SetupConfiguration
+    ---
+    ball_radius=0.125        : float                   # in meters
+    material=&quot;styrofoam&quot;     : varchar(64)             # ball material
+    coupling=&quot;bearings&quot;      : enum(&#39;bearings&#39;,&#39;air&#39;)  # mechanical coupling
+    discription              : varchar(256)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Ball</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ball configuration table.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Ball information</span>
+<span class="s2">    -&gt; SetupConfiguration</span>
+<span class="s2">    ---</span>
+<span class="s2">    ball_radius=0.125        : float                   # in meters</span>
+<span class="s2">    material=&quot;styrofoam&quot;     : varchar(64)             # ball material</span>
+<span class="s2">    coupling=&quot;bearings&quot;      : enum(&#39;bearings&#39;,&#39;air&#39;)  # mechanical coupling</span>
+<span class="s2">    discription              : varchar(256)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.interface.SetupConfiguration.Camera" class="doc doc-heading">
+        <code>
+Camera            (<span title="datajoint.user_tables.Lookup">Lookup</span>, <span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.SetupConfiguration.Camera" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Camera configuration table.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Camera information
+    camera_idx               : tinyint
+    -&gt; SetupConfiguration
+    ---
+    fps                      : tinyint UNSIGNED
+    resolution_x             : smallint
+    resolution_y             : smallint
+    shutter_speed            : smallint
+    iso                      : smallint
+    file_format              : varchar(256)
+    video_aim                : enum(&#39;eye&#39;,&#39;body&#39;,&#39;openfield&#39;)
+    discription              : varchar(256)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Camera</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Camera configuration table.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Camera information</span>
+<span class="s2">    camera_idx               : tinyint</span>
+<span class="s2">    -&gt; SetupConfiguration</span>
+<span class="s2">    ---</span>
+<span class="s2">    fps                      : tinyint UNSIGNED</span>
+<span class="s2">    resolution_x             : smallint</span>
+<span class="s2">    resolution_y             : smallint</span>
+<span class="s2">    shutter_speed            : smallint</span>
+<span class="s2">    iso                      : smallint</span>
+<span class="s2">    file_format              : varchar(256)</span>
+<span class="s2">    video_aim                : enum(&#39;eye&#39;,&#39;body&#39;,&#39;openfield&#39;)</span>
+<span class="s2">    discription              : varchar(256)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.interface.SetupConfiguration.Port" class="doc doc-heading">
+        <code>
+Port            (<span title="datajoint.user_tables.Lookup">Lookup</span>, <span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.SetupConfiguration.Port" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Port configuration table.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Probe identityrepeat_n = 1
+
+    port                     : tinyint                      # port id
+    type=&quot;Lick&quot;              : enum(&#39;Lick&#39;,&#39;Proximity&#39;)     # port type
+    -&gt; SetupConfiguration
+    ---
+    ready=0                  : tinyint                      # ready flag
+    response=0               : tinyint                      # response flag
+    reward=0                 : tinyint                      # reward flag
+    invert=0                 : tinyint                      # invert flag
+    discription              : varchar(256)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Port</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataclass representing a hardware port configuration.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        port (int): Port identifier</span>
+<span class="sd">        type (str): Port type (e.g., &#39;Lick&#39;, &#39;Proximity&#39;)</span>
+<span class="sd">        ready (bool): Whether port is in ready state</span>
+<span class="sd">        reward (bool): Whether port can deliver rewards</span>
+<span class="sd">        response (bool): Whether port accepts responses</span>
+<span class="sd">        invert (bool): Whether to invert port signal</span>
+<span class="sd">        state (bool): Current port state</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ready</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">reward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">response</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)])</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.interface.SetupConfiguration.Screen" class="doc doc-heading">
+        <code>
+Screen            (<span title="datajoint.user_tables.Lookup">Lookup</span>, <span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.SetupConfiguration.Screen" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Screen configuration table.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Screen information
+    screen_idx               : tinyint
+    -&gt; SetupConfiguration
+    ---
+    intensity                : tinyint UNSIGNED
+    distance                 : float
+    center_x                 : float
+    center_y                 : float
+    aspect                   : float
+    size                     : float
+    fps                      : tinyint UNSIGNED
+    resolution_x             : smallint
+    resolution_y             : smallint
+    description              : varchar(256)
+    fullscreen               : tinyint
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Screen</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Screen configuration table.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Screen information</span>
+<span class="s2">    screen_idx               : tinyint</span>
+<span class="s2">    -&gt; SetupConfiguration</span>
+<span class="s2">    ---</span>
+<span class="s2">    intensity                : tinyint UNSIGNED</span>
+<span class="s2">    distance                 : float</span>
+<span class="s2">    center_x                 : float</span>
+<span class="s2">    center_y                 : float</span>
+<span class="s2">    aspect                   : float</span>
+<span class="s2">    size                     : float</span>
+<span class="s2">    fps                      : tinyint UNSIGNED</span>
+<span class="s2">    resolution_x             : smallint</span>
+<span class="s2">    resolution_y             : smallint</span>
+<span class="s2">    description              : varchar(256)</span>
+<span class="s2">    fullscreen               : tinyint</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="n">contents</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.66</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="s1">&#39;Simulation&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],]</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="ethopy.core.interface.SetupConfiguration.Speaker" class="doc doc-heading">
+        <code>
+Speaker            (<span title="datajoint.user_tables.Lookup">Lookup</span>, <span title="datajoint.user_tables.Part">Part</span>)
+        </code>
+
+
+
+<a href="#ethopy.core.interface.SetupConfiguration.Speaker" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Speaker configuration table.
+Table definition:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code>    # Speaker information
+    speaker_idx             : tinyint
+    -&gt; SetupConfiguration
+    ---
+    sound_freq=10000        : int           # in Hz
+    duration=500            : int           # in ms
+    volume=50               : tinyint       # 0-100 percentage
+    discription             : varchar(256)
+</code></pre></div></td></tr></table></div>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/interface.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Speaker</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Speaker configuration table.&quot;&quot;&quot;</span>
+
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # Speaker information</span>
+<span class="s2">    speaker_idx             : tinyint</span>
+<span class="s2">    -&gt; SetupConfiguration</span>
+<span class="s2">    ---</span>
+<span class="s2">    sound_freq=10000        : int           # in Hz</span>
+<span class="s2">    duration=500            : int           # in ms</span>
+<span class="s2">    volume=50               : tinyint       # 0-100 percentage</span>
+<span class="s2">    discription             : varchar(256)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2024 Alex Evangelou
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>
