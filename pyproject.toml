@@ -54,7 +54,8 @@ docs = [
     "mkdocs>=1.4.0",
     "mkdocs-material>=9.0.0",
     "mkdocstrings",
-    "mkdocs-jupyter"
+    "mkdocs-jupyter",
+    "mkdocstrings-python>=1.11.1",
 ]
 
 obj = [
