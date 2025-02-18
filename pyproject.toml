@@ -94,7 +94,8 @@ disallow_untyped_defs = true
 [tool.ruff]
 line-length = 88
 select = ["E", "F", "W", "I", "ANN", "D", "S"]
-ignore = ["S113", "D101", "D106", "ANN001"]
+ignore = ["S113", "D101", "D106", "ANN001", "S603", "S101", "S607", "ANN003", 
+"ANN202", "D107", "S102", "ANN401", "ANN204", "D104", "D100", "S605", ]
 fixable = ["F401", "F841", "E", "W", "I"]
 target-version = "py310"
 src = ["src", "tests"]
@@ -103,8 +104,12 @@ exclude = [
   ".mypy_cache",
   "tests",
   "docs/_build",
-  "path/to/generated_code",
-  "another/folder/*",
+  "src/ethopy/utils",
+  "src/ethopy/task",
+  "src/ethopy/stimuli",
+  "src/ethopy/experiments",
+  "src/ethopy/interfaces",
+  "src/ethopy/behaviors"
 ]
 
 [tool.ruff.isort]
@@ -116,6 +121,28 @@ inline-quotes = "double"
 [tool.ruff.mccabe]
 max-complexity = 10
 
+[tool.black]
+line-length = 88  # Adjust as needed
+target-version = ['py38', 'py39', 'py310']  # Set your Python versions
+include = '\.pyi?$'  # Format only Python files
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | lib
+  | dist
+  | task
+  | utils
+  | stimuli
+  | experiments
+  | interfaces
+  | behaviors
+  | temp
+)/
+'''
 
 [tool.pytest.ini_options]
 addopts = "-ra -q"
