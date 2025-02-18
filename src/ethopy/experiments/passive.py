@@ -16,11 +16,13 @@ class Condition(dj.Manual):
 
 
 class Experiment(State, ExperimentClass):
-    cond_tables = ['Passive']
-    default_key = {'trial_selection': 'fixed',
-                   'intertrial_duration': 100}
+    cond_tables = ["Passive"]
+    default_key = {"trial_selection": "fixed", "intertrial_duration": 100}
 
-    def entry(self):  # updates stateMachine from Database entry - override for timing critical transitions
+    def entry(
+        self,
+    ):  # updates stateMachine from Database entry - override for timing critical
+        # transitions
         self.logger.curr_state = self.name()
         self.state_timer.start()
 
@@ -30,7 +32,7 @@ class Entry(Experiment):
         self.stim.prepare
 
     def next(self):
-        return 'PreTrial'
+        return "PreTrial"
 
 
 class PreTrial(Experiment):
@@ -42,9 +44,9 @@ class PreTrial(Experiment):
 
     def next(self):
         if self.is_stopped():  # if run out of conditions exit
-            return 'Exit'
+            return "Exit"
         else:
-            return 'Trial'
+            return "Trial"
 
 
 class Trial(Experiment):
@@ -57,11 +59,11 @@ class Trial(Experiment):
 
     def next(self):
         if self.is_stopped():
-            return 'Exit'
-        elif not self.stim.in_operation:     # timed out
-            return 'InterTrial'
+            return "Exit"
+        elif not self.stim.in_operation:  # timed out
+            return "InterTrial"
         else:
-            return 'Trial'
+            return "Trial"
 
     def exit(self):
         self.stim.stop()
@@ -70,16 +72,19 @@ class Trial(Experiment):
 class InterTrial(Experiment):
     def entry(self):
         super().entry()
-        if self.stim.curr_cond['intertrial_duration'] > 0:
+        if self.stim.curr_cond["intertrial_duration"] > 0:
             self.stim.fill()
 
     def next(self):
         if self.is_stopped():
-            return 'Exit'
-        elif self.state_timer.elapsed_time() >= self.stim.curr_cond['intertrial_duration']:
-            return 'PreTrial'
+            return "Exit"
+        elif (
+            self.state_timer.elapsed_time()
+            >= self.stim.curr_cond["intertrial_duration"]
+        ):
+            return "PreTrial"
         else:
-            return 'InterTrial'
+            return "InterTrial"
 
 
 class Exit(Experiment):
