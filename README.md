@@ -6,7 +6,7 @@
 
 Ethopy is a state control system for automated, high-throughput behavioral training based on Python. It provides a flexible framework for designing and running behavioral experiments with:
 
-- Tight integration with database storage & control using [Datajoint]
+- Tight integration with database storage & control using [Datajoint](https://docs.datajoint.org/python/)
 - Cross-platform support (Linux, macOS, Windows)
 - Optimized for Raspberry Pi boards
 - Modular architecture with overridable components
@@ -62,10 +62,10 @@ pip install "ethopy[docs]"
 
 1. Start the database container:
 ```bash
-ethopy-setup-djdocker
+ethopy-setup-djdocker  # This will start a MySQL container for data storage
 ```
 
-2. Configure the database connection:
+2. Configure the database connection (this tells Ethopy how to connect to the database):
 
 Create a configuration file at:
 - Linux/macOS: `~/.ethopy/local_conf.json`
@@ -90,13 +90,15 @@ Create a configuration file at:
 
 3. Verify database connection:
 ```bash
-ethopy-db-connection
+ethopy-db-connection  # Ensures Ethopy can connect to the database
 ```
 
 4. Create required schemas:
 ```bash
-ethopy-setup-schema
+ethopy-setup-schema  # Sets up all necessary database tables for experiments
 ```
+
+After completing these steps, your database will be ready to store experiment data, configurations, and results.
 
 ### Running Experiments
 
@@ -116,7 +118,7 @@ ethopy --task-idx 1
 
 ## Core Architecture
 
-Ethopy is built around four core modules that work together to provide a flexible and extensible experimental framework.
+Understanding Ethopy's core architecture is essential for both using the system effectively and extending it for your needs. Ethopy is built around four core modules that work together to provide a flexible and extensible experimental framework. Each module handles a specific aspect of the experiment, from controlling the overall flow to managing stimuli and recording behavior.
 
 ### 1. Experiment Module
 
@@ -201,11 +203,10 @@ pip install -e ".[dev,docs]"
 
 The project uses several tools to maintain code quality:
 
-- **ruff**: Code formatting
+- **ruff**: Code formatting and linting
 - **isort**: Import sorting
 - **mypy**: Static type checking
-- **ruff**: Linting
-- **pytest**: Testing
+- **pytest**: Testing and test coverage
 
 Run tests:
 ```bash
