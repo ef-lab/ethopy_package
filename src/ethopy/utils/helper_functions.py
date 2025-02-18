@@ -24,6 +24,7 @@ class FillColors:
         reward: Color for reward state
         punish: Color for punish state
         background: Color for background
+
     """
 
     start: Tuple[int, int, int] = field(default=())
@@ -38,6 +39,7 @@ class FillColors:
         Args:
             dictionary: Dictionary containing color values to update.
                       Keys should match existing attributes.
+
         """
         for key, value in dictionary.items():
             if hasattr(self, key):
@@ -50,6 +52,7 @@ class FillColors:
 
         Returns:
             A dictionary_values object containing all color values.
+
         """
         return self.__dict__.values()
 
@@ -135,8 +138,7 @@ def reverse_lookup(dictionary, target):
 
 
 def factorize(cond: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """
-    Factorizes conditions into individual combinations.
+    """Factorizes conditions into individual combinations.
 
     This function takes a dictionary of conditions and generates all possible combinations
     of conditions, where each combination consists of one value for each key in the input
@@ -156,6 +158,7 @@ def factorize(cond: Dict[str, Any]) -> List[Dict[str, Any]]:
      {'param1': 1, 'param2': 4, 'param3': 'value', 'param4': (5, 6)},
      {'param1': 2, 'param2': 3, 'param3': 'value', 'param4': (5, 6)},
      {'param1': 2, 'param2': 4, 'param3': 'value', 'param4': (5, 6)}]
+
     """
     # Ensure all values are wrapped in lists
     values = [v if isinstance(v, list) else [v] for v in cond.values()]
