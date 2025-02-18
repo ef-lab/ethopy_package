@@ -209,7 +209,7 @@ class Behavior:
         )
 
     def make_conditions(self, conditions: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Validate, update with default_key and log/generate hash for stimulus conditions.
+        """Validate, update with default_key and generate hash for stimulus conditions.
 
         Args:
             conditions: List of condition dictionaries
