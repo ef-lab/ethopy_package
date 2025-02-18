@@ -27,7 +27,7 @@ session_params = {
 exp = SomeExperiment()
 exp.setup(logger, SomeBehavior, session_params)
 
-# 3. Define Stimulus Conditions
+# 3. Define Experiment/Stimulus/Behavior Conditions
 conditions = []
 # ... condition setup
 
@@ -47,14 +47,9 @@ session_params = {
     # Required Parameters
     'setup_conf_idx': 0,  # Setup configuration index
     
-    # Optional Parameters (example from grating_test.py)
-    'trial_selection': 'staircase',  # Trial selection method
+    # Optional Parameters
     'max_reward': 3000,    # Maximum reward amount
     'min_reward': 30,      # Minimum reward amount
-    'bias_window': 5,      # Window for bias calculation
-    'staircase_window': 10,# Window for staircase
-    'stair_up': 0.7,      # Upper threshold
-    'stair_down': 0.6,    # Lower threshold
 }
 ```
 
@@ -131,7 +126,6 @@ from ethopy.stimuli.grating import Grating
 
 # Session setup
 session_params = {
-    'trial_selection': 'staircase',
     'max_reward': 3000,
     'setup_conf_idx': 0,
 }
@@ -167,26 +161,6 @@ for port in ports:
 # Run
 exp.push_conditions(conditions)
 exp.start()
-```
-
-### 2. Port Calibration
-Calibrate liquid reward delivery:
-
-```python
-from ethopy.experiments.calibrate import Experiment
-
-session_params = {
-    'duration': [20, 30, 40, 150],
-    'ports': [1, 2],
-    'pulsenum': [60, 30, 20, 10],
-    'pulse_interval': [40, 40, 40, 40],
-    'save': True,
-    'setup_conf_idx': 0,
-}
-
-exp = Experiment()
-exp.setup(logger, session_params)
-exp.run()
 ```
 
 ## Best Practices

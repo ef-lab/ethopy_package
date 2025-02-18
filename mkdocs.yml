@@ -60,7 +60,6 @@ markdown_extensions:
 nav:
     - Home: index.md
     - Installation: installation.md
-    - Usage: usage.md
     - Local congiguration: local_conf.md
     - Database Setup: database.md
     - Task: task.md
