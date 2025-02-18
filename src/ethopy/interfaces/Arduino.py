@@ -10,6 +10,7 @@ from ethopy.core.interface import Interface, Port
 
 try:
     from serial import Serial
+
     IMPORT_SERIAL = True
 except ImportError:
     IMPORT_SERIAL = False
@@ -26,12 +27,14 @@ class Arduino(Interface):
                 "pyserial package could not be imported, install it before use!"
             )
         super(Arduino, self).__init__(**kwargs)
-        self.port = self.logger.get(schema="interface",
-                                    table='SetupConfiguration',
-                                    key=self.exp.params,
-                                    fields=['path'])[0]
+        self.port = self.logger.get(
+            schema="interface",
+            table="SetupConfiguration",
+            key=self.exp.params,
+            fields=["path"],
+        )[0]
         self.baud = 115200
-        self.timeout = .001
+        self.timeout = 0.001
         self.no_response = False
         self.timeout_timer = time.time()
         self.ser = Serial(self.port, baudrate=self.baud)
@@ -42,18 +45,25 @@ class Arduino(Interface):
     def give_liquid(self, port, duration=False):
         if not duration:
             duration = self.duration[port]
-        self.msg_queue.put(Message(type='pulse', port=port, duration=duration))
+        self.msg_queue.put(Message(type="pulse", port=port, duration=duration))
 
     def in_position(self, port=0):
         """Determine if the specified port is in position and return the position data.
+
         Args:
             port (int, optional): The port to check the position of. Defaults to 0.
+
         Returns:
-            tuple: A tuple containing the position data for the specified port in the following format:
-                - position (Port): A Port object representing the position of the specified port.
-                - position_dur (float): The duration in ms that the specified port has been in its current position.
-                - position_tmst (float): The timestamp in ms that the specified port activated.
+            tuple: A tuple containing the position data for the specified port in the
+                following format:
+                - position (Port): A Port object representing the position of the
+                    specified port.
+                - position_dur (float): The duration in ms that the specified port has
+                    been in its current position.
+                - position_tmst (float): The timestamp in ms that the specified port
+                    activated.
             If the specified port is not in position, the tuple will be (0, 0, 0).
+
         """
         # Get the current position and the position of the specified port.
         position = self.position
@@ -63,18 +73,25 @@ class Arduino(Interface):
             return 0, 0, 0
 
         # Calculate the duration and timestamp for the current position.
-        position_dur = self.timer_ready.elapsed_time() if self.position.port else self.position_dur
+        position_dur = (
+            self.timer_ready.elapsed_time() if self.position.port else self.position_dur
+        )
         return self.position, position_dur, self.position_tmst
 
     def off_proximity(self):
-        """checks if any proximity ports are activated
-        used to make sure that none of the ports is activated before move on to the next trial
-        if get_position returns 0 but position.type == Proximity means that self.position should be off
+        """Check if any proximity ports are activated.
+
+        Used to make sure that none of the ports is activated before move on to the
+            next trial
+        if get_position returns 0 but position.type == Proximity means that
+            self.position should be off
         so call _position_change to reset it to the correct value
+
         Returns:
             bool: True if all proximity ports are not acrtivated
+
         """
-        return (not self.position.state)
+        return not self.position.state
 
     def cleanup(self):
         self.ser.close()  # Close the Serial connection
@@ -82,6 +99,7 @@ class Arduino(Interface):
     def setup_touch_exit(self):
         try:
             import ft5406 as TS
+
             self.ts = TS.Touchscreen()
             self.ts_press_event = TS.TS_PRESS
             for touch in self.ts.touches:
@@ -90,7 +108,7 @@ class Arduino(Interface):
             self.ts.run()
         except:
             self.ts = False
-            log.info('Cannot create a touch exit!')
+            log.info("Cannot create a touch exit!")
 
     def _communicator(self):
         while not self.thread_end.is_set():
@@ -99,16 +117,17 @@ class Arduino(Interface):
                 self._write_msg(msg)  # Send it
             msg = self._read_msg()  # Read the response
             if msg is not None and self.callbacks:
-                response = self.ports[Port(type=msg['type'], port=msg['port']) == self.ports][0]
-                response.state = msg['state']
-                if msg['type'] == 'Proximity':
+                response = self.ports[
+                    Port(type=msg["type"], port=msg["port"]) == self.ports
+                ][0]
+                response.state = msg["state"]
+                if msg["type"] == "Proximity":
                     self._position_change(response)
-                elif msg['type'] == 'Lick':
+                elif msg["type"] == "Lick":
                     self._lick_port_activated(response)
 
     def _read_msg(self):
-        """Reads a line from the serial buffer,
-        decodes it and returns its contents as a dict."""
+        """Read a line from the serial buffer, decodes it and returns it as dict."""
         now = time.time()
         if (now - self.timeout_timer) > 3:
             self.timeout_timer = time.time()
@@ -127,7 +146,7 @@ class Arduino(Interface):
         return resp
 
     def _write_msg(self, message=None):
-        """Sends a JSON-formatted command to the serial interface."""
+        """Send a JSON-formatted command to the serial interface."""
         try:
             json_msg = json.dumps(message)
             self.ser.write(json_msg.encode("utf-8"))
@@ -136,12 +155,19 @@ class Arduino(Interface):
 
     def _position_change(self, response):
         """Update the position of the animal and log the in_position event.
-        We want to log the port change and update the self.position with the activated port or reset it.
+
+        We want to log the port change and update the self.position with the activated
+            port or reset it.
         Also we calculate
-            - position_dur (float): The duration in ms that the specified port has been in its current position.
-            - position_tmst (float): The timestamp in ms that the specified port activated.
+            - position_dur (float): The duration in ms that the specified port has been
+                in its current position.
+            - position_tmst (float): The timestamp in ms that the specified port
+                activated.
+
         Args:
-            channel (int, optional): The channel number of the proximity sensor. Defaults to 0.
+            channel (int, optional): The channel number of the proximity sensor.
+                Defaults to 0.
+
         """
         # Check if the animal is in position
         in_position = response.state
@@ -150,24 +176,26 @@ class Arduino(Interface):
             self.timer_ready.start()
         # Log the in_position event and update the position if there is a change in position
         if in_position and not self.position.port:
-            self.position_tmst = self.beh.log_activity({**response.__dict__, 'in_position': 1})
+            self.position_tmst = self.beh.log_activity(
+                {**response.__dict__, "in_position": 1}
+            )
             self.position = response
         elif not in_position and self.position.port:
-            tmst = self.beh.log_activity({**response.__dict__, 'in_position': 0})
+            tmst = self.beh.log_activity({**response.__dict__, "in_position": 0})
             self.position_dur = tmst - self.position_tmst
             self.position = Port()
 
     def _lick_port_activated(self, response):
         self.resp_tmst = self.logger.logger_timer.elapsed_time()
-        self.beh.log_activity({**response.__dict__, 'time': self.resp_tmst})
+        self.beh.log_activity({**response.__dict__, "time": self.resp_tmst})
         self.response = response
         return self.response, self.resp_tmst
 
 
 @dataclass
 class Message:
-    type: str = datafield(compare=False, default='')
-    port: str = datafield(compare=False, default='')
+    type: str = datafield(compare=False, default="")
+    port: str = datafield(compare=False, default="")
     duration: int = datafield(compare=False, default=0)
 
     def dict(self):

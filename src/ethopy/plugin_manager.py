@@ -98,7 +98,7 @@ class PluginManager:
         scan_package(self._ethopy_path)
 
     def _setup_plugin_paths(self):
-        """Setup default plugin paths and from environment variable."""
+        """Set up default plugin paths and from environment variable."""
         default_paths = [
             Path.home() / ".ethopy" / "ethopy_plugins",
             # Path.cwd() / "ethopy_plugins",
@@ -137,14 +137,14 @@ class PluginManager:
             # Handle core package conflicts
             if is_core and not existing.is_core:
                 log.warning(
-                    f"Plugin '{import_path}' from {plugin_path} conflicts with core ethopy "
-                    f"module. Core module will be used."
+                    f"Plugin '{import_path}' from {plugin_path} conflicts with core "
+                    f"ethopy module. Core module will be used."
                 )
                 return
             elif existing.is_core and not is_core:
                 log.warning(
-                    f"Plugin '{import_path}' from {plugin_path} conflicts with core ethopy "
-                    f"module at {existing.path}. Core module will be used."
+                    f"Plugin '{import_path}' from {plugin_path} conflicts with core "
+                    f"ethopy module at {existing.path}. Core module will be used."
                 )
                 return
 
@@ -227,7 +227,7 @@ class PluginManager:
         class EthopyPluginFinder:
             """Custom import finder for ethopy plugins."""
 
-            def __init__(self, plugin_manager):
+            def __init__(self, plugin_manager) -> None:
                 self.plugin_manager = plugin_manager
 
             def find_spec(self, fullname: str, path=None, target=None):
