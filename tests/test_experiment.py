@@ -231,9 +231,11 @@ def test_push_conditions():
 def test_prepare_trial():
     """Test trial preparation."""
     exp = ExperimentClass()
-    exp.curr_cond = {"trial_selection": "random",
-                     "stimulus_class": "test_stim",
-                     "cond_hash": "123"}
+    exp.curr_cond = {
+        "trial_selection": "random",
+        "stimulus_class": "test_stim",
+        "cond_hash": "123",
+    }
     exp.conditions = [exp.curr_cond]
 
     # Setup mock logger

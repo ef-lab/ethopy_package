@@ -171,7 +171,10 @@ def test_create_dataset(basic_logger, tmp_path):
 
     # Create a dataset
     dataset = basic_logger.createDataset(
-        dataset_name="test_dataset", dataset_type=float, filename="test.h5", db_log=False
+        dataset_name="test_dataset",
+        dataset_type=float,
+        filename="test.h5",
+        db_log=False,
     )
 
     assert "test.h5" in basic_logger.datasets
