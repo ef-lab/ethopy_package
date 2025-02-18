@@ -152,7 +152,7 @@ Handles animal behavior tracking and response processing.
 
 - **MultiPort**: Standard setup with lick detection, liquid delivery, and proximity sensing
 - **HeadFixed**: Passive head fixed setup
-> **Important**: Regular liquid calibration is essential for accurate reward delivery
+> **Important**: Regular liquid calibration is essential for accurate reward delivery. We recommend calibrating at least once per week to ensure consistent reward volumes and reliable experimental results.
 
 ### 3. Stimulus Module
 
@@ -188,7 +188,7 @@ Manages hardware communication and control.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/alexevag/ethopy.git
+git clone https://github.com/alexevag/ethopy.git  # Main repository
 cd ethopy
 ```
 
@@ -223,10 +223,10 @@ mkdocs serve
 
 ### License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/alexevag/ethopy/blob/master/LICENSE) file for details.
 
 ### Support
 
 For questions and support:
 - Open an issue on [GitHub](https://github.com/alexevag/ethopy/issues)
-- Check the [documentation](https://alexevag.github.io/ethopy)
+- Check the [full documentation](https://alexevag.github.io/ethopy/latest/)
