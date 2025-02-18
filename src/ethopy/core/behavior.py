@@ -66,6 +66,7 @@ class Behavior:
         self.logger = None
 
     def setup(self, exp: ExperimentClass) -> None:
+        """Set up behavior."""
         self.params = exp.params
         self.exp = exp
         self.logger = exp.logger
@@ -149,7 +150,7 @@ class Behavior:
         return self.licked_port
 
     def reward(self) -> None:
-        """"Reward action."""
+        """Reward action."""
         return True
 
     def punish(self) -> None:
@@ -179,18 +180,18 @@ class Behavior:
         key = {**self.logger.trial_key, **activity.__dict__}
         # log the activity in the database
         if self.exp.in_operation and self.logging:
-            self.logger.log('Activity', key, schema='behavior', priority=10)
-            self.logger.log('Activity.' + activity.type, key, schema='behavior')
+            self.logger.log("Activity", key, schema="behavior", priority=10)
+            self.logger.log("Activity." + activity.type, key, schema="behavior")
         # if activity.type == 'Response': append to the response queue
         if activity.response:
             if self.response_queue.full():
                 self.response_queue.get()
             self.response_queue.put(activity)
         # get the last lick and licked port to use it in is_licking function
-        if activity.type == 'Lick':
+        if activity.type == "Lick":
             self.last_lick = activity
             self.licked_port = activity.port
-        return key['time']
+        return key["time"]
 
     def log_reward(self, reward_amount: float) -> None:
         """Log delivered reward to the database.
@@ -199,9 +200,9 @@ class Behavior:
             reward_amount (float): Amount of reward delivered
 
         """
-        if isinstance(self.curr_cond['reward_port'], list):
-            self.curr_cond['reward_port'] = [self.licked_port]
-            self.curr_cond['response_port'] = [self.licked_port]
+        if isinstance(self.curr_cond["reward_port"], list):
+            self.curr_cond["reward_port"] = [self.licked_port]
+            self.curr_cond["response_port"] = [self.licked_port]
         self.logger.log(
             "Rewards",
             {**self.curr_cond, "reward_amount": reward_amount},
@@ -219,8 +220,12 @@ class Behavior:
 
         """
         for cond in conditions:
-            missing_fields = [field for field in self.required_fields if field not in cond]
-            assert not missing_fields, f"Missing behavior required fields: {missing_fields}"
+            missing_fields = [
+                field for field in self.required_fields if field not in cond
+            ]
+            assert (
+                not missing_fields
+            ), f"Missing behavior required fields: {missing_fields}"
             cond.update({**self.default_key, **cond})
 
         if self.cond_tables:
@@ -231,7 +236,9 @@ class Behavior:
                 hash_field="beh_hash",
             )
 
-        return self.exp.log_conditions(conditions=conditions, condition_tables=[], schema='behavior')
+        return self.exp.log_conditions(
+            conditions=conditions, condition_tables=[], schema="behavior"
+        )
 
     def prepare(self, condition: Dict[str, Any]) -> None:
         """Prepare for a new trial with given conditions.
@@ -241,9 +248,12 @@ class Behavior:
 
         """
         self.curr_cond = condition
-        self.reward_amount = self.interface.calc_pulse_dur(condition['reward_amount'])
-        self.logger.log('BehCondition.Trial', dict(beh_hash=self.curr_cond['beh_hash']),
-                        schema='behavior')
+        self.reward_amount = self.interface.calc_pulse_dur(condition["reward_amount"])
+        self.logger.log(
+            "BehCondition.Trial",
+            dict(beh_hash=self.curr_cond["beh_hash"]),
+            schema="behavior",
+        )
 
     def update_history(
         self, choice: float = np.nan, reward: float = np.nan, punish: float = np.nan
@@ -288,13 +298,13 @@ class Behavior:
 
         """
         now = datetime.now()
-        start_time = self.logger.setup_info['start_time']
+        start_time = self.logger.setup_info["start_time"]
         if isinstance(start_time, str):
-            dt = datetime.strptime(start_time, '%H:%M:%S')
-            start_time = timedelta(seconds=dt.hour*3600 + dt.minute*60 + dt.second)
-        stop_time = self.logger.setup_info['stop_time']
+            dt = datetime.strptime(start_time, "%H:%M:%S")
+            start_time = timedelta(seconds=dt.hour * 3600 + dt.minute * 60 + dt.second)
+        stop_time = self.logger.setup_info["stop_time"]
         if isinstance(stop_time, str):
-            dt = datetime.strptime(stop_time, '%H:%M:%S')
+            dt = datetime.strptime(stop_time, "%H:%M:%S")
             stop_time = timedelta(seconds=dt.hour * 3600 + dt.minute * 60 + dt.second)
 
         start = now.replace(hour=0, minute=0, second=0) + start_time
@@ -316,8 +326,8 @@ class Behavior:
         """
         if rew:
             return self.logger.total_reward >= rew
-        elif self.params['max_reward']:
-            return self.logger.total_reward >= self.params['max_reward']
+        elif self.params["max_reward"]:
+            return self.logger.total_reward >= self.params["max_reward"]
         else:
             return False
 
@@ -341,7 +351,7 @@ class BehActivity:
     """
 
     port: int = datafield(compare=True, default=0, hash=True)
-    type: str = datafield(compare=True, default='', hash=True)
+    type: str = datafield(compare=True, default="", hash=True)
     time: int = datafield(compare=False, default=0)
     in_position: int = datafield(compare=False, default=0)
     loc_x: int = datafield(compare=False, default=0)
@@ -351,7 +361,7 @@ class BehActivity:
     reward: bool = datafield(compare=False, default=False)
     response: bool = datafield(compare=False, default=False)
 
-    def __init__(self, **kwargs: Dict[str, Any]):
+    def __init__(self, **kwargs: Dict[str, Any]) -> None:
         names = set([f.name for f in fields(self)])
         for k, v in kwargs.items():
             if k in names:
