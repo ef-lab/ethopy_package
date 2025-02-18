@@ -292,26 +292,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Usage
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../local_conf/" class="md-nav__link">
         
   
@@ -515,15 +495,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#2-port-calibration" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Port Calibration
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -698,10 +669,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
         
           
-          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -712,8 +683,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_13">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             Examples
           </label>
@@ -761,10 +732,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
         
           
-          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -775,8 +746,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_14">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
             <span class="md-nav__icon md-icon"></span>
             API Reference
           </label>
@@ -1038,15 +1009,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#2-port-calibration" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Port Calibration
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1146,7 +1108,7 @@
 <span class="n">exp</span> <span class="o">=</span> <span class="n">SomeExperiment</span><span class="p">()</span>
 <span class="n">exp</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">SomeBehavior</span><span class="p">,</span> <span class="n">session_params</span><span class="p">)</span>
 
-<span class="c1"># 3. Define Stimulus Conditions</span>
+<span class="c1"># 3. Define Experiment/Stimulus/Behavior Conditions</span>
 <span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="c1"># ... condition setup</span>
 
@@ -1157,30 +1119,20 @@
 <h2 id="creating-tasks">Creating Tasks<a class="headerlink" href="#creating-tasks" title="Permanent link">&para;</a></h2>
 <h3 id="1-session-parameters">1. Session Parameters<a class="headerlink" href="#1-session-parameters" title="Permanent link">&para;</a></h3>
 <p>Session parameters control the overall experiment behavior:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">session_params</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">session_params</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1"># Required Parameters</span>
     <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># Setup configuration index</span>
 
-    <span class="c1"># Optional Parameters (example from grating_test.py)</span>
-    <span class="s1">&#39;trial_selection&#39;</span><span class="p">:</span> <span class="s1">&#39;staircase&#39;</span><span class="p">,</span>  <span class="c1"># Trial selection method</span>
+    <span class="c1"># Optional Parameters</span>
     <span class="s1">&#39;max_reward&#39;</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>    <span class="c1"># Maximum reward amount</span>
     <span class="s1">&#39;min_reward&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>      <span class="c1"># Minimum reward amount</span>
-    <span class="s1">&#39;bias_window&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>      <span class="c1"># Window for bias calculation</span>
-    <span class="s1">&#39;staircase_window&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span><span class="c1"># Window for staircase</span>
-    <span class="s1">&#39;stair_up&#39;</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span>      <span class="c1"># Upper threshold</span>
-    <span class="s1">&#39;stair_down&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>    <span class="c1"># Lower threshold</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="2-stimulus-conditions">2. Stimulus Conditions<a class="headerlink" href="#2-stimulus-conditions" title="Permanent link">&para;</a></h3>
@@ -1304,14 +1256,12 @@
 <span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">ethopy.behaviors.multi_port</span> <span class="kn">import</span> <span class="n">MultiPort</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">ethopy.behaviors.multi_port</span> <span class="kn">import</span> <span class="n">MultiPort</span>
 <span class="kn">from</span> <span class="nn">ethopy.experiments.match_port</span> <span class="kn">import</span> <span class="n">Experiment</span>
 <span class="kn">from</span> <span class="nn">ethopy.stimuli.grating</span> <span class="kn">import</span> <span class="n">Grating</span>
 
 <span class="c1"># Session setup</span>
 <span class="n">session_params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;trial_selection&#39;</span><span class="p">:</span> <span class="s1">&#39;staircase&#39;</span><span class="p">,</span>
     <span class="s1">&#39;max_reward&#39;</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
     <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="p">}</span>
@@ -1347,36 +1297,6 @@
 <span class="c1"># Run</span>
 <span class="n">exp</span><span class="o">.</span><span class="n">push_conditions</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
 <span class="n">exp</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="2-port-calibration">2. Port Calibration<a class="headerlink" href="#2-port-calibration" title="Permanent link">&para;</a></h3>
-<p>Calibrate liquid reward delivery:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">ethopy.experiments.calibrate</span> <span class="kn">import</span> <span class="n">Experiment</span>
-
-<span class="n">session_params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;duration&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">150</span><span class="p">],</span>
-    <span class="s1">&#39;ports&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-    <span class="s1">&#39;pulsenum&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
-    <span class="s1">&#39;pulse_interval&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
-    <span class="s1">&#39;save&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="p">}</span>
-
-<span class="n">exp</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">()</span>
-<span class="n">exp</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">session_params</span><span class="p">)</span>
-<span class="n">exp</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
