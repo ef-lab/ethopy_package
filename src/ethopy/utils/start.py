@@ -1,6 +1,4 @@
-"""
-Graphical user interface when an experiment starts
-"""
+"""Graphical user interface when an experiment starts."""
 
 import os
 from typing import Union
@@ -53,25 +51,21 @@ class PyWelcome:
         self.main_menu = self.create_main()
 
     def mainloop(self) -> None:
-        """
-        App mainloop.
-
-        :param test: Test status
-        """
+        """App mainloop."""
         while (
             self.logger.setup_status != "running" and self.logger.setup_status != "exit"
         ):
             events = pygame.event.get()
             for event in events:
                 if event.type == pygame.QUIT:
-                    exit()
+                    break
 
             if self.main_menu.is_enabled():
                 self.main_menu.update(events)
                 self.main_menu.draw(self.screen)
 
             pygame.display.update()
-            pygame.time.wait(10)
+            pygame.time.wait(2)
 
         pygame_menu.events.CLOSE
         if pygame.get_init():
@@ -337,9 +331,7 @@ class PyWelcome:
             widget.set_attribute("on_layer", on_layer)
 
             def widget_select(sel: bool, wid: "pygame_menu.widgets.Widget", _):
-                """
-                Function triggered if widget is selected
-                """
+                """Triggered if widget is selected."""
                 lay = wid.get_attribute("on_layer")
                 if sel:
                     wid.get_decorator().enable(lay)
@@ -384,10 +376,11 @@ class PyWelcome:
             return f"'{curr}' cannot convert int"
 
     def _press(self, digit: Union[int, str], screen, log_function=None) -> None:
-        """
-        Press numpad digit.
+        """Press numpad digit.
 
-        :param digit: Number or symbol
+        Args:
+            digit(int|str): Number or symbol
+
         """
         if digit == "ok":
             if not self.curr == "":
