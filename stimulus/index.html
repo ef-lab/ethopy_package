@@ -427,69 +427,6 @@
       
   
   
-  
-  
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
-        
-          
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Examples
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10">
-            <span class="md-nav__icon md-icon"></span>
-            Examples
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../examples/intro/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Intro
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -502,10 +439,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -516,8 +453,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_11">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             API Reference
           </label>
@@ -1162,7 +1099,7 @@ StimCondition            (<span title="datajoint.user_tables.Manual">Manual</spa
 
     <div class="doc doc-contents ">
 
-      <p>Datajoint table for the stimulus presentation hash
+      <p>Datajoint table for the stimulus presentation hash.
 Table definition:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1174,7 +1111,8 @@ stim_hash            : char(24)   # unique stimulus condition hash
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">StimCondition</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for the stimulus presentation hash&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for the stimulus presentation hash.&quot;&quot;&quot;</span>
+
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    # This class handles the stimulus presentation use function overrides for each</span>
 <span class="s2">    # stimulus class</span>
@@ -1182,7 +1120,8 @@ stim_hash            : char(24)   # unique stimulus condition hash
 <span class="s2">    &quot;&quot;&quot;</span>
 
     <span class="k">class</span> <span class="nc">Trial</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Datajoint table for the Stimulus onset timestamps&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Datajoint table for the Stimulus onset timestamps.&quot;&quot;&quot;</span>
+
         <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">        # Stimulus onset timestamps</span>
 <span class="s2">        -&gt; experiment.Trial</span>
@@ -1223,7 +1162,7 @@ Trial            (<span title="datajoint.user_tables.Part">Part</span>)
 
     <div class="doc doc-contents ">
 
-      <p>Datajoint table for the Stimulus onset timestamps
+      <p>Datajoint table for the Stimulus onset timestamps.
 Table definition:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1243,7 +1182,8 @@ Table definition:</p>
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Trial</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for the Stimulus onset timestamps&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for the Stimulus onset timestamps.&quot;&quot;&quot;</span>
+
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    # Stimulus onset timestamps</span>
 <span class="s2">    -&gt; experiment.Trial</span>
@@ -1406,6 +1346,7 @@ subclassed to implement specific types of stimuli.</p>
 <span class="sd">        photodiode (bool): Flag for photodiode triggering.</span>
 <span class="sd">        rec_fliptimes (bool): Flag for recording flip times.</span>
 <span class="sd">        fill_colors (DictStruct): Structure containing color values for different states</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1415,7 +1356,7 @@ subclassed to implement specific types of stimuli.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">:</span> <span class="n">Timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">period</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Trial&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">period</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Trial&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flip_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">photodiode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1427,97 +1368,107 @@ subclassed to implement specific types of stimuli.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize stimulus with experiment object and setup screen properties.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            exp (Experiment): Experiment object containing logger and interface components.</span>
+<span class="sd">            exp (Experiment): Experiment object containing logger and interface</span>
+<span class="sd">                components.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">logger</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exp</span> <span class="o">=</span> <span class="n">exp</span>
-        <span class="n">screen_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-                                            <span class="n">table</span><span class="o">=</span><span class="s1">&#39;SetupConfiguration.Screen&#39;</span><span class="p">,</span>
-                                            <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
-                                            <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">screen_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration.Screen&quot;</span><span class="p">,</span>
+            <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span> <span class="o">=</span> <span class="n">DictStruct</span><span class="p">(</span><span class="n">screen_properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">is_pi</span><span class="p">:</span>
-            <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;echo </span><span class="si">%d</span><span class="s1"> &gt; /sys/class/backlight/rpi_backlight/brightness&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="o">.</span><span class="n">intensity</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;echo </span><span class="si">%d</span><span class="s2"> &gt; /sys/class/backlight/rpi_backlight/brightness&quot;</span>
+                <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="o">.</span><span class="n">intensity</span>
+            <span class="p">)</span>
             <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
             <span class="n">exp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">setup_touch_exit</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set up stimulus presentation environment.</span>
 
 <span class="sd">        Initializes the Presenter object with monitor settings and background color.</span>
 <span class="sd">        Should be called before starting the experiment.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span> <span class="o">=</span> <span class="n">Presenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="p">,</span>
-                                   <span class="n">background_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span><span class="p">,</span>
-                                   <span class="n">photodiode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">photodiode</span><span class="p">,</span>
-                                   <span class="n">rec_fliptimes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rec_fliptimes</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span> <span class="o">=</span> <span class="n">Presenter</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="p">,</span>
+            <span class="n">background_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span><span class="p">,</span>
+            <span class="n">photodiode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">photodiode</span><span class="p">,</span>
+            <span class="n">rec_fliptimes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rec_fliptimes</span><span class="p">,</span>
+        <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curr_cond</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stim_period</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;prepares stuff for presentation before trial starts&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span> <span class="o">=</span> <span class="n">curr_cond</span> <span class="k">if</span> <span class="n">stim_period</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="n">curr_cond</span><span class="p">[</span><span class="n">stim_period</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curr_cond</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stim_period</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepare stuff for presentation before trial starts.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span> <span class="o">=</span> <span class="n">curr_cond</span> <span class="k">if</span> <span class="n">stim_period</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="k">else</span> <span class="n">curr_cond</span><span class="p">[</span><span class="n">stim_period</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">period</span> <span class="o">=</span> <span class="n">stim_period</span>
 
-    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;start stimulus&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start stimulus.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">log_start</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">present</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">present</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Present stimulus.</span>
 
 <span class="sd">        This is a placeholder method that should be overridden by subclasses</span>
 <span class="sd">        to implement specific stimulus presentation logic.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;stimulus hidding method&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stimulus hidding method.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">color</span><span class="p">:</span>
             <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;stop stimulus&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stop stimulus.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">log_stop</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;exit stimulus stuff&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Exit stimulus stuff.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">ready_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stim Cue for ready&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">ready_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stim Cue for ready.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">ready</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">ready</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">reward_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stim Cue for reward&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">reward_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stim Cue for reward.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">reward</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">reward</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">punish_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stim Cue for punishment&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">punish_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stim Cue for punishment.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">punish</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">punish</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">start_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stim Cue for start&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">start_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stim Cue for start.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">start</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">log_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start timer for the log of stimlus condition&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">log_start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start timer for the log of stimlus condition.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">sync_out</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">log_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Log stimulus condition start &amp; stop time&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">log_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Log stimulus condition start &amp; stop time.&quot;&quot;&quot;</span>
         <span class="n">stop_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">sync_out</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
@@ -1544,11 +1495,16 @@ subclassed to implement specific types of stimuli.</p>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            AssertionError: If required fields are missing from any condition.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># check for any missing field from the required fields and add the default keys</span>
         <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">:</span>
-            <span class="n">missing_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">field</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cond</span><span class="p">]</span>
-            <span class="k">assert</span> <span class="ow">not</span> <span class="n">missing_fields</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Missing Stimulus required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">missing_fields</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">field</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cond</span>
+            <span class="p">]</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="ow">not</span> <span class="n">missing_fields</span>
+            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Missing Stimulus required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="n">cond</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="o">**</span><span class="n">cond</span><span class="p">})</span>
         <span class="c1"># log stim conditions</span>
         <span class="n">conditions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">log_conditions</span><span class="p">(</span>
@@ -1559,11 +1515,12 @@ subclassed to implement specific types of stimuli.</p>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">conditions</span>
 
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the name of the stimulus class.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            (str):Name of the current stimulus class.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
 </code></pre></div>
@@ -1607,7 +1564,7 @@ subclassed to implement specific types of stimuli.</p>
     <span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">:</span> <span class="n">Timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">period</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Trial&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">period</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Trial&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">flip_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">photodiode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1638,12 +1595,12 @@ subclassed to implement specific types of stimuli.</p>
 
     <div class="doc doc-contents ">
 
-      <p>exit stimulus stuff</p>
+      <p>Exit stimulus stuff.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;exit stimulus stuff&quot;&quot;&quot;</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exit stimulus stuff.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 </code></pre></div>
         </details>
@@ -1665,12 +1622,12 @@ subclassed to implement specific types of stimuli.</p>
 
     <div class="doc doc-contents ">
 
-      <p>stimulus hidding method</p>
+      <p>Stimulus hidding method.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;stimulus hidding method&quot;&quot;&quot;</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stimulus hidding method.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">color</span><span class="p">:</span>
         <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span><span class="p">:</span>
@@ -1711,28 +1668,36 @@ subclassed to implement specific types of stimuli.</p>
       <tr>
         <td><code>exp</code></td>
         <td><code>Experiment</code></td>
-        <td><p>Experiment object containing logger and interface components.</p></td>
+        <td><p>Experiment object containing logger and interface
+components.</p></td>
         <td><em>required</em></td>
       </tr>
   </tbody>
 </table>
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize stimulus with experiment object and setup screen properties.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        exp (Experiment): Experiment object containing logger and interface components.</span>
+<span class="sd">        exp (Experiment): Experiment object containing logger and interface</span>
+<span class="sd">            components.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">logger</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">exp</span> <span class="o">=</span> <span class="n">exp</span>
-    <span class="n">screen_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-                                        <span class="n">table</span><span class="o">=</span><span class="s1">&#39;SetupConfiguration.Screen&#39;</span><span class="p">,</span>
-                                        <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
-                                        <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">screen_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
+        <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration.Screen&quot;</span><span class="p">,</span>
+        <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+        <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span> <span class="o">=</span> <span class="n">DictStruct</span><span class="p">(</span><span class="n">screen_properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">is_pi</span><span class="p">:</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;echo </span><span class="si">%d</span><span class="s1"> &gt; /sys/class/backlight/rpi_backlight/brightness&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="o">.</span><span class="n">intensity</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;echo </span><span class="si">%d</span><span class="s2"> &gt; /sys/class/backlight/rpi_backlight/brightness&quot;</span>
+            <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="o">.</span><span class="n">intensity</span>
+        <span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
         <span class="n">exp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">setup_touch_exit</span><span class="p">()</span>
 </code></pre></div>
@@ -1755,12 +1720,12 @@ subclassed to implement specific types of stimuli.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Start timer for the log of stimlus condition</p>
+      <p>Start timer for the log of stimlus condition.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">log_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start timer for the log of stimlus condition&quot;&quot;&quot;</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">log_start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start timer for the log of stimlus condition.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">sync_out</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
@@ -1783,12 +1748,12 @@ subclassed to implement specific types of stimuli.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Log stimulus condition start &amp; stop time</p>
+      <p>Log stimulus condition start &amp; stop time.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">log_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Log stimulus condition start &amp; stop time&quot;&quot;&quot;</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">log_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Log stimulus condition start &amp; stop time.&quot;&quot;&quot;</span>
     <span class="n">stop_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">sync_out</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
@@ -1887,11 +1852,16 @@ subclassed to implement specific types of stimuli.</p>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        AssertionError: If required fields are missing from any condition.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># check for any missing field from the required fields and add the default keys</span>
     <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">:</span>
-        <span class="n">missing_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">field</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cond</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="ow">not</span> <span class="n">missing_fields</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Missing Stimulus required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">missing_fields</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">field</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cond</span>
+        <span class="p">]</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="n">missing_fields</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Missing Stimulus required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">cond</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="o">**</span><span class="n">cond</span><span class="p">})</span>
     <span class="c1"># log stim conditions</span>
     <span class="n">conditions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">log_conditions</span><span class="p">(</span>
@@ -1940,11 +1910,12 @@ subclassed to implement specific types of stimuli.</p>
 </table>
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the name of the stimulus class.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        (str):Name of the current stimulus class.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
 </code></pre></div>
@@ -1967,13 +1938,13 @@ subclassed to implement specific types of stimuli.</p>
 
     <div class="doc doc-contents ">
 
-      <p>prepares stuff for presentation before trial starts</p>
+      <p>Prepare stuff for presentation before trial starts.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curr_cond</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stim_period</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;prepares stuff for presentation before trial starts&quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span> <span class="o">=</span> <span class="n">curr_cond</span> <span class="k">if</span> <span class="n">stim_period</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="n">curr_cond</span><span class="p">[</span><span class="n">stim_period</span><span class="p">]</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curr_cond</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stim_period</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare stuff for presentation before trial starts.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span> <span class="o">=</span> <span class="n">curr_cond</span> <span class="k">if</span> <span class="n">stim_period</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="k">else</span> <span class="n">curr_cond</span><span class="p">[</span><span class="n">stim_period</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">period</span> <span class="o">=</span> <span class="n">stim_period</span>
 </code></pre></div>
         </details>
@@ -2001,7 +1972,7 @@ to implement specific stimulus presentation logic.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">present</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">present</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Present stimulus.</span>
 
 <span class="sd">    This is a placeholder method that should be overridden by subclasses</span>
@@ -2027,12 +1998,12 @@ to implement specific stimulus presentation logic.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Stim Cue for punishment</p>
+      <p>Stim Cue for punishment.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">punish_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stim Cue for punishment&quot;&quot;&quot;</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">punish_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stim Cue for punishment.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">punish</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">punish</span><span class="p">)</span>
 </code></pre></div>
@@ -2055,12 +2026,12 @@ to implement specific stimulus presentation logic.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Stim Cue for ready</p>
+      <p>Stim Cue for ready.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ready_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stim Cue for ready&quot;&quot;&quot;</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ready_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stim Cue for ready.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">ready</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">ready</span><span class="p">)</span>
 </code></pre></div>
@@ -2083,12 +2054,12 @@ to implement specific stimulus presentation logic.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Stim Cue for reward</p>
+      <p>Stim Cue for reward.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">reward_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stim Cue for reward&quot;&quot;&quot;</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">reward_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stim Cue for reward.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">reward</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">reward</span><span class="p">)</span>
 </code></pre></div>
@@ -2117,16 +2088,19 @@ Should be called before starting the experiment.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Set up stimulus presentation environment.</span>
 
 <span class="sd">    Initializes the Presenter object with monitor settings and background color.</span>
 <span class="sd">    Should be called before starting the experiment.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span> <span class="o">=</span> <span class="n">Presenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="p">,</span>
-                               <span class="n">background_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span><span class="p">,</span>
-                               <span class="n">photodiode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">photodiode</span><span class="p">,</span>
-                               <span class="n">rec_fliptimes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rec_fliptimes</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span> <span class="o">=</span> <span class="n">Presenter</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="p">,</span>
+        <span class="n">background_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span><span class="p">,</span>
+        <span class="n">photodiode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">photodiode</span><span class="p">,</span>
+        <span class="n">rec_fliptimes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rec_fliptimes</span><span class="p">,</span>
+    <span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -2147,12 +2121,12 @@ Should be called before starting the experiment.</p>
 
     <div class="doc doc-contents ">
 
-      <p>start stimulus</p>
+      <p>Start stimulus.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;start stimulus&quot;&quot;&quot;</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start stimulus.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">log_start</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
@@ -2176,12 +2150,12 @@ Should be called before starting the experiment.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Stim Cue for start</p>
+      <p>Stim Cue for start.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">start_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stim Cue for start&quot;&quot;&quot;</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">start_stim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stim Cue for start.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">start</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
 </code></pre></div>
@@ -2204,12 +2178,12 @@ Should be called before starting the experiment.</p>
 
     <div class="doc doc-contents ">
 
-      <p>stop stimulus</p>
+      <p>Stop stimulus.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/stimulus.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;stop stimulus&quot;&quot;&quot;</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stop stimulus.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">log_stop</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">False</span>

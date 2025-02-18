@@ -429,69 +429,6 @@
       
   
   
-  
-  
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
-        
-          
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Examples
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10">
-            <span class="md-nav__icon md-icon"></span>
-            Examples
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../examples/intro/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Intro
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -504,10 +441,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -518,8 +455,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_11">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             API Reference
           </label>
@@ -813,6 +750,15 @@
   <a href="#ethopy.core.behavior.Behavior.reward" class="md-nav__link">
     <span class="md-ellipsis">
       reward()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      setup()
     </span>
   </a>
   
@@ -1161,6 +1107,15 @@
   <a href="#ethopy.core.behavior.Behavior.reward" class="md-nav__link">
     <span class="md-ellipsis">
       reward()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.behavior.Behavior.setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      setup()
     </span>
   </a>
   
@@ -1713,7 +1668,7 @@ BehActivity        </code>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">time</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">in_position</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">loc_x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1723,7 +1678,7 @@ BehActivity        </code>
     <span class="n">reward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">response</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)])</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
@@ -2026,6 +1981,7 @@ Behavior        </code>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp</span><span class="p">:</span> <span class="n">ExperimentClass</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set up behavior.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">params</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exp</span> <span class="o">=</span> <span class="n">exp</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">logger</span>
@@ -2109,7 +2065,7 @@ Behavior        </code>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span>
 
     <span class="k">def</span> <span class="nf">reward</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;Reward action.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reward action.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">punish</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -2139,18 +2095,18 @@ Behavior        </code>
         <span class="n">key</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trial_key</span><span class="p">,</span> <span class="o">**</span><span class="n">activity</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">}</span>
         <span class="c1"># log the activity in the database</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">in_operation</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">logging</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Activity&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Activity.&#39;</span> <span class="o">+</span> <span class="n">activity</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Activity&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;behavior&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Activity.&quot;</span> <span class="o">+</span> <span class="n">activity</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;behavior&quot;</span><span class="p">)</span>
         <span class="c1"># if activity.type == &#39;Response&#39;: append to the response queue</span>
         <span class="k">if</span> <span class="n">activity</span><span class="o">.</span><span class="n">response</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">full</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span>
         <span class="c1"># get the last lick and licked port to use it in is_licking function</span>
-        <span class="k">if</span> <span class="n">activity</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;Lick&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">activity</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;Lick&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span> <span class="o">=</span> <span class="n">activity</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span> <span class="o">=</span> <span class="n">activity</span><span class="o">.</span><span class="n">port</span>
-        <span class="k">return</span> <span class="n">key</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">key</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">log_reward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward_amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Log delivered reward to the database.</span>
@@ -2159,9 +2115,9 @@ Behavior        </code>
 <span class="sd">            reward_amount (float): Amount of reward delivered</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;reward_port&#39;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;reward_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;response_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;reward_port&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;reward_port&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;response_port&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
             <span class="s2">&quot;Rewards&quot;</span><span class="p">,</span>
             <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">,</span> <span class="s2">&quot;reward_amount&quot;</span><span class="p">:</span> <span class="n">reward_amount</span><span class="p">},</span>
@@ -2179,8 +2135,12 @@ Behavior        </code>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">:</span>
-            <span class="n">missing_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">field</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cond</span><span class="p">]</span>
-            <span class="k">assert</span> <span class="ow">not</span> <span class="n">missing_fields</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Missing behavior required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">missing_fields</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">field</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cond</span>
+            <span class="p">]</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="ow">not</span> <span class="n">missing_fields</span>
+            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Missing behavior required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="n">cond</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="o">**</span><span class="n">cond</span><span class="p">})</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">:</span>
@@ -2191,7 +2151,9 @@ Behavior        </code>
                 <span class="n">hash_field</span><span class="o">=</span><span class="s2">&quot;beh_hash&quot;</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">log_conditions</span><span class="p">(</span><span class="n">conditions</span><span class="o">=</span><span class="n">conditions</span><span class="p">,</span> <span class="n">condition_tables</span><span class="o">=</span><span class="p">[],</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">log_conditions</span><span class="p">(</span>
+            <span class="n">conditions</span><span class="o">=</span><span class="n">conditions</span><span class="p">,</span> <span class="n">condition_tables</span><span class="o">=</span><span class="p">[],</span> <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;behavior&quot;</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepare for a new trial with given conditions.</span>
@@ -2201,9 +2163,12 @@ Behavior        </code>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span> <span class="o">=</span> <span class="n">condition</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">reward_amount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">calc_pulse_dur</span><span class="p">(</span><span class="n">condition</span><span class="p">[</span><span class="s1">&#39;reward_amount&#39;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;BehCondition.Trial&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">beh_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;beh_hash&#39;</span><span class="p">]),</span>
-                        <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_amount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">calc_pulse_dur</span><span class="p">(</span><span class="n">condition</span><span class="p">[</span><span class="s2">&quot;reward_amount&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+            <span class="s2">&quot;BehCondition.Trial&quot;</span><span class="p">,</span>
+            <span class="nb">dict</span><span class="p">(</span><span class="n">beh_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;beh_hash&quot;</span><span class="p">]),</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;behavior&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">update_history</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">choice</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">reward</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">punish</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
@@ -2248,13 +2213,13 @@ Behavior        </code>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-        <span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
-            <span class="n">start_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span><span class="o">*</span><span class="mi">3600</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
-        <span class="n">stop_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s1">&#39;stop_time&#39;</span><span class="p">]</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="s2">&quot;%H:%M:%S&quot;</span><span class="p">)</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+        <span class="n">stop_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s2">&quot;stop_time&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stop_time</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">stop_time</span><span class="p">,</span> <span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">stop_time</span><span class="p">,</span> <span class="s2">&quot;%H:%M:%S&quot;</span><span class="p">)</span>
             <span class="n">stop_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
 
         <span class="n">start</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">start_time</span>
@@ -2276,8 +2241,8 @@ Behavior        </code>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">rew</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="n">rew</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_reward&#39;</span><span class="p">]:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_reward&#39;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;max_reward&quot;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;max_reward&quot;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div>
@@ -2545,8 +2510,8 @@ Behavior        </code>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">rew</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="n">rew</span>
-    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_reward&#39;</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_reward&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;max_reward&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;max_reward&quot;</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div>
@@ -2735,13 +2700,13 @@ Defaults to True.</p></td>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-    <span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
-        <span class="n">start_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span><span class="o">*</span><span class="mi">3600</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
-    <span class="n">stop_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s1">&#39;stop_time&#39;</span><span class="p">]</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="s2">&quot;%H:%M:%S&quot;</span><span class="p">)</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+    <span class="n">stop_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s2">&quot;stop_time&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stop_time</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">stop_time</span><span class="p">,</span> <span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">stop_time</span><span class="p">,</span> <span class="s2">&quot;%H:%M:%S&quot;</span><span class="p">)</span>
         <span class="n">stop_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
 
     <span class="n">start</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">start_time</span>
@@ -2830,18 +2795,18 @@ and logs the activity in the database.</p>
     <span class="n">key</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trial_key</span><span class="p">,</span> <span class="o">**</span><span class="n">activity</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">}</span>
     <span class="c1"># log the activity in the database</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">in_operation</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">logging</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Activity&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Activity.&#39;</span> <span class="o">+</span> <span class="n">activity</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Activity&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;behavior&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Activity.&quot;</span> <span class="o">+</span> <span class="n">activity</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;behavior&quot;</span><span class="p">)</span>
     <span class="c1"># if activity.type == &#39;Response&#39;: append to the response queue</span>
     <span class="k">if</span> <span class="n">activity</span><span class="o">.</span><span class="n">response</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">full</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span>
     <span class="c1"># get the last lick and licked port to use it in is_licking function</span>
-    <span class="k">if</span> <span class="n">activity</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;Lick&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">activity</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;Lick&quot;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span> <span class="o">=</span> <span class="n">activity</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span> <span class="o">=</span> <span class="n">activity</span><span class="o">.</span><span class="n">port</span>
-    <span class="k">return</span> <span class="n">key</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">key</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span>
 </code></pre></div>
         </details>
     </div>
@@ -2892,9 +2857,9 @@ and logs the activity in the database.</p>
 <span class="sd">        reward_amount (float): Amount of reward delivered</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;reward_port&#39;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;reward_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;response_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;reward_port&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;reward_port&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;response_port&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
         <span class="s2">&quot;Rewards&quot;</span><span class="p">,</span>
         <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">,</span> <span class="s2">&quot;reward_amount&quot;</span><span class="p">:</span> <span class="n">reward_amount</span><span class="p">},</span>
@@ -2969,8 +2934,12 @@ and logs the activity in the database.</p>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">:</span>
-        <span class="n">missing_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">field</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cond</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="ow">not</span> <span class="n">missing_fields</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Missing behavior required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">missing_fields</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">field</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cond</span>
+        <span class="p">]</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="n">missing_fields</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Missing behavior required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">cond</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="o">**</span><span class="n">cond</span><span class="p">})</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">:</span>
@@ -2981,7 +2950,9 @@ and logs the activity in the database.</p>
             <span class="n">hash_field</span><span class="o">=</span><span class="s2">&quot;beh_hash&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">log_conditions</span><span class="p">(</span><span class="n">conditions</span><span class="o">=</span><span class="n">conditions</span><span class="p">,</span> <span class="n">condition_tables</span><span class="o">=</span><span class="p">[],</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">log_conditions</span><span class="p">(</span>
+        <span class="n">conditions</span><span class="o">=</span><span class="n">conditions</span><span class="p">,</span> <span class="n">condition_tables</span><span class="o">=</span><span class="p">[],</span> <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;behavior&quot;</span>
+    <span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -3033,9 +3004,12 @@ and logs the activity in the database.</p>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span> <span class="o">=</span> <span class="n">condition</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">reward_amount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">calc_pulse_dur</span><span class="p">(</span><span class="n">condition</span><span class="p">[</span><span class="s1">&#39;reward_amount&#39;</span><span class="p">])</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;BehCondition.Trial&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">beh_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;beh_hash&#39;</span><span class="p">]),</span>
-                    <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;behavior&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reward_amount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">calc_pulse_dur</span><span class="p">(</span><span class="n">condition</span><span class="p">[</span><span class="s2">&quot;reward_amount&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+        <span class="s2">&quot;BehCondition.Trial&quot;</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="n">beh_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;beh_hash&quot;</span><span class="p">]),</span>
+        <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;behavior&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -3082,12 +3056,12 @@ and logs the activity in the database.</p>
 
     <div class="doc doc-contents ">
 
-      <p>"Reward action.</p>
+      <p>Reward action.</p>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">reward</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;Reward action.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reward action.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="kc">True</span>
 </code></pre></div>
         </details>
@@ -3095,6 +3069,44 @@ and logs the activity in the database.</p>
 
   </div>
 
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.behavior.Behavior.setup" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.behavior.Behavior.setup" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Set up behavior.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/behavior.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp</span><span class="p">:</span> <span class="n">ExperimentClass</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set up behavior.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">params</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">exp</span> <span class="o">=</span> <span class="n">exp</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">logger</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">interface</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">choice_history</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># History term for bias calculation</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reward_history</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># History term for performance calculation</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">punish_history</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reward_amount</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_lick</span> <span class="o">=</span> <span class="n">BehActivity</span><span class="p">(),</span> <span class="n">BehActivity</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logging</span> <span class="o">=</span> <span class="kc">True</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
 
 
 

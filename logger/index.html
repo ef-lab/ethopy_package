@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/logger/">
       
       
-        <link rel="prev" href="../examples/intro/">
+        <link rel="prev" href="../changelog/">
       
       
         <link rel="next" href="../behavior/">
@@ -429,69 +429,6 @@
       
   
   
-  
-  
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
-        
-          
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Examples
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10">
-            <span class="md-nav__icon md-icon"></span>
-            Examples
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../examples/intro/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Intro
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -504,10 +441,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -518,8 +455,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_11">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             API Reference
           </label>
@@ -1371,7 +1308,7 @@ _get_setup_status(): Get setup status.</p>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">task</span> <span class="ow">or</span> <span class="n">Task</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">manual_run</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">path</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setup_status</span> <span class="o">=</span> <span class="s1">&#39;running&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">manual_run</span> <span class="k">else</span> <span class="s1">&#39;ready&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_status</span> <span class="o">=</span> <span class="s2">&quot;running&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">manual_run</span> <span class="k">else</span> <span class="s2">&quot;ready&quot;</span>
 
         <span class="c1"># separate connection for internal communication</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_schemata</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">private_conn</span> <span class="o">=</span> <span class="n">create_virtual_modules</span><span class="p">(</span>
@@ -1380,7 +1317,7 @@ _get_setup_status(): Get setup status.</p>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">writer</span> <span class="o">=</span> <span class="n">Writer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rec_fliptimes</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;animal_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;trial_idx&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;animal_id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;trial_idx&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setup_info</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1424,7 +1361,7 @@ _get_setup_status(): Get setup status.</p>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">manual_run</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">resolve_task</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_setup_info</span><span class="p">(</span><span class="s1">&#39;task_idx&#39;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">resolve_task</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_setup_info</span><span class="p">(</span><span class="s2">&quot;task_idx&quot;</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">task_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
@@ -1521,13 +1458,17 @@ _get_setup_status(): Get setup status.</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
             <span class="s2">&quot;Failed to insert:</span><span class="se">\n</span><span class="si">%s</span><span class="s2"> in </span><span class="si">%s</span><span class="se">\n</span><span class="s2"> With error:</span><span class="si">%s</span><span class="se">\n</span><span class="s2">Will retry later&quot;</span><span class="p">,</span>
-            <span class="n">item</span><span class="o">.</span><span class="n">tuple</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">exception</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">tuple</span><span class="p">,</span>
+            <span class="n">table</span><span class="p">,</span>
+            <span class="n">exception</span><span class="p">,</span>
+            <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">item</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">item</span><span class="o">.</span><span class="n">priority</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">priority</span> <span class="o">+</span> <span class="mi">2</span>
         <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
     <span class="nd">@contextmanager</span>
-    <span class="k">def</span> <span class="nf">acquire_lock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lock</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">acquire_lock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lock</span><span class="p">):</span>  <span class="c1"># noqa: ANN201</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Acquire a lock, yield control, and release the lock.</span>
 
 <span class="sd">        This context manager ensures that the given lock is acquired before</span>
@@ -1575,7 +1516,11 @@ _get_setup_status(): Get setup status.</p>
                         <span class="bp">self</span><span class="o">.</span><span class="n">thread_end</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
                         <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
                             <span class="s2">&quot;Second time failed to insert:</span><span class="se">\n</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> in </span><span class="si">%s</span><span class="s2"> With error:</span><span class="se">\n</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-                            <span class="n">item</span><span class="o">.</span><span class="n">tuple</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">insert_error</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                            <span class="n">item</span><span class="o">.</span><span class="n">tuple</span><span class="p">,</span>
+                            <span class="n">table</span><span class="p">,</span>
+                            <span class="n">insert_error</span><span class="p">,</span>
+                            <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">thread_exception</span> <span class="o">=</span> <span class="n">insert_error</span>
                         <span class="k">break</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_handle_insert_error</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">insert_error</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">)</span>
@@ -1662,7 +1607,7 @@ _get_setup_status(): Get setup status.</p>
             <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;State: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">tmst</span>
 
-    <span class="k">def</span> <span class="nf">_log_setup_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">setup_status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;running&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_log_setup_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">setup_status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;running&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Log setup information into the Control table in the experiment database.</span>
 
 <span class="sd">        It first fetches the control information for the current setup. If no control</span>
@@ -1710,10 +1655,12 @@ _get_setup_status(): Get setup status.</p>
         <span class="p">)</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">last_sessions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">last_sessions</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">log_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                    <span class="n">session_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-                    <span class="n">experiment_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                    <span class="n">log_task</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">log_session</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">session_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">experiment_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">log_task</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Log session with the given parameters and optionally log the task.</span>
 
 <span class="sd">        Args:</span>
@@ -1723,8 +1670,9 @@ _get_setup_status(): Get setup status.</p>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Initializes session parameters and logs the session start.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_init_session_params</span><span class="p">(</span><span class="n">session_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_name&quot;</span><span class="p">,</span> <span class="s2">&quot;bot&quot;</span><span class="p">),</span>
-                                  <span class="n">experiment_type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_session_params</span><span class="p">(</span>
+            <span class="n">session_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_name&quot;</span><span class="p">,</span> <span class="s2">&quot;bot&quot;</span><span class="p">),</span> <span class="n">experiment_type</span>
+        <span class="p">)</span>
 
         <span class="c1"># Save the task file, name and the git_hash in the database.</span>
         <span class="k">if</span> <span class="n">log_task</span><span class="p">:</span>
@@ -1754,16 +1702,19 @@ _get_setup_status(): Get setup status.</p>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">total_reward</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;animal_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_setup_info</span><span class="p">(</span><span class="s2">&quot;animal_id&quot;</span><span class="p">),</span>
-                          <span class="s2">&quot;trial_idx&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                          <span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_last_session</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;animal_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_setup_info</span><span class="p">(</span><span class="s2">&quot;animal_id&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;trial_idx&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_last_session</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="p">}</span>
 
-        <span class="n">session_key</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;animal_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_setup_info</span><span class="p">(</span><span class="s2">&quot;animal_id&quot;</span><span class="p">),</span>
-                       <span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_last_session</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-                       <span class="s2">&quot;user_name&quot;</span><span class="p">:</span> <span class="n">user_name</span><span class="p">,</span>
-                       <span class="s2">&quot;setup&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">,</span>
-                       <span class="s2">&quot;experiment_type&quot;</span><span class="p">:</span> <span class="n">experiment_type</span>
-                       <span class="p">}</span>
+        <span class="n">session_key</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;animal_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_setup_info</span><span class="p">(</span><span class="s2">&quot;animal_id&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_last_session</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;user_name&quot;</span><span class="p">:</span> <span class="n">user_name</span><span class="p">,</span>
+            <span class="s2">&quot;setup&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">,</span>
+            <span class="s2">&quot;experiment_type&quot;</span><span class="p">:</span> <span class="n">experiment_type</span><span class="p">,</span>
+        <span class="p">}</span>
 
         <span class="c1"># Convert np.int64 values to native Python int</span>
         <span class="n">session_key_cleaned</span> <span class="o">=</span> <span class="p">{</span>
@@ -1771,12 +1722,12 @@ _get_setup_status(): Get setup status.</p>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">session_key</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="p">}</span>
 
-        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">figlet_format</span><span class="p">(</span><span class="s1">&#39;EthoPy&#39;</span><span class="p">))</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">figlet_format</span><span class="p">(</span><span class="s2">&quot;EthoPy&quot;</span><span class="p">))</span>
         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
             <span class="s2">&quot;</span><span class="se">\n</span><span class="si">%s%s%s</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">22</span><span class="p">,</span>
             <span class="s2">&quot; Basic Session informations &quot;</span><span class="p">,</span>
-            <span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">22</span><span class="p">,</span>
+            <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">22</span><span class="p">,</span>
             <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">session_key_cleaned</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span>
             <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">72</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1800,9 +1751,10 @@ _get_setup_status(): Get setup status.</p>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">outer_class_dict_values</span> <span class="o">=</span> <span class="n">outer_class</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-        <span class="n">inner_classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">outer_class_dict_values</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span>
-                                                                                  <span class="nb">type</span><span class="p">)]</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">outer_class</span><span class="o">.</span><span class="vm">__name__</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">inner_classes</span><span class="p">]</span>
+        <span class="n">inner_classes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">outer_class_dict_values</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">outer_class</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">inner_classes</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">log_session_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_conf_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Log parameter of a session into the appropriate schema tables.</span>
@@ -1821,19 +1773,21 @@ _get_setup_status(): Get setup status.</p>
 <span class="sd">        5. Calls a helper method to log the configuration of sub-tables for each schema.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># modules that have a Configuration classes</span>
-        <span class="n">_modules</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ethopy.core.interface&#39;</span><span class="p">]</span>
+        <span class="n">_modules</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ethopy.core.interface&quot;</span><span class="p">]</span>
         <span class="c1"># consider that the module have the same name as the schema but in lower case</span>
         <span class="c1"># (e.g for class Behaviour the schema is the behavior)</span>
-        <span class="n">_schemas</span> <span class="o">=</span> <span class="p">[</span><span class="n">_module</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">_module</span> <span class="ow">in</span> <span class="n">_modules</span><span class="p">]</span>
+        <span class="n">_schemas</span> <span class="o">=</span> <span class="p">[</span><span class="n">_module</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">_module</span> <span class="ow">in</span> <span class="n">_modules</span><span class="p">]</span>
 
         <span class="c1"># Logs the session and animal_id in configuration tables of behavior/stimulus.</span>
         <span class="k">for</span> <span class="n">schema</span> <span class="ow">in</span> <span class="n">_schemas</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;Configuration&quot;</span><span class="p">,</span>
-                     <span class="nb">tuple</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">,</span>
-                     <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span>
-                     <span class="n">priority</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                     <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                     <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+                <span class="n">table</span><span class="o">=</span><span class="s2">&quot;Configuration&quot;</span><span class="p">,</span>
+                <span class="nb">tuple</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">,</span>
+                <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span>
+                <span class="n">priority</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
 
         <span class="c1"># create a dict with the configuration as key and the subclasses as values</span>
         <span class="n">conf_table_schema</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1846,8 +1800,9 @@ _get_setup_status(): Get setup status.</p>
         <span class="k">for</span> <span class="n">schema</span><span class="p">,</span> <span class="n">config_tables</span> <span class="ow">in</span> <span class="n">conf_table_schema</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_log_sub_tables_config</span><span class="p">(</span><span class="n">setup_conf_idx</span><span class="p">,</span> <span class="n">config_tables</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_log_sub_tables_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_conf_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                               <span class="n">config_tables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_log_sub_tables_config</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">setup_conf_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config_tables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Log conifguration data in the respective tables.</span>
 
 <span class="sd">        This method iterates over a list of configuration tables, retrieves the</span>
@@ -1862,7 +1817,7 @@ _get_setup_status(): Get setup status.</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">config_table</span> <span class="ow">in</span> <span class="n">config_tables</span><span class="p">:</span>
             <span class="n">configuration_data</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="p">,</span> <span class="n">config_table</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="p">,</span> <span class="n">config_table</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
                 <span class="o">&amp;</span> <span class="p">{</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">:</span> <span class="n">setup_conf_idx</span><span class="p">}</span>
             <span class="p">)</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="c1"># put the configuration data in the configuration table</span>
@@ -1906,10 +1861,12 @@ _get_setup_status(): Get setup status.</p>
         <span class="c1"># if in the start_time is defined in the configuration use this</span>
         <span class="c1"># otherwise use the Control table</span>
         <span class="k">if</span> <span class="s2">&quot;start_time&quot;</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+
             <span class="k">def</span> <span class="nf">_tdelta</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;%H:%M:%S&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span>
                     <span class="s2">&quot;00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;%H:%M:%S&quot;</span>
                 <span class="p">)</span>
+
             <span class="n">key</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                 <span class="p">{</span>
                     <span class="s2">&quot;start_time&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">_tdelta</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">])),</span>
@@ -1919,9 +1876,9 @@ _get_setup_status(): Get setup status.</p>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">update_setup_info</span><span class="p">({</span><span class="o">**</span><span class="n">key</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_info</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]})</span>
 
-    <span class="k">def</span> <span class="nf">update_setup_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                          <span class="n">info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-                          <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">update_setup_info</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the setup information in Control table with the provided info and key.</span>
 
 <span class="sd">        It first fetches the existing setup information from the experiment&#39;s Control</span>
@@ -1951,17 +1908,19 @@ _get_setup_status(): Get setup status.</p>
         <span class="k">if</span> <span class="n">block</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_status</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
             <span class="n">caller</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">caller_info</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Function called by </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">function</span><span class="si">}</span><span class="s2"> &quot;</span>
-                           <span class="sa">f</span><span class="s2">&quot;in </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2"> at line </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">lineno</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Update status is set </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">],</span> <span class="n">caller_info</span><span class="p">)</span>
+            <span class="n">caller_info</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Function called by </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">function</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;in </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2"> at line </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">lineno</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Update status is set </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">],</span> <span class="n">caller_info</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setup_info</span> <span class="o">=</span> <span class="p">{</span>
             <span class="o">**</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">Control</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">{</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;setup&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">},</span> <span class="o">**</span><span class="n">key</span><span class="p">})</span><span class="o">.</span><span class="n">fetch1</span><span class="p">(),</span>
-            <span class="o">**</span><span class="n">info</span>
-            <span class="p">}</span>
+            <span class="o">**</span><span class="n">info</span><span class="p">,</span>
+        <span class="p">}</span>
 
-        <span class="k">if</span> <span class="s1">&#39;notes&#39;</span> <span class="ow">in</span> <span class="n">info</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;notes&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="p">:</span>
-            <span class="n">info</span><span class="p">[</span><span class="s1">&#39;notes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;notes&#39;</span><span class="p">][:</span><span class="mi">255</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;notes&quot;</span> <span class="ow">in</span> <span class="n">info</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;notes&quot;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="p">:</span>
+            <span class="n">info</span><span class="p">[</span><span class="s2">&quot;notes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;notes&quot;</span><span class="p">][:</span><span class="mi">255</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
             <span class="n">table</span><span class="o">=</span><span class="s2">&quot;Control&quot;</span><span class="p">,</span>
@@ -2011,9 +1970,12 @@ _get_setup_status(): Get setup status.</p>
         <span class="k">return</span> <span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">Control</span><span class="p">()</span> <span class="o">&amp;</span> <span class="nb">dict</span><span class="p">(</span><span class="n">setup</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">))</span><span class="o">.</span><span class="n">fetch1</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;experiment&#39;</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Control&#39;</span><span class="p">,</span>
-        <span class="n">fields</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;experiment&quot;</span><span class="p">,</span>
+        <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Control&quot;</span><span class="p">,</span>
+        <span class="n">fields</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fetch data from a specified table in a schema.</span>
 
@@ -2032,12 +1994,15 @@ _get_setup_status(): Get setup status.</p>
             <span class="n">key</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">fields</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">fields</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="n">rgetattr</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">schema</span><span class="p">),</span> <span class="n">table</span><span class="p">)</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">rgetattr</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">schema</span><span class="p">),</span> <span class="n">table</span><span class="p">)</span>  <span class="c1"># noqa: S307</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">table</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="o">*</span><span class="n">fields</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_table_keys</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;experiment&#39;</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Control&#39;</span><span class="p">,</span>
-        <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">key_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;experiment&quot;</span><span class="p">,</span>
+        <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Control&quot;</span><span class="p">,</span>
+        <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">key_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve the primary key of a specified table within a given schema.</span>
 
@@ -2056,8 +2021,8 @@ _get_setup_status(): Get setup status.</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">key</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="n">rgetattr</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">schema</span><span class="p">),</span> <span class="n">table</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">key_type</span> <span class="o">==</span> <span class="s1">&#39;primary&#39;</span><span class="p">:</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">rgetattr</span><span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">schema</span><span class="p">],</span> <span class="n">table</span><span class="p">)</span>  <span class="c1"># noqa: S307</span>
+        <span class="k">if</span> <span class="n">key_type</span> <span class="o">==</span> <span class="s2">&quot;primary&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">table</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">primary_key</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">table</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">heading</span><span class="o">.</span><span class="n">names</span>
 
@@ -2071,8 +2036,8 @@ _get_setup_status(): Get setup status.</p>
 <span class="sd">            trial_idx (int): The new trial index to be updated.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;trial_idx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trial_idx</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Trial idx: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;trial_idx&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s2">&quot;trial_idx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trial_idx</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Trial idx: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s2">&quot;trial_idx&quot;</span><span class="p">])</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">thread_exception</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">thread_exception</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Thread exception occurred: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">thread_exception</span><span class="p">)</span>
@@ -2085,20 +2050,20 @@ _get_setup_status(): Get setup status.</p>
 <span class="sd">        the logging thread to terminate.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">thread_end</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Waiting for empty queue... qsize: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">())</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Waiting for empty queue... qsize: </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">())</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">thread_end</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Clean up finished but queue size is: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">())</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Clean up finished but queue size is: </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">createDataset</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="p">,</span>
-                    <span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                    <span class="n">dataset_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
-                    <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                    <span class="n">db_log</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">dataset_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">db_log</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a dataset and return the dataset object.</span>
 
 <span class="sd">        Args:</span>
@@ -2113,14 +2078,15 @@ _get_setup_status(): Get setup status.</p>
 <span class="sd">            Tuple[str, Any]: A tuple containing the filename and the dataset object.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">folder</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recordings/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;animal_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-                  <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Recordings/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;animal_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/&quot;</span>
+        <span class="p">)</span>
         <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_path</span> <span class="o">+</span> <span class="n">folder</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>  <span class="c1"># create path if necessary</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_path</span><span class="p">):</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;No target directory set! Autocopying will not work.&#39;</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No target directory set! Autocopying will not work.&quot;</span><span class="p">)</span>
             <span class="n">target_path</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">target_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_path</span> <span class="o">+</span> <span class="n">folder</span>
@@ -2129,9 +2095,11 @@ _get_setup_status(): Get setup status.</p>
 
         <span class="c1"># Generate filename if not provided</span>
         <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;animal_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_&quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_&quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">-%H-%M-%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.h5&quot;</span><span class="p">)</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;animal_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">-%H-%M-%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.h5&quot;</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">filename</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">:</span>
             <span class="c1"># create h5 file if not exists</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span>
@@ -2163,8 +2131,8 @@ _get_setup_status(): Get setup status.</p>
 <span class="sd">        the provided recording key (rec_key) and the calculated recording index.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            rec_key (dict): A dictionary containing the key information for the recording</span>
-<span class="sd">        entry.</span>
+<span class="sd">            rec_key (dict): A dictionary containing the key information for the</span>
+<span class="sd">                recording entry.</span>
 
 <span class="sd">        The method assumes the existence of a `get` method to retrieve existing</span>
 <span class="sd">        recordings and a `log` method to log the new recording entry.</span>
@@ -2177,7 +2145,7 @@ _get_setup_status(): Get setup status.</p>
             <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;rec_idx&quot;</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="n">rec_idx</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">recs</span> <span class="k">else</span> <span class="nb">max</span><span class="p">(</span><span class="n">recs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Recording&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">rec_key</span><span class="p">,</span> <span class="s1">&#39;rec_idx&#39;</span><span class="p">:</span> <span class="n">rec_idx</span><span class="p">},</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;recording&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Recording&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">rec_key</span><span class="p">,</span> <span class="s2">&quot;rec_idx&quot;</span><span class="p">:</span> <span class="n">rec_idx</span><span class="p">},</span> <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;recording&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">closeDatasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Close all datasets managed by this instance.</span>
@@ -2287,7 +2255,7 @@ if an exception is raised within the block.</p>
         <details class="quote">
           <summary>Source code in <code>ethopy/core/logger.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@contextmanager</span>
-<span class="k">def</span> <span class="nf">acquire_lock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lock</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">acquire_lock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lock</span><span class="p">):</span>  <span class="c1"># noqa: ANN201</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Acquire a lock, yield control, and release the lock.</span>
 
 <span class="sd">    This context manager ensures that the given lock is acquired before</span>
@@ -2338,12 +2306,12 @@ the logging thread to terminate.</p>
 <span class="sd">    the logging thread to terminate.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">thread_end</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Waiting for empty queue... qsize: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">())</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Waiting for empty queue... qsize: </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">())</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">thread_end</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Clean up finished but queue size is: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">())</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Clean up finished but queue size is: </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">())</span>
 </code></pre></div>
         </details>
     </div>
@@ -2457,12 +2425,12 @@ animal ID, session, and current timestamp.</p></td>
         <details class="quote">
           <summary>Source code in <code>ethopy/core/logger.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">createDataset</span><span class="p">(</span>
-                <span class="bp">self</span><span class="p">,</span>
-                <span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                <span class="n">dataset_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
-                <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="n">db_log</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">dataset_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">db_log</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a dataset and return the dataset object.</span>
 
 <span class="sd">    Args:</span>
@@ -2477,14 +2445,15 @@ animal ID, session, and current timestamp.</p></td>
 <span class="sd">        Tuple[str, Any]: A tuple containing the filename and the dataset object.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">folder</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recordings/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;animal_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-              <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+    <span class="n">folder</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Recordings/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;animal_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/&quot;</span>
+    <span class="p">)</span>
     <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_path</span> <span class="o">+</span> <span class="n">folder</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>  <span class="c1"># create path if necessary</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_path</span><span class="p">):</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;No target directory set! Autocopying will not work.&#39;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No target directory set! Autocopying will not work.&quot;</span><span class="p">)</span>
         <span class="n">target_path</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">target_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_path</span> <span class="o">+</span> <span class="n">folder</span>
@@ -2493,9 +2462,11 @@ animal ID, session, and current timestamp.</p></td>
 
     <span class="c1"># Generate filename if not provided</span>
     <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;animal_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_&quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_&quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">-%H-%M-%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.h5&quot;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;animal_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">-%H-%M-%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.h5&quot;</span>
+        <span class="p">)</span>
     <span class="k">if</span> <span class="n">filename</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">:</span>
         <span class="c1"># create h5 file if not exists</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span>
@@ -2600,9 +2571,12 @@ animal ID, session, and current timestamp.</p></td>
         <details class="quote">
           <summary>Source code in <code>ethopy/core/logger.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;experiment&#39;</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Control&#39;</span><span class="p">,</span>
-    <span class="n">fields</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;experiment&quot;</span><span class="p">,</span>
+    <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Control&quot;</span><span class="p">,</span>
+    <span class="n">fields</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch data from a specified table in a schema.</span>
 
@@ -2621,7 +2595,7 @@ animal ID, session, and current timestamp.</p></td>
         <span class="n">key</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">fields</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">table</span> <span class="o">=</span> <span class="n">rgetattr</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">schema</span><span class="p">),</span> <span class="n">table</span><span class="p">)</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">rgetattr</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">schema</span><span class="p">),</span> <span class="n">table</span><span class="p">)</span>  <span class="c1"># noqa: S307</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">table</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="o">*</span><span class="n">fields</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
         </details>
@@ -2700,9 +2674,10 @@ classes.</p></td>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">outer_class_dict_values</span> <span class="o">=</span> <span class="n">outer_class</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-    <span class="n">inner_classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">outer_class_dict_values</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span>
-                                                                              <span class="nb">type</span><span class="p">)]</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">outer_class</span><span class="o">.</span><span class="vm">__name__</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">inner_classes</span><span class="p">]</span>
+    <span class="n">inner_classes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">outer_class_dict_values</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">outer_class</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">inner_classes</span><span class="p">]</span>
 </code></pre></div>
         </details>
     </div>
@@ -2920,8 +2895,11 @@ dictionary.</p></td>
         <details class="quote">
           <summary>Source code in <code>ethopy/core/logger.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_table_keys</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;experiment&#39;</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Control&#39;</span><span class="p">,</span>
-    <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">key_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;experiment&quot;</span><span class="p">,</span>
+    <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Control&quot;</span><span class="p">,</span>
+    <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">key_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve the primary key of a specified table within a given schema.</span>
 
@@ -2940,8 +2918,8 @@ dictionary.</p></td>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">key</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">table</span> <span class="o">=</span> <span class="n">rgetattr</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">schema</span><span class="p">),</span> <span class="n">table</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">key_type</span> <span class="o">==</span> <span class="s1">&#39;primary&#39;</span><span class="p">:</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">rgetattr</span><span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">schema</span><span class="p">],</span> <span class="n">table</span><span class="p">)</span>  <span class="c1"># noqa: S307</span>
+    <span class="k">if</span> <span class="n">key_type</span> <span class="o">==</span> <span class="s2">&quot;primary&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">table</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">primary_key</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">table</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">heading</span><span class="o">.</span><span class="n">names</span>
 </code></pre></div>
@@ -2991,7 +2969,7 @@ dictionary.</p></td>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">manual_run</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">resolve_task</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_setup_info</span><span class="p">(</span><span class="s1">&#39;task_idx&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">resolve_task</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_setup_info</span><span class="p">(</span><span class="s2">&quot;task_idx&quot;</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">task_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 </code></pre></div>
@@ -3134,12 +3112,12 @@ the provided recording key (rec_key) and the calculated recording index.</p>
       <tr>
         <td><code>rec_key</code></td>
         <td><code>dict</code></td>
-        <td><p>A dictionary containing the key information for the recording</p></td>
+        <td><p>A dictionary containing the key information for the
+recording entry.</p></td>
         <td><em>required</em></td>
       </tr>
   </tbody>
-</table>      <p>entry.</p>
-<p>The method assumes the existence of a <code>get</code> method to retrieve existing
+</table>      <p>The method assumes the existence of a <code>get</code> method to retrieve existing
 recordings and a <code>log</code> method to log the new recording entry.</p>
 
         <details class="quote">
@@ -3153,8 +3131,8 @@ recordings and a <code>log</code> method to log the new recording entry.</p>
 <span class="sd">    the provided recording key (rec_key) and the calculated recording index.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        rec_key (dict): A dictionary containing the key information for the recording</span>
-<span class="sd">    entry.</span>
+<span class="sd">        rec_key (dict): A dictionary containing the key information for the</span>
+<span class="sd">            recording entry.</span>
 
 <span class="sd">    The method assumes the existence of a `get` method to retrieve existing</span>
 <span class="sd">    recordings and a `log` method to log the new recording entry.</span>
@@ -3167,7 +3145,7 @@ recordings and a <code>log</code> method to log the new recording entry.</p>
         <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;rec_idx&quot;</span><span class="p">],</span>
     <span class="p">)</span>
     <span class="n">rec_idx</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">recs</span> <span class="k">else</span> <span class="nb">max</span><span class="p">(</span><span class="n">recs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Recording&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">rec_key</span><span class="p">,</span> <span class="s1">&#39;rec_idx&#39;</span><span class="p">:</span> <span class="n">rec_idx</span><span class="p">},</span> <span class="n">schema</span><span class="o">=</span><span class="s1">&#39;recording&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Recording&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">rec_key</span><span class="p">,</span> <span class="s2">&quot;rec_idx&quot;</span><span class="p">:</span> <span class="n">rec_idx</span><span class="p">},</span> <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;recording&quot;</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -3223,10 +3201,12 @@ recordings and a <code>log</code> method to log the new recording entry.</p>
 </table>
         <details class="quote">
           <summary>Source code in <code>ethopy/core/logger.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">log_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                <span class="n">session_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-                <span class="n">experiment_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                <span class="n">log_task</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">log_session</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">session_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">experiment_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">log_task</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log session with the given parameters and optionally log the task.</span>
 
 <span class="sd">    Args:</span>
@@ -3236,8 +3216,9 @@ recordings and a <code>log</code> method to log the new recording entry.</p>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Initializes session parameters and logs the session start.</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_init_session_params</span><span class="p">(</span><span class="n">session_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_name&quot;</span><span class="p">,</span> <span class="s2">&quot;bot&quot;</span><span class="p">),</span>
-                              <span class="n">experiment_type</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_init_session_params</span><span class="p">(</span>
+        <span class="n">session_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_name&quot;</span><span class="p">,</span> <span class="s2">&quot;bot&quot;</span><span class="p">),</span> <span class="n">experiment_type</span>
+    <span class="p">)</span>
 
     <span class="c1"># Save the task file, name and the git_hash in the database.</span>
     <span class="k">if</span> <span class="n">log_task</span><span class="p">:</span>
@@ -3303,19 +3284,21 @@ class's inner classes.
 <span class="sd">    5. Calls a helper method to log the configuration of sub-tables for each schema.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># modules that have a Configuration classes</span>
-    <span class="n">_modules</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ethopy.core.interface&#39;</span><span class="p">]</span>
+    <span class="n">_modules</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ethopy.core.interface&quot;</span><span class="p">]</span>
     <span class="c1"># consider that the module have the same name as the schema but in lower case</span>
     <span class="c1"># (e.g for class Behaviour the schema is the behavior)</span>
-    <span class="n">_schemas</span> <span class="o">=</span> <span class="p">[</span><span class="n">_module</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">_module</span> <span class="ow">in</span> <span class="n">_modules</span><span class="p">]</span>
+    <span class="n">_schemas</span> <span class="o">=</span> <span class="p">[</span><span class="n">_module</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">_module</span> <span class="ow">in</span> <span class="n">_modules</span><span class="p">]</span>
 
     <span class="c1"># Logs the session and animal_id in configuration tables of behavior/stimulus.</span>
     <span class="k">for</span> <span class="n">schema</span> <span class="ow">in</span> <span class="n">_schemas</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;Configuration&quot;</span><span class="p">,</span>
-                 <span class="nb">tuple</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">,</span>
-                 <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span>
-                 <span class="n">priority</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                 <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+            <span class="n">table</span><span class="o">=</span><span class="s2">&quot;Configuration&quot;</span><span class="p">,</span>
+            <span class="nb">tuple</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">,</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">priority</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="c1"># create a dict with the configuration as key and the subclasses as values</span>
     <span class="n">conf_table_schema</span> <span class="o">=</span> <span class="p">{}</span>
@@ -3517,9 +3500,9 @@ Defaults to None.</p></td>
 
         <details class="quote">
           <summary>Source code in <code>ethopy/core/logger.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">update_setup_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                      <span class="n">info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-                      <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">update_setup_info</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the setup information in Control table with the provided info and key.</span>
 
 <span class="sd">    It first fetches the existing setup information from the experiment&#39;s Control</span>
@@ -3549,17 +3532,19 @@ Defaults to None.</p></td>
     <span class="k">if</span> <span class="n">block</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update_status</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
         <span class="n">caller</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">caller_info</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Function called by </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">function</span><span class="si">}</span><span class="s2"> &quot;</span>
-                       <span class="sa">f</span><span class="s2">&quot;in </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2"> at line </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">lineno</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Update status is set </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">],</span> <span class="n">caller_info</span><span class="p">)</span>
+        <span class="n">caller_info</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Function called by </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">function</span><span class="si">}</span><span class="s2"> &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;in </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2"> at line </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">lineno</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Update status is set </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">],</span> <span class="n">caller_info</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">setup_info</span> <span class="o">=</span> <span class="p">{</span>
         <span class="o">**</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">Control</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">{</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;setup&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">},</span> <span class="o">**</span><span class="n">key</span><span class="p">})</span><span class="o">.</span><span class="n">fetch1</span><span class="p">(),</span>
-        <span class="o">**</span><span class="n">info</span>
-        <span class="p">}</span>
+        <span class="o">**</span><span class="n">info</span><span class="p">,</span>
+    <span class="p">}</span>
 
-    <span class="k">if</span> <span class="s1">&#39;notes&#39;</span> <span class="ow">in</span> <span class="n">info</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;notes&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="p">:</span>
-        <span class="n">info</span><span class="p">[</span><span class="s1">&#39;notes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;notes&#39;</span><span class="p">][:</span><span class="mi">255</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s2">&quot;notes&quot;</span> <span class="ow">in</span> <span class="n">info</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;notes&quot;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="p">:</span>
+        <span class="n">info</span><span class="p">[</span><span class="s2">&quot;notes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;notes&quot;</span><span class="p">][:</span><span class="mi">255</span><span class="p">]</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
         <span class="n">table</span><span class="o">=</span><span class="s2">&quot;Control&quot;</span><span class="p">,</span>
@@ -3626,8 +3611,8 @@ exception in the threads.</p>
 <span class="sd">        trial_idx (int): The new trial index to be updated.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;trial_idx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trial_idx</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Trial idx: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;trial_idx&#39;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s2">&quot;trial_idx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trial_idx</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Trial idx: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s2">&quot;trial_idx&quot;</span><span class="p">])</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">thread_exception</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">thread_exception</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Thread exception occurred: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">thread_exception</span><span class="p">)</span>
@@ -3673,9 +3658,9 @@ PrioritizedItem        </code>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">PrioritizedItem</span><span class="p">:</span>
     <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="nb">tuple</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;experiment&#39;</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;experiment&quot;</span><span class="p">)</span>
     <span class="n">replace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">block</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">validate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>

@@ -429,69 +429,6 @@
       
   
   
-  
-  
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
-        
-          
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Examples
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10">
-            <span class="md-nav__icon md-icon"></span>
-            Examples
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../examples/intro/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Intro
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -504,10 +441,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -518,8 +455,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_11">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             API Reference
           </label>
@@ -708,6 +645,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#ethopy.core.experiment.ExperimentClass.is_stopped" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_stopped()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ethopy.core.experiment.ExperimentClass.log_conditions" class="md-nav__link">
     <span class="md-ellipsis">
       log_conditions()
@@ -747,6 +693,33 @@
   <a href="#ethopy.core.experiment.ExperimentClass.push_conditions" class="md-nav__link">
     <span class="md-ellipsis">
       push_conditions()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.experiment.ExperimentClass.setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      setup()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.experiment.ExperimentClass.start" class="md-nav__link">
+    <span class="md-ellipsis">
+      start()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.experiment.ExperimentClass.stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      stop()
     </span>
   </a>
   
@@ -1125,6 +1098,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#ethopy.core.experiment.ExperimentClass.is_stopped" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_stopped()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ethopy.core.experiment.ExperimentClass.log_conditions" class="md-nav__link">
     <span class="md-ellipsis">
       log_conditions()
@@ -1164,6 +1146,33 @@
   <a href="#ethopy.core.experiment.ExperimentClass.push_conditions" class="md-nav__link">
     <span class="md-ellipsis">
       push_conditions()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.experiment.ExperimentClass.setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      setup()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.experiment.ExperimentClass.start" class="md-nav__link">
+    <span class="md-ellipsis">
+      start()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.experiment.ExperimentClass.stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      stop()
     </span>
   </a>
   
@@ -1656,7 +1665,8 @@ ExperimentClass        </code>
     <span class="n">beh</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">trial_start</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># time in ms of the trial start</span>
 
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">behavior_class</span><span class="p">,</span> <span class="n">session_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">behavior_class</span><span class="p">,</span> <span class="n">session_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set up Experiment.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iter</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1687,9 +1697,7 @@ ExperimentClass        </code>
 
         <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># fix random seed, it can be overidden in the task file</span>
 
-    <span class="k">def</span> <span class="nf">_interface_setup</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">beh</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">setup_conf_idx</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Interface</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_interface_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beh</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">setup_conf_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Interface</span><span class="p">:</span>
         <span class="n">interface_module</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
             <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration&quot;</span><span class="p">,</span>
@@ -1703,7 +1711,8 @@ ExperimentClass        </code>
 
         <span class="k">return</span> <span class="n">interface</span><span class="p">(</span><span class="n">exp</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">beh</span><span class="o">=</span><span class="n">beh</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start the StateMachine.&quot;&quot;&quot;</span>
         <span class="n">states</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">():</span>  <span class="c1"># Initialize states</span>
             <span class="n">states</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">state</span><span class="p">()</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span> <span class="n">state</span><span class="p">(</span><span class="bp">self</span><span class="p">)})</span>
@@ -1711,7 +1720,8 @@ ExperimentClass        </code>
         <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">set_operation_status</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">state_control</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stop the epxeriment.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
@@ -1722,7 +1732,8 @@ ExperimentClass        </code>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">closeDatasets</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="nf">is_stopped</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">is_stopped</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check is experiment should stop.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_status</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="s2">&quot;exit&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="s2">&quot;exit&quot;</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">update_setup_info</span><span class="p">({</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;stop&quot;</span><span class="p">})</span>
@@ -1765,7 +1776,7 @@ ExperimentClass        </code>
         <span class="n">stim_class</span><span class="p">:</span> <span class="n">Stimulus</span><span class="p">,</span>
         <span class="n">conditions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
         <span class="n">stim_periods</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create conditions by combining stimulus, behavior, and experiment.&quot;&quot;&quot;</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;-------------- Make conditions --------------&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stim_init</span><span class="p">(</span><span class="n">stim_class</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stims</span><span class="p">)</span>
@@ -1973,7 +1984,7 @@ ExperimentClass        </code>
         <span class="n">conditions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">],</span>
         <span class="n">hash_field</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">schema</span><span class="p">:</span> <span class="n">dj</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
-        <span class="n">condition_tables</span><span class="p">:</span> <span class="n">List</span>
+        <span class="n">condition_tables</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Make unique hash based on all fields from condition tables.&quot;&quot;&quot;</span>
         <span class="c1"># get all fields from condition tables except hash</span>
@@ -2071,7 +2082,7 @@ ExperimentClass        </code>
 
     <span class="k">def</span> <span class="nf">_anti_bias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choice_h</span><span class="p">,</span> <span class="n">un_choices</span><span class="p">):</span>
         <span class="n">choice_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">make_hash</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">choice_h</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;bias_window&quot;</span><span class="p">]:]]</span>
+            <span class="p">[</span><span class="n">make_hash</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">choice_h</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;bias_window&quot;</span><span class="p">]</span> <span class="p">:]]</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">choice_h</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;bias_window&quot;</span><span class="p">]:</span>
             <span class="n">choice_h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span>
@@ -2088,7 +2099,7 @@ ExperimentClass        </code>
             <span class="s2">&quot;block&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block_selection</span><span class="p">,</span>
             <span class="s2">&quot;random&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_selection</span><span class="p">,</span>
             <span class="s2">&quot;staircase&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staircase_selection</span><span class="p">,</span>
-            <span class="s2">&quot;biased&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_biased_selection</span>
+            <span class="s2">&quot;biased&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_biased_selection</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="n">handler</span> <span class="o">=</span> <span class="n">selection_handlers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">selection_method</span><span class="p">)</span>
@@ -2153,7 +2164,7 @@ ExperimentClass        </code>
         <span class="n">perf</span><span class="p">,</span> <span class="n">choice_h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_performance</span><span class="p">()</span>
 
         <span class="c1"># Update block size if there was a choice in last trial</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">choice_history</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">choice_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">choice_history</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">choice_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cur_block_sz</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="c1"># Update difficulty if needed</span>
@@ -2164,8 +2175,7 @@ ExperimentClass        </code>
             <span class="n">valid_choices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">un_choices</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">un_blocks</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_block</span><span class="p">]</span>
             <span class="n">anti_bias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_anti_bias</span><span class="p">(</span><span class="n">choice_h</span><span class="p">,</span> <span class="n">valid_choices</span><span class="p">)</span>
             <span class="n">condition_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="o">==</span> <span class="n">anti_bias</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_block</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="o">==</span> <span class="n">anti_bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_block</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">condition_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_block</span>
@@ -2221,11 +2231,13 @@ ExperimentClass        </code>
 
         <span class="n">choice_history</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_choice_history</span><span class="p">(</span><span class="n">choices</span><span class="p">,</span> <span class="n">blocks</span><span class="p">)</span>
 
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">staircase_window: </span><span class="si">{</span><span class="n">window</span><span class="si">}</span><span class="s2">,</span><span class="se">\n</span><span class="s2">&quot;</span>
-                  <span class="sa">f</span><span class="s2">&quot;rewards: </span><span class="si">{</span><span class="n">recent_rewards</span><span class="si">}</span><span class="s2">,</span><span class="se">\n</span><span class="s2">&quot;</span>
-                  <span class="sa">f</span><span class="s2">&quot;choices: </span><span class="si">{</span><span class="n">recent_choices</span><span class="si">}</span><span class="s2">,</span><span class="se">\n</span><span class="s2">&quot;</span>
-                  <span class="sa">f</span><span class="s2">&quot;blocks: </span><span class="si">{</span><span class="n">recent_blocks</span><span class="si">}</span><span class="s2">,</span><span class="se">\n</span><span class="s2">&quot;</span>
-                  <span class="sa">f</span><span class="s2">&quot;performace: </span><span class="si">{</span><span class="n">performance</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">staircase_window: </span><span class="si">{</span><span class="n">window</span><span class="si">}</span><span class="s2">,</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;rewards: </span><span class="si">{</span><span class="n">recent_rewards</span><span class="si">}</span><span class="s2">,</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;choices: </span><span class="si">{</span><span class="n">recent_choices</span><span class="si">}</span><span class="s2">,</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;blocks: </span><span class="si">{</span><span class="n">recent_blocks</span><span class="si">}</span><span class="s2">,</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;performace: </span><span class="si">{</span><span class="n">performance</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">performance</span><span class="p">,</span> <span class="n">choice_history</span>
 
@@ -2714,6 +2726,37 @@ Block        </code>
 
 
 
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.experiment.ExperimentClass.is_stopped" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">is_stopped</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.experiment.ExperimentClass.is_stopped" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Check is experiment should stop.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/experiment.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_stopped</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check is experiment should stop.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_status</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="s2">&quot;exit&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup_status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="s2">&quot;exit&quot;</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">update_setup_info</span><span class="p">({</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;stop&quot;</span><span class="p">})</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
 
   <div class="doc doc-object doc-method">
 
@@ -2897,7 +2940,7 @@ Block        </code>
     <span class="n">stim_class</span><span class="p">:</span> <span class="n">Stimulus</span><span class="p">,</span>
     <span class="n">conditions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="n">stim_periods</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">):</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create conditions by combining stimulus, behavior, and experiment.&quot;&quot;&quot;</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;-------------- Make conditions --------------&quot;</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">stims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stim_init</span><span class="p">(</span><span class="n">stim_class</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stims</span><span class="p">)</span>
@@ -3099,6 +3142,125 @@ is present, it's used to create unique choice hashes.</p></td>
 
 
 
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.experiment.ExperimentClass.setup" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="n">behavior_class</span><span class="p">,</span> <span class="n">session_params</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.experiment.ExperimentClass.setup" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Set up Experiment.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/experiment.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">behavior_class</span><span class="p">,</span> <span class="n">session_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set up Experiment.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">iter</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">block_h</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stims</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">curr_trial</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cur_block_sz</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">setup_conf_idx</span> <span class="o">=</span> <span class="n">session_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">session_params</span><span class="p">[</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_conf_idx</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_conf_idx</span><span class="p">}</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">beh</span> <span class="o">=</span> <span class="n">behavior_class</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interface_setup</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_conf_idx</span>
+    <span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">load_calibration</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log_session</span><span class="p">(</span>
+        <span class="n">session_params</span><span class="p">,</span> <span class="n">experiment_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">log_task</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">session_timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
+
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># fix random seed, it can be overidden in the task file</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.experiment.ExperimentClass.start" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.experiment.ExperimentClass.start" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Start the StateMachine.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/experiment.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start the StateMachine.&quot;&quot;&quot;</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">():</span>  <span class="c1"># Initialize states</span>
+        <span class="n">states</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">state</span><span class="p">()</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span> <span class="n">state</span><span class="p">(</span><span class="bp">self</span><span class="p">)})</span>
+    <span class="n">state_control</span> <span class="o">=</span> <span class="n">StateMachine</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">set_operation_status</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">state_control</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="ethopy.core.experiment.ExperimentClass.stop" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#ethopy.core.experiment.ExperimentClass.stop" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Stop the epxeriment.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>ethopy/core/experiment.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stop the epxeriment.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sync</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">is_recording</span><span class="p">():</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Waiting for recording to end...&quot;</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">closeDatasets</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">False</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
 
 
 
