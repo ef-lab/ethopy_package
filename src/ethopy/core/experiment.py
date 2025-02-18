@@ -193,7 +193,8 @@ class ExperimentClass:
     beh = None
     trial_start = 0  # time in ms of the trial start
 
-    def setup(self, logger: Logger, behavior_class, session_params: Dict):
+    def setup(self, logger: Logger, behavior_class, session_params: Dict) -> None:
+        """Set up Experiment."""
         self.in_operation = False
         self.conditions = []
         self.iter = []
@@ -224,9 +225,7 @@ class ExperimentClass:
 
         np.random.seed(0)  # fix random seed, it can be overidden in the task file
 
-    def _interface_setup(
-        self, beh, logger: Logger, setup_conf_idx: int
-    ) -> Interface:
+    def _interface_setup(self, beh, logger: Logger, setup_conf_idx: int) -> Interface:
         interface_module = logger.get(
             schema="interface",
             table="SetupConfiguration",
@@ -240,7 +239,8 @@ class ExperimentClass:
 
         return interface(exp=self, beh=beh)
 
-    def start(self):
+    def start(self) -> None:
+        """Start the StateMachine."""
         states = dict()
         for state in self.__class__.__subclasses__():  # Initialize states
             states.update({state().__class__.__name__: state(self)})
@@ -248,7 +248,8 @@ class ExperimentClass:
         self.interface.set_operation_status(True)
         state_control.run()
 
-    def stop(self):
+    def stop(self) -> None:
+        """Stop the epxeriment."""
         self.stim.exit()
         self.interface.release()
         self.beh.exit()
@@ -259,7 +260,8 @@ class ExperimentClass:
         self.logger.closeDatasets()
         self.in_operation = False
 
-    def is_stopped(self):
+    def is_stopped(self) -> None:
+        """Check is experiment should stop."""
         self.quit = self.quit or self.logger.setup_status in ["stop", "exit"]
         if self.quit and self.logger.setup_status not in ["stop", "exit"]:
             self.logger.update_setup_info({"status": "stop"})
@@ -302,7 +304,7 @@ class ExperimentClass:
         stim_class: Stimulus,
         conditions: Dict[str, Any],
         stim_periods: List[str] = None,
-    ):
+    ) -> List[Dict]:
         """Create conditions by combining stimulus, behavior, and experiment."""
         log.debug("-------------- Make conditions --------------")
         self.stims = self._stim_init(stim_class, self.stims)
@@ -510,7 +512,7 @@ class ExperimentClass:
         conditions: List[Dict],
         hash_field: str,
         schema: dj.schema,
-        condition_tables: List
+        condition_tables: List,
     ) -> List[Dict]:
         """Make unique hash based on all fields from condition tables."""
         # get all fields from condition tables except hash
@@ -608,7 +610,7 @@ class ExperimentClass:
 
     def _anti_bias(self, choice_h, un_choices):
         choice_h = np.array(
-            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"]:]]
+            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"] :]]
         )
         if len(choice_h) < self.curr_cond["bias_window"]:
             choice_h = self.choices
@@ -625,7 +627,7 @@ class ExperimentClass:
             "block": self._block_selection,
             "random": self._random_selection,
             "staircase": self._staircase_selection,
-            "biased": self._biased_selection
+            "biased": self._biased_selection,
         }
 
         handler = selection_handlers.get(selection_method)
@@ -690,7 +692,7 @@ class ExperimentClass:
         perf, choice_h = self._get_performance()
 
         # Update block size if there was a choice in last trial
-        if (np.size(self.beh.choice_history) and self.beh.choice_history[-1:][0] > 0):
+        if np.size(self.beh.choice_history) and self.beh.choice_history[-1:][0] > 0:
             self.cur_block_sz += 1
 
         # Update difficulty if needed
@@ -701,8 +703,7 @@ class ExperimentClass:
             valid_choices = self.un_choices[self.un_blocks == self.cur_block]
             anti_bias = self._anti_bias(choice_h, valid_choices)
             condition_idx = np.logical_and(
-                self.choices == anti_bias,
-                self.blocks == self.cur_block
+                self.choices == anti_bias, self.blocks == self.cur_block
             )
         else:
             condition_idx = self.blocks == self.cur_block
@@ -758,11 +759,13 @@ class ExperimentClass:
 
         choice_history = self._get_choice_history(choices, blocks)
 
-        log.debug(f"\nstaircase_window: {window},\n"
-                  f"rewards: {recent_rewards},\n"
-                  f"choices: {recent_choices},\n"
-                  f"blocks: {recent_blocks},\n"
-                  f"performace: {performance}")
+        log.debug(
+            f"\nstaircase_window: {window},\n"
+            f"rewards: {recent_rewards},\n"
+            f"choices: {recent_choices},\n"
+            f"blocks: {recent_blocks},\n"
+            f"performace: {performance}"
+        )
 
         return performance, choice_history
 
