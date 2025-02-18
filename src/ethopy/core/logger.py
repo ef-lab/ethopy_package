@@ -838,7 +838,7 @@ class Logger:
                     dataset_name: str,
                     dataset_type: type,
                     filename: Optional[str] = None,
-                    log: Optional[bool] = True,
+                    db_log: Optional[bool] = True,
                 ) -> Dict:
         """Create a dataset and return the dataset object.
 
@@ -848,7 +848,7 @@ class Logger:
             filename (str, optional): The filename for the h5 file. If not provided,
                 a default filename will be generated based on the dataset name,
                 animal ID, session, and current timestamp.
-            log (bool, optional): If True call the log_recording
+            db_log (bool, optional): If True call the log_recording
 
         Returns:
             Tuple[str, Any]: A tuple containing the filename and the dataset object.
@@ -882,7 +882,7 @@ class Logger:
             dataset_name, shape=(1,), dtype=dataset_type
         )
 
-        if log:
+        if db_log:
             rec_key = dict(
                 rec_aim=dataset_name,
                 software="EthoPy",
