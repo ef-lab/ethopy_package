@@ -204,8 +204,8 @@ exp.start()
 
 ## Additional Resources
 
-- [Example Tasks](https://github.com/alexevag/ethopy/tree/main/src/ethopy/task)
+- [Example Tasks](https://github.com/ef-lab/ethopy_package/tree/main/src/ethopy/task)
 <!-- ToDo
-- [Parameter Reference](https://alexevag.github.io/ethopy/parameters)
-- [Hardware Setup](https://alexevag.github.io/ethopy/hardware) 
+- [Parameter Reference](https://github.com/ef-lab/ethopy_package/parameters)
+- [Hardware Setup](https://github.com/ef-lab/ethopy_package/hardware) 
 -->
