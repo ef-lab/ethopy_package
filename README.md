@@ -15,7 +15,7 @@ Ethopy is a state control system for automated, high-throughput behavioral train
 
 The full documentation is available at:
 
-👉 [Project Documentation](https://ef-lab.github.io/ethopy_package/)
+👉 [Documentation](https://ef-lab.github.io/ethopy_package/)
 
 ## Features
 
