@@ -222,3 +222,28 @@ def generate_conf_list(folder_path):
     for i, file_name in enumerate(files):
         contents.append([i, file_name, '', current_datetime])
     return contents
+
+
+def convert_numeric_keys(data: Dict) -> Dict:
+    """Recursively convert string keys to integers if they represent numbers.
+    Converts only for specific fields: 'Odor', 'Liquid', 'Lick', 'Proximity', 'Sound'
+
+    Args:
+        data: Dictionary to convert
+    Returns:
+        Dictionary with converted keys
+    """
+    if isinstance(data, dict):
+        new_dict = {}
+        for key, value in data.items():
+            # Convert the value recursively if it's a dictionary
+            if isinstance(value, dict):
+                # For specific fields, convert their keys to integers
+                if key in ['Odor', 'Liquid', 'Lick', 'Proximity', 'Sound']:
+                    new_dict[key] = {int(k): v for k, v in value.items()}
+                else:
+                    new_dict[key] = convert_numeric_keys(value)
+            else:
+                new_dict[key] = value
+        return new_dict
+    return data

@@ -76,7 +76,6 @@ class Interface:
         self.duration: Dict[int, float] = {}
         self.weight_per_pulse: Dict[int, float] = {}
         self.pulse_dur: Dict[int, float] = {}
-        self.channels: Dict[str, Any] = {}
 
         # Initialize timing variables
         self.port: int = 0
@@ -248,7 +247,7 @@ class Interface:
             key["date"] = dates[-1]  # use most recent calibration
 
             self.pulse_dur[port], pulse_num, weight = self.logger.get(
-                schema="behavior",
+                schema="interface",
                 table="PortCalibration.Liquid",
                 key=key,
                 fields=["pulse_dur", "pulse_num", "weight"],

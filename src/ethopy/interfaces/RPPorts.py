@@ -4,7 +4,9 @@ from time import sleep
 
 import numpy as np
 
+from ethopy import local_conf
 from ethopy.core.interface import Interface, Port
+from ethopy.utils.helper_functions import convert_numeric_keys
 
 try:
     import pigpio
@@ -42,6 +44,7 @@ class RPPorts(Interface):
         self.ts = False
         self.pulses = dict()
         self.sound_pulses = []
+        self.channels = convert_numeric_keys(local_conf.get("Channels"))
 
         matched_ports = set(self.rew_ports) & set(self.channels['Liquid'].keys())
         assert matched_ports == set(self.rew_ports), 'All reward ports must have assigned a liquid delivery port!'
