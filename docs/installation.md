@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Python 3.8 or higher
+- Python >=3.8,<3.12
 - Docker (for database setup)
 - Dependencies: numpy, pandas, datajoint, pygame, pillow, and more (automatically installed)
 
