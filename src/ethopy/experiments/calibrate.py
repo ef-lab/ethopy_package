@@ -67,7 +67,6 @@ class Experiment:
         pygame.init()
         self.screen = pygame.display.set_mode((800, 480))
         if self.logger.is_pi:
-            self.props.setFullscreen(self.Fullscreen)
             self.screen = pygame.display.set_mode(
                 (self.screen_width, self.screen_height), pygame.FULLSCREEN
             )
