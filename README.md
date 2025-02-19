@@ -2,6 +2,7 @@
 
 [![PyPI Version](https://img.shields.io/pypi/v/ethopy.svg)](https://pypi.python.org/pypi/ethopy)
 [![Python Versions](https://img.shields.io/pypi/pyversions/ethopy.svg)](https://pypi.org/project/ethopy/)
+[![Documentation](https://img.shields.io/badge/docs-available-brightgreen.svg)]((https://ef-lab.github.io/ethopy_package/))
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Ethopy is a state control system for automated, high-throughput behavioral training based on Python. It provides a flexible framework for designing and running behavioral experiments with:
@@ -11,6 +12,10 @@ Ethopy is a state control system for automated, high-throughput behavioral train
 - Optimized for Raspberry Pi boards
 - Modular architecture with overridable components
 - Built-in support for various experiment types, stimuli, and behavioral interfaces
+
+The full documentation is available at:
+
+👉 [Project Documentation](https://ef-lab.github.io/ethopy_package/)
 
 ## Features
 
