@@ -25,9 +25,10 @@ import numpy as np
 from scipy import stats
 from sklearn.metrics import roc_auc_score
 
-from ethopy.core.interface import Interface
+# from ethopy.core.interface import Interface
 from ethopy.core.logger import Logger, experiment, mice
-from ethopy.core.stimulus import Stimulus
+
+# from ethopy.core.stimulus import Stimulus
 from ethopy.utils.helper_functions import factorize, make_hash
 from ethopy.utils.task_helper_funcs import format_params_print, get_parameters
 from ethopy.utils.timer import Timer
@@ -225,7 +226,7 @@ class ExperimentClass:
 
         np.random.seed(0)  # fix random seed, it can be overidden in the task file
 
-    def _interface_setup(self, beh, logger: Logger, setup_conf_idx: int) -> Interface:
+    def _interface_setup(self, beh, logger: Logger, setup_conf_idx: int) -> "Interface":
         interface_module = logger.get(
             schema="interface",
             table="SetupConfiguration",
@@ -269,7 +270,7 @@ class ExperimentClass:
             self.in_operation = False
         return self.quit
 
-    def _stim_init(self, stim_class: Stimulus, stims: Dict) -> Dict:
+    def _stim_init(self, stim_class, stims: Dict) -> Dict:
         # get stimulus class name
         stim_name = stim_class.name()
         if stim_name not in stims:
@@ -291,7 +292,7 @@ class ExperimentClass:
         keys_set = set(keys)  # Convert list to set for O(1) lookup
         return {key: data[key] for key in keys_set.intersection(data)}
 
-    def _get_task_classes(self, stim_class: Stimulus) -> Dict:
+    def _get_task_classes(self, stim_class) -> Dict:
         exp_name = {"experiment_class": self.cond_tables[0]}
         beh_name = {
             "behavior_class": self.beh.cond_tables[0] if self.cond_tables else None
@@ -301,7 +302,7 @@ class ExperimentClass:
 
     def make_conditions(
         self,
-        stim_class: Stimulus,
+        stim_class,
         conditions: Dict[str, Any],
         stim_periods: List[str] = None,
     ) -> List[Dict]:
@@ -338,7 +339,7 @@ class ExperimentClass:
         ]
 
     def _process_stim_conditions(
-        self, stim_class: Stimulus, conditions: Dict, stim_periods: List
+        self, stim_class, conditions: Dict, stim_periods: List
     ) -> Tuple[List, List]:
         """Process stimulus-specific conditions."""
         if stim_periods:
@@ -610,7 +611,7 @@ class ExperimentClass:
 
     def _anti_bias(self, choice_h, un_choices):
         choice_h = np.array(
-            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"] :]]
+            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"]:]]
         )
         if len(choice_h) < self.curr_cond["bias_window"]:
             choice_h = self.choices
@@ -965,13 +966,7 @@ class Control(dj.Lookup):
     # Control table
     setup                       : varchar(256)                 # Setup name
     ---
-    status="exit"               : enum('ready',
-                                        'running',
-                                        'stop',
-                                        'sleeping',
-                                        'exit',
-                                        'offtime',
-                                        'wakeup')
+    status="exit"               : enum('ready', 'running', 'stop', 'sleeping', 'exit', 'offtime', 'wakeup')
     animal_id=0                 : int                       # animal id
     task_idx=0                  : int                       # task identification number
     session=0                   : int
