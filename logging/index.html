@@ -12,9 +12,13 @@
         <meta name="author" content="olakiril, alexevag">
       
       
-        <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/Task/">
+        <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/logging/">
       
       
+        <link rel="prev" href="../contributing/">
+      
+      
+        <link rel="next" href="../logger/">
       
       
       <link rel="icon" href="../assets/LabPageBrain.gif">
@@ -22,7 +26,7 @@
     
     
       
-        <title>Tasks - EthoPy</title>
+        <title>Logging - EthoPy</title>
       
     
     
@@ -76,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tasks" class="md-skip">
+        <a href="#logging-in-ethopy" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tasks
+              Logging
             
           </span>
         </div>
@@ -434,10 +438,31 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../logging/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -447,6 +472,236 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-conf-setting-based-on-the-local_confjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local conf setting based on the local_conf.json
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Line Options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log Formats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Log Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Logs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#console-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Console Logs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color-coding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Color Coding
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-file-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log File Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Log File Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rotation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Directory Structure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Logging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-logger" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Logger
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loggingmanager-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      LoggingManager Class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-formatter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Formatter
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -631,19 +886,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#task-structure" class="md-nav__link">
+  <a href="#features" class="md-nav__link">
     <span class="md-ellipsis">
-      Task Structure
+      Features
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Task Structure">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#basic-structure" class="md-nav__link">
+  <a href="#default-settings" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic Structure
+      Default Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-conf-setting-based-on-the-local_confjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local conf setting based on the local_conf.json
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Line Options
     </span>
   </a>
   
@@ -655,37 +937,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-tasks" class="md-nav__link">
+  <a href="#log-formats" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating Tasks
+      Log Formats
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Creating Tasks">
+    <nav class="md-nav" aria-label="Log Formats">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-session-parameters" class="md-nav__link">
+  <a href="#file-logs" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Session Parameters
+      File Logs
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-stimulus-conditions" class="md-nav__link">
+  <a href="#console-logs" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Stimulus Conditions
+      Console Logs
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-creating-conditions" class="md-nav__link">
+  <a href="#color-coding" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Creating Conditions
+      Color Coding
     </span>
   </a>
   
@@ -697,28 +979,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#helper-functions" class="md-nav__link">
+  <a href="#log-file-management" class="md-nav__link">
     <span class="md-ellipsis">
-      Helper Functions
+      Log File Management
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Helper Functions">
+    <nav class="md-nav" aria-label="Log File Management">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#get-parameters" class="md-nav__link">
+  <a href="#rotation" class="md-nav__link">
     <span class="md-ellipsis">
-      Get Parameters
+      Rotation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#format-parameters" class="md-nav__link">
+  <a href="#directory-structure" class="md-nav__link">
     <span class="md-ellipsis">
-      Format Parameters
+      Directory Structure
     </span>
   </a>
   
@@ -730,19 +1012,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-tasks" class="md-nav__link">
+  <a href="#usage-examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Tasks
+      Usage Examples
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Example Tasks">
+    <nav class="md-nav" aria-label="Usage Examples">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-grating-test" class="md-nav__link">
+  <a href="#basic-logging" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Grating Test
+      Basic Logging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-logger" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Logger
     </span>
   </a>
   
@@ -763,18 +1054,42 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-issues" class="md-nav__link">
+  <a href="#implementation-details" class="md-nav__link">
     <span class="md-ellipsis">
-      Common Issues
+      Implementation Details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loggingmanager-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      LoggingManager Class
     </span>
   </a>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-formatter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Formatter
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
+  <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
-      Additional Resources
+      Troubleshooting
     </span>
   </a>
   
@@ -802,63 +1117,101 @@
   
 
 
-<h1 id="tasks">Tasks<a class="headerlink" href="#tasks" title="Permanent link">&para;</a></h1>
-<p>Tasks in Ethopy define the experimental protocol by combining experiments, behaviors, and stimuli with specific parameters. They serve as configuration files that specify how an experiment should run.</p>
-<h2 id="task-structure">Task Structure<a class="headerlink" href="#task-structure" title="Permanent link">&para;</a></h2>
-<p>A typical task file consists of three main parts:</p>
-<ol>
-<li><strong>Session Parameters</strong>: Global settings for the experiment</li>
-<li><strong>Stimulus/Behavior/Experiment Conditions</strong>: Parameters</li>
-<li><strong>Experiment Configuration</strong>: Setup and execution of the experiment</li>
-</ol>
-<h3 id="basic-structure">Basic Structure<a class="headerlink" href="#basic-structure" title="Permanent link">&para;</a></h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Import required components</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.behaviors</span><span class="w"> </span><span class="kn">import</span> <span class="n">SomeBehavior</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.experiments</span><span class="w"> </span><span class="kn">import</span> <span class="n">SomeExperiment</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.stimuli</span><span class="w"> </span><span class="kn">import</span> <span class="n">SomeStimulus</span>
-
-<span class="c1"># 1. Session Parameters</span>
-<span class="n">session_params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="c1"># ... other session parameters</span>
-<span class="p">}</span>
-
-<span class="c1"># 2. Initialize Experiment</span>
-<span class="n">exp</span> <span class="o">=</span> <span class="n">SomeExperiment</span><span class="p">()</span>
-<span class="n">exp</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">SomeBehavior</span><span class="p">,</span> <span class="n">session_params</span><span class="p">)</span>
-
-<span class="c1"># 3. Define Experiment/Stimulus/Behavior Conditions</span>
-<span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="c1"># ... condition setup</span>
-
-<span class="c1"># 4. Run Experiment</span>
-<span class="n">exp</span><span class="o">.</span><span class="n">push_conditions</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
-<span class="n">exp</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<h1 id="logging-in-ethopy">Logging in EthoPy<a class="headerlink" href="#logging-in-ethopy" title="Permanent link">&para;</a></h1>
+<p>EthoPy provides a comprehensive logging system that handles both file and console output with configurable formats and levels. The logging system is centrally managed and provides consistent logging across all modules of the package.</p>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Rotating file logs with size limits</li>
+<li>Colored console output</li>
+<li>Different formats for different log levels</li>
+<li>Centralized configuration</li>
+<li>Automatic log directory creation</li>
+<li>Multiple backup log files</li>
+</ul>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<h3 id="default-settings">Default Settings<a class="headerlink" href="#default-settings" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">DEFAULT_LOG_DIR</span> <span class="o">=</span> <span class="s2">&quot;logs&quot;</span>
+<span class="n">DEFAULT_LOG_FILE</span> <span class="o">=</span> <span class="s2">&quot;ethopy.log&quot;</span>
+<span class="n">MAX_LOG_SIZE</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1"># 30 MB</span>
+<span class="n">LOG_BACKUP_COUNT</span> <span class="o">=</span> <span class="mi">5</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="creating-tasks">Creating Tasks<a class="headerlink" href="#creating-tasks" title="Permanent link">&para;</a></h2>
-<h3 id="1-session-parameters">1. Session Parameters<a class="headerlink" href="#1-session-parameters" title="Permanent link">&para;</a></h3>
-<p>Session parameters control the overall experiment behavior:</p>
+<h3 id="local-conf-setting-based-on-the-local_confjson">Local conf setting based on the local_conf.json<a class="headerlink" href="#local-conf-setting-based-on-the-local_confjson" title="Permanent link">&para;</a></h3>
+<p>Logging is set up based on the parameters defined in the local_conf.json
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;directory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~/.ethopy/&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ethopy.log&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div></td></tr></table></div></p>
+<h3 id="command-line-options">Command Line Options<a class="headerlink" href="#command-line-options" title="Permanent link">&para;</a></h3>
+<p>When running EthoPy from the command line, you can configure logging using these options:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+Options:
+<span class="w">  </span>--log-console<span class="w">        </span>Enable<span class="w"> </span>console<span class="w"> </span>logging
+<span class="w">  </span>--log-level<span class="w"> </span>TEXT<span class="w">     </span>Logging<span class="w"> </span>level<span class="w"> </span><span class="o">(</span>DEBUG,<span class="w"> </span>INFO,<span class="w"> </span>WARNING,<span class="w"> </span>ERROR,<span class="w"> </span>CRITICAL<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="log-formats">Log Formats<a class="headerlink" href="#log-formats" title="Permanent link">&para;</a></h2>
+<h3 id="file-logs">File Logs<a class="headerlink" href="#file-logs" title="Permanent link">&para;</a></h3>
+<p>All file logs use the detailed format:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)
+</code></pre></div></td></tr></table></div></p>
+<p>Example:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>2024-01-20 10:15:30 - ethopy - INFO - Experiment started (experiment.py:145)
+</code></pre></div></td></tr></table></div></p>
+<h3 id="console-logs">Console Logs<a class="headerlink" href="#console-logs" title="Permanent link">&para;</a></h3>
+<p>Console logs use two different formats based on the log level:</p>
+<ol>
+<li>
+<p><strong>Simple Format</strong> (for INFO and DEBUG):
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>%(asctime)s - %(levelname)s - %(message)s
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p><strong>Detailed Format</strong> (for WARNING and above):
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)
+</code></pre></div></td></tr></table></div></p>
+</li>
+</ol>
+<h3 id="color-coding">Color Coding<a class="headerlink" href="#color-coding" title="Permanent link">&para;</a></h3>
+<p>Console output is color-coded by log level:</p>
+<ul>
+<li>DEBUG: Grey</li>
+<li>INFO: Grey</li>
+<li>WARNING: Yellow</li>
+<li>ERROR: Red</li>
+<li>CRITICAL: Bold Red</li>
+</ul>
+<h2 id="log-file-management">Log File Management<a class="headerlink" href="#log-file-management" title="Permanent link">&para;</a></h2>
+<h3 id="rotation">Rotation<a class="headerlink" href="#rotation" title="Permanent link">&para;</a></h3>
+<p>Log files are automatically rotated when they reach the maximum size:</p>
+<ul>
+<li>Maximum file size: 30 MB</li>
+<li>Number of backup files: 5</li>
+<li>Naming convention: ethopy.log, ethopy.log.1, ethopy.log.2, etc.</li>
+</ul>
+<h3 id="directory-structure">Directory Structure<a class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>logs/
+├── ethopy.log          # Current log file
+├── ethopy.log.1        # Most recent backup
+├── ethopy.log.2        # Second most recent backup
+└── ...
+</code></pre></div></td></tr></table></div>
+<h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
+<h3 id="basic-logging">Basic Logging<a class="headerlink" href="#basic-logging" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -866,240 +1219,116 @@
 <span class="normal">5</span>
 <span class="normal">6</span>
 <span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">session_params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1"># Required Parameters</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># Setup configuration index</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-    <span class="c1"># Optional Parameters</span>
-    <span class="s1">&#39;max_reward&#39;</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>    <span class="c1"># Maximum reward amount</span>
-    <span class="s1">&#39;min_reward&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>      <span class="c1"># Minimum reward amount</span>
-<span class="p">}</span>
+<span class="c1"># Log messages at different levels</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Detailed debug information&quot;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;General information&quot;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Warning message&quot;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error message&quot;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Critical error&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="2-stimulus-conditions">2. Stimulus Conditions<a class="headerlink" href="#2-stimulus-conditions" title="Permanent link">&para;</a></h3>
-<p>Define the parameters for your stimuli:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Example from grating_test.py</span>
-<span class="n">key</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;contrast&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-    <span class="s1">&#39;spatial_freq&#39;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>        <span class="c1"># cycles/deg</span>
-    <span class="s1">&#39;temporal_freq&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>          <span class="c1"># cycles/sec</span>
-    <span class="s1">&#39;duration&#39;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>            <span class="c1"># ms</span>
-    <span class="s1">&#39;trial_duration&#39;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>      <span class="c1"># ms</span>
-    <span class="s1">&#39;intertrial_duration&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>    <span class="c1"># ms</span>
-    <span class="s1">&#39;reward_amount&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-    <span class="c1"># ... other stimulus parameters</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="3-creating-conditions">3. Creating Conditions<a class="headerlink" href="#3-creating-conditions" title="Permanent link">&para;</a></h3>
-<p>Use the experiment's Block class and make_conditions method:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Create a block with specific parameters</span>
-<span class="n">block</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span>
-    <span class="n">difficulty</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">next_up</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">next_down</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">trial_selection</span><span class="o">=</span><span class="s1">&#39;staircase&#39;</span><span class="p">,</span>
-    <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;dprime&#39;</span><span class="p">,</span>
-    <span class="n">stair_up</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">stair_down</span><span class="o">=</span><span class="mf">0.5</span>
-<span class="p">)</span>
-
-<span class="c1"># Create conditions</span>
-<span class="n">conditions</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">make_conditions</span><span class="p">(</span>
-    <span class="n">stim_class</span><span class="o">=</span><span class="n">SomeStimulus</span><span class="p">(),</span>
-    <span class="n">conditions</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">block</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span> <span class="o">**</span><span class="n">key</span><span class="p">,</span> <span class="s1">&#39;other_param&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
-<span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="helper-functions">Helper Functions<a class="headerlink" href="#helper-functions" title="Permanent link">&para;</a></h2>
-<p>Ethopy provides helper functions for task creation:</p>
-<h3 id="get-parameters">Get Parameters<a class="headerlink" href="#get-parameters" title="Permanent link">&para;</a></h3>
+<h3 id="custom-logger">Custom Logger<a class="headerlink" href="#custom-logger" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.utils.task_helper_funcs</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_parameters</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-<span class="c1"># Get required and default parameters for a class</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="n">get_parameters</span><span class="p">(</span><span class="n">SomeClass</span><span class="p">())</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="format-parameters">Format Parameters<a class="headerlink" href="#format-parameters" title="Permanent link">&para;</a></h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.utils.task_helper_funcs</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_params_print</span>
+<span class="c1"># Create a logger for your module</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="c1"># Pretty print parameters including numpy arrays</span>
-<span class="n">formatted_params</span> <span class="o">=</span> <span class="n">format_params_print</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="example-tasks">Example Tasks<a class="headerlink" href="#example-tasks" title="Permanent link">&para;</a></h2>
-<h3 id="1-grating-test">1. Grating Test<a class="headerlink" href="#1-grating-test" title="Permanent link">&para;</a></h3>
-<p>Visual orientation discrimination experiment:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.behaviors.multi_port</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiPort</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.experiments.match_port</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.stimuli.grating</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grating</span>
-
-<span class="c1"># Session setup</span>
-<span class="n">session_params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;max_reward&#39;</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="p">}</span>
-
-<span class="n">exp</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">()</span>
-<span class="n">exp</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">MultiPort</span><span class="p">,</span> <span class="n">session_params</span><span class="p">)</span>
-
-<span class="c1"># Stimulus conditions</span>
-<span class="n">key</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;contrast&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-    <span class="s1">&#39;spatial_freq&#39;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>
-    <span class="s1">&#39;duration&#39;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>
-<span class="p">}</span>
-
-<span class="c1"># Port mapping</span>
-<span class="n">ports</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">90</span><span class="p">}</span>  <span class="c1"># Port number: orientation</span>
-
-<span class="c1"># Create conditions</span>
-<span class="n">block</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">difficulty</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">trial_selection</span><span class="o">=</span><span class="s1">&#39;staircase&#39;</span><span class="p">)</span>
-<span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">ports</span><span class="p">:</span>
-    <span class="n">conditions</span> <span class="o">+=</span> <span class="n">exp</span><span class="o">.</span><span class="n">make_conditions</span><span class="p">(</span>
-        <span class="n">stim_class</span><span class="o">=</span><span class="n">Grating</span><span class="p">(),</span>
-        <span class="n">conditions</span><span class="o">=</span><span class="p">{</span>
-            <span class="o">**</span><span class="n">block</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
-            <span class="o">**</span><span class="n">key</span><span class="p">,</span>
-            <span class="s1">&#39;theta&#39;</span><span class="p">:</span> <span class="n">ports</span><span class="p">[</span><span class="n">port</span><span class="p">],</span>
-            <span class="s1">&#39;reward_port&#39;</span><span class="p">:</span> <span class="n">port</span><span class="p">,</span>
-            <span class="s1">&#39;response_port&#39;</span><span class="p">:</span> <span class="n">port</span>
-        <span class="p">}</span>
-    <span class="p">)</span>
-
-<span class="c1"># Run</span>
-<span class="n">exp</span><span class="o">.</span><span class="n">push_conditions</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
-<span class="n">exp</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="c1"># Use the logger</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Module specific information&quot;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Module specific error&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Parameter Organization</strong>:</li>
-<li>Group related parameters together</li>
-<li>Use descriptive variable names</li>
+<li><strong>Log Level Selection</strong></li>
+<li>Use DEBUG for detailed debugging information</li>
+<li>Use INFO for general operational messages</li>
+<li>Use WARNING for unexpected but handled situations</li>
+<li>Use ERROR for errors that affect functionality</li>
 <li>
-<p>Document units in comments</p>
+<p>Use CRITICAL for errors that require immediate attention</p>
 </li>
 <li>
-<p><strong>Error Handling</strong>:</p>
+<p><strong>Message Content</strong></p>
 </li>
-<li>Validate parameters before running</li>
-<li>Use helper functions to get required parameters</li>
+<li>Include relevant context in log messages</li>
+<li>Be specific about what happened</li>
+<li>Include important variable values</li>
 <li>
-<p>Check for missing or invalid values</p>
-</li>
-<li>
-<p><strong>Documentation</strong>:</p>
-</li>
-<li>Comment complex parameter combinations</li>
-<li>Document dependencies</li>
-<li>
-<p>Include example usage</p>
+<p>Avoid logging sensitive information</p>
 </li>
 <li>
-<p><strong>Testing</strong>:</p>
+<p><strong>Performance Considerations</strong></p>
 </li>
-<li>Test with different parameter combinations</li>
-<li>Verify stimulus timing</li>
-<li>Check reward delivery</li>
+<li>Avoid logging in tight loops</li>
+<li>Use appropriate log levels to control output volume</li>
+<li>Consider log rotation settings for long-running applications</li>
 </ol>
-<h2 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>Parameter Errors</strong>:</li>
-<li>Missing required parameters</li>
-<li>Incorrect parameter types</li>
-<li>
-<p>Invalid parameter combinations</p>
-</li>
-<li>
-<p><strong>Timing Issues</strong>:</p>
-</li>
-<li>Incorrect duration values</li>
-<li>Mismatched trial/stimulus timing</li>
-<li>
-<p>Intertrial interval problems</p>
-</li>
-<li>
-<p><strong>Hardware Configuration</strong>:</p>
-</li>
-<li>Wrong setup_conf_idx</li>
-<li>Uncalibrated rewad ports</li>
-<li>Missing hardware components</li>
-</ol>
-<h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
+<h2 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
+<h3 id="loggingmanager-class">LoggingManager Class<a class="headerlink" href="#loggingmanager-class" title="Permanent link">&para;</a></h3>
+<p>The <code>LoggingManager</code> class handles all logging configuration:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.utils.ethopy_logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoggingManager</span>
+
+<span class="c1"># Create a manager instance</span>
+<span class="n">manager</span> <span class="o">=</span> <span class="n">LoggingManager</span><span class="p">(</span><span class="s2">&quot;your_module_name&quot;</span><span class="p">)</span>
+
+<span class="c1"># Configure logging</span>
+<span class="n">manager</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
+    <span class="n">log_dir</span><span class="o">=</span><span class="s2">&quot;logs&quot;</span><span class="p">,</span>
+    <span class="n">console</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
+    <span class="n">log_file</span><span class="o">=</span><span class="s2">&quot;app.log&quot;</span>
+<span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="custom-formatter">Custom Formatter<a class="headerlink" href="#custom-formatter" title="Permanent link">&para;</a></h3>
+<p>The logging system includes a custom formatter that provides:</p>
 <ul>
-<li><a href="https://github.com/ef-lab/ethopy_package/tree/main/src/ethopy/task">Example Tasks</a></li>
+<li>Color-coded output for different log levels</li>
+<li>Dynamic format selection based on log level</li>
+<li>Timestamp formatting</li>
+<li>File and line number information for warnings and errors</li>
 </ul>
-<!-- ToDo
-- [Parameter Reference](https://github.com/ef-lab/ethopy_package/parameters)
-- [Hardware Setup](https://github.com/ef-lab/ethopy_package/hardware) 
--->
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Missing Logs</strong></li>
+<li>Check write permissions for log directory</li>
+<li>Verify log level configuration</li>
+<li>
+<p>Ensure log directory exists</p>
+</li>
+<li>
+<p><strong>Console Output Issues</strong></p>
+</li>
+<li>Verify console logging is enabled</li>
+<li>Check terminal color support</li>
+<li>
+<p>Confirm log level settings</p>
+</li>
+<li>
+<p><strong>Performance Issues</strong></p>
+</li>
+<li>Review log rotation settings</li>
+<li>Check logging frequency</li>
+<li>Consider adjusting log levels</li>
+</ol>
 
 
 

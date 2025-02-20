@@ -21,6 +21,10 @@
          <lastmod>2025-02-20</lastmod>
     </url>
     <url>
+         <loc>https://ef-lab.github.io/ethopy_package/control/</loc>
+         <lastmod>2025-02-20</lastmod>
+    </url>
+    <url>
          <loc>https://ef-lab.github.io/ethopy_package/database/</loc>
          <lastmod>2025-02-20</lastmod>
     </url>
@@ -54,6 +58,10 @@
     </url>
     <url>
          <loc>https://ef-lab.github.io/ethopy_package/logger/</loc>
+         <lastmod>2025-02-20</lastmod>
+    </url>
+    <url>
+         <loc>https://ef-lab.github.io/ethopy_package/logging/</loc>
          <lastmod>2025-02-20</lastmod>
     </url>
     <url>

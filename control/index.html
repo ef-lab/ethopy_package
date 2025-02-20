@@ -12,9 +12,13 @@
         <meta name="author" content="olakiril, alexevag">
       
       
-        <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/usage/">
+        <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/control/">
       
       
+        <link rel="prev" href="../database/">
+      
+      
+        <link rel="next" href="../plugin/">
       
       
       <link rel="icon" href="../assets/LabPageBrain.gif">
@@ -22,7 +26,7 @@
     
     
       
-        <title>Usage - EthoPy</title>
+        <title>Control - EthoPy</title>
       
     
     
@@ -76,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#usage" class="md-skip">
+        <a href="#using-of-the-control-table" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage
+              Control
             
           </span>
         </div>
@@ -350,10 +354,31 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../control/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Control
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -363,6 +388,113 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#control-table-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Table Fields
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-the-control-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Use the Control Table
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Use the Control Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-service-mode-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Service Mode Operation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-monitoring-experiment-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Monitoring Experiment Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-controlling-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Controlling Experiments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-usage-in-service-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage in Service Mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Details
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -624,6 +756,101 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#control-table-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Table Fields
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-the-control-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Use the Control Table
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Use the Control Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-service-mode-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Service Mode Operation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-monitoring-experiment-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Monitoring Experiment Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-controlling-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Controlling Experiments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-usage-in-service-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage in Service Mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Details
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -644,10 +871,221 @@
   
 
 
-<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
-<p>To use EthoPy in a project:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>import ethopy
+<h1 id="using-of-the-control-table">Using of the Control Table<a class="headerlink" href="#using-of-the-control-table" title="Permanent link">&para;</a></h1>
+<p>The Control table is a critical component in EthoPy that manages experiment execution and setup status. It's part of the <code>lab_experiments</code> schema and is used primarily when running EthoPy in Service Mode.</p>
+<h2 id="control-table-fields">Control Table Fields<a class="headerlink" href="#control-table-fields" title="Permanent link">&para;</a></h2>
+<p>The Control table contains the following important fields:</p>
+<ol>
+<li><code>setup</code> (primary key)</li>
+<li>The hostname of the machine running the experiment</li>
+<li>
+<p>Used to identify different experimental setups</p>
+</li>
+<li>
+<p><code>status</code></p>
+</li>
+<li>Current status of the setup</li>
+<li>
+<p>Possible values:</p>
+<ul>
+<li>"ready" - Setup is in Welcome gui and ready for a new experiment</li>
+<li>"running" - Experiment is currently running</li>
+<li>"stop" - Request to stop the current experiment</li>
+<li>"exit" - An error has occured and it is in exit</li>
+</ul>
+</li>
+<li>
+<p><code>last_ping</code></p>
+</li>
+<li>Timestamp of the last status update</li>
+<li>Format: "YYYY-MM-DD HH:MM:SS"</li>
+<li>
+<p>Updated every 5 seconds by default</p>
+</li>
+<li>
+<p><code>queue_size</code></p>
+</li>
+<li>Number of pending operations in the queue</li>
+<li>
+<p>Indicates the backlog of data waiting to be written to the database</p>
+</li>
+<li>
+<p><code>trials</code></p>
+</li>
+<li>Current trial index in the session</li>
+<li>
+<p>Tracks progress through the experiment</p>
+</li>
+<li>
+<p><code>total_liquid</code></p>
+</li>
+<li>Total amount of reward delivered in the session</li>
+<li>
+<p>Used for tracking reward delivery</p>
+</li>
+<li>
+<p><code>state</code></p>
+</li>
+<li>Current state of the experiment</li>
+<li>
+<p>Reflects which part of the experiment is currently executing (check experiment states)</p>
+</li>
+<li>
+<p><code>task_idx</code></p>
+</li>
+<li>Index of the task to be executed</li>
+<li>Used to determine which experiment configuration to load</li>
+</ol>
+<h2 id="how-to-use-the-control-table">How to Use the Control Table<a class="headerlink" href="#how-to-use-the-control-table" title="Permanent link">&para;</a></h2>
+<h3 id="1-service-mode-operation">1. Service Mode Operation<a class="headerlink" href="#1-service-mode-operation" title="Permanent link">&para;</a></h3>
+<p>The Control table is automatically updated by the Logger class. You don't need to modify it directly in most cases.</p>
+<h3 id="2-monitoring-experiment-status">2. Monitoring Experiment Status<a class="headerlink" href="#2-monitoring-experiment-status" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Example of checking setup status</span>
+<span class="n">control_entry</span> <span class="o">=</span> <span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">Control</span> <span class="o">&amp;</span> <span class="p">{</span><span class="s1">&#39;setup&#39;</span><span class="p">:</span> <span class="n">setup_name</span><span class="p">})</span><span class="o">.</span><span class="n">fetch1</span><span class="p">()</span>
+<span class="n">current_status</span> <span class="o">=</span> <span class="n">control_entry</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span>
+<span class="n">current_state</span> <span class="o">=</span> <span class="n">control_entry</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span>
 </code></pre></div></td></tr></table></div>
+<h3 id="3-controlling-experiments">3. Controlling Experiments<a class="headerlink" href="#3-controlling-experiments" title="Permanent link">&para;</a></h3>
+<p>The user only change the status of the experiment in running and stop. Also can change the animal_id and the task_id.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># To start an experiment on a setup</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">update1</span><span class="p">({</span>
+    <span class="s1">&#39;setup&#39;</span><span class="p">:</span> <span class="n">setup_name</span><span class="p">,</span>
+    <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="s1">&#39;running&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;task_idx&#39;</span><span class="p">:</span> <span class="n">your_task_id</span>
+<span class="p">})</span>
+
+<span class="c1"># To stop an experiment</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">update1</span><span class="p">({</span>
+    <span class="s1">&#39;setup&#39;</span><span class="p">:</span> <span class="n">setup_name</span><span class="p">,</span>
+    <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="s1">&#39;stop&#39;</span>
+<span class="p">})</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="important-notes">Important Notes<a class="headerlink" href="#important-notes" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Automatic Updates</strong>: The Control table is automatically updated by the Logger class every 5 seconds (default update_period = 5000ms)</p>
+</li>
+<li>
+<p><strong>Status Flow</strong>:</p>
+</li>
+<li>Normal flow: ready -&gt; running</li>
+<li>Stop flow: running -&gt; stop -&gt; ready</li>
+<li>
+<p>Exit flow: any_status (raised error) -&gt; exit</p>
+</li>
+<li>
+<p><strong>Error Handling</strong>:</p>
+</li>
+<li>If an error occurs during experiment execution, the state field will show "ERROR!"</li>
+<li>
+<p>Additional error details will be stored in the notes field</p>
+</li>
+<li>
+<p><strong>Monitoring</strong>:</p>
+</li>
+<li>The <code>last_ping</code> field can be used to monitor if a setup is active</li>
+<li>
+<p>If a setup hasn't updated its status for a long time, it might indicate issues</p>
+</li>
+<li>
+<p><strong>Thread Safety</strong>:</p>
+</li>
+<li>All Control table operations are thread-safe</li>
+<li>Updates are protected by a thread lock to prevent race conditions</li>
+</ol>
+<h2 id="example-usage-in-service-mode">Example Usage in Service Mode<a class="headerlink" href="#example-usage-in-service-mode" title="Permanent link">&para;</a></h2>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.core.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">Logger</span>
+
+<span class="c1"># Initialize logger</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">()</span>
+
+<span class="c1"># Logger will automatically:</span>
+<span class="c1"># 1. Create an entry in Control table for this setup</span>
+<span class="c1"># 2. Monitor Control table for status changes</span>
+<span class="c1"># 3. Update setup status every 5 seconds</span>
+<span class="c1"># 4. Execute tasks based on task_idx when status is &#39;running&#39;</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
+<p>The Control table is managed primarily by the Logger class (<code>ethopy.core.logger.Logger</code>). Key implementation details include:</p>
+<ol>
+<li><strong>Status Synchronization</strong>:</li>
+<li>The <code>_sync_control_table</code> method runs in a separate thread</li>
+<li>Updates occur every 5 seconds by default</li>
+<li>
+<p>Uses thread locks to ensure thread-safe operations</p>
+</li>
+<li>
+<p><strong>Setup Information Updates</strong>:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Example of information updated in each cycle</span>
+<span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;last_ping&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;queue_size&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">(),</span>
+    <span class="s1">&#39;trials&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;trial_idx&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;total_liquid&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_reward</span><span class="p">,</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_state</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p><strong>Error Recovery</strong>:</p>
+</li>
+<li>The system includes automatic error recovery mechanisms</li>
+<li>Failed database operations are retried with increased priority</li>
+<li>Persistent failures trigger system shutdown with error logging</li>
+</ol>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Status Monitoring</strong>:</li>
+<li>Regularly check <code>last_ping</code> to ensure setups are active</li>
+<li>Monitor <code>queue_size</code> to detect potential bottlenecks</li>
+<li>
+<p>Use <code>state</code> field to track experiment progress</p>
+</li>
+<li>
+<p><strong>Error Handling</strong>:</p>
+</li>
+<li>Implement monitoring for "ERROR!" states</li>
+<li>Check notes field for detailed error information</li>
+<li>
+<p>check ethopy.log to track the issue</p>
+</li>
+<li>
+<p><strong>Resource Management</strong>:</p>
+</li>
+<li>Monitor <code>total_liquid</code> to ensure proper reward delivery</li>
+<li>Track <code>trials</code> to ensure experiment progress</li>
+<li>Use <code>task_idx</code> to verify correct experiment execution</li>
+</ol>
 
 
 
