@@ -63,12 +63,14 @@ nav:
     - Local congiguration: local_conf.md
     - Database Setup: database.md
     - Task: task.md
+    - Control: control.md
     - Plugin System: plugin.md
     # - Gui: gui.md
     - Contributing: contributing.md
     # - FAQ: faq.md
-    - Changelog: changelog.md
+    # - Changelog: changelog.md
     - Report Issues: https://github.com/ef-lab/ethopy_package/issues
+    - Logging: logging.md
     - API Reference:
           - Logger module: logger.md
           - Behavior module: behavior.md
