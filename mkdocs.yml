@@ -62,7 +62,7 @@ nav:
     - Installation: installation.md
     - Local congiguration: local_conf.md
     - Database Setup: database.md
-    - Task: task.md
+    - Task: task_setup.md
     - Control: control.md
     - Plugin System: plugin.md
     # - Gui: gui.md
