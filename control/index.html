@@ -876,65 +876,69 @@
 <h2 id="control-table-fields">Control Table Fields<a class="headerlink" href="#control-table-fields" title="Permanent link">&para;</a></h2>
 <p>The Control table contains the following important fields:</p>
 <ol>
-<li><code>setup</code> (primary key)</li>
-<li>The hostname of the machine running the experiment</li>
 <li>
-<p>Used to identify different experimental setups</p>
+<p><code>setup</code> (primary key)</p>
+<ul>
+<li>The hostname of the machine running the experiment</li>
+<li>Used to identify different experimental setups</li>
+</ul>
 </li>
 <li>
 <p><code>status</code></p>
-</li>
-<li>Current status of the setup</li>
-<li>
-<p>Possible values:</p>
 <ul>
+<li>Current status of the setup</li>
+<li>Possible values:<ul>
 <li>"ready" - Setup is in Welcome gui and ready for a new experiment</li>
 <li>"running" - Experiment is currently running</li>
 <li>"stop" - Request to stop the current experiment</li>
 <li>"exit" - An error has occured and it is in exit</li>
 </ul>
 </li>
+</ul>
+</li>
 <li>
 <p><code>last_ping</code></p>
-</li>
+<ul>
 <li>Timestamp of the last status update</li>
 <li>Format: "YYYY-MM-DD HH:MM:SS"</li>
-<li>
-<p>Updated every 5 seconds by default</p>
+<li>Updated every 5 seconds by default</li>
+</ul>
 </li>
 <li>
 <p><code>queue_size</code></p>
-</li>
+<ul>
 <li>Number of pending operations in the queue</li>
-<li>
-<p>Indicates the backlog of data waiting to be written to the database</p>
+<li>Indicates the backlog of data waiting to be written to the database</li>
+</ul>
 </li>
 <li>
 <p><code>trials</code></p>
-</li>
+<ul>
 <li>Current trial index in the session</li>
-<li>
-<p>Tracks progress through the experiment</p>
+<li>Tracks progress through the experiment</li>
+</ul>
 </li>
 <li>
 <p><code>total_liquid</code></p>
-</li>
+<ul>
 <li>Total amount of reward delivered in the session</li>
-<li>
-<p>Used for tracking reward delivery</p>
+<li>Used for tracking reward delivery</li>
+</ul>
 </li>
 <li>
 <p><code>state</code></p>
-</li>
+<ul>
 <li>Current state of the experiment</li>
-<li>
-<p>Reflects which part of the experiment is currently executing (check experiment states)</p>
+<li>Reflects which part of the experiment is currently executing (check experiment states)</li>
+</ul>
 </li>
 <li>
 <p><code>task_idx</code></p>
-</li>
+<ul>
 <li>Index of the task to be executed</li>
 <li>Used to determine which experiment configuration to load</li>
+</ul>
+</li>
 </ol>
 <h2 id="how-to-use-the-control-table">How to Use the Control Table<a class="headerlink" href="#how-to-use-the-control-table" title="Permanent link">&para;</a></h2>
 <h3 id="1-service-mode-operation">1. Service Mode Operation<a class="headerlink" href="#1-service-mode-operation" title="Permanent link">&para;</a></h3>
