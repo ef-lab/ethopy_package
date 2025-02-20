@@ -65,6 +65,7 @@ nav:
     - Task: task_setup.md
     - Control: control.md
     - Plugin System: plugin.md
+    - Setup conf index: setup_configuration_idx.md
     # - Gui: gui.md
     - Contributing: contributing.md
     # - FAQ: faq.md
