@@ -179,47 +179,47 @@ The `channels` configuration defines GPIO pin mappings for various hardware comp
 #### Channel Types and Their Uses
 
 1. **Odor Channels**
-   - Purpose: Control odor delivery valves
-   - Format: `{"port_number": gpio_pin}`
-   - Example: `"1": 24` maps odor port 1 to GPIO pin 24
+    - Purpose: Control odor delivery valves
+    - Format: `{"port_number": gpio_pin}`
+    - Example: `"1": 24` maps odor port 1 to GPIO pin 24
 
 2. **Liquid Channels**
-   - Purpose: Control water/liquid reward delivery
-   - Format: `{"port_number": gpio_pin}`
-   - Example: `"1": 22` maps liquid port 1 to GPIO pin 22
+    - Purpose: Control water/liquid reward delivery
+    - Format: `{"port_number": gpio_pin}`
+    - Example: `"1": 22` maps liquid port 1 to GPIO pin 22
 
 3. **Lick Channels**
-   - Purpose: Detect animal licking behavior
-   - Format: `{"port_number": gpio_pin}`
-   - Example: `"1": 17` maps lick detector 1 to GPIO pin 17
+    - Purpose: Detect animal licking behavior
+    - Format: `{"port_number": gpio_pin}`
+    - Example: `"1": 17` maps lick detector 1 to GPIO pin 17
 
 4. **Proximity Channels**
-   - Purpose: Detect animal presence/position
-   - Format: `{"port_number": gpio_pin}`
-   - Example: `"3": 9` maps proximity sensor 3 to GPIO pin 9
+    - Purpose: Detect animal presence/position
+    - Format: `{"port_number": gpio_pin}`
+    - Example: `"3": 9` maps proximity sensor 3 to GPIO pin 9
 
 5. **Sound Channel**
-   - Purpose: Control audio output
-   - Format: `{"port_number": gpio_pin}`
-   - Example: `"1": 13` maps sound output to GPIO pin 13
+    - Purpose: Control audio output
+    - Format: `{"port_number": gpio_pin}`
+    - Example: `"1": 13` maps sound output to GPIO pin 13
 
 6. **Sync Channels**
-   - Purpose: Synchronization with external devices
-   - Components:
-     - `"in"`: Input synchronization signal
-     - `"rec"`: Recording trigger
-     - `"out"`: Output synchronization signal
+    - Purpose: Synchronization with external devices
+    - Components:
+        - `"in"`: Input synchronization signal
+        - `"rec"`: Recording trigger
+        - `"out"`: Output synchronization signal
 
 7. **Special Channels**
-   - `"Opto"`: Single pin for optogenetics control
-   - `"Status"`: LED indicator for system status
+    - `"Opto"`: Single pin for optogenetics control
+    - `"Status"`: LED indicator for system status
 
 #### Hardware Setup Considerations
 
 1. **Pin Conflicts**
-   - Ensure no GPIO pin is assigned to multiple channels
-   - Check pin capabilities (input/output/PWM support)
-   - Avoid system-reserved pins
+    - Ensure no GPIO pin is assigned to multiple channels
+    - Check pin capabilities (input/output/PWM support)
+    - Avoid system-reserved pins
 
 2. **Safety Checks**
    ```python
@@ -234,9 +234,9 @@ The `channels` configuration defines GPIO pin mappings for various hardware comp
    ```
 
 3. **Power Requirements**
-   - Consider current limitations of GPIO pins
-   - Use appropriate hardware drivers for high-power devices
-   - Include safety resistors where needed
+    - Consider current limitations of GPIO pins
+    - Use appropriate hardware drivers for high-power devices
+    - Include safety resistors where needed
 
 #### Common Hardware Configurations
 
@@ -275,19 +275,19 @@ The `channels` configuration defines GPIO pin mappings for various hardware comp
 ## Best Practices
 
 1. **Security**
-   - Never commit configuration files with sensitive data
-   - Use environment variables for passwords
-   - Keep backups of your configuration
+    - Never commit configuration files with sensitive data
+    - Use environment variables for passwords
+    - Keep backups of your configuration
 
 2. **Path Management**
-   - Use absolute paths when possible
-   - Ensure write permissions for logs/data
-   - Regularly check available disk space
+    - Use absolute paths when possible
+    - Ensure write permissions for logs/data
+    - Regularly check available disk space
 
 3. **Error Handling**
-   - Always check if paths exist before operations
-   - Handle missing configuration values gracefully
-   - Log configuration changes
+    - Always check if paths exist before operations
+    - Handle missing configuration values gracefully
+    - Log configuration changes
 
 ## Common Issues and Solutions
 

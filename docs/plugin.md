@@ -207,63 +207,63 @@ WARNING: Duplicate plugin found for 'ethopy.behaviors.custom':
 ### Plugin Development
 
 1. **Namespace Awareness**:
-   - Avoid using names that conflict with core Ethopy modules
-   - Use descriptive, unique names for your plugins
-   - Follow Python naming conventions
+      - Avoid using names that conflict with core Ethopy modules
+      - Use descriptive, unique names for your plugins
+      - Follow Python naming conventions
 
 2. **Structure and Organization**:
-   - Place plugins in the correct category directory
-   - Use appropriate base classes for each plugin type
-   - Keep plugin files focused and single-purpose
+      - Place plugins in the correct category directory
+      - Use appropriate base classes for each plugin type
+      - Keep plugin files focused and single-purpose
 
 3. **Documentation**:
-   - Add docstrings to your plugin classes and methods
-   - Include usage examples in the documentation
-   - Document any special requirements or dependencies
+      - Add docstrings to your plugin classes and methods
+      - Include usage examples in the documentation
+      - Document any special requirements or dependencies
 
 4. **Error Handling**:
-   - Implement proper error handling in your plugins
-   - Provide meaningful error messages
-   - Handle resource cleanup properly
+      - Implement proper error handling in your plugins
+      - Provide meaningful error messages
+      - Handle resource cleanup properly
 
 ### Plugin Distribution
 
 1. **Dependencies**:
-   - Clearly specify any additional dependencies
-   - Use standard Python package management
-   - Test with different Python versions
+      - Clearly specify any additional dependencies
+      - Use standard Python package management
+      - Test with different Python versions
 
 2. **Version Control**:
-   - Use version control for your plugins
-   - Tag releases with version numbers
-   - Maintain a changelog
+      - Use version control for your plugins
+      - Tag releases with version numbers
+      - Maintain a changelog
 
 3. **Testing**:
-   - Write tests for your plugins
-   - Test integration with Ethopy
-   - Verify behavior with different configurations
+      - Write tests for your plugins
+      - Test integration with Ethopy
+      - Verify behavior with different configurations
 
 ## Troubleshooting
 
 ### Common Issues
 
 1. **Plugin Not Found**:
-   - Verify plugin directory location
-   - Check file permissions
-   - Ensure correct Python path
-   - Validate plugin file naming
+      - Verify plugin directory location
+      - Check file permissions
+      - Ensure correct Python path
+      - Validate plugin file naming
 
 2. **Import Errors**:
-   - Check for missing dependencies
-   - Verify Python version compatibility
-   - Look for syntax errors in plugin code
-   - Check for circular imports
+      - Check for missing dependencies
+      - Verify Python version compatibility
+      - Look for syntax errors in plugin code
+      - Check for circular imports
 
 3. **Plugin Conflicts**:
-   - Review plugin naming for conflicts
-   - Check plugin path order
-   - Examine duplicate warnings
-   - Verify core module conflicts
+      - Review plugin naming for conflicts
+      - Check plugin path order
+      - Examine duplicate warnings
+      - Verify core module conflicts
 
 ### Debugging Tips
 

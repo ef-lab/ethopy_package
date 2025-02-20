@@ -166,46 +166,42 @@ exp.start()
 ## Best Practices
 
 1. **Parameter Organization**:
-   - Group related parameters together
-   - Use descriptive variable names
-   - Document units in comments
+- Group related parameters together
+- Use descriptive variable names
+- Document units in comments
 
 2. **Error Handling**:
-   - Validate parameters before running
-   - Use helper functions to get required parameters
-   - Check for missing or invalid values
+- Validate parameters before running
+- Use helper functions to get required parameters
+- Check for missing or invalid values
 
 3. **Documentation**:
-   - Comment complex parameter combinations
-   - Document dependencies
-   - Include example usage
+        - Comment complex parameter combinations
+        - Document dependencies
+        - Include example usage
 
 4. **Testing**:
-   - Test with different parameter combinations
-   - Verify stimulus timing
-   - Check reward delivery
+        - Test with different parameter combinations
+        - Verify stimulus timing
+        - Check reward delivery
 
 ## Common Issues
 
 1. **Parameter Errors**:
-   - Missing required parameters
-   - Incorrect parameter types
-   - Invalid parameter combinations
+        - Missing required parameters
+        - Incorrect parameter types
+        - Invalid parameter combinations
 
 2. **Timing Issues**:
-   - Incorrect duration values
-   - Mismatched trial/stimulus timing
-   - Intertrial interval problems
+        - Incorrect duration values
+        - Mismatched trial/stimulus timing
+        - Intertrial interval problems
 
 3. **Hardware Configuration**:
-   - Wrong setup_conf_idx
-   - Uncalibrated rewad ports
-   - Missing hardware components
+            - Wrong setup_conf_idx
+            - Uncalibrated rewad ports
+            - Missing hardware components
 
 ## Additional Resources
 
 - [Example Tasks](https://github.com/ef-lab/ethopy_package/tree/main/src/ethopy/task)
-<!-- ToDo
-- [Parameter Reference](https://github.com/ef-lab/ethopy_package/parameters)
-- [Hardware Setup](https://github.com/ef-lab/ethopy_package/hardware) 
--->
