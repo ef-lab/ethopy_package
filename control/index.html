@@ -985,31 +985,33 @@
 </li>
 <li>
 <p><strong>Status Flow</strong>:</p>
-</li>
+<ul>
 <li>Normal flow: ready -&gt; running</li>
 <li>Stop flow: running -&gt; stop -&gt; ready</li>
-<li>
-<p>Exit flow: any_status (raised error) -&gt; exit</p>
+<li>Exit flow: any_status (raised error) -&gt; exit</li>
+</ul>
 </li>
 <li>
 <p><strong>Error Handling</strong>:</p>
-</li>
+<ul>
 <li>If an error occurs during experiment execution, the state field will show "ERROR!"</li>
-<li>
-<p>Additional error details will be stored in the notes field</p>
+<li>Additional error details will be stored in the notes field</li>
+</ul>
 </li>
 <li>
 <p><strong>Monitoring</strong>:</p>
-</li>
+<ul>
 <li>The <code>last_ping</code> field can be used to monitor if a setup is active</li>
-<li>
-<p>If a setup hasn't updated its status for a long time, it might indicate issues</p>
+<li>If a setup hasn't updated its status for a long time, it might indicate issues</li>
+</ul>
 </li>
 <li>
 <p><strong>Thread Safety</strong>:</p>
-</li>
+<ul>
 <li>All Control table operations are thread-safe</li>
 <li>Updates are protected by a thread lock to prevent race conditions</li>
+</ul>
+</li>
 </ol>
 <h2 id="example-usage-in-service-mode">Example Usage in Service Mode<a class="headerlink" href="#example-usage-in-service-mode" title="Permanent link">&para;</a></h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1035,11 +1037,13 @@
 <h2 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
 <p>The Control table is managed primarily by the Logger class (<code>ethopy.core.logger.Logger</code>). Key implementation details include:</p>
 <ol>
-<li><strong>Status Synchronization</strong>:</li>
+<li>
+<p><strong>Status Synchronization</strong>:</p>
+<ul>
 <li>The <code>_sync_control_table</code> method runs in a separate thread</li>
 <li>Updates occur every 5 seconds by default</li>
-<li>
-<p>Uses thread locks to ensure thread-safe operations</p>
+<li>Uses thread locks to ensure thread-safe operations</li>
+</ul>
 </li>
 <li>
 <p><strong>Setup Information Updates</strong>:
@@ -1062,33 +1066,39 @@
 </li>
 <li>
 <p><strong>Error Recovery</strong>:</p>
-</li>
+<ul>
 <li>The system includes automatic error recovery mechanisms</li>
 <li>Failed database operations are retried with increased priority</li>
 <li>Persistent failures trigger system shutdown with error logging</li>
+</ul>
+</li>
 </ol>
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Status Monitoring</strong>:</li>
+<li>
+<p><strong>Status Monitoring</strong>:</p>
+<ul>
 <li>Regularly check <code>last_ping</code> to ensure setups are active</li>
 <li>Monitor <code>queue_size</code> to detect potential bottlenecks</li>
-<li>
-<p>Use <code>state</code> field to track experiment progress</p>
+<li>Use <code>state</code> field to track experiment progress</li>
+</ul>
 </li>
 <li>
 <p><strong>Error Handling</strong>:</p>
-</li>
+<ul>
 <li>Implement monitoring for "ERROR!" states</li>
 <li>Check notes field for detailed error information</li>
-<li>
-<p>check ethopy.log to track the issue</p>
+<li>check ethopy.log to track the issue</li>
+</ul>
 </li>
 <li>
 <p><strong>Resource Management</strong>:</p>
-</li>
+<ul>
 <li>Monitor <code>total_liquid</code> to ensure proper reward delivery</li>
 <li>Track <code>trials</code> to ensure experiment progress</li>
 <li>Use <code>task_idx</code> to verify correct experiment execution</li>
+</ul>
+</li>
 </ol>
 
 
