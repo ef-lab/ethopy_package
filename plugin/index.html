@@ -1389,84 +1389,96 @@ WARNING: Duplicate plugin found for &#39;ethopy.behaviors.custom&#39;:
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <h3 id="plugin-development">Plugin Development<a class="headerlink" href="#plugin-development" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Namespace Awareness</strong>:</li>
+<li>
+<p><strong>Namespace Awareness</strong>:</p>
+<ul>
 <li>Avoid using names that conflict with core Ethopy modules</li>
 <li>Use descriptive, unique names for your plugins</li>
-<li>
-<p>Follow Python naming conventions</p>
+<li>Follow Python naming conventions</li>
+</ul>
 </li>
 <li>
 <p><strong>Structure and Organization</strong>:</p>
-</li>
+<ul>
 <li>Place plugins in the correct category directory</li>
 <li>Use appropriate base classes for each plugin type</li>
-<li>
-<p>Keep plugin files focused and single-purpose</p>
+<li>Keep plugin files focused and single-purpose</li>
+</ul>
 </li>
 <li>
 <p><strong>Documentation</strong>:</p>
-</li>
+<ul>
 <li>Add docstrings to your plugin classes and methods</li>
 <li>Include usage examples in the documentation</li>
-<li>
-<p>Document any special requirements or dependencies</p>
+<li>Document any special requirements or dependencies</li>
+</ul>
 </li>
 <li>
 <p><strong>Error Handling</strong>:</p>
-</li>
+<ul>
 <li>Implement proper error handling in your plugins</li>
 <li>Provide meaningful error messages</li>
 <li>Handle resource cleanup properly</li>
+</ul>
+</li>
 </ol>
 <h3 id="plugin-distribution">Plugin Distribution<a class="headerlink" href="#plugin-distribution" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Dependencies</strong>:</li>
+<li>
+<p><strong>Dependencies</strong>:</p>
+<ul>
 <li>Clearly specify any additional dependencies</li>
 <li>Use standard Python package management</li>
-<li>
-<p>Test with different Python versions</p>
+<li>Test with different Python versions</li>
+</ul>
 </li>
 <li>
 <p><strong>Version Control</strong>:</p>
-</li>
+<ul>
 <li>Use version control for your plugins</li>
 <li>Tag releases with version numbers</li>
-<li>
-<p>Maintain a changelog</p>
+<li>Maintain a changelog</li>
+</ul>
 </li>
 <li>
 <p><strong>Testing</strong>:</p>
-</li>
+<ul>
 <li>Write tests for your plugins</li>
 <li>Test integration with Ethopy</li>
 <li>Verify behavior with different configurations</li>
+</ul>
+</li>
 </ol>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Plugin Not Found</strong>:</li>
+<li>
+<p><strong>Plugin Not Found</strong>:</p>
+<ul>
 <li>Verify plugin directory location</li>
 <li>Check file permissions</li>
 <li>Ensure correct Python path</li>
-<li>
-<p>Validate plugin file naming</p>
+<li>Validate plugin file naming</li>
+</ul>
 </li>
 <li>
 <p><strong>Import Errors</strong>:</p>
-</li>
+<ul>
 <li>Check for missing dependencies</li>
 <li>Verify Python version compatibility</li>
 <li>Look for syntax errors in plugin code</li>
-<li>
-<p>Check for circular imports</p>
+<li>Check for circular imports</li>
+</ul>
 </li>
 <li>
 <p><strong>Plugin Conflicts</strong>:</p>
-</li>
+<ul>
 <li>Review plugin naming for conflicts</li>
 <li>Check plugin path order</li>
 <li>Examine duplicate warnings</li>
 <li>Verify core module conflicts</li>
+</ul>
+</li>
 </ol>
 <h3 id="debugging-tips">Debugging Tips<a class="headerlink" href="#debugging-tips" title="Permanent link">&para;</a></h3>
 <ol>

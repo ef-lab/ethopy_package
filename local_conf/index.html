@@ -1451,69 +1451,75 @@
 </code></pre></div></td></tr></table></div>
 <h4 id="channel-types-and-their-uses">Channel Types and Their Uses<a class="headerlink" href="#channel-types-and-their-uses" title="Permanent link">&para;</a></h4>
 <ol>
-<li><strong>Odor Channels</strong></li>
+<li>
+<p><strong>Odor Channels</strong></p>
+<ul>
 <li>Purpose: Control odor delivery valves</li>
 <li>Format: <code>{"port_number": gpio_pin}</code></li>
-<li>
-<p>Example: <code>"1": 24</code> maps odor port 1 to GPIO pin 24</p>
+<li>Example: <code>"1": 24</code> maps odor port 1 to GPIO pin 24</li>
+</ul>
 </li>
 <li>
 <p><strong>Liquid Channels</strong></p>
-</li>
+<ul>
 <li>Purpose: Control water/liquid reward delivery</li>
 <li>Format: <code>{"port_number": gpio_pin}</code></li>
-<li>
-<p>Example: <code>"1": 22</code> maps liquid port 1 to GPIO pin 22</p>
+<li>Example: <code>"1": 22</code> maps liquid port 1 to GPIO pin 22</li>
+</ul>
 </li>
 <li>
 <p><strong>Lick Channels</strong></p>
-</li>
+<ul>
 <li>Purpose: Detect animal licking behavior</li>
 <li>Format: <code>{"port_number": gpio_pin}</code></li>
-<li>
-<p>Example: <code>"1": 17</code> maps lick detector 1 to GPIO pin 17</p>
+<li>Example: <code>"1": 17</code> maps lick detector 1 to GPIO pin 17</li>
+</ul>
 </li>
 <li>
 <p><strong>Proximity Channels</strong></p>
-</li>
+<ul>
 <li>Purpose: Detect animal presence/position</li>
 <li>Format: <code>{"port_number": gpio_pin}</code></li>
-<li>
-<p>Example: <code>"3": 9</code> maps proximity sensor 3 to GPIO pin 9</p>
+<li>Example: <code>"3": 9</code> maps proximity sensor 3 to GPIO pin 9</li>
+</ul>
 </li>
 <li>
 <p><strong>Sound Channel</strong></p>
-</li>
+<ul>
 <li>Purpose: Control audio output</li>
 <li>Format: <code>{"port_number": gpio_pin}</code></li>
-<li>
-<p>Example: <code>"1": 13</code> maps sound output to GPIO pin 13</p>
+<li>Example: <code>"1": 13</code> maps sound output to GPIO pin 13</li>
+</ul>
 </li>
 <li>
 <p><strong>Sync Channels</strong></p>
-</li>
-<li>Purpose: Synchronization with external devices</li>
-<li>
-<p>Components:</p>
 <ul>
+<li>Purpose: Synchronization with external devices</li>
+<li>Components:<ul>
 <li><code>"in"</code>: Input synchronization signal</li>
 <li><code>"rec"</code>: Recording trigger</li>
 <li><code>"out"</code>: Output synchronization signal</li>
 </ul>
 </li>
+</ul>
+</li>
 <li>
 <p><strong>Special Channels</strong></p>
-</li>
+<ul>
 <li><code>"Opto"</code>: Single pin for optogenetics control</li>
 <li><code>"Status"</code>: LED indicator for system status</li>
+</ul>
+</li>
 </ol>
 <h4 id="hardware-setup-considerations">Hardware Setup Considerations<a class="headerlink" href="#hardware-setup-considerations" title="Permanent link">&para;</a></h4>
 <ol>
-<li><strong>Pin Conflicts</strong></li>
+<li>
+<p><strong>Pin Conflicts</strong></p>
+<ul>
 <li>Ensure no GPIO pin is assigned to multiple channels</li>
 <li>Check pin capabilities (input/output/PWM support)</li>
-<li>
-<p>Avoid system-reserved pins</p>
+<li>Avoid system-reserved pins</li>
+</ul>
 </li>
 <li>
 <p><strong>Safety Checks</strong>
@@ -1536,10 +1542,12 @@
 </li>
 <li>
 <p><strong>Power Requirements</strong></p>
-</li>
+<ul>
 <li>Consider current limitations of GPIO pins</li>
 <li>Use appropriate hardware drivers for high-power devices</li>
 <li>Include safety resistors where needed</li>
+</ul>
+</li>
 </ol>
 <h4 id="common-hardware-configurations">Common Hardware Configurations<a class="headerlink" href="#common-hardware-configurations" title="Permanent link">&para;</a></h4>
 <ol>
@@ -1591,26 +1599,30 @@
 </code></pre></div></td></tr></table></div>
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Security</strong></li>
+<li>
+<p><strong>Security</strong></p>
+<ul>
 <li>Never commit configuration files with sensitive data</li>
 <li>Use environment variables for passwords</li>
-<li>
-<p>Keep backups of your configuration</p>
+<li>Keep backups of your configuration</li>
+</ul>
 </li>
 <li>
 <p><strong>Path Management</strong></p>
-</li>
+<ul>
 <li>Use absolute paths when possible</li>
 <li>Ensure write permissions for logs/data</li>
-<li>
-<p>Regularly check available disk space</p>
+<li>Regularly check available disk space</li>
+</ul>
 </li>
 <li>
 <p><strong>Error Handling</strong></p>
-</li>
+<ul>
 <li>Always check if paths exist before operations</li>
 <li>Handle missing configuration values gracefully</li>
 <li>Log configuration changes</li>
+</ul>
+</li>
 </ol>
 <h2 id="common-issues-and-solutions">Common Issues and Solutions<a class="headerlink" href="#common-issues-and-solutions" title="Permanent link">&para;</a></h2>
 <h3 id="database-connection-issues">Database Connection Issues<a class="headerlink" href="#database-connection-issues" title="Permanent link">&para;</a></h3>
