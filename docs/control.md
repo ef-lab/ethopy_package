@@ -7,41 +7,41 @@ The Control table is a critical component in EthoPy that manages experiment exec
 The Control table contains the following important fields:
 
 1. `setup` (primary key)
-   - The hostname of the machine running the experiment
-   - Used to identify different experimental setups
+      - The hostname of the machine running the experiment
+      - Used to identify different experimental setups
 
 2. `status`
-   - Current status of the setup
-   - Possible values:
-     - "ready" - Setup is in Welcome gui and ready for a new experiment
-     - "running" - Experiment is currently running
-     - "stop" - Request to stop the current experiment
-     - "exit" - An error has occured and it is in exit
+      - Current status of the setup
+      - Possible values:
+         - "ready" - Setup is in Welcome gui and ready for a new experiment
+         - "running" - Experiment is currently running
+         - "stop" - Request to stop the current experiment
+         - "exit" - An error has occured and it is in exit
 
 3. `last_ping`
-   - Timestamp of the last status update
-   - Format: "YYYY-MM-DD HH:MM:SS"
-   - Updated every 5 seconds by default
+      - Timestamp of the last status update
+      - Format: "YYYY-MM-DD HH:MM:SS"
+      - Updated every 5 seconds by default
 
 4. `queue_size`
-   - Number of pending operations in the queue
-   - Indicates the backlog of data waiting to be written to the database
+      - Number of pending operations in the queue
+      - Indicates the backlog of data waiting to be written to the database
 
 5. `trials`
-   - Current trial index in the session
-   - Tracks progress through the experiment
+      - Current trial index in the session
+      - Tracks progress through the experiment
 
 6. `total_liquid`
-   - Total amount of reward delivered in the session
-   - Used for tracking reward delivery
+      - Total amount of reward delivered in the session
+      - Used for tracking reward delivery
 
 7. `state`
-   - Current state of the experiment
-   - Reflects which part of the experiment is currently executing (check experiment states)
+      - Current state of the experiment
+      - Reflects which part of the experiment is currently executing (check experiment states)
 
 8. `task_idx`
-   - Index of the task to be executed
-   - Used to determine which experiment configuration to load
+      - Index of the task to be executed
+      - Used to determine which experiment configuration to load
 
 ## How to Use the Control Table
 
