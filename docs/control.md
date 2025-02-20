@@ -81,21 +81,21 @@ experiment.Control.update1({
 1. **Automatic Updates**: The Control table is automatically updated by the Logger class every 5 seconds (default update_period = 5000ms)
 
 2. **Status Flow**:
-   - Normal flow: ready -> running
-   - Stop flow: running -> stop -> ready
-   - Exit flow: any_status (raised error) -> exit
+      - Normal flow: ready -> running
+      - Stop flow: running -> stop -> ready
+      - Exit flow: any_status (raised error) -> exit
 
 3. **Error Handling**:
-   - If an error occurs during experiment execution, the state field will show "ERROR!"
-   - Additional error details will be stored in the notes field
+      - If an error occurs during experiment execution, the state field will show "ERROR!"
+      - Additional error details will be stored in the notes field
 
 4. **Monitoring**:
-   - The `last_ping` field can be used to monitor if a setup is active
-   - If a setup hasn't updated its status for a long time, it might indicate issues
+      - The `last_ping` field can be used to monitor if a setup is active
+      - If a setup hasn't updated its status for a long time, it might indicate issues
 
 5. **Thread Safety**:
-   - All Control table operations are thread-safe
-   - Updates are protected by a thread lock to prevent race conditions
+      - All Control table operations are thread-safe
+      - Updates are protected by a thread lock to prevent race conditions
 
 ## Example Usage in Service Mode
 
@@ -117,9 +117,9 @@ logger = Logger()
 The Control table is managed primarily by the Logger class (`ethopy.core.logger.Logger`). Key implementation details include:
 
 1. **Status Synchronization**:
-   - The `_sync_control_table` method runs in a separate thread
-   - Updates occur every 5 seconds by default
-   - Uses thread locks to ensure thread-safe operations
+      - The `_sync_control_table` method runs in a separate thread
+      - Updates occur every 5 seconds by default
+      - Uses thread locks to ensure thread-safe operations
 
 2. **Setup Information Updates**:
    ```python
@@ -134,23 +134,23 @@ The Control table is managed primarily by the Logger class (`ethopy.core.logger.
    ```
 
 3. **Error Recovery**:
-   - The system includes automatic error recovery mechanisms
-   - Failed database operations are retried with increased priority
-   - Persistent failures trigger system shutdown with error logging
+      - The system includes automatic error recovery mechanisms
+      - Failed database operations are retried with increased priority
+      - Persistent failures trigger system shutdown with error logging
 
 ## Best Practices
 
 1. **Status Monitoring**:
-   - Regularly check `last_ping` to ensure setups are active
-   - Monitor `queue_size` to detect potential bottlenecks
-   - Use `state` field to track experiment progress
+      - Regularly check `last_ping` to ensure setups are active
+      - Monitor `queue_size` to detect potential bottlenecks
+      - Use `state` field to track experiment progress
 
 2. **Error Handling**:
-   - Implement monitoring for "ERROR!" states
-   - Check notes field for detailed error information
-   - check ethopy.log to track the issue
+      - Implement monitoring for "ERROR!" states
+      - Check notes field for detailed error information
+      - check ethopy.log to track the issue
 
 3. **Resource Management**:
-   - Monitor `total_liquid` to ensure proper reward delivery
-   - Track `trials` to ensure experiment progress
-   - Use `task_idx` to verify correct experiment execution
+      - Monitor `total_liquid` to ensure proper reward delivery
+      - Track `trials` to ensure experiment progress
+      - Use `task_idx` to verify correct experiment execution
