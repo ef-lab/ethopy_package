@@ -132,22 +132,22 @@ logger.error("Module specific error")
 ## Best Practices
 
 1. **Log Level Selection**
-   - Use DEBUG for detailed debugging information
-   - Use INFO for general operational messages
-   - Use WARNING for unexpected but handled situations
-   - Use ERROR for errors that affect functionality
-   - Use CRITICAL for errors that require immediate attention
+            - Use DEBUG for detailed debugging information
+            - Use INFO for general operational messages
+            - Use WARNING for unexpected but handled situations
+            - Use ERROR for errors that affect functionality
+            - Use CRITICAL for errors that require immediate attention
 
 2. **Message Content**
-   - Include relevant context in log messages
-   - Be specific about what happened
-   - Include important variable values
-   - Avoid logging sensitive information
+            - Include relevant context in log messages
+            - Be specific about what happened
+            - Include important variable values
+            - Avoid logging sensitive information
 
 3. **Performance Considerations**
-   - Avoid logging in tight loops
-   - Use appropriate log levels to control output volume
-   - Consider log rotation settings for long-running applications
+            - Avoid logging in tight loops
+            - Use appropriate log levels to control output volume
+            - Consider log rotation settings for long-running applications
 
 ## Implementation Details
 
@@ -182,16 +182,16 @@ The logging system includes a custom formatter that provides:
 ## Troubleshooting
 
 1. **Missing Logs**
-   - Check write permissions for log directory
-   - Verify log level configuration
-   - Ensure log directory exists
+            - Check write permissions for log directory
+            - Verify log level configuration
+            - Ensure log directory exists
 
 2. **Console Output Issues**
-   - Verify console logging is enabled
-   - Check terminal color support
-   - Confirm log level settings
+            - Verify console logging is enabled
+            - Check terminal color support
+            - Confirm log level settings
 
 3. **Performance Issues**
-   - Review log rotation settings
-   - Check logging frequency
-   - Consider adjusting log levels
+            - Review log rotation settings
+            - Check logging frequency
+            - Consider adjusting log levels

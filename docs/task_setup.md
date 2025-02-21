@@ -166,14 +166,14 @@ exp.start()
 ## Best Practices
 
 1. **Parameter Organization**:
-- Group related parameters together
-- Use descriptive variable names
-- Document units in comments
+        - Group related parameters together
+        - Use descriptive variable names
+        - Document units in comments
 
 2. **Error Handling**:
-- Validate parameters before running
-- Use helper functions to get required parameters
-- Check for missing or invalid values
+        - Validate parameters before running
+        - Use helper functions to get required parameters
+        - Check for missing or invalid values
 
 3. **Documentation**:
         - Comment complex parameter combinations
@@ -198,9 +198,9 @@ exp.start()
         - Intertrial interval problems
 
 3. **Hardware Configuration**:
-            - Wrong setup_conf_idx
-            - Uncalibrated rewad ports
-            - Missing hardware components
+        - Wrong setup_conf_idx
+        - Uncalibrated rewad ports
+        - Missing hardware components
 
 ## Additional Resources
 

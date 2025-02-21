@@ -67,12 +67,11 @@ Ready to contribute? Here's how to set up Ethopy for local development:
     ```
 
 5. Make your changes locally. The project uses several tools to maintain code quality:
-
-   - **ruff**: Code formatting
-   - **isort**: Import sorting
-   - **mypy**: Static type checking
-   - **ruff**: Linting
-   - **pytest**: Testing
+        - **ruff**: Code formatting
+        - **isort**: Import sorting
+        - **mypy**: Static type checking
+        - **ruff**: Linting
+        - **pytest**: Testing
 
 6. Run the test suite and code quality checks:
     ```bash
