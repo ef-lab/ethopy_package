@@ -1268,29 +1268,27 @@ Options:
 </code></pre></div></td></tr></table></div>
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Log Level Selection</strong></li>
-<li>Use DEBUG for detailed debugging information</li>
-<li>Use INFO for general operational messages</li>
-<li>Use WARNING for unexpected but handled situations</li>
-<li>Use ERROR for errors that affect functionality</li>
 <li>
-<p>Use CRITICAL for errors that require immediate attention</p>
+<p><strong>Log Level Selection</strong>
+            - Use DEBUG for detailed debugging information
+            - Use INFO for general operational messages
+            - Use WARNING for unexpected but handled situations
+            - Use ERROR for errors that affect functionality
+            - Use CRITICAL for errors that require immediate attention</p>
 </li>
 <li>
-<p><strong>Message Content</strong></p>
-</li>
-<li>Include relevant context in log messages</li>
-<li>Be specific about what happened</li>
-<li>Include important variable values</li>
-<li>
-<p>Avoid logging sensitive information</p>
+<p><strong>Message Content</strong>
+            - Include relevant context in log messages
+            - Be specific about what happened
+            - Include important variable values
+            - Avoid logging sensitive information</p>
 </li>
 <li>
-<p><strong>Performance Considerations</strong></p>
+<p><strong>Performance Considerations</strong>
+            - Avoid logging in tight loops
+            - Use appropriate log levels to control output volume
+            - Consider log rotation settings for long-running applications</p>
 </li>
-<li>Avoid logging in tight loops</li>
-<li>Use appropriate log levels to control output volume</li>
-<li>Consider log rotation settings for long-running applications</li>
 </ol>
 <h2 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
 <h3 id="loggingmanager-class">LoggingManager Class<a class="headerlink" href="#loggingmanager-class" title="Permanent link">&para;</a></h3>
@@ -1329,26 +1327,24 @@ Options:
 </ul>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Missing Logs</strong></li>
-<li>Check write permissions for log directory</li>
-<li>Verify log level configuration</li>
 <li>
-<p>Ensure log directory exists</p>
+<p><strong>Missing Logs</strong>
+            - Check write permissions for log directory
+            - Verify log level configuration
+            - Ensure log directory exists</p>
 </li>
 <li>
-<p><strong>Console Output Issues</strong></p>
-</li>
-<li>Verify console logging is enabled</li>
-<li>Check terminal color support</li>
-<li>
-<p>Confirm log level settings</p>
+<p><strong>Console Output Issues</strong>
+            - Verify console logging is enabled
+            - Check terminal color support
+            - Confirm log level settings</p>
 </li>
 <li>
-<p><strong>Performance Issues</strong></p>
+<p><strong>Performance Issues</strong>
+            - Review log rotation settings
+            - Check logging frequency
+            - Consider adjusting log levels</p>
 </li>
-<li>Review log rotation settings</li>
-<li>Check logging frequency</li>
-<li>Consider adjusting log levels</li>
 </ol>
 
 

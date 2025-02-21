@@ -1162,18 +1162,20 @@
 <p>Ethopy supports two types of plugins:</p>
 <ol>
 <li><strong>Standalone Modules</strong>: Individual Python files in the plugin directory</li>
-<li><strong>Categorized Plugins</strong>: Modules organized in specific categories:</li>
-<li><code>behaviors</code>: Custom behavior implementations</li>
-<li><code>experiments</code>: Experiment definitions</li>
-<li><code>interfaces</code>: Hardware interface modules</li>
-<li><code>stimuli</code>: Stimulus control modules</li>
+<li><strong>Categorized Plugins</strong>: Modules organized in specific categories:
+        - <code>behaviors</code>: Custom behavior implementations
+        - <code>experiments</code>: Experiment definitions
+        - <code>interfaces</code>: Hardware interface modules
+        - <code>stimuli</code>: Stimulus control modules</li>
 </ol>
 <h2 id="plugin-locations">Plugin Locations<a class="headerlink" href="#plugin-locations" title="Permanent link">&para;</a></h2>
 <p>Plugins can be placed in the following locations (in order of precedence):</p>
 <ol>
-<li>Default locations:</li>
 <li>
-<p><code>~/.ethopy/ethopy_plugins/</code> (User's home directory)</p>
+<p>Default locations:</p>
+<ul>
+<li><code>~/.ethopy/ethopy_plugins/</code> (User's home directory)</li>
+</ul>
 </li>
 <li>
 <p>Custom locations specified by the <code>ETHOPY_PLUGIN_PATH</code> environment variable:
@@ -1207,8 +1209,8 @@
 <h2 id="creating-plugins">Creating Plugins<a class="headerlink" href="#creating-plugins" title="Permanent link">&para;</a></h2>
 <h3 id="plugin-naming">Plugin Naming<a class="headerlink" href="#plugin-naming" title="Permanent link">&para;</a></h3>
 <p>Plugins are imported using the <code>ethopy</code> namespace. For example:
-- Standalone module: <code>ethopy.mymodule</code>
-- Categorized plugin: <code>ethopy.behaviors.custom_behavior</code></p>
+    - Standalone module: <code>ethopy.mymodule</code>
+    - Categorized plugin: <code>ethopy.behaviors.custom_behavior</code></p>
 <p>Make sure to avoid naming conflicts with core Ethopy modules, as core modules take precedence over plugins.</p>
 <h3 id="standalone-modules">Standalone Modules<a class="headerlink" href="#standalone-modules" title="Permanent link">&para;</a></h3>
 <p>Create a Python file in the root of your plugin directory:</p>
@@ -1310,10 +1312,10 @@
 </code></pre></div></td></tr></table></div>
 <h3 id="plugin-management">Plugin Management<a class="headerlink" href="#plugin-management" title="Permanent link">&para;</a></h3>
 <p>The plugin system is managed by the <code>PluginManager</code> class, which handles:
-- Plugin discovery and registration
-- Import path management
-- Conflict resolution
-- Plugin information tracking</p>
+    - Plugin discovery and registration
+    - Import path management
+    - Conflict resolution
+    - Plugin information tracking</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1385,16 +1387,16 @@
 <h3 id="conflict-resolution">Conflict Resolution<a class="headerlink" href="#conflict-resolution" title="Permanent link">&para;</a></h3>
 <p>The plugin system uses the following precedence rules:</p>
 <ol>
-<li><strong>Core vs Plugin Conflicts</strong>:</li>
-<li>Core Ethopy modules always take precedence over plugins</li>
 <li>
-<p>Warning is issued when a plugin conflicts with a core module</p>
+<p><strong>Core vs Plugin Conflicts</strong>:
+        - Core Ethopy modules always take precedence over plugins
+        - Warning is issued when a plugin conflicts with a core module</p>
 </li>
 <li>
-<p><strong>Plugin vs Plugin Conflicts</strong>:</p>
+<p><strong>Plugin vs Plugin Conflicts</strong>:
+        - Later added paths take precedence over earlier ones
+        - Warning is displayed showing which version is used/ignored</p>
 </li>
-<li>Later added paths take precedence over earlier ones</li>
-<li>Warning is displayed showing which version is used/ignored</li>
 </ol>
 <p>Example conflict warning:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1411,94 +1413,74 @@ WARNING: Duplicate plugin found for &#39;ethopy.behaviors.custom&#39;:
 <h3 id="plugin-development">Plugin Development<a class="headerlink" href="#plugin-development" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p><strong>Namespace Awareness</strong>:</p>
-<ul>
-<li>Avoid using names that conflict with core Ethopy modules</li>
-<li>Use descriptive, unique names for your plugins</li>
-<li>Follow Python naming conventions</li>
-</ul>
+<p><strong>Namespace Awareness</strong>:
+        - Avoid using names that conflict with core Ethopy modules
+        - Use descriptive, unique names for your plugins
+        - Follow Python naming conventions</p>
 </li>
 <li>
-<p><strong>Structure and Organization</strong>:</p>
-<ul>
-<li>Place plugins in the correct category directory</li>
-<li>Use appropriate base classes for each plugin type</li>
-<li>Keep plugin files focused and single-purpose</li>
-</ul>
+<p><strong>Structure and Organization</strong>:
+        - Place plugins in the correct category directory
+        - Use appropriate base classes for each plugin type
+        - Keep plugin files focused and single-purpose</p>
 </li>
 <li>
-<p><strong>Documentation</strong>:</p>
-<ul>
-<li>Add docstrings to your plugin classes and methods</li>
-<li>Include usage examples in the documentation</li>
-<li>Document any special requirements or dependencies</li>
-</ul>
+<p><strong>Documentation</strong>:
+        - Add docstrings to your plugin classes and methods
+        - Include usage examples in the documentation
+        - Document any special requirements or dependencies</p>
 </li>
 <li>
-<p><strong>Error Handling</strong>:</p>
-<ul>
-<li>Implement proper error handling in your plugins</li>
-<li>Provide meaningful error messages</li>
-<li>Handle resource cleanup properly</li>
-</ul>
+<p><strong>Error Handling</strong>:
+        - Implement proper error handling in your plugins
+        - Provide meaningful error messages
+        - Handle resource cleanup properly</p>
 </li>
 </ol>
 <h3 id="plugin-distribution">Plugin Distribution<a class="headerlink" href="#plugin-distribution" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p><strong>Dependencies</strong>:</p>
-<ul>
-<li>Clearly specify any additional dependencies</li>
-<li>Use standard Python package management</li>
-<li>Test with different Python versions</li>
-</ul>
+<p><strong>Dependencies</strong>:
+        - Clearly specify any additional dependencies
+        - Use standard Python package management
+        - Test with different Python versions</p>
 </li>
 <li>
-<p><strong>Version Control</strong>:</p>
-<ul>
-<li>Use version control for your plugins</li>
-<li>Tag releases with version numbers</li>
-<li>Maintain a changelog</li>
-</ul>
+<p><strong>Version Control</strong>:
+        - Use version control for your plugins
+        - Tag releases with version numbers
+        - Maintain a changelog</p>
 </li>
 <li>
-<p><strong>Testing</strong>:</p>
-<ul>
-<li>Write tests for your plugins</li>
-<li>Test integration with Ethopy</li>
-<li>Verify behavior with different configurations</li>
-</ul>
+<p><strong>Testing</strong>:
+        - Write tests for your plugins
+        - Test integration with Ethopy
+        - Verify behavior with different configurations</p>
 </li>
 </ol>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p><strong>Plugin Not Found</strong>:</p>
-<ul>
-<li>Verify plugin directory location</li>
-<li>Check file permissions</li>
-<li>Ensure correct Python path</li>
-<li>Validate plugin file naming</li>
-</ul>
+<p><strong>Plugin Not Found</strong>:
+        - Verify plugin directory location
+        - Check file permissions
+        - Ensure correct Python path
+        - Validate plugin file naming</p>
 </li>
 <li>
-<p><strong>Import Errors</strong>:</p>
-<ul>
-<li>Check for missing dependencies</li>
-<li>Verify Python version compatibility</li>
-<li>Look for syntax errors in plugin code</li>
-<li>Check for circular imports</li>
-</ul>
+<p><strong>Import Errors</strong>:
+        - Check for missing dependencies
+        - Verify Python version compatibility
+        - Look for syntax errors in plugin code
+        - Check for circular imports</p>
 </li>
 <li>
-<p><strong>Plugin Conflicts</strong>:</p>
-<ul>
-<li>Review plugin naming for conflicts</li>
-<li>Check plugin path order</li>
-<li>Examine duplicate warnings</li>
-<li>Verify core module conflicts</li>
-</ul>
+<p><strong>Plugin Conflicts</strong>:
+        - Review plugin naming for conflicts
+        - Check plugin path order
+        - Examine duplicate warnings
+        - Verify core module conflicts</p>
 </li>
 </ol>
 <h3 id="debugging-tips">Debugging Tips<a class="headerlink" href="#debugging-tips" title="Permanent link">&para;</a></h3>
@@ -1547,17 +1529,17 @@ WARNING: Duplicate plugin found for &#39;ethopy.behaviors.custom&#39;:
 </ol>
 <h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Documentation</strong>:</li>
-<li><a href="https://ef-lab.github.io/ethopy_package/">Ethopy Core Documentation</a></li>
-<li><a href="https://docs.datajoint.org/">DataJoint Documentation</a></li>
 <li>
-<p><a href="https://packaging.python.org/guides/distributing-packages-using-setuptools/">Python Packaging Guide</a></p>
+<p><strong>Documentation</strong>:
+        - <a href="https://ef-lab.github.io/ethopy_package/">Ethopy Core Documentation</a>
+        - <a href="https://docs.datajoint.org/">DataJoint Documentation</a>
+        - <a href="https://packaging.python.org/guides/distributing-packages-using-setuptools/">Python Packaging Guide</a></p>
 </li>
 <li>
-<p><strong>Community</strong>:</p>
+<p><strong>Community</strong>:
+        - <a href="https://github.com/ef-lab/ethopy_package/issues">GitHub Issues</a>
+        - <a href="https://github.com/ef-lab/ethopy_package/blob/main/CONTRIBUTING.md">Contributing Guidelines</a></p>
 </li>
-<li><a href="https://github.com/ef-lab/ethopy_package/issues">GitHub Issues</a></li>
-<li><a href="https://github.com/ef-lab/ethopy_package/blob/main/CONTRIBUTING.md">Contributing Guidelines</a></li>
 </ol>
 
 
