@@ -1,0 +1,65 @@
+name: Draft Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 0.1.0)'
+        required: true
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Update version in __init__.py
+        run: |
+          sed -i "s/__version__ = \".*\"/__version__ = \"${{ github.event.inputs.version }}\"/" src/ethopy/__init__.py
+      
+      - name: Create Release Branch
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git checkout -b release-v${{ github.event.inputs.version }}
+          git add src/ethopy/__init__.py
+          git commit -m "Bump version to ${{ github.event.inputs.version }}"
+          git push origin release-v${{ github.event.inputs.version }}
+      
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Bump version to ${{ github.event.inputs.version }}
+          title: Release v${{ github.event.inputs.version }}
+          body: |
+            # Release v${{ github.event.inputs.version }}
+            
+            ## Changes in this release:
+            - [Add your changes here]
+            
+            ## Checklist before merging:
+            - [ ] Update CHANGELOG.md
+            - [ ] Update documentation if needed
+            - [ ] All tests pass
+          branch: release-v${{ github.event.inputs.version }}
+          base: main
+          draft: true
+      
+      - name: Create Draft Release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          name: v${{ github.event.inputs.version }}
+          tag_name: v${{ github.event.inputs.version }}
+          body: |
+            ## Changes in v${{ github.event.inputs.version }}
+            
+            [Add release notes here]
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
