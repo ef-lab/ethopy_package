@@ -851,6 +851,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Port">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Port.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      __init__
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1227,6 +1242,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Port">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.interface.Port.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      __init__
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1399,13 +1429,7 @@ hardware based on setup index.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">442</span>
-<span class="normal">443</span>
-<span class="normal">444</span>
-<span class="normal">445</span>
-<span class="normal">446</span>
-<span class="normal">447</span>
-<span class="normal">448</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">448</span>
 <span class="normal">449</span>
 <span class="normal">450</span>
 <span class="normal">451</span>
@@ -1468,7 +1492,13 @@ hardware based on setup index.</p>
 <span class="normal">508</span>
 <span class="normal">509</span>
 <span class="normal">510</span>
-<span class="normal">511</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@interface</span><span class="o">.</span><span class="n">schema</span>
+<span class="normal">511</span>
+<span class="normal">512</span>
+<span class="normal">513</span>
+<span class="normal">514</span>
+<span class="normal">515</span>
+<span class="normal">516</span>
+<span class="normal">517</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@interface</span><span class="o">.</span><span class="n">schema</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Configuration</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;DataJoint table for saving setup configurations for each session.&quot;&quot;&quot;</span>
 
@@ -1577,18 +1607,18 @@ hardware based on setup index.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">466</span>
-<span class="normal">467</span>
-<span class="normal">468</span>
-<span class="normal">469</span>
-<span class="normal">470</span>
-<span class="normal">471</span>
-<span class="normal">472</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">472</span>
 <span class="normal">473</span>
 <span class="normal">474</span>
 <span class="normal">475</span>
 <span class="normal">476</span>
-<span class="normal">477</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Ball</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="normal">477</span>
+<span class="normal">478</span>
+<span class="normal">479</span>
+<span class="normal">480</span>
+<span class="normal">481</span>
+<span class="normal">482</span>
+<span class="normal">483</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Ball</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Ball configuration table.&quot;&quot;&quot;</span>
 
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -1648,20 +1678,20 @@ hardware based on setup index.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">451</span>
-<span class="normal">452</span>
-<span class="normal">453</span>
-<span class="normal">454</span>
-<span class="normal">455</span>
-<span class="normal">456</span>
-<span class="normal">457</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">457</span>
 <span class="normal">458</span>
 <span class="normal">459</span>
 <span class="normal">460</span>
 <span class="normal">461</span>
 <span class="normal">462</span>
 <span class="normal">463</span>
-<span class="normal">464</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Port</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="normal">464</span>
+<span class="normal">465</span>
+<span class="normal">466</span>
+<span class="normal">467</span>
+<span class="normal">468</span>
+<span class="normal">469</span>
+<span class="normal">470</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Port</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Port configuration table.&quot;&quot;&quot;</span>
 
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -1723,13 +1753,7 @@ hardware based on setup index.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">479</span>
-<span class="normal">480</span>
-<span class="normal">481</span>
-<span class="normal">482</span>
-<span class="normal">483</span>
-<span class="normal">484</span>
-<span class="normal">485</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">485</span>
 <span class="normal">486</span>
 <span class="normal">487</span>
 <span class="normal">488</span>
@@ -1741,7 +1765,13 @@ hardware based on setup index.</p>
 <span class="normal">494</span>
 <span class="normal">495</span>
 <span class="normal">496</span>
-<span class="normal">497</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Screen</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="normal">497</span>
+<span class="normal">498</span>
+<span class="normal">499</span>
+<span class="normal">500</span>
+<span class="normal">501</span>
+<span class="normal">502</span>
+<span class="normal">503</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Screen</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Screen configuration table.&quot;&quot;&quot;</span>
 
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -1808,19 +1838,19 @@ hardware based on setup index.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">499</span>
-<span class="normal">500</span>
-<span class="normal">501</span>
-<span class="normal">502</span>
-<span class="normal">503</span>
-<span class="normal">504</span>
-<span class="normal">505</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">505</span>
 <span class="normal">506</span>
 <span class="normal">507</span>
 <span class="normal">508</span>
 <span class="normal">509</span>
 <span class="normal">510</span>
-<span class="normal">511</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Speaker</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="normal">511</span>
+<span class="normal">512</span>
+<span class="normal">513</span>
+<span class="normal">514</span>
+<span class="normal">515</span>
+<span class="normal">516</span>
+<span class="normal">517</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Speaker</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Speaker configuration table.&quot;&quot;&quot;</span>
 
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -4042,7 +4072,13 @@ including pulse durations and weights.</p>
 <span class="normal">323</span>
 <span class="normal">324</span>
 <span class="normal">325</span>
-<span class="normal">326</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Port</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataclass representing a hardware port configuration.</span>
 
@@ -4066,6 +4102,12 @@ including pulse durations and weights.</p>
     <span class="n">state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the instance with the given keyword arguments.</span>
+
+<span class="sd">        This constructor dynamically sets the attributes of the instance</span>
+<span class="sd">        based on the provided keyword arguments. Only attributes that are</span>
+<span class="sd">        defined as fields of the class will be set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)])</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
@@ -4084,6 +4126,51 @@ including pulse durations and weights.</p>
 
 
 
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="ethopy.core.interface.Port.__init__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+<a href="#ethopy.core.interface.Port.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the instance with the given keyword arguments.</p>
+<p>This constructor dynamically sets the attributes of the instance
+based on the provided keyword arguments. Only attributes that are
+defined as fields of the class will be set.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the instance with the given keyword arguments.</span>
+
+<span class="sd">    This constructor dynamically sets the attributes of the instance</span>
+<span class="sd">    based on the provided keyword arguments. Only attributes that are</span>
+<span class="sd">    defined as fields of the class will be set.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)])</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
 
 
 
@@ -4118,13 +4205,7 @@ including pulse durations and weights.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">514</span>
-<span class="normal">515</span>
-<span class="normal">516</span>
-<span class="normal">517</span>
-<span class="normal">518</span>
-<span class="normal">519</span>
-<span class="normal">520</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">520</span>
 <span class="normal">521</span>
 <span class="normal">522</span>
 <span class="normal">523</span>
@@ -4154,7 +4235,13 @@ including pulse durations and weights.</p>
 <span class="normal">547</span>
 <span class="normal">548</span>
 <span class="normal">549</span>
-<span class="normal">550</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@interface</span><span class="o">.</span><span class="n">schema</span>
+<span class="normal">550</span>
+<span class="normal">551</span>
+<span class="normal">552</span>
+<span class="normal">553</span>
+<span class="normal">554</span>
+<span class="normal">555</span>
+<span class="normal">556</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@interface</span><span class="o">.</span><span class="n">schema</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">PortCalibration</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Liquid delivery calibration sessions for each port with water availability.&quot;&quot;&quot;</span>
 
@@ -4230,19 +4317,19 @@ including pulse durations and weights.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">525</span>
-<span class="normal">526</span>
-<span class="normal">527</span>
-<span class="normal">528</span>
-<span class="normal">529</span>
-<span class="normal">530</span>
-<span class="normal">531</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">531</span>
 <span class="normal">532</span>
 <span class="normal">533</span>
 <span class="normal">534</span>
 <span class="normal">535</span>
 <span class="normal">536</span>
-<span class="normal">537</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Liquid</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="normal">537</span>
+<span class="normal">538</span>
+<span class="normal">539</span>
+<span class="normal">540</span>
+<span class="normal">541</span>
+<span class="normal">542</span>
+<span class="normal">543</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Liquid</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for volume per pulse duty cycle estimation.&quot;&quot;&quot;</span>
 
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -4303,18 +4390,18 @@ including pulse durations and weights.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">539</span>
-<span class="normal">540</span>
-<span class="normal">541</span>
-<span class="normal">542</span>
-<span class="normal">543</span>
-<span class="normal">544</span>
-<span class="normal">545</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">545</span>
 <span class="normal">546</span>
 <span class="normal">547</span>
 <span class="normal">548</span>
 <span class="normal">549</span>
-<span class="normal">550</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Test</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="normal">550</span>
+<span class="normal">551</span>
+<span class="normal">552</span>
+<span class="normal">553</span>
+<span class="normal">554</span>
+<span class="normal">555</span>
+<span class="normal">556</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Test</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for Lick Test.&quot;&quot;&quot;</span>
 
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -4384,13 +4471,7 @@ including pulse durations and weights.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">329</span>
-<span class="normal">330</span>
-<span class="normal">331</span>
-<span class="normal">332</span>
-<span class="normal">333</span>
-<span class="normal">334</span>
-<span class="normal">335</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">335</span>
 <span class="normal">336</span>
 <span class="normal">337</span>
 <span class="normal">338</span>
@@ -4494,7 +4575,13 @@ including pulse durations and weights.</p>
 <span class="normal">436</span>
 <span class="normal">437</span>
 <span class="normal">438</span>
-<span class="normal">439</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@interface</span><span class="o">.</span><span class="n">schema</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@interface</span><span class="o">.</span><span class="n">schema</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">SetupConfiguration</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;DataJoint table for configuring the setup interfaces.</span>
 
@@ -4644,18 +4731,18 @@ including pulse durations and weights.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">396</span>
-<span class="normal">397</span>
-<span class="normal">398</span>
-<span class="normal">399</span>
-<span class="normal">400</span>
-<span class="normal">401</span>
-<span class="normal">402</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">402</span>
 <span class="normal">403</span>
 <span class="normal">404</span>
 <span class="normal">405</span>
 <span class="normal">406</span>
-<span class="normal">407</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Ball</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Ball</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Ball configuration table.&quot;&quot;&quot;</span>
 
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -4715,13 +4802,7 @@ including pulse durations and weights.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">423</span>
-<span class="normal">424</span>
-<span class="normal">425</span>
-<span class="normal">426</span>
-<span class="normal">427</span>
-<span class="normal">428</span>
-<span class="normal">429</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">429</span>
 <span class="normal">430</span>
 <span class="normal">431</span>
 <span class="normal">432</span>
@@ -4731,7 +4812,13 @@ including pulse durations and weights.</p>
 <span class="normal">436</span>
 <span class="normal">437</span>
 <span class="normal">438</span>
-<span class="normal">439</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Camera</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Camera</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Camera configuration table.&quot;&quot;&quot;</span>
 
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -4796,13 +4883,7 @@ including pulse durations and weights.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">348</span>
-<span class="normal">349</span>
-<span class="normal">350</span>
-<span class="normal">351</span>
-<span class="normal">352</span>
-<span class="normal">353</span>
-<span class="normal">354</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">354</span>
 <span class="normal">355</span>
 <span class="normal">356</span>
 <span class="normal">357</span>
@@ -4817,7 +4898,13 @@ including pulse durations and weights.</p>
 <span class="normal">366</span>
 <span class="normal">367</span>
 <span class="normal">368</span>
-<span class="normal">369</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Port</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Port</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Port configuration table.&quot;&quot;&quot;</span>
 
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -4887,13 +4974,7 @@ including pulse durations and weights.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">371</span>
-<span class="normal">372</span>
-<span class="normal">373</span>
-<span class="normal">374</span>
-<span class="normal">375</span>
-<span class="normal">376</span>
-<span class="normal">377</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">377</span>
 <span class="normal">378</span>
 <span class="normal">379</span>
 <span class="normal">380</span>
@@ -4910,7 +4991,13 @@ including pulse durations and weights.</p>
 <span class="normal">391</span>
 <span class="normal">392</span>
 <span class="normal">393</span>
-<span class="normal">394</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Screen</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Screen</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Screen configuration table.&quot;&quot;&quot;</span>
 
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -4982,19 +5069,19 @@ including pulse durations and weights.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">409</span>
-<span class="normal">410</span>
-<span class="normal">411</span>
-<span class="normal">412</span>
-<span class="normal">413</span>
-<span class="normal">414</span>
-<span class="normal">415</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">415</span>
 <span class="normal">416</span>
 <span class="normal">417</span>
 <span class="normal">418</span>
 <span class="normal">419</span>
 <span class="normal">420</span>
-<span class="normal">421</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Speaker</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Speaker</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Speaker configuration table.&quot;&quot;&quot;</span>
 
     <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
