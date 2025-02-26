@@ -59,7 +59,7 @@ current_state = control_entry['state']
 ```
 
 ### 3. Controlling Experiments
-The user only change the status of the experiment in running and stop. Also can change the animal_id and the task_id.
+The user only change the status of the experiment from running to stop and from ready to running. Also can change the animal_id and the task_id.
 
 ```python
 # To start an experiment on a setup
