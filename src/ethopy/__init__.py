@@ -1,9 +1,30 @@
+"""ethopy package initializer.
+
+This module initializes the ethopy package by setting up environment variables,
+reading configuration files, setting DataJoint parameters, and initializing plugins.
+
+Attributes:
+    __version__ (str): The version of the ethopy package.
+    local_conf (ConfigurationManager): The configuration manager instance for reading
+        local configuration(local_conf.json).
+    SCHEMATA (dict): The schema mappings from the local configuration.
+    plugin_manager (PluginManager): The plugin manager instance for managing plugins.
+
+Environment Variables:
+    PYGAME_HIDE_SUPPORT_PROMPT (str): Set to "1" to hide the Pygame support prompt.
+
+Modules:
+    ConfigurationManager: Manages configuration settings.
+    PluginManager: Manages plugins for the ethopy package.
+
+"""
+
 from os import environ
 
 import datajoint as dj
 
-from ethopy.plugin_manager import PluginManager
 from ethopy.config import ConfigurationManager
+from ethopy.plugin_manager import PluginManager
 
 __version__ = "0.0.7"
 
