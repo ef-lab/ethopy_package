@@ -12,6 +12,7 @@ from typing import Any, Dict, Optional, Union
 
 class ConfigurationManager:
     """Configuration manager for ethopy package settings."""
+
     DEFAULT_FILE = Path.home() / ".ethopy" / "local_conf.json"
     DEFAULT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
@@ -21,6 +22,7 @@ class ConfigurationManager:
         Args:
             config_file: Optional path to config file. If not provided,
                         uses ~/.ethopy/local_conf.json
+
         """
         self.logging = logging.getLogger(__name__)
         self._config: Dict[str, Any] = {}
@@ -68,7 +70,7 @@ class ConfigurationManager:
             },
             "source_path": str(Path.home() / "EthoPy_Files"),
             "target_path": "/",
-            "plugin_path": str(Path.home() / ".ethopy"),
+            "plugin_path": str(Path.home() / ".ethopy/ethopy_plugins"),
         }
 
         # Update config with defaults for missing values only
@@ -111,6 +113,7 @@ class ConfigurationManager:
 
         Returns:
             Dictionary containing all DataJoint configuration settings.
+
         """
         return self._config.get("dj_local_conf", {})
 
@@ -147,6 +150,7 @@ class ConfigurationManager:
 
         Returns:
             Configuration value or default if not found
+
         """
         # Handle top-level keys first
         if key in self._config:
@@ -172,6 +176,7 @@ class ConfigurationManager:
         Args:
             key: Configuration key (e.g., 'database.host', 'logging.level')
             value: Value to set
+
         """
         if "." not in key:
             self._config[key] = value

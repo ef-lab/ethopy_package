@@ -5,7 +5,7 @@ from pathlib import Path
 
 import click
 
-from ethopy.utils.config import ConfigurationManager
+from ethopy.config import ConfigurationManager
 from ethopy.utils.ethopy_logging import LoggingManager
 from ethopy.utils.task import resolve_task
 

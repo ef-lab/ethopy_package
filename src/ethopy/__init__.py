@@ -3,7 +3,7 @@ from os import environ
 import datajoint as dj
 
 from ethopy.plugin_manager import PluginManager
-from ethopy.utils.config import ConfigurationManager
+from ethopy.config import ConfigurationManager
 
 __version__ = "0.0.7"
 
