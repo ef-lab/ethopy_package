@@ -80,7 +80,9 @@ class LoggingManager:
         self._configured = True
 
         # Log initial message
-        logging.info("Logging system initialized: level=%s, file=%s", log_level, log_file_path)
+        logging.info(
+            "Logging system initialized: level=%s, file=%s", log_level, log_file_path
+        )
 
     def _create_file_handler(
         self, log_file: Path, log_level: int

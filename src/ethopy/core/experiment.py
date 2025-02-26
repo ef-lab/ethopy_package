@@ -65,11 +65,9 @@ class State:
 
     def entry(self) -> None:
         """Execute actions when entering this state."""
-        pass
 
     def run(self) -> None:
         """Execute the main state logic."""
-        pass
 
     def next(self) -> str:
         """Determine the next state to transition to.
@@ -85,7 +83,6 @@ class State:
 
     def exit(self) -> None:
         """Execute actions when exiting this state."""
-        pass
 
 
 class StateMachine:
@@ -187,8 +184,6 @@ class ExperimentClass:
     cur_block_sz = 0
     params = None
     logger = None
-    conditions = []
-    iter = []
     setup_conf_idx = 0
     interface = None
     beh = None
@@ -226,7 +221,7 @@ class ExperimentClass:
 
         np.random.seed(0)  # fix random seed, it can be overidden in the task file
 
-    def _interface_setup(self, beh, logger: Logger, setup_conf_idx: int) -> "Interface":
+    def _interface_setup(self, beh, logger: Logger, setup_conf_idx: int) -> "Interface":  # noqa: F821
         interface_module = logger.get(
             schema="interface",
             table="SetupConfiguration",
@@ -611,7 +606,7 @@ class ExperimentClass:
 
     def _anti_bias(self, choice_h, un_choices):
         choice_h = np.array(
-            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"]:]]
+            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"] :]]
         )
         if len(choice_h) < self.curr_cond["bias_window"]:
             choice_h = self.choices
@@ -862,6 +857,30 @@ class ExperimentClass:
 
     @dataclass
     class Block:
+        """A class representing a block of trials in an experiment.
+
+        Attributes:
+            difficulty (int): The difficulty level of the block. Default is 0.
+            stair_up (float): Threshold given to compare if performance is higher in
+                order to go to the next_up difficulty. Default is 0.7.
+            stair_down (float): Threshold given to compare if performance is smaller in
+                order to go to the next_down difficulty. Default is 0.7.
+            next_up (int): The difficulty level to go to if perf>stair_up. Default is 0.
+            next_down (int): The difficulty level to go to if perf<stair_down.
+                Default is 0.
+            staircase_window (int): The window size for the staircase procedure.
+                Default is 20.
+            bias_window (int): The window size for bias correction. Default is 5.
+            trial_selection (str): The method for selecting trials. Default is "fixed".
+            metric (str): The metric used for evaluating performance. Default is
+                "accuracy".
+            antibias (bool): Whether to apply antibias correction. Default is True.
+
+        Returns:
+            Dict: A dictionary containing the block parameters.
+
+        """
+
         difficulty: int = field(compare=True, default=0, hash=True)
         stair_up: float = field(compare=False, default=0.7)
         stair_down: float = field(compare=False, default=0.55)
@@ -872,8 +891,6 @@ class ExperimentClass:
         trial_selection: str = field(compare=False, default="fixed")
         metric: str = field(compare=False, default="accuracy")
         antibias: bool = field(compare=False, default=True)
-        noresponse_intertrial: bool = field(compare=False, default=True)
-        incremental_punishment: bool = field(compare=False, default=False)
 
         def dict(self) -> Dict:
             """Rerurn parameters as dictionary."""
@@ -881,7 +898,7 @@ class ExperimentClass:
 
 
 @experiment.schema
-class Session(dj.Manual):
+class Session(dj.Manual):  # noqa: D101
     definition = """
     # Session info
     animal_id                        : smallint UNSIGNED            # animal id
@@ -893,17 +910,42 @@ class Session(dj.Manual):
     session_tmst=CURRENT_TIMESTAMP   : timestamp        # session timestamp
     """
 
-    class Task(dj.Part):
+    class Task(dj.Part):  # noqa: D101, D106
         definition = """
         # Task info
         -> Session
         ---
         task_name        : varchar(256)                 # task filename
         task_file        : blob                         # task text file
-        git_hash             : varchar(32)              # github hash
         """
 
-    class Notes(dj.Part):
+    class Version(dj.Part):  # noqa: D101, D106
+        definition = """
+        # Code version info
+        -> Session
+        project_path   : varchar(256)              # path
+        ---
+        source_type    : enum('pip', 'git')        # task or setup
+        version        : varchar(32)               # pip version or git hash
+        repository_url : varchar(256)              # git repository url if available
+        is_dirty       : bool                      # uncommited changes in git
+        """
+
+    class Enviroment(dj.Part):  # noqa: D101, D106
+        definition = """
+        #Enviroment info
+        -> Session
+        ---
+        os_name : varchar(64)           # operating system name
+        os_version : varchar(64)        # operating system version
+        python_version : varchar(32)    # python version
+        cpu_info: varchar(256)          # cpu info
+        memory_info: varchar(256)       # memory info
+        hostname: varchar(64)           # hostname
+        username: varchar(64)           # username
+        """
+
+    class Notes(dj.Part):  # noqa: D101, D106
         definition = """
         # File session info
         -> Session
@@ -912,7 +954,7 @@ class Session(dj.Manual):
         note=null                   : varchar(2048)     # session notes
         """
 
-    class Excluded(dj.Part):
+    class Excluded(dj.Part):  # noqa: D101, D106
         definition = """
         # Excluded sessions
         -> Session
@@ -923,7 +965,7 @@ class Session(dj.Manual):
 
 
 @experiment.schema
-class Condition(dj.Manual):
+class Condition(dj.Manual):  # noqa: D101
     definition = """
     # unique stimulus conditions
     cond_hash             : char(24)                 # unique condition hash
@@ -935,7 +977,7 @@ class Condition(dj.Manual):
 
 
 @experiment.schema
-class Trial(dj.Manual):
+class Trial(dj.Manual):  # noqa: D101
     definition = """
     # Trial information
     -> Session
@@ -945,13 +987,13 @@ class Trial(dj.Manual):
     time                 : int                     # start time from session start (ms)
     """
 
-    class Aborted(dj.Part):
+    class Aborted(dj.Part):  # noqa: D101, D106
         definition = """
         # Aborted Trials
         -> Trial
         """
 
-    class StateOnset(dj.Part):
+    class StateOnset(dj.Part):  # noqa: D101, D106
         definition = """
         # Trial state timestamps
         -> Trial
@@ -961,7 +1003,7 @@ class Trial(dj.Manual):
 
 
 @experiment.schema
-class Control(dj.Lookup):
+class Control(dj.Lookup):  # noqa: D101
     definition = """
     # Control table
     setup                       : varchar(256)                 # Setup name
@@ -980,11 +1022,11 @@ class Control(dj.Lookup):
     notes=''                    : varchar(256)
     queue_size=0                : int
     ip=null                     : varchar(16)                  # setup IP address
-    """
+    """  # noqa: E501
 
 
 @experiment.schema
-class Task(dj.Lookup):
+class Task(dj.Lookup):  # noqa: D101
     definition = """
     # Experiment parameters
     task_idx                    : int           # task identification number
@@ -996,7 +1038,7 @@ class Task(dj.Lookup):
 
 
 @mice.schema
-class MouseWeight(dj.Manual):
+class MouseWeight(dj.Manual):  # noqa: D101
     definition = """
     animal_id                       : int unsigned                 # id number
     timestamp=CURRENT_TIMESTAMP     : timestamp                    # timestamp of weight

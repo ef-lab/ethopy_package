@@ -65,13 +65,13 @@ def resolve_task(
         task_path = Path(task_query.fetch1("task"))
         path, filename = os.path.split(task_path)
         if not path:
-            task_path = Path(os.path.join(
-                str(Path(__file__).parent.absolute()), "..", "task", filename
-                ))
-        if not task_path.is_file():
-            raise FileNotFoundError(
-                f"Task file from database not found: {task_path}"
+            task_path = Path(
+                os.path.join(
+                    str(Path(__file__).parent.absolute()), "..", "task", filename
+                )
             )
+        if not task_path.is_file():
+            raise FileNotFoundError(f"Task file from database not found: {task_path}")
 
         return Task(path=task_path, id=task_id)
 

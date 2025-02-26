@@ -195,9 +195,9 @@ class Stimulus:
             missing_fields = [
                 field for field in self.required_fields if field not in cond
             ]
-            assert (
-                not missing_fields
-            ), f"Missing Stimulus required fields: {missing_fields}"
+            assert not missing_fields, (
+                f"Missing Stimulus required fields: {missing_fields}"
+            )
             cond.update({**self.default_key, **cond})
         # log stim conditions
         conditions = self.exp.log_conditions(

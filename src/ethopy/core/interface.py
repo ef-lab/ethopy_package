@@ -320,6 +320,12 @@ class Port:
     state: bool = datafield(compare=False, default=False)
 
     def __init__(self, **kwargs):
+        """Initialize the instance with the given keyword arguments.
+
+        This constructor dynamically sets the attributes of the instance
+        based on the provided keyword arguments. Only attributes that are
+        defined as fields of the class will be set.
+        """
         names = set([f.name for f in fields(self)])
         for k, v in kwargs.items():
             if k in names:

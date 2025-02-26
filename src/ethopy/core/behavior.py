@@ -45,9 +45,34 @@ class Behavior:
     """
 
     def __init__(self) -> None:
+        """Initialize the behavior class with default values.
+
+        Attributes:
+            cond_tables (List[str]): A list of condition table names.
+            default_key (Dict[str, Any]): A dictionary for default key-value pairs.
+            interface (Any): The interface object (initially None).
+            required_fields (List[str]): A list of required field names.
+            curr_cond (List[Dict[str, Any]]): A list of current trial conditions.
+            response (List[Any]): A list for storing responses.
+            licked_port (int): The port is that was licked.
+            logging (bool): A flag indicating if logging is enabled.
+            reward_amount (Dict[int, float]): A dictionary mapping port numbers to
+                reward amounts.
+            choice_history (List[float]): A list of choice history values.
+            reward_history (List[float]): A list of reward history values.
+            punish_history (List[float]): A list of punishment history values.
+            choices (np.ndarray): An array of choices.
+            response_queue (Queue): A queue for storing responses with a maximum size
+                of 4.
+            last_lick: The last lick event (initially None).
+            params: Parameters for the experiment (initially None).
+            exp: The experiment object (initially None).
+            logger: The logger object (initially None).
+
+        """
         self.cond_tables: List[str] = []
         self.default_key: Dict[str, Any] = {}
-        self.interface: List[Any] = []
+        self.interface = None
         self.required_fields: List[str] = []
         self.curr_cond: List[Dict[str, Any]] = []
         self.response: List[Any] = []
@@ -223,9 +248,9 @@ class Behavior:
             missing_fields = [
                 field for field in self.required_fields if field not in cond
             ]
-            assert (
-                not missing_fields
-            ), f"Missing behavior required fields: {missing_fields}"
+            assert not missing_fields, (
+                f"Missing behavior required fields: {missing_fields}"
+            )
             cond.update({**self.default_key, **cond})
 
         if self.cond_tables:
@@ -362,6 +387,7 @@ class BehActivity:
     response: bool = datafield(compare=False, default=False)
 
     def __init__(self, **kwargs: Dict[str, Any]) -> None:
+        """Initialize the behavior object with the provided keyword arguments."""
         names = set([f.name for f in fields(self)])
         for k, v in kwargs.items():
             if k in names:

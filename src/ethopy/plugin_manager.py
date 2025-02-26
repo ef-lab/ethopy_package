@@ -1,3 +1,19 @@
+"""PluginManager class for managing plugins in the ethopy package.
+
+Classes:
+    PluginInfo: Dataclass to store information about a discovered plugin.
+    PluginManager: Manages dynamic loading of user plugins, including core modules and
+                   handling duplicates.
+
+Functions:
+    _register_plugin: Registers a plugin, handling duplicates with warnings.
+    add_plugin_path: Adds a new plugin directory to the system.
+    _scan_plugins: Scans a directory for plugins and registers them.
+    _initialize_plugin_imports: Initializes the plugin import hook system.
+    list_plugins: Lists all available plugins.
+    get_plugin_info: Gets information about a specific plugin.
+"""
+
 import importlib
 import logging
 import os
@@ -29,25 +45,43 @@ class PluginManager:
 
     PLUGIN_CATEGORIES = ["behaviors", "experiments", "interfaces", "stimuli"]
 
-    def __init__(self, local_conf_path: str = None):
-        self._plugin_paths: Set[str] = set()
+    def __init__(self, local_conf_path: Optional[str] = None):
+        """Initialize PluginManager instance.
+
+        Args:
+            local_conf_path (Optional[str]): Path to the local configuration file. If
+                provided and not empty,it will be added to the plugin paths.
+
+        Attributes:
+            plugin_paths (Set[str]): A set of paths where plugins are located.
+            _plugins (Dict[str, PluginInfo]): A dictionary mapping import paths to
+                PluginInfo objects.
+            _duplicates (Dict[str, List[str]]): A dictionary mapping import paths to
+                lists of duplicate paths.
+            _ethopy_path (str): The path to the ethopy core modules.
+
+        Methods:
+            _get_ethopy_path: Retrieves the path to the ethopy core modules.
+            _scan_core_modules: Scans and loads the core modules.
+            _setup_plugin_paths: Sets up the plugin paths.
+            _initialize_plugin_imports: Initializes the plugin imports.
+
+        """
+        self.plugin_paths: Set[str] = set()
         self._plugins: Dict[str, PluginInfo] = {}  # import_path -> PluginInfo
-        self._duplicates: Dict[str, List[str]] = (
-            {}
-        )  # import_path -> list of duplicate paths
+        self._duplicates: Dict[
+            str, List[str]
+        ] = {}  # import_path -> list of duplicate paths
 
         if local_conf_path and str(local_conf_path).strip():
             self.add_plugin_path(str(local_conf_path))
 
-        # Get ethopy's main package path
         self._ethopy_path = self._get_ethopy_path()
-
-        # First scan core ethopy modules
         self._scan_core_modules()
-
-        # Then load plugins from default locations
         self._setup_plugin_paths()
         self._initialize_plugin_imports()
+
+        log.debug(f"Plugin paths: {self.plugin_paths}")
 
     def _get_ethopy_path(self) -> Optional[str]:
         """Get the installation path of the main ethopy package."""
@@ -78,15 +112,9 @@ class PluginManager:
                     continue
 
                 if item.endswith(".py"):
-                    # Register Python module
                     module_name = item[:-3]
                     import_path = f"{package_name}.{module_name}"
-                    self._register_plugin(
-                        import_path=import_path,
-                        plugin_path=item_path,
-                        plugin_type="core",
-                        is_core=True,
-                    )
+                    self._register_plugin(import_path, item_path, "core", is_core=True)
 
                 elif os.path.isdir(item_path):
                     # If it's a category directory or has __init__.py, scan it
@@ -101,7 +129,6 @@ class PluginManager:
         """Set up default plugin paths and from environment variable."""
         default_paths = [
             Path.home() / ".ethopy" / "ethopy_plugins",
-            # Path.cwd() / "ethopy_plugins",
         ]
 
         env_paths = [
@@ -185,8 +212,8 @@ class PluginManager:
             log.warning(f"Plugin path not found: {path}")
             return
 
-        if path not in self._plugin_paths:
-            self._plugin_paths.add(path)
+        if path not in self.plugin_paths:
+            self.plugin_paths.add(path)
 
             # Add to Python's import path
             if path not in sys.path:
