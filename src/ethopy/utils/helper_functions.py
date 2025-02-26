@@ -8,10 +8,15 @@ from datetime import datetime
 from getpass import getpass
 from itertools import product
 from typing import Any, Dict, List, Tuple
-
+import subprocess
+import importlib.metadata
 import datajoint as dj
 import numpy as np
 from scipy import ndimage
+import platform
+import socket
+
+log = logging.getLogger(__name__)
 
 
 @dataclass
@@ -57,7 +62,7 @@ class FillColors:
         return self.__dict__.values()
 
 
-def create_virtual_modules(schemata, create_tables=True,  create_schema=True):
+def create_virtual_modules(schemata, create_tables=True, create_schema=True):
     try:
         if dj.config["database.password"] is None:
             dj.config["password"] = getpass(prompt="Please enter DataJoint password: ")
@@ -66,19 +71,23 @@ def create_virtual_modules(schemata, create_tables=True,  create_schema=True):
             dj.config["database.host"],
             dj.config["database.user"],
             dj.config["database.password"],
-            use_tls=dj.config["database.use_tls"]
+            use_tls=dj.config["database.use_tls"],
         )
         virtual_modules = {}
         for name, schema in schemata.items():
-            virtual_modules[name] = dj.create_virtual_module(name,
-                                                             schema,
-                                                             create_tables=create_tables,
-                                                             create_schema=create_schema,
-                                                             connection=_conn)
+            virtual_modules[name] = dj.create_virtual_module(
+                name,
+                schema,
+                create_tables=create_tables,
+                create_schema=create_schema,
+                connection=_conn,
+            )
         return virtual_modules, _conn
     except Exception as e:
-        error_message = (f"Failed to connect to the database due "
-                         f"to an internet connection error: {e}")
+        error_message = (
+            f"Failed to connect to the database due "
+            f"to an internet connection error: {e}"
+        )
         logging.error("ERROR %s", error_message)
         raise Exception(error_message) from e
 
@@ -89,7 +98,7 @@ def sub2ind(array_shape, rows, cols):
 
 def flat2curve(I, dist, mon_size, **kwargs):
     def cart2pol(x, y):
-        rho = np.sqrt(x ** 2 + y ** 2)
+        rho = np.sqrt(x**2 + y**2)
         phi = np.arctan2(y, x)
         return (phi, rho)
 
@@ -98,14 +107,15 @@ def flat2curve(I, dist, mon_size, **kwargs):
         y = rho * np.sin(phi)
         return (x, y)
 
-    params = dict({'center_x': 0, 'center_y': 0, 'method': 'index'},
-                  **kwargs)  # center_x, center_y points in normalized x coordinates from center
+    params = dict(
+        {"center_x": 0, "center_y": 0, "method": "index"}, **kwargs
+    )  # center_x, center_y points in normalized x coordinates from center
 
     # Shift the origin to the closest point of the image.
     nrows, ncols = np.shape(I)
     [yi, xi] = np.meshgrid(np.linspace(1, ncols, ncols), np.linspace(1, nrows, nrows))
-    yt = yi - ncols/2 + params['center_y']*nrows - 0.5
-    xt = xi - nrows/2 - params['center_x']*nrows - 0.5
+    yt = yi - ncols / 2 + params["center_y"] * nrows - 0.5
+    xt = xi - nrows / 2 - params["center_x"] * nrows - 0.5
 
     # Convert the Cartesian x- and y-coordinates to cylindrical angle (theta) and radius (r) coordinates
     [theta, r] = cart2pol(yt, xt)
@@ -116,20 +126,21 @@ def flat2curve(I, dist, mon_size, **kwargs):
     phi = np.arctan(r / dist_px)
 
     h = np.cos(phi / 2) * dist_px
-    r_new = 2 * np.sqrt(dist_px ** 2 - h ** 2)
+    r_new = 2 * np.sqrt(dist_px**2 - h**2)
 
     # Convert back to the Cartesian coordinate system. Shift the origin back to the upper-right corner of the image.
     [ut, vt] = pol2cart(theta, r_new)
-    ui = ut + ncols / 2 - params['center_y'] * nrows
-    vi = vt + nrows / 2 + params['center_x'] * nrows
+    ui = ut + ncols / 2 - params["center_y"] * nrows
+    vi = vt + nrows / 2 + params["center_x"] * nrows
 
     # Tranform image
-    if params['method'] == 'index':
+    if params["method"] == "index":
         idx = (vi.astype(int), ui.astype(int))
         transform = lambda x: x[idx]
-    elif params['method'] == 'interp':
-        transform = lambda x: ndimage.map_coordinates(x, [vi.ravel() - 0.5, ui.ravel() - 0.5], order=1,
-                                                      mode='nearest').reshape(x.shape)
+    elif params["method"] == "interp":
+        transform = lambda x: ndimage.map_coordinates(
+            x, [vi.ravel() - 0.5, ui.ravel() - 0.5], order=1, mode="nearest"
+        ).reshape(x.shape)
     return (transform(I), transform)
 
 
@@ -194,8 +205,10 @@ def make_hash(cond):
 
 
 def rgetattr(obj, attr, *args):
-    def _getattr(obj, attr): return getattr(obj, attr, *args)
-    return functools.reduce(_getattr, [obj] + attr.split('.'))
+    def _getattr(obj, attr):
+        return getattr(obj, attr, *args)
+
+    return functools.reduce(_getattr, [obj] + attr.split("."))
 
 
 def iterable(v):
@@ -203,7 +216,6 @@ def iterable(v):
 
 
 class DictStruct:
-
     def __init__(self, dictionary):
         self.__dict__.update(**dictionary)
 
@@ -218,9 +230,9 @@ class DictStruct:
 def generate_conf_list(folder_path):
     contents = []
     files = os.listdir(folder_path)
-    current_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     for i, file_name in enumerate(files):
-        contents.append([i, file_name, '', current_datetime])
+        contents.append([i, file_name, "", current_datetime])
     return contents
 
 
@@ -239,7 +251,7 @@ def convert_numeric_keys(data: Dict) -> Dict:
             # Convert the value recursively if it's a dictionary
             if isinstance(value, dict):
                 # For specific fields, convert their keys to integers
-                if key in ['Odor', 'Liquid', 'Lick', 'Proximity', 'Sound']:
+                if key in ["Odor", "Liquid", "Lick", "Proximity", "Sound"]:
                     new_dict[key] = {int(k): v for k, v in value.items()}
                 else:
                     new_dict[key] = convert_numeric_keys(value)
@@ -247,3 +259,202 @@ def convert_numeric_keys(data: Dict) -> Dict:
                 new_dict[key] = value
         return new_dict
     return data
+
+
+def get_code_version_info(project_path: str = None) -> Dict[str, Any]:
+    """Determine version information for a project directory.
+
+    Checks git hash first, then PyPI version, then returns None.
+
+    Args:
+        project_path: Optional path to the project directory. If not provided,
+            uses the current script's directory.
+
+    Returns:
+        dict: Contains source_type ('git', 'pypi', or None) and version information
+
+    """
+    from pathlib import Path
+
+    if project_path is None:
+        # project_path = os.path.dirname(os.path.abspath(__file__))
+        project_path = Path(os.path.dirname(os.path.abspath(__file__))).parents[2]
+        # two_folders_back = project_path.parents[1]
+    result = {
+        "project_path": os.path.abspath(project_path),
+        "source_type": None,
+        "version": None,
+        "repository_url": None,
+        "is_dirty": None,
+    }
+
+    # Check if it's a git repository
+    git_dir = os.path.join(project_path, ".git")
+    if os.path.isdir(git_dir):
+        try:
+            # Get the commit hash
+            git_hash = (
+                subprocess.check_output(
+                    [
+                        "git",
+                        "--git-dir",
+                        git_dir,
+                        "--work-tree",
+                        project_path,
+                        "rev-parse",
+                        "--short",
+                        "HEAD",
+                    ],
+                    stderr=subprocess.DEVNULL,
+                )
+                .decode("utf-8")
+                .strip()
+            )
+
+            # Check if the repo has uncommitted changes
+            git_status = (
+                subprocess.check_output(
+                    [
+                        "git",
+                        "--git-dir",
+                        git_dir,
+                        "--work-tree",
+                        project_path,
+                        "status",
+                        "--porcelain",
+                    ],
+                    stderr=subprocess.DEVNULL,
+                )
+                .decode("utf-8")
+                .strip()
+            )
+            is_dirty = len(git_status) > 0
+
+            # Get the remote repository URL
+            try:
+                repo_url = (
+                    subprocess.check_output(
+                        [
+                            "git",
+                            "--git-dir",
+                            git_dir,
+                            "--work-tree",
+                            project_path,
+                            "config",
+                            "--get",
+                            "remote.origin.url",
+                        ],
+                        stderr=subprocess.DEVNULL,
+                    )
+                    .decode("utf-8")
+                    .strip()
+                )
+            except subprocess.CalledProcessError:
+                repo_url = None
+
+            result["source_type"] = "git"
+            result["version"] = git_hash
+            result["repository_url"] = repo_url
+            result["is_dirty"] = is_dirty
+            return result
+        except (subprocess.CalledProcessError, FileNotFoundError) as e:
+            log.debug(f"Not a git repository or git error: {e}")
+
+    # Check if it's installed via PyPI
+    try:
+        # Try to get package metadata
+        package_name = "ethopy"
+        package_version = importlib.metadata.version(package_name)
+
+        result["source_type"] = "pypi"
+        result["version"] = package_version
+        return result
+    except (importlib.metadata.PackageNotFoundError, ImportError) as e:
+        log.debug(f"Not a PyPI package or error: {e}")
+
+    # If we get here, we couldn't determine version info
+    return result
+
+
+def get_environment_info() -> Dict[str, Any]:
+    """Collect information about the system environment.
+
+    Returns:
+        dict: System environment information
+
+    """
+    cpu_info = "Unknown"
+    memory_info = "Unknown"
+
+    if platform.system() == "Linux":
+        # Get CPU info on Linux
+        if os.path.exists("/proc/cpuinfo"):
+            try:
+                with open("/proc/cpuinfo", "r") as f:
+                    for line in f:
+                        if line.startswith("model name"):
+                            cpu_info = line.split(":", 1)[1].strip()
+                            break
+            except Exception as e:
+                log.warning(f"Could not read CPU info: {e}")
+
+        # Get memory info on Linux
+        if os.path.exists("/proc/meminfo"):
+            try:
+                with open("/proc/meminfo", "r") as f:
+                    for line in f:
+                        if line.startswith("MemTotal"):
+                            memory_info = line.split(":", 1)[1].strip()
+                            break
+            except Exception as e:
+                log.warning(f"Could not read memory info: {e}")
+
+    elif platform.system() == "Darwin":  # macOS
+        try:
+            # Get CPU info on macOS
+            cpu_info = (
+                subprocess.check_output(["sysctl", "-n", "machdep.cpu.brand_string"])
+                .decode()
+                .strip()
+            )
+
+            # Get memory info on macOS
+            memory_info = (
+                subprocess.check_output(["sysctl", "-n", "hw.memsize"]).decode().strip()
+            )
+            memory_info = f"{int(memory_info) // (1024**2)} kB"
+        except Exception as e:
+            log.warning(f"Could not read system info on macOS: {e}")
+
+    elif platform.system() == "Windows":
+        try:
+            # Get CPU info on Windows
+            cpu_info = (
+                subprocess.check_output(["wmic", "cpu", "get", "Name"])
+                .decode()
+                .split("\n")[1]
+                .strip()
+            )
+
+            # Get memory info on Windows
+            memory_info = (
+                subprocess.check_output(
+                    ["wmic", "ComputerSystem", "get", "TotalPhysicalMemory"]
+                )
+                .decode()
+                .split("\n")[1]
+                .strip()
+            )
+            memory_info = f"{int(memory_info) // (1024**2)} kB"
+        except Exception as e:
+            log.warning(f"Could not read system info on Windows: {e}")
+
+    return {
+        "os_name": platform.system(),
+        "os_version": platform.release(),
+        "python_version": platform.python_version(),
+        "cpu_info": cpu_info,
+        "memory_info": memory_info,
+        "hostname": socket.gethostname(),
+        "username": os.getlogin() if hasattr(os, "getlogin") else "unknown",
+    }

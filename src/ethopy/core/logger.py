@@ -1,10 +1,24 @@
+"""A comprehensive logging system.
+
+Managing experimental data, database connections, and data flow control in an
+experimental setup. It includes functionality for establishing database connections,
+managing logging sessions, handling data insertion, and synchronizing setup status.
+
+Classes:
+    Logger: Manages logging and data handling in an experimental setup.
+    PrioritizedItem: Represents an item with a priority for logging purposes.
+
+Functions:
+    _set_connection: Establishes connection to the database and initializes global
+        variables for virtual modules.
+"""
+
 import importlib
 import inspect
 import logging
 import os
 import platform
 import socket
-import subprocess
 import threading
 import time
 from contextlib import contextmanager
@@ -19,8 +33,13 @@ import datajoint as dj
 import numpy as np
 from pyfiglet import figlet_format
 
-from ethopy import SCHEMATA, __version__, local_conf
-from ethopy.utils.helper_functions import create_virtual_modules, rgetattr
+from ethopy import SCHEMATA, __version__, local_conf, plugin_manager
+from ethopy.utils.helper_functions import (
+    create_virtual_modules,
+    get_code_version_info,
+    get_environment_info,
+    rgetattr,
+)
 from ethopy.utils.task import Task, resolve_task
 from ethopy.utils.timer import Timer
 from ethopy.utils.writer import Writer
@@ -107,6 +126,7 @@ class Logger:
     """
 
     def __init__(self, task: bool = False) -> None:
+        """Initialize the Logger."""
         self.setup = socket.gethostname()
         self.is_pi = self._check_if_raspberry_pi()
 
@@ -595,7 +615,7 @@ class Logger:
 
         # create a dict with the configuration as key and the subclasses as values
         conf_table_schema = {}
-        for _schema, _module in zip(_schemas, _modules):
+        for _schema, _module in zip(_schemas, _modules, strict=True):
             conf = importlib.import_module(_module).Configuration
             # Find the inner classes of the class Configuration
             conf_table_schema[_schema] = self.get_inner_classes_list(conf)
@@ -719,12 +739,13 @@ class Logger:
             log.debug("Update status is set %s\n%s", info["status"], caller_info)
 
         self.setup_info = {
-            **(experiment.Control() & {**{"setup": self.setup}, **key}).fetch1(),
+            **(experiment.Control() & {"setup": self.setup, **key}).fetch1(),
             **info,
         }
 
-        if "notes" in info and len(info["notes"]) > 255:
-            info["notes"] = info["notes"][:255]
+        char_len = 255
+        if "notes" in info and len(info["notes"]) > char_len:
+            info["notes"] = info["notes"][:char_len]
 
         self.put(
             table="Control",
@@ -739,16 +760,23 @@ class Logger:
 
     def _log_task_details(self) -> None:
         """Save the task file, name and git_hash in the database."""
-        try:
-            git_hash = (
-                subprocess.check_output(["git", "rev-parse", "--short", "HEAD"])
-                .decode("ascii")
-                .strip()
+        version_info = get_code_version_info()
+        self.put(table="Session.Version", tuple={**self.trial_key, **version_info})
+        log.debug(f"Code version: {version_info}")
+
+        env_info = get_environment_info()
+        self.put(table="Session.Enviroment", tuple={**self.trial_key, **env_info})
+        log.debug(f"Enviroment info: {env_info}")
+
+        for path in plugin_manager.plugin_paths:
+            plugin_version_info = get_code_version_info(path)
+            if plugin_version_info["source_type"] is None:
+                log.warning(f"Plugin {path} is not a git repository")
+            else:
+                log.debug(f"Plugin code version: {plugin_version_info}")
+            self.put(
+                table="Session.Version", tuple={**self.trial_key, **plugin_version_info}
             )
-            _hash = f"{git_hash}"
-        except subprocess.CalledProcessError:
-            _hash = f"pip version {__version__}"
-        log.info(f"git hash: {_hash}")
 
         self.put(
             table="Session.Task",
@@ -756,7 +784,7 @@ class Logger:
                 **self.trial_key,
                 "task_name": self.task_path,
                 "task_file": np.fromfile(self.task_path, dtype=np.int8),
-                "git_hash": hash,
+                "git_hash": version_info["version"],
             },
         )
 
@@ -883,7 +911,7 @@ class Logger:
 
         """
         folder = (
-            f"Recordings/{self.trial_key['animal_id']}" f"_{self.trial_key['session']}/"
+            f"Recordings/{self.trial_key['animal_id']}_{self.trial_key['session']}/"
         )
         path = self.source_path + folder
         if not os.path.isdir(path):
@@ -985,6 +1013,8 @@ class Logger:
 
 @dataclass(order=True)
 class PrioritizedItem:
+    """A class used to represent an item with a priority for logging purposes."""
+
     table: str = datafield(compare=False)
     tuple: Any = datafield(compare=False)
     field: str = datafield(compare=False, default="")
