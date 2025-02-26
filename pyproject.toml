@@ -6,8 +6,8 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT License"}
 authors = [
-    {name = "Alex Evangelou", email = "evangelou.alexandr@gmail.com"},
     {name = "Emmanouil Froudarakis", email = "admin@example.com"},
+    {name = "Alex Evangelou", email = "evangelou.alexandr@gmail.com"},
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -92,10 +92,6 @@ disallow_untyped_defs = true
 
 [tool.ruff]
 line-length = 88
-select = ["E", "F", "W", "I", "ANN", "D", "S"]
-ignore = ["S113", "D101", "D106", "ANN001", "S603", "S101", "S607", "ANN003", 
-"ANN202", "D107", "S102", "ANN401", "ANN204", "D104", "D100", "S605", ]
-fixable = ["F401", "F841", "E", "W", "I"]
 target-version = "py310"
 src = ["src", "tests"]
 exclude = [
@@ -111,37 +107,29 @@ exclude = [
   "src/ethopy/behaviors"
 ]
 
-[tool.ruff.isort]
+select = [
+    "D", "F", "E", "I", "W", "YTT", "B", "Q", "PLE", "PLR", "PLW", "PIE",
+    "PYI", "TID","D212",
+]
+
+ignore = [
+    "E402", "E731", "B010", "B011", "B015", "B019", "B020", "B023", "B905", "PLR0913", "PLR0911", "PLR0912",
+    "PLR0915", "PLW0603", "PYI021", "B904", "PLR2004", "PLR5501", "PYI041", "TID252", "D213","D203",
+]
+
+fixable = ["F401", "F841", "E", "W", "I"]
+
+[tool.ruff.lint.isort]
 known-first-party = ["ethopy"]
 
-[tool.ruff.flake8-quotes]
+[tool.ruff.lint.flake8-quotes]
 inline-quotes = "double"
 
-[tool.ruff.mccabe]
+[tool.ruff.lint.mccabe]
 max-complexity = 10
 
-[tool.black]
-line-length = 88  # Adjust as needed
-target-version = ['py38', 'py39', 'py310']  # Set your Python versions
-include = '\.pyi?$'  # Format only Python files
-exclude = '''
-/(
-    \.git
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | build
-  | lib
-  | dist
-  | task
-  | utils
-  | stimuli
-  | experiments
-  | interfaces
-  | behaviors
-  | temp
-)/
-'''
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 [tool.pytest.ini_options]
 addopts = "-ra -q"
