@@ -26,9 +26,12 @@ We use GitHub to host code, track issues and feature requests, and accept pull r
    ```
 3. Write your code and add tests:
    - Add unit tests for new features
+   - Use the mocking pattern described in the Testing section below
 4. Ensure code quality:
-   - Run tests: `pytest`
+   - Run tests: `pytest -vv`
    - Check code style: `ruff check .`
+   - Fix formatting issues: `ruff format .`
+   - Type checking: `mypy src/ethopy` # TODO a lot of errors
 5. Update documentation:
    - Add docstrings (Google format)
    - Update API documentation if needed
@@ -55,11 +58,55 @@ We follow scientific Python coding standards to maintain consistency:
    - Use Google docstring format
    - Maximum line length: 88 characters
    - Use type hints for function signatures
+   - Use snake_case for functions/variables, CamelCase for classes
+   - Use double quotes for strings
+
+## Testing Guidelines
+
+Ethopy has specific testing requirements due to its database connections:
+
+1. **Database Mocking**: 
+   - Tests must run without an actual database connection
+   - Use the established mocking pattern for database and threading
+
+2. **Testing Pattern**:
+   - Use the `patch_imports` fixture pattern from existing tests
+   - Import modules inside test functions, not at module level
+   - Example:
+   ```python
+   import pytest
+   import sys
+   from unittest.mock import patch, MagicMock
+   
+   @pytest.fixture(scope="module")
+   def patch_imports():
+       """Patch imports to prevent database connections."""
+       mocks = {'datajoint': MagicMock(), 'datajoint.config': MagicMock()}
+       with patch.dict(sys.modules, mocks), patch('pathlib.Path.home'), patch('threading.Thread'):
+           yield
+           
+   @pytest.mark.usefixtures("patch_imports")
+   class TestYourModule:
+       # Tests go here...
+   ```
+
+3. **Running Tests**:
+  `pytest -vv`
+   - For a single test: `pytest tests/test_behavior.py::TestBehavior::test_update_history -v`
+
+4. **Troubleshooting**:
+   - If tests hang, it usually means threading or database connection issues
+   - Ensure all threads are mocked and database connections are properly patched
+   - See existing test files for reference implementations
+
+5. **CI Environment**:
+   - GitHub Actions will run all tests with database mocking
+   - Always ensure your tests pass in a CI environment with no database
 
 
 ## Reporting Issues
 
-Report bugs and feature requests using GitHub's [Issue Tracker](https://github.com/ethopy/issues). When reporting bugs:
+Report bugs and feature requests using GitHub's [Issue Tracker](https://github.com/ef-lab/ethopy_package/issues). When reporting bugs:
 
 1. Use a clear and descriptive title
 2. Describe the exact steps to reproduce the bug
