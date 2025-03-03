@@ -12,13 +12,13 @@
         <meta name="author" content="olakiril, alexevag">
       
       
-        <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/logging/">
+        <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/troubleshooting/">
       
       
-        <link rel="prev" href="../contributing/">
+        <link rel="prev" href="../setup_configuration_idx/">
       
       
-        <link rel="next" href="../logger/">
+        <link rel="next" href="../contributing/">
       
       
       <link rel="icon" href="../assets/LabPageBrain.gif">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Logging - EthoPy</title>
+        <title>Troubleshooting - EthoPy</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#logging-in-ethopy" class="md-skip">
+        <a href="#troubleshooting-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Logging
+              Troubleshooting
             
           </span>
         </div>
@@ -438,10 +438,31 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -451,6 +472,233 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#package-installation-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Installation Failures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importerror-after-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      ImportError After Installation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-connection-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Connection Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Connection Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cannot-connect-to-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cannot Connect to Database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schema-creation-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema Creation Errors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-interface-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware Interface Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware Interface Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#port-communication-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port Communication Problems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raspberry-pi-specific-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raspberry Pi Specific Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experiment-execution-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Experiment Execution Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Experiment Execution Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#experiment-fails-to-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Experiment Fails to Start
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reward-delivery-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reward Delivery Failures
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-logging-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Logging Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Logging Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#missing-trial-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Missing Trial Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-error-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Error Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Error Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-task-found-with-idx-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      "No task found with idx X"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-instances-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      "Multiple instances detected"
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-log-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix: Log Files
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -501,31 +749,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Logging
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../logging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -535,236 +762,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    <span class="md-ellipsis">
-      Features
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configuration
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#default-settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      Default Settings
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#local-conf-setting-based-on-the-local_confjson" class="md-nav__link">
-    <span class="md-ellipsis">
-      Local conf setting based on the local_conf.json
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#command-line-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      Command Line Options
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#log-formats" class="md-nav__link">
-    <span class="md-ellipsis">
-      Log Formats
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Log Formats">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#file-logs" class="md-nav__link">
-    <span class="md-ellipsis">
-      File Logs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#console-logs" class="md-nav__link">
-    <span class="md-ellipsis">
-      Console Logs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#color-coding" class="md-nav__link">
-    <span class="md-ellipsis">
-      Color Coding
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#log-file-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      Log File Management
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Log File Management">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#rotation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rotation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#directory-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      Directory Structure
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Usage Examples
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Usage Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-logging" class="md-nav__link">
-    <span class="md-ellipsis">
-      Basic Logging
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-logger" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom Logger
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      Best Practices
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-details" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation Details
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Details">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#loggingmanager-class" class="md-nav__link">
-    <span class="md-ellipsis">
-      LoggingManager Class
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-formatter" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom Formatter
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -949,46 +946,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#installation-issues" class="md-nav__link">
     <span class="md-ellipsis">
-      Features
+      Installation Issues
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configuration
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration">
+    <nav class="md-nav" aria-label="Installation Issues">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#default-settings" class="md-nav__link">
+  <a href="#package-installation-failures" class="md-nav__link">
     <span class="md-ellipsis">
-      Default Settings
+      Package Installation Failures
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#local-conf-setting-based-on-the-local_confjson" class="md-nav__link">
+  <a href="#importerror-after-installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Local conf setting based on the local_conf.json
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#command-line-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      Command Line Options
+      ImportError After Installation
     </span>
   </a>
   
@@ -1000,37 +979,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#log-formats" class="md-nav__link">
+  <a href="#database-connection-issues" class="md-nav__link">
     <span class="md-ellipsis">
-      Log Formats
+      Database Connection Issues
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Log Formats">
+    <nav class="md-nav" aria-label="Database Connection Issues">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#file-logs" class="md-nav__link">
+  <a href="#cannot-connect-to-database" class="md-nav__link">
     <span class="md-ellipsis">
-      File Logs
+      Cannot Connect to Database
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#console-logs" class="md-nav__link">
+  <a href="#schema-creation-errors" class="md-nav__link">
     <span class="md-ellipsis">
-      Console Logs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#color-coding" class="md-nav__link">
-    <span class="md-ellipsis">
-      Color Coding
+      Schema Creation Errors
     </span>
   </a>
   
@@ -1042,28 +1012,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#log-file-management" class="md-nav__link">
+  <a href="#hardware-interface-issues" class="md-nav__link">
     <span class="md-ellipsis">
-      Log File Management
+      Hardware Interface Issues
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Log File Management">
+    <nav class="md-nav" aria-label="Hardware Interface Issues">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#rotation" class="md-nav__link">
+  <a href="#port-communication-problems" class="md-nav__link">
     <span class="md-ellipsis">
-      Rotation
+      Port Communication Problems
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#directory-structure" class="md-nav__link">
+  <a href="#raspberry-pi-specific-issues" class="md-nav__link">
     <span class="md-ellipsis">
-      Directory Structure
+      Raspberry Pi Specific Issues
     </span>
   </a>
   
@@ -1075,28 +1045,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage-examples" class="md-nav__link">
+  <a href="#experiment-execution-issues" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage Examples
+      Experiment Execution Issues
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Usage Examples">
+    <nav class="md-nav" aria-label="Experiment Execution Issues">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#basic-logging" class="md-nav__link">
+  <a href="#experiment-fails-to-start" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic Logging
+      Experiment Fails to Start
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#custom-logger" class="md-nav__link">
+  <a href="#reward-delivery-failures" class="md-nav__link">
     <span class="md-ellipsis">
-      Custom Logger
+      Reward Delivery Failures
     </span>
   </a>
   
@@ -1108,37 +1078,19 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
+  <a href="#data-logging-issues" class="md-nav__link">
     <span class="md-ellipsis">
-      Best Practices
+      Data Logging Issues
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-details" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation Details
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Details">
+    <nav class="md-nav" aria-label="Data Logging Issues">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#loggingmanager-class" class="md-nav__link">
+  <a href="#missing-trial-data" class="md-nav__link">
     <span class="md-ellipsis">
-      LoggingManager Class
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-formatter" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom Formatter
+      Missing Trial Data
     </span>
   </a>
   
@@ -1150,9 +1102,51 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
+  <a href="#common-error-messages" class="md-nav__link">
     <span class="md-ellipsis">
-      Troubleshooting
+      Common Error Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Error Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-task-found-with-idx-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      "No task found with idx X"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-instances-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      "Multiple instances detected"
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-log-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix: Log Files
     </span>
   </a>
   
@@ -1180,162 +1174,42 @@
   
 
 
-<h1 id="logging-in-ethopy">Logging in EthoPy<a class="headerlink" href="#logging-in-ethopy" title="Permanent link">&para;</a></h1>
-<p>EthoPy provides a comprehensive logging system that handles both file and console output with configurable formats and levels. The logging system is centrally managed and provides consistent logging across all modules of the package.</p>
-<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Rotating file logs with size limits</li>
-<li>Colored console output</li>
-<li>Different formats for different log levels</li>
-<li>Centralized configuration</li>
-<li>Automatic log directory creation</li>
-<li>Multiple backup log files</li>
-</ul>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<h3 id="default-settings">Default Settings<a class="headerlink" href="#default-settings" title="Permanent link">&para;</a></h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<h1 id="troubleshooting-guide">Troubleshooting Guide<a class="headerlink" href="#troubleshooting-guide" title="Permanent link">&para;</a></h1>
+<p>This guide addresses common issues you might encounter when using EthoPy and provides solutions to help you resolve them quickly.</p>
+<h2 id="installation-issues">Installation Issues<a class="headerlink" href="#installation-issues" title="Permanent link">&para;</a></h2>
+<h3 id="package-installation-failures">Package Installation Failures<a class="headerlink" href="#package-installation-failures" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Installation fails with dependency conflicts.</p>
+<p><strong>Solution</strong>: 
+1. Try creating a fresh virtual environment:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">DEFAULT_LOG_DIR</span> <span class="o">=</span> <span class="s2">&quot;logs&quot;</span>
-<span class="n">DEFAULT_LOG_FILE</span> <span class="o">=</span> <span class="s2">&quot;ethopy.log&quot;</span>
-<span class="n">MAX_LOG_SIZE</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1"># 30 MB</span>
-<span class="n">LOG_BACKUP_COUNT</span> <span class="o">=</span> <span class="mi">5</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="local-conf-setting-based-on-the-local_confjson">Local conf setting based on the local_conf.json<a class="headerlink" href="#local-conf-setting-based-on-the-local_confjson" title="Permanent link">&para;</a></h3>
-<p>Logging is set up based on the parameters defined in the local_conf.json
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;directory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~/.ethopy/&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ethopy.log&quot;</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>ethopy_env
+<span class="nb">source</span><span class="w"> </span>ethopy_env/bin/activate<span class="w">  </span><span class="c1"># On Windows: ethopy_env\Scripts\activate</span>
+pip<span class="w"> </span>install<span class="w"> </span>ethopy
 </code></pre></div></td></tr></table></div></p>
-<h3 id="command-line-options">Command Line Options<a class="headerlink" href="#command-line-options" title="Permanent link">&para;</a></h3>
-<p>When running EthoPy from the command line, you can configure logging using these options:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
-Options:
-<span class="w">  </span>--log-console<span class="w">        </span>Enable<span class="w"> </span>console<span class="w"> </span>logging
-<span class="w">  </span>--log-level<span class="w"> </span>TEXT<span class="w">     </span>Logging<span class="w"> </span>level<span class="w"> </span><span class="o">(</span>DEBUG,<span class="w"> </span>INFO,<span class="w"> </span>WARNING,<span class="w"> </span>ERROR,<span class="w"> </span>CRITICAL<span class="o">)</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="log-formats">Log Formats<a class="headerlink" href="#log-formats" title="Permanent link">&para;</a></h2>
-<h3 id="file-logs">File Logs<a class="headerlink" href="#file-logs" title="Permanent link">&para;</a></h3>
-<p>All file logs use the detailed format:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)
-</code></pre></div></td></tr></table></div></p>
-<p>Example:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>2024-01-20 10:15:30 - ethopy - INFO - Experiment started (experiment.py:145)
-</code></pre></div></td></tr></table></div></p>
-<h3 id="console-logs">Console Logs<a class="headerlink" href="#console-logs" title="Permanent link">&para;</a></h3>
-<p>Console logs use two different formats based on the log level:</p>
 <ol>
-<li>
-<p><strong>Simple Format</strong> (for INFO and DEBUG):
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>%(asctime)s - %(levelname)s - %(message)s
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p><strong>Detailed Format</strong> (for WARNING and above):
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)
-</code></pre></div></td></tr></table></div></p>
-</li>
+<li>If specific dependencies are failing, try installing them manually first:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>panda3d<span class="w"> </span>numpy<span class="w"> </span>pygame
+pip<span class="w"> </span>install<span class="w"> </span>ethopy
+</code></pre></div></td></tr></table></div></li>
 </ol>
-<h3 id="color-coding">Color Coding<a class="headerlink" href="#color-coding" title="Permanent link">&para;</a></h3>
-<p>Console output is color-coded by log level:</p>
-<ul>
-<li>DEBUG: Grey</li>
-<li>INFO: Grey</li>
-<li>WARNING: Yellow</li>
-<li>ERROR: Red</li>
-<li>CRITICAL: Bold Red</li>
-</ul>
-<h2 id="log-file-management">Log File Management<a class="headerlink" href="#log-file-management" title="Permanent link">&para;</a></h2>
-<h3 id="rotation">Rotation<a class="headerlink" href="#rotation" title="Permanent link">&para;</a></h3>
-<p>Log files are automatically rotated when they reach the maximum size:</p>
-<ul>
-<li>Maximum file size: 30 MB</li>
-<li>Number of backup files: 5</li>
-<li>Naming convention: ethopy.log, ethopy.log.1, ethopy.log.2, etc.</li>
-</ul>
-<h3 id="directory-structure">Directory Structure<a class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>logs/
-├── ethopy.log          # Current log file
-├── ethopy.log.1        # Most recent backup
-├── ethopy.log.2        # Second most recent backup
-└── ...
-</code></pre></div></td></tr></table></div>
-<h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
-<h3 id="basic-logging">Basic Logging<a class="headerlink" href="#basic-logging" title="Permanent link">&para;</a></h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-
-<span class="c1"># Log messages at different levels</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Detailed debug information&quot;</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;General information&quot;</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Warning message&quot;</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error message&quot;</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Critical error&quot;</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="custom-logger">Custom Logger<a class="headerlink" href="#custom-logger" title="Permanent link">&para;</a></h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-
-<span class="c1"># Create a logger for your module</span>
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-
-<span class="c1"># Use the logger</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Module specific information&quot;</span><span class="p">)</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Module specific error&quot;</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="importerror-after-installation">ImportError After Installation<a class="headerlink" href="#importerror-after-installation" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: You get <code>ImportError: No module named 'ethopy'</code> after installation.</p>
+<p><strong>Solution</strong>:
+1. Verify the package is installed:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ethopy
+</code></pre></div></td></tr></table></div></p>
 <ol>
-<li>
-<p><strong>Log Level Selection</strong>
-            - Use DEBUG for detailed debugging information
-            - Use INFO for general operational messages
-            - Use WARNING for unexpected but handled situations
-            - Use ERROR for errors that affect functionality
-            - Use CRITICAL for errors that require immediate attention</p>
-</li>
-<li>
-<p><strong>Message Content</strong>
-            - Include relevant context in log messages
-            - Be specific about what happened
-            - Include important variable values
-            - Avoid logging sensitive information</p>
-</li>
-<li>
-<p><strong>Performance Considerations</strong>
-            - Avoid logging in tight loops
-            - Use appropriate log levels to control output volume
-            - Consider log rotation settings for long-running applications</p>
-</li>
+<li>Make sure you're using the same Python environment where you installed the package.</li>
+<li>If installed in development mode, check that your working directory is properly set.</li>
 </ol>
-<h2 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
-<h3 id="loggingmanager-class">LoggingManager Class<a class="headerlink" href="#loggingmanager-class" title="Permanent link">&para;</a></h3>
-<p>The <code>LoggingManager</code> class handles all logging configuration:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<h2 id="database-connection-issues">Database Connection Issues<a class="headerlink" href="#database-connection-issues" title="Permanent link">&para;</a></h2>
+<h3 id="cannot-connect-to-database">Cannot Connect to Database<a class="headerlink" href="#cannot-connect-to-database" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Error when connecting to MySQL database.</p>
+<p><strong>Solution</strong>:
+1. Verify your connection information in <code>local_conf.json</code>:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -1345,49 +1219,176 @@ Options:
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.utils.ethopy_logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoggingManager</span>
-
-<span class="c1"># Create a manager instance</span>
-<span class="n">manager</span> <span class="o">=</span> <span class="n">LoggingManager</span><span class="p">(</span><span class="s2">&quot;your_module_name&quot;</span><span class="p">)</span>
-
-<span class="c1"># Configure logging</span>
-<span class="n">manager</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
-    <span class="n">log_dir</span><span class="o">=</span><span class="s2">&quot;logs&quot;</span><span class="p">,</span>
-    <span class="n">console</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
-    <span class="n">log_file</span><span class="o">=</span><span class="s2">&quot;app.log&quot;</span>
-<span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="custom-formatter">Custom Formatter<a class="headerlink" href="#custom-formatter" title="Permanent link">&para;</a></h3>
-<p>The logging system includes a custom formatter that provides:</p>
-<ul>
-<li>Color-coded output for different log levels</li>
-<li>Dynamic format selection based on log level</li>
-<li>Timestamp formatting</li>
-<li>File and line number information for warnings and errors</li>
-</ul>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w"> </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_username&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_password&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;database.reconnect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;database.use_tls&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;datajoint.loglevel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;WARNING&quot;</span>
+<span class="w"> </span><span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div></p>
 <ol>
 <li>
-<p><strong>Missing Logs</strong>
-            - Check write permissions for log directory
-            - Verify log level configuration
-            - Ensure log directory exists</p>
+<p>Make sure MySQL is running:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># For Linux/Mac</span>
+sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>status
+<span class="c1"># or</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql
+
+<span class="c1"># For Windows (check in services)</span>
+</code></pre></div></td></tr></table></div></p>
 </li>
 <li>
-<p><strong>Console Output Issues</strong>
-            - Verify console logging is enabled
-            - Check terminal color support
-            - Confirm log level settings</p>
-</li>
-<li>
-<p><strong>Performance Issues</strong>
-            - Review log rotation settings
-            - Check logging frequency
-            - Consider adjusting log levels</p>
+<p>Test connection with MySQL client:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>your_username<span class="w"> </span>-p
+</code></pre></div></td></tr></table></div></p>
 </li>
 </ol>
+<h3 id="schema-creation-errors">Schema Creation Errors<a class="headerlink" href="#schema-creation-errors" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Errors when creating the database schema.</p>
+<p><strong>Solution</strong>:
+1. Make sure the user has privileges to create databases and tables:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;your_username&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div></p>
+<ol>
+<li>
+<p>Try manually running the schema setup:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">   </span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;from ethopy.core.experiment import *&#39;</span>
+<span class="w">   </span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;from ethopy.core.stimulus import *&#39;</span>
+<span class="w">   </span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;from ethopy.core.sehavior import *&#39;</span>
+<span class="w">   </span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;from ethopy.stimuli import *&#39;</span>
+<span class="w">   </span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;from ethopy.behaviors import *&#39;</span>
+<span class="w">   </span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;from ethopy.experiments import *&#39;</span>
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p>Check for database encoding issues. EthoPy requires UTF-8 encoding.</p>
+</li>
+</ol>
+<h2 id="hardware-interface-issues">Hardware Interface Issues<a class="headerlink" href="#hardware-interface-issues" title="Permanent link">&para;</a></h2>
+<h3 id="port-communication-problems">Port Communication Problems<a class="headerlink" href="#port-communication-problems" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Cannot communicate with hardware ports.</p>
+<p>Solutions:
+ToDo</p>
+<!-- **Solution**:
+1. Check permissions for USB devices (Linux/Mac):
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>chmod<span class="w"> </span>a+rw<span class="w"> </span>/dev/ttyUSB0<span class="w">  </span><span class="c1"># Replace with your port</span>
+</code></pre></div></td></tr></table></div>
+
+2. Verify port configuration in your setup:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span>--list-ports
+</code></pre></div></td></tr></table></div>
+
+3. For Arduino interfaces, make sure the correct firmware is uploaded. -->
+
+<h3 id="raspberry-pi-specific-issues">Raspberry Pi Specific Issues<a class="headerlink" href="#raspberry-pi-specific-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Issues when running on Raspberry Pi.</p>
+<!-- **Solution**:
+1. Make sure you have the latest Raspberry Pi OS.
+2. Enable I2C and SPI interfaces:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>raspi-config
+<span class="c1"># Navigate to Interface Options &gt; I2C/SPI and enable</span>
+</code></pre></div></td></tr></table></div>
+3. Check GPIO permissions:
+   ```bash
+   sudo usermod -a -G gpio your_username
+   ``` -->
+
+<h2 id="experiment-execution-issues">Experiment Execution Issues<a class="headerlink" href="#experiment-execution-issues" title="Permanent link">&para;</a></h2>
+<h3 id="experiment-fails-to-start">Experiment Fails to Start<a class="headerlink" href="#experiment-fails-to-start" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: <code>ethopy -p your_task.py</code> fails to start the experiment.</p>
+<p><strong>Solution</strong>:
+1. Check for syntax errors in your task file.
+2. Verify that experiment, behavior, and stimulus classes are correctly imported and assigned.
+3. Run with debug logging:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span>-p<span class="w"> </span>your_task.py<span class="w"> </span>--log-console<span class="w"> </span>--log-level<span class="w"> </span>DEBUG
+</code></pre></div></td></tr></table></div></p>
+<h3 id="reward-delivery-failures">Reward Delivery Failures<a class="headerlink" href="#reward-delivery-failures" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Water rewards are not being delivered correctly.</p>
+<p><strong>Solution</strong>:
+1. Run a calibration task to test the ports:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span>-p<span class="w"> </span>calibrate_ports.py
+</code></pre></div></td></tr></table></div>
+2. Check solenoid connections and power supply.
+3. Verify port configuration in your setup.</p>
+<h2 id="data-logging-issues">Data Logging Issues<a class="headerlink" href="#data-logging-issues" title="Permanent link">&para;</a></h2>
+<h3 id="missing-trial-data">Missing Trial Data<a class="headerlink" href="#missing-trial-data" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Some trial data is not being logged to the database.</p>
+<p><strong>Solution</strong>:
+1. Check database connection during experiment execution.
+2. Verify that your experiment states are correctly called.</p>
+<h2 id="common-error-messages">Common Error Messages<a class="headerlink" href="#common-error-messages" title="Permanent link">&para;</a></h2>
+<h3 id="no-task-found-with-idx-x">"No task found with idx X"<a class="headerlink" href="#no-task-found-with-idx-x" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: <code>ethopy --task-idx X</code> returns "No task found with idx X".</p>
+<p><strong>TODO: Solution</strong>:
+1. Verify the task exists in the database:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span>--list-tasks
+</code></pre></div></td></tr></table></div>
+2. If missing, add your task to the database:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span>--add-task<span class="w"> </span>your_task.py
+</code></pre></div></td></tr></table></div></p>
+<h3 id="multiple-instances-detected">"Multiple instances detected"<a class="headerlink" href="#multiple-instances-detected" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Attempt to run EthoPy when an instance is already running.</p>
+<p><strong>Solution</strong>:
+1. Find and close the existing EthoPy process:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Linux/Mac</span>
+ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ethopy
+<span class="nb">kill</span><span class="w"> </span>&lt;pid&gt;
+
+<span class="c1"># Windows</span>
+tasklist<span class="w"> </span><span class="p">|</span><span class="w"> </span>findstr<span class="w"> </span>ethopy
+taskkill<span class="w"> </span>/F<span class="w"> </span>/PID<span class="w"> </span>&lt;pid&gt;
+</code></pre></div></td></tr></table></div></p>
+<h2 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h2>
+<p>If you're still experiencing issues:</p>
+<ol>
+<li>
+<p><strong>Check the documentation</strong>: Review related sections in the documentation for guidance.</p>
+</li>
+<li>
+<p><strong>Search GitHub Issues</strong>: Check if your issue has been reported and addressed:
+   <a href="https://github.com/ef-lab/ethopy_package/issues">EthoPy GitHub Issues</a></p>
+</li>
+<li>
+<p><strong>Submit an Issue</strong>: If your problem persists, submit a detailed issue on GitHub with:</p>
+</li>
+<li>EthoPy version (<code>ethopy --version</code>)</li>
+<li>Python version (<code>python --version</code>)</li>
+<li>Operating system details</li>
+<li>Complete error message and traceback</li>
+<li>
+<p>Steps to reproduce the problem</p>
+</li>
+<li>
+<p><strong>Contact Maintainers</strong>: For urgent issues, contact the package maintainers directly.</p>
+</li>
+</ol>
+<h2 id="appendix-log-files">Appendix: Log Files<a class="headerlink" href="#appendix-log-files" title="Permanent link">&para;</a></h2>
+<p>EthoPy creates log files that can be valuable for troubleshooting.</p>
+<p>Reviewing these logs can provide insights into issues not apparent from console output.</p>
 
 
 
