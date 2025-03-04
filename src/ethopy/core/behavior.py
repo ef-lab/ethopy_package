@@ -262,7 +262,8 @@ class Behavior:
             )
 
         return self.exp.log_conditions(
-            conditions=conditions, condition_tables=[], schema="behavior"
+            conditions=conditions, condition_tables=[], schema="behavior",
+            hash_field="beh_hash"
         )
 
     def prepare(self, condition: Dict[str, Any]) -> None:
