@@ -3337,7 +3337,7 @@ updates.</p>
 
         <span class="c1"># create a dict with the configuration as key and the subclasses as values</span>
         <span class="n">conf_table_schema</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">_schema</span><span class="p">,</span> <span class="n">_module</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">_schemas</span><span class="p">,</span> <span class="n">_modules</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_schema</span><span class="p">,</span> <span class="n">_module</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">_schemas</span><span class="p">,</span> <span class="n">_modules</span><span class="p">):</span>
             <span class="n">conf</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">_module</span><span class="p">)</span><span class="o">.</span><span class="n">Configuration</span>
             <span class="c1"># Find the inner classes of the class Configuration</span>
             <span class="n">conf_table_schema</span><span class="p">[</span><span class="n">_schema</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_inner_classes_list</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
@@ -6966,7 +6966,7 @@ class's inner classes.
 
     <span class="c1"># create a dict with the configuration as key and the subclasses as values</span>
     <span class="n">conf_table_schema</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">_schema</span><span class="p">,</span> <span class="n">_module</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">_schemas</span><span class="p">,</span> <span class="n">_modules</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">_schema</span><span class="p">,</span> <span class="n">_module</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">_schemas</span><span class="p">,</span> <span class="n">_modules</span><span class="p">):</span>
         <span class="n">conf</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">_module</span><span class="p">)</span><span class="o">.</span><span class="n">Configuration</span>
         <span class="c1"># Find the inner classes of the class Configuration</span>
         <span class="n">conf_table_schema</span><span class="p">[</span><span class="n">_schema</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_inner_classes_list</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
