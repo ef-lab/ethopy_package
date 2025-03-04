@@ -1111,6 +1111,15 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </ol>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-setup-djdocker
 </code></pre></div></td></tr></table></div>
+<blockquote>
+<p><strong>Note:</strong> By default, Docker requires sudo because the Docker daemon runs as root.
+This command adds your user to the docker group, so you can run Docker commands without sudo.</p>
+</blockquote>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+</code></pre></div></td></tr></table></div>
+<p>restart your session (log out and back in) or run:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>newgrp<span class="w"> </span>docker
+</code></pre></div></td></tr></table></div></p>
 <ol>
 <li><strong>Configure the database connection:</strong></li>
 </ol>
