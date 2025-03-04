@@ -7,9 +7,7 @@ This guide will walk you through the process of setting up and running your firs
 Before starting, ensure you have:
 
 - Python 3.8 or higher (but less than 3.12) installed
-- Basic understanding of Python programming
-- Docker (for database setup)
-- For hardware experiments, appropriate hardware setup (Raspberry Pi, ports, etc.)
+- [Docker](https://www.docker.com/blog/getting-started-with-docker-desktop/) (for new database setup)
 
 ## Installation
 
@@ -43,25 +41,30 @@ Before starting, ensure you have:
 
 ## Database Setup
 
-EthoPy relies on a database for experiment configuration and data logging. If there is not a databse availabe, here is a quick setup of setting mysql databse with docker:
+EthoPy relies on a database for experiment configuration and data logging. If there is not a database availabe, here is a quick setup of setting mysql database with docker:
 
 1. **Start the database container:**
 
    ```bash
    ethopy-setup-djdocker
    ```
+   alterative follow the instruction from datajoint [here](https://github.com/datajoint/mysql-docker)
+
+> **Note:** ethopy-setup-djdocker works only in unix operating systems, for windows try to setup the docker image based on the [datajoint instructions](https://github.com/datajoint/mysql-docker)
+
 
 > **Note:** By default, Docker requires sudo because the Docker daemon runs as root.
 This command adds your user to the docker group, so you can run Docker commands without sudo.
-
-```bash
-sudo usermod -aG docker $USER
-```
-
-restart your session (log out and back in) or run:
-```bash
-newgrp docker
-```
+>
+>```bash
+>sudo usermod -aG docker $USER
+>```
+>
+>restart your session (log out and back in) or run:
+>```bash
+>newgrp docker
+>```
+>
 
 2. **Configure the database connection:**
 
@@ -98,10 +101,28 @@ newgrp docker
    ```bash
    ethopy-setup-schema
    ```
+!!! tip Check database
+    For verifing the schema/tables creation you can download [DBeaver](https://dbeaver.io/) which is a popular and versatile database tool.
 
-> **Note:** For testing without a database connection, see the simplified configuration in the next section.
 
-## Setting Up Your First Experiment
+### Run your first experiment
+
+```
+ethopy --task-path grating_test.py --log-console
+```
+The option --task-path is for defining the path of the task. The [example tasks](https://github.com/ef-lab/ethopy_package/tree/main/src/ethopy/task) can run by the file name, for any other experiment you must define the full path.
+Option --log-console is to enable the logging in terminal.
+
+
+You can check all the options of ethopy by:
+```bash
+ethopy --help
+```
+
+## Example Tasks
+
+Explore these sample tasks in the `ethopy/task/` directory:
+<!-- ## Setting Up Your First Experiment
 
 ### 1. Local Configuration
 
@@ -336,11 +357,7 @@ Understanding the state machine is crucial for working with EthoPy:
    - **entry_state**: Called once when entering the state
    - **run_state**: Called repeatedly while in the state
    - **exit_state**: Called once when exiting the state
-   - **state**: Combined method that manages all the above
-
-## Sample Projects and Templates
-
-Explore these sample projects in the `ethopy/task/` directory:
+   - **state**: Combined method that manages all the above -->
 
 1. **calibrate_ports.py** - Calibrate water delivery ports
 2. **free_water.py** - Reward delivery without complex stimuli
@@ -364,7 +381,9 @@ For specific questions, check the:
 Now that you have a basic understanding of EthoPy:
 
 1. Dive deeper into [Local Configuration](local_conf.md) for advanced settings
-2. Learn about [Database Setup](database.md) for data storage
-3. Explore the [Plugin System](plugin.md) to extend functionality
-4. Study the [API Reference](logger.md) for detailed documentation
-5. Check [Contributing](contributing.md) if you want to help improve EthoPy
+2. Understand [setup configuration index](setup_configuration_idx.md)
+3. How to [create a Task ](https://ef-lab.github.io/ethopy_package/task_setup/)
+4. Explore the [Plugin System](plugin.md) to extend functionality
+5. Learn about [Database Setup](database.md) for data storage
+6. Study the [API Reference](logger.md) for detailed documentation
+7. Check [Contributing](contributing.md) if you want to help improve EthoPy
