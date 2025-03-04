@@ -290,7 +290,7 @@ class ExperimentClass:
     def _get_task_classes(self, stim_class) -> Dict:
         exp_name = {"experiment_class": self.cond_tables[0]}
         beh_name = {
-            "behavior_class": self.beh.cond_tables[0] if self.cond_tables else None
+            "behavior_class": self.beh.cond_tables[0] if self.beh.cond_tables else "None"
         }
         stim_name = {"stimulus_class": stim_class.name()}
         return {**exp_name, **beh_name, **stim_name}
@@ -415,7 +415,7 @@ class ExperimentClass:
         unused_keys = set(conditions.keys()) - used_keys
         if unused_keys:
             log.warning(
-                f"Keys: {unused_keys} are in condition but are not used from"
+                f"Keys: {unused_keys} are in condition but are not used from "
                 f"Experiment, Behavior or Stimulus"
             )
             unused_dict = self.get_keys_from_dict(conditions, unused_keys)
