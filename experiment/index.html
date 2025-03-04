@@ -2547,7 +2547,7 @@ experiments. It includes:
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_task_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stim_class</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="n">exp_name</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;experiment_class&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span>
         <span class="n">beh_name</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;behavior_class&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="s2">&quot;behavior_class&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">cond_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">cond_tables</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
         <span class="p">}</span>
         <span class="n">stim_name</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;stimulus_class&quot;</span><span class="p">:</span> <span class="n">stim_class</span><span class="o">.</span><span class="n">name</span><span class="p">()}</span>
         <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">exp_name</span><span class="p">,</span> <span class="o">**</span><span class="n">beh_name</span><span class="p">,</span> <span class="o">**</span><span class="n">stim_name</span><span class="p">}</span>
@@ -2672,7 +2672,7 @@ experiments. It includes:
         <span class="n">unused_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">conditions</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="n">used_keys</span>
         <span class="k">if</span> <span class="n">unused_keys</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Keys: </span><span class="si">{</span><span class="n">unused_keys</span><span class="si">}</span><span class="s2"> are in condition but are not used from&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Keys: </span><span class="si">{</span><span class="n">unused_keys</span><span class="si">}</span><span class="s2"> are in condition but are not used from &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;Experiment, Behavior or Stimulus&quot;</span>
             <span class="p">)</span>
             <span class="n">unused_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_keys_from_dict</span><span class="p">(</span><span class="n">conditions</span><span class="p">,</span> <span class="n">unused_keys</span><span class="p">)</span>
@@ -4054,7 +4054,7 @@ blocks: block index in each trial that is reward or punish</p>
     <span class="n">unused_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">conditions</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="n">used_keys</span>
     <span class="k">if</span> <span class="n">unused_keys</span><span class="p">:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Keys: </span><span class="si">{</span><span class="n">unused_keys</span><span class="si">}</span><span class="s2"> are in condition but are not used from&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Keys: </span><span class="si">{</span><span class="n">unused_keys</span><span class="si">}</span><span class="s2"> are in condition but are not used from &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;Experiment, Behavior or Stimulus&quot;</span>
         <span class="p">)</span>
         <span class="n">unused_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_keys_from_dict</span><span class="p">(</span><span class="n">conditions</span><span class="p">,</span> <span class="n">unused_keys</span><span class="p">)</span>
