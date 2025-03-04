@@ -925,7 +925,7 @@ class Session(dj.Manual):  # noqa: D101
         -> Session
         project_path   : varchar(256)              # path
         ---
-        source_type    : enum('pip', 'git')        # task or setup
+        source_type    : enum('pypi', 'git')        # task or setup
         version        : varchar(32)               # pip version or git hash
         repository_url : varchar(256)              # git repository url if available
         is_dirty       : bool                      # uncommited changes in git

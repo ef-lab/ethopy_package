@@ -284,8 +284,8 @@ def get_code_version_info(project_path: str = None) -> Dict[str, Any]:
         "project_path": os.path.abspath(project_path),
         "source_type": None,
         "version": None,
-        "repository_url": None,
-        "is_dirty": None,
+        "repository_url": '',
+        "is_dirty": False,
     }
 
     # Check if it's a git repository
