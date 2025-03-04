@@ -28,28 +28,31 @@ class Bar(Stimulus, dj.Manual):
     max_res               : smallint
     """
 
-    cond_tables = ['Bar']
-    default_key = {
-        "max_res": 1000,
-        "bar_width": 4,  # degrees
-        "bar_speed": 2,  # degrees/sec
-        "flash_speed": 2,
-        "grat_width": 10,  # degrees
-        "grat_freq": 1,
-        "grid_width": 10,
-        "grit_freq": 0.1,
-        "style": "checkerboard",  # checkerboard, grating
-        "direction": 1,  # 1 for UD LR, -1 for DU RL
-        "flatness_correction": 1,
-        "intertrial_duration": 0,
-    }
+    def __init__(self):
+        super().__init__()
+        self.cond_tables = ['Bar']
+        self.default_key = {
+            'axis': 'vertical',
+            "max_res": 1000,
+            "bar_width": 4,  # degrees
+            "bar_speed": 2,  # degrees/sec
+            "flash_speed": 2,
+            "grat_width": 10,  # degrees
+            "grat_freq": 1,
+            "grid_width": 10,
+            "grit_freq": 0.1,
+            "style": "checkerboard",  # checkerboard, grating
+            "direction": 1,  # 1 for UD LR, -1 for DU RL
+            "flatness_correction": 1,
+            "intertrial_duration": 0,
+        }
 
     def setup(self):
         super().setup()
         ymonsize = self.monitor.size * 2.54 / np.sqrt(1 + self.monitor.aspect ** 2)  # cm Y monitor size
         monSize = [ymonsize * self.monitor.aspect, ymonsize]
-        y_res = int(self.exp.params['max_res'] / self.monitor.aspect)
-        self.monRes = [self.exp.params['max_res'], int(y_res + np.ceil(y_res % 2))]
+        y_res = int(self.exp.curr_cond['max_res'] / self.monitor.aspect)
+        self.monRes = [self.exp.curr_cond['max_res'], int(y_res + np.ceil(y_res % 2))]
         self.FoV = np.arctan(np.array(monSize) / 2 / self.monitor.distance) * 2 * 180 / np.pi  # in degrees
         self.FoV[1] = self.FoV[0] / self.monitor.aspect
 

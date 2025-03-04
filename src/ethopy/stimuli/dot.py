@@ -20,11 +20,13 @@ class Dot(Stimulus, dj.Manual):
     dot_time              : float # (sec) time of each dot persists
     """
 
-    cond_tables = ['Dot']
-    required_fields = ['dot_x', 'dot_y', 'dot_xsize', 'dot_ysize', 'dot_time']
-    default_key =  {'bg_level'              : 1,
-                    'dot_level'             : 0,  # degrees
-                    'dot_shape'             : 'rect'}
+    def __init__(self):
+        super().__init__()
+        self.cond_tables = ['Dot']
+        self.required_fields = ['dot_x', 'dot_y', 'dot_xsize', 'dot_ysize', 'dot_time']
+        self.default_key = {'bg_level': 1,
+                            'dot_level': 0,  # degrees
+                            'dot_shape': 'rect'}
 
     def prepare(self, curr_cond):
         self.curr_cond = curr_cond
