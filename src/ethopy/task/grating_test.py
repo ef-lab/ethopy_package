@@ -8,10 +8,6 @@ session_params = {
     "trial_selection": "staircase",
     "max_reward": 3000,
     "min_reward": 30,
-    "bias_window": 5,
-    "staircase_window": 10,
-    "stair_up": 0.7,
-    "stair_down": 0.6,
     "setup_conf_idx": 0,
 }
 
@@ -30,6 +26,7 @@ key = {
     "trial_duration": 5000,
     "intertrial_duration": 0,
     "reward_amount": 8,
+    "noresponse_intertrial": True
 }
 
 repeat_n = 1
@@ -42,10 +39,10 @@ block = exp.Block(difficulty=1, next_up=1, next_down=1, trial_selection='stairca
 
 for port in ports:
     conditions += exp.make_conditions(stim_class=Grating(), conditions={**block.dict(),
-                                                                              **key,
-                                                                              'theta'        : ports[port],
-                                                                              'reward_port'  : port,
-                                                                              'response_port': port})
+                                                                        **key,
+                                                                        'theta'        : ports[port],
+                                                                        'reward_port'  : port,
+                                                                        'response_port': port})
 
 # run experiments
 exp.push_conditions(conditions)
