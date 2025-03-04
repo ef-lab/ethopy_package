@@ -51,6 +51,18 @@ EthoPy relies on a database for experiment configuration and data logging. If th
    ethopy-setup-djdocker
    ```
 
+> **Note:** By default, Docker requires sudo because the Docker daemon runs as root.
+This command adds your user to the docker group, so you can run Docker commands without sudo.
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+restart your session (log out and back in) or run:
+```bash
+newgrp docker
+```
+
 2. **Configure the database connection:**
 
    Create a configuration file at:
