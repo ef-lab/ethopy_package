@@ -56,6 +56,7 @@ class Experiment(State, ExperimentClass):
         "punish_duration": 1000,
         "abort_duration": 0,
         "noresponse_intertrial": True,
+        "incremental_punishment" : 0,
         **ExperimentClass.Block().dict(),
     }
 
@@ -184,7 +185,7 @@ class Punish(Experiment):
         self.beh.punish()
         super().entry()
         self.punish_period = self.stim.curr_cond["punish_duration"]
-        if self.params.get("incremental_punishment"):
+        if self.curr_cond["incremental_punishment"]:
             self.punish_period *= self.beh.get_false_history()
         self.stim.punish_stim()
 
