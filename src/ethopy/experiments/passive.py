@@ -17,7 +17,7 @@ class Condition(dj.Manual):
 
 class Experiment(State, ExperimentClass):
     cond_tables = ["Passive"]
-    default_key = {"trial_selection": "fixed", "intertrial_duration": 100}
+    default_key = {"trial_selection": "fixed", "intertrial_duration": 100, "difficulty": 0}
 
     def entry(
         self,
