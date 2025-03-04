@@ -615,7 +615,7 @@ class Logger:
 
         # create a dict with the configuration as key and the subclasses as values
         conf_table_schema = {}
-        for _schema, _module in zip(_schemas, _modules, strict=True):
+        for _schema, _module in zip(_schemas, _modules):
             conf = importlib.import_module(_module).Configuration
             # Find the inner classes of the class Configuration
             conf_table_schema[_schema] = self.get_inner_classes_list(conf)
