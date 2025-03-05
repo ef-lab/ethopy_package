@@ -50,6 +50,8 @@ EthoPy relies on a database for experiment configuration and data logging. If th
    ```
    alterative follow the instruction from datajoint [here](https://github.com/datajoint/mysql-docker)
 
+   The default username is "root".
+
 > **Note:** ethopy-setup-djdocker works only in unix operating systems, for windows try to setup the docker image based on the [datajoint instructions](https://github.com/datajoint/mysql-docker)
 
 
