@@ -47,7 +47,6 @@ class PyWelcome:
     def setup_menus(self) -> None:
         self.animal_menu = self.create_animal()
         self.task_menu = self.create_task()
-        self.weight_menu = self.create_weight()
         self.main_menu = self.create_main()
 
     def mainloop(self) -> None:
@@ -129,15 +128,6 @@ class PyWelcome:
         ).translate(630, 290)
 
         menu.add.button(
-            "Weight",
-            self.weight_menu,
-            align=pygame_menu.locals.ALIGN_LEFT,
-            float=True,
-            padding=(10, 20, 10, 20),
-            background_color=(128, 128, 128),
-        ).translate(10, 310)
-
-        menu.add.button(
             "Power off",
             self.shutdown,
             align=pygame_menu.locals.ALIGN_LEFT,
@@ -176,34 +166,6 @@ class PyWelcome:
         )
 
         return menu_animal
-
-    def create_weight(self):
-        menu_weight = pygame_menu.Menu(
-            "",
-            self.SCREEN_WIDTH,
-            self.SCREEN_HEIGHT,
-            center_content=False,
-            onclose=pygame_menu.events.EXIT,
-            theme=self.theme,
-        )
-        menu_weight.add.label(
-            "Enter animal weight: ",
-            font_size=20,
-        )
-        self.curr_weight = ""
-        menu_weight.add.vertical_margin(5)
-        self.weight_screen = menu_weight.add.label(
-            "",
-            background_color=None,
-            margin=(10, 0),
-            selectable=True,
-            selection_effect=None,
-        )
-        menu_weight = self.add_num_pad(
-            menu_weight, self.log_animal_weight, self.weight_screen
-        )
-
-        return menu_weight
 
     def create_task(self):
         menu_task = pygame_menu.Menu(

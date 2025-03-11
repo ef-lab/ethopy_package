@@ -87,7 +87,6 @@ This command adds your user to the docker group, so you can run Docker commands 
        "stimulus": "lab_stimuli",
        "behavior": "lab_behavior",
        "recording": "lab_recordings",
-       "mice": "lab_mice"
      }
    }
    ```
@@ -159,7 +158,6 @@ Create a local configuration file to specify your database connection and hardwa
        "stimulus": "lab_stimuli",
        "behavior": "lab_behavior",
        "recording": "lab_recordings",
-       "mice": "lab_mice"
      }
    }
    ```

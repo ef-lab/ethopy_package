@@ -59,7 +59,6 @@ class ConfigurationManager:
                 "behavior": "lab_behavior",
                 "interface": "lab_interface",
                 "recording": "lab_recordings",
-                "mice": "lab_mice",
             },
             "logging": {
                 "level": "INFO",

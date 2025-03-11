@@ -134,7 +134,6 @@ Maps internal schema names to database schemas:
         "stimulus": "lab_stimuli",
         "behavior": "lab_behavior",
         "recording": "lab_recordings",
-        "mice": "lab_mice"
     }
 }
 ```

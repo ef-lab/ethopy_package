@@ -1037,11 +1037,3 @@ class Task(dj.Lookup):  # noqa: D101
     """
 
 
-@mice.schema
-class MouseWeight(dj.Manual):  # noqa: D101
-    definition = """
-    animal_id                       : int unsigned                 # id number
-    timestamp=CURRENT_TIMESTAMP     : timestamp                    # timestamp of weight
-    ---
-    weight                          : double(5,2)                  # weight in grams
-    """

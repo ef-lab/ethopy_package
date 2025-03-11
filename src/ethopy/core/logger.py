@@ -60,20 +60,18 @@ def _set_connection() -> None:
         behavior: The virtual module for behavior.
         interface: The virtual module for interface.
         recording: The virtual module for recording.
-        mice: The virtual module for mice.
         public_conn: The connection object for public access.
 
     Returns:
         None
 
     """
-    global experiment, stimulus, behavior, interface, recording, mice, public_conn
+    global experiment, stimulus, behavior, interface, recording, public_conn
     virtual_modules, public_conn = create_virtual_modules(SCHEMATA)
     experiment = virtual_modules["experiment"]
     stimulus = virtual_modules["stimulus"]
     behavior = virtual_modules["behavior"]
     recording = virtual_modules["recording"]
-    mice = virtual_modules["mice"]
     interface = virtual_modules["interface"]
 
 
