@@ -1437,6 +1437,7 @@ hardware based on setup index.</p>
 
 
 
+
   <div class="doc doc-children">
 
 
@@ -1463,6 +1464,7 @@ hardware based on setup index.</p>
 
 
         <p>DataJoint table for saving setup configurations for each session.</p>
+
 
 
 
@@ -1647,6 +1649,7 @@ hardware based on setup index.</p>
 
 
 
+
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">472</span>
@@ -1712,6 +1715,7 @@ hardware based on setup index.</p>
 
 
         <p>Port configuration table.</p>
+
 
 
 
@@ -1787,6 +1791,7 @@ hardware based on setup index.</p>
 
 
         <p>Screen configuration table.</p>
+
 
 
 
@@ -1872,6 +1877,7 @@ hardware based on setup index.</p>
 
 
         <p>Speaker configuration table.</p>
+
 
 
 
@@ -2036,7 +2042,12 @@ It provides methods for stimulus delivery, reward management, and hardware contr
           <tr class="doc-section-item">
             <td><code><span title="ethopy.core.interface.Interface.ports">ports</span></code></td>
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="ethopy.core.interface.Port" href="#ethopy.core.interface.Port">Port</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Port
+
+
+  
+      dataclass
+   (ethopy.core.interface.Port)" href="#ethopy.core.interface.Port">Port</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2134,6 +2145,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
           </tr>
       </tbody>
     </table>
+
 
 
 
@@ -2774,6 +2786,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
       </tbody>
     </table>
 
+
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
@@ -2949,6 +2962,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
       </tbody>
     </table>
 
+
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">282</span>
@@ -2998,6 +3012,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
     <div class="doc doc-contents ">
 
         <p>Initialize camera if configured in setup.</p>
+
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
@@ -3075,6 +3090,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 
         <p>Initialize hardware components based on setup configuration.</p>
 <p>This method sets up ports and camera if configured in the experiment parameters.</p>
+
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
@@ -3198,6 +3214,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
       </tbody>
     </table>
 
+
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">257</span>
@@ -3265,6 +3282,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
     <div class="doc doc-contents ">
 
         <p>Clean up interface resources.</p>
+
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
@@ -3336,6 +3354,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
           </tr>
       </tbody>
     </table>
+
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
@@ -3420,6 +3439,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
       </tbody>
     </table>
 
+
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">150</span>
@@ -3502,6 +3522,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
           </tr>
       </tbody>
     </table>
+
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
@@ -3602,6 +3623,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
       </tbody>
     </table>
 
+
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">168</span>
@@ -3663,6 +3685,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
       </tbody>
     </table>
 
+
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">178</span>
@@ -3723,6 +3746,7 @@ including pulse durations and weights.</p>
           </tr>
       </tbody>
     </table>
+
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
@@ -3812,6 +3836,7 @@ including pulse durations and weights.</p>
 
         <p>Release hardware resources, especially camera.</p>
 
+
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">215</span>
@@ -3874,6 +3899,7 @@ including pulse durations and weights.</p>
           </tr>
       </tbody>
     </table>
+
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
@@ -3939,6 +3965,7 @@ including pulse durations and weights.</p>
           </tr>
       </tbody>
     </table>
+
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
@@ -4085,6 +4112,7 @@ including pulse durations and weights.</p>
 
 
 
+
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">299</span>
@@ -4185,6 +4213,7 @@ including pulse durations and weights.</p>
 based on the provided keyword arguments. Only attributes that are
 defined as fields of the class will be set.</p>
 
+
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">322</span>
@@ -4239,6 +4268,7 @@ defined as fields of the class will be set.</p>
 
 
         <p>Liquid delivery calibration sessions for each port with water availability.</p>
+
 
 
 
@@ -4357,6 +4387,7 @@ defined as fields of the class will be set.</p>
 
 
 
+
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">531</span>
@@ -4424,6 +4455,7 @@ defined as fields of the class will be set.</p>
 
 
         <p>Datajoint table for Lick Test.</p>
+
 
 
 
@@ -4505,6 +4537,7 @@ defined as fields of the class will be set.</p>
 
         <p>DataJoint table for configuring the setup interfaces.</p>
 <p>The user can define all harware configuration by defining only the setup index.</p>
+
 
 
 
@@ -4771,6 +4804,7 @@ defined as fields of the class will be set.</p>
 
 
 
+
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">402</span>
@@ -4836,6 +4870,7 @@ defined as fields of the class will be set.</p>
 
 
         <p>Camera configuration table.</p>
+
 
 
 
@@ -4917,6 +4952,7 @@ defined as fields of the class will be set.</p>
 
 
         <p>Port configuration table.</p>
+
 
 
 
@@ -5014,6 +5050,7 @@ defined as fields of the class will be set.</p>
 
 
 
+
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">377</span>
@@ -5103,6 +5140,7 @@ defined as fields of the class will be set.</p>
 
 
         <p>Speaker configuration table.</p>
+
 
 
 
