@@ -26,7 +26,7 @@ from scipy import stats
 from sklearn.metrics import roc_auc_score
 
 # from ethopy.core.interface import Interface
-from ethopy.core.logger import Logger, experiment, mice
+from ethopy.core.logger import Logger, experiment
 
 # from ethopy.core.stimulus import Stimulus
 from ethopy.utils.helper_functions import factorize, make_hash
