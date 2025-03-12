@@ -157,11 +157,7 @@ class Experiment:
         """
         try:
             self.menu.clear()
-            label = self.menu.add.label(
-                "Done calibrating!!", float=True, font_size=30
-            ).translate(20, 80)
-
-            # Draw final message
+            self.menu.add.label("Done calibrating!!", float=True, font_size=30).translate(20, 80)
             try:
                 self.menu.draw(self.screen)
                 pygame.display.flip()
@@ -173,6 +169,9 @@ class Experiment:
         except Exception as e:
             log.warning(f"Error during exit: {e}")
             self.stop = True
+        self.interface.cleanup()
+        self.logger.update_setup_info({"status": "ready"})
+        time.sleep(1)
 
     def create_pressure_menu(self):
         """The First menu in Calibration where is definde the air pressure in PSI"""
@@ -281,23 +280,6 @@ class Experiment:
                 self.create_pulsenum_menu()
         else:
             self.create_pulsenum_menu()
-
-    def exit(self):
-        """exit _summary_
-
-        exit function after the Experiment has finished
-        """
-        self.menu.clear()
-        self.menu.add.label("Done calibrating!!", float=True, font_size=30).translate(
-            20, 80
-        )
-        self.menu.draw(self.screen)
-        pygame.display.flip()
-        time.sleep(2)
-        self.stop = True
-        self.interface.cleanup()
-        self.logger.update_setup_info({"status": "ready"})
-        time.sleep(1)
 
     def button_input(self, message: str, _func):
         """button_input _summary_
