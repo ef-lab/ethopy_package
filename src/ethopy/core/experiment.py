@@ -203,7 +203,7 @@ class ExperimentClass:
         self.setup_conf_idx = session_params.get("setup_conf_idx", 0)
         session_params["setup_conf_idx"] = self.setup_conf_idx
 
-        self.params = {**self.default_key, "setup_conf_idx": self.setup_conf_idx}
+        self.params = {**self.default_key, **session_params, "setup_conf_idx": self.setup_conf_idx}
 
         self.logger = logger
         self.beh = behavior_class()
