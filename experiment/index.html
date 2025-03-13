@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/LabPageBrain.gif">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
     
     
       
@@ -2462,7 +2462,7 @@ experiments. It includes:
         <span class="bp">self</span><span class="o">.</span><span class="n">setup_conf_idx</span> <span class="o">=</span> <span class="n">session_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">session_params</span><span class="p">[</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_conf_idx</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_conf_idx</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="o">**</span><span class="n">session_params</span><span class="p">,</span> <span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_conf_idx</span><span class="p">}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beh</span> <span class="o">=</span> <span class="n">behavior_class</span><span class="p">()</span>
@@ -5611,7 +5611,7 @@ is present, it's used to create unique choice hashes.</p>
     <span class="bp">self</span><span class="o">.</span><span class="n">setup_conf_idx</span> <span class="o">=</span> <span class="n">session_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">session_params</span><span class="p">[</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_conf_idx</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_conf_idx</span><span class="p">}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">default_key</span><span class="p">,</span> <span class="o">**</span><span class="n">session_params</span><span class="p">,</span> <span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_conf_idx</span><span class="p">}</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">beh</span> <span class="o">=</span> <span class="n">behavior_class</span><span class="p">()</span>
