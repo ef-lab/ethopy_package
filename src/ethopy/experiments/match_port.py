@@ -56,7 +56,7 @@ class Experiment(State, ExperimentClass):
         "punish_duration": 1000,
         "abort_duration": 0,
         "noresponse_intertrial": True,
-        "incremental_punishment" : 0,
+        "incremental_punishment": 0,
         **ExperimentClass.Block().dict(),
     }
 
