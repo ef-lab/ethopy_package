@@ -11,13 +11,17 @@ class Condition(dj.Manual):
         # Passive experiment conditions
         -> Condition
         ---
+        trial_selection='staircase' : enum('fixed','block','random','staircase', 'biased')
+
         intertrial_duration     : int
         """
 
 
 class Experiment(State, ExperimentClass):
     cond_tables = ["Passive"]
-    default_key = {"trial_selection": "fixed", "intertrial_duration": 100, "difficulty": 0}
+    default_key = {"trial_selection": "fixed",
+                   "intertrial_duration": 100,
+                   "difficulty": 0}
 
     def entry(
         self,
