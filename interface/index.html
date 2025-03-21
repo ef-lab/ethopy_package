@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/LabPageBrain.gif">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -756,33 +756,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ethopy.core.interface.Interface._channel2port" class="md-nav__link">
-    <span class="md-ellipsis">
-      _channel2port
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ethopy.core.interface.Interface._initialize_camera" class="md-nav__link">
-    <span class="md-ellipsis">
-      _initialize_camera
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ethopy.core.interface.Interface._initialize_hardware" class="md-nav__link">
-    <span class="md-ellipsis">
-      _initialize_hardware
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#ethopy.core.interface.Interface.calc_pulse_dur" class="md-nav__link">
     <span class="md-ellipsis">
       calc_pulse_dur
@@ -1141,33 +1114,6 @@
   <a href="#ethopy.core.interface.Interface.__init__" class="md-nav__link">
     <span class="md-ellipsis">
       __init__
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ethopy.core.interface.Interface._channel2port" class="md-nav__link">
-    <span class="md-ellipsis">
-      _channel2port
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ethopy.core.interface.Interface._initialize_camera" class="md-nav__link">
-    <span class="md-ellipsis">
-      _initialize_camera
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ethopy.core.interface.Interface._initialize_hardware" class="md-nav__link">
-    <span class="md-ellipsis">
-      _initialize_hardware
     </span>
   </a>
   
@@ -2874,273 +2820,6 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 
     <span class="k">if</span> <span class="n">exp</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="s2">&quot;params&quot;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_hardware</span><span class="p">()</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="ethopy.core.interface.Interface._channel2port" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">_channel2port</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s1">&#39;Proximity&#39;</span><span class="p">)</span></code>
-
-<a href="#ethopy.core.interface.Interface._channel2port" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Convert channel number to port object.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>channel</code>
-            </td>
-            <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Channel number to convert</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>category</code>
-            </td>
-            <td>
-                  <code><span title="str">str</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Port category to match</p>
-              </div>
-            </td>
-            <td>
-                  <code>&#39;Proximity&#39;</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Corresponding port or None if not found</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-            <details class="quote">
-              <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_channel2port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">category</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Proximity&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert channel number to port object.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        channel: Channel number to convert</span>
-<span class="sd">        category: Port category to match</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Corresponding port or None if not found</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">port</span> <span class="o">=</span> <span class="n">reverse_lookup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">[</span><span class="n">category</span><span class="p">],</span> <span class="n">channel</span><span class="p">)</span> <span class="k">if</span> <span class="n">channel</span> <span class="k">else</span> <span class="mi">0</span>
-    <span class="k">if</span> <span class="n">port</span><span class="p">:</span>
-        <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="n">Port</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">category</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">port</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="ethopy.core.interface.Interface._initialize_camera" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">_initialize_camera</span><span class="p">()</span></code>
-
-<a href="#ethopy.core.interface.Interface._initialize_camera" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Initialize camera if configured in setup.</p>
-
-
-            <details class="quote">
-              <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_initialize_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize camera if configured in setup.&quot;&quot;&quot;</span>
-    <span class="n">setup_cameras</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration.Camera&quot;</span><span class="p">,</span>
-        <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">setup_cameras</span><span class="p">:</span>
-        <span class="n">camera_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-            <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration.Camera&quot;</span><span class="p">,</span>
-            <span class="n">key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;setup_conf_idx=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="n">camera_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
-            <span class="n">import_module</span><span class="p">(</span><span class="s2">&quot;Interfaces.Camera&quot;</span><span class="p">),</span> <span class="n">camera_params</span><span class="p">[</span><span class="s2">&quot;discription&quot;</span><span class="p">]</span>
-        <span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">camera_class</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;animal_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span>
-            <span class="n">logger_timer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="p">,</span>
-            <span class="n">video_aim</span><span class="o">=</span><span class="n">camera_params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;video_aim&quot;</span><span class="p">),</span>
-            <span class="o">**</span><span class="n">camera_params</span><span class="p">,</span>
-        <span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="ethopy.core.interface.Interface._initialize_hardware" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">_initialize_hardware</span><span class="p">()</span></code>
-
-<a href="#ethopy.core.interface.Interface._initialize_hardware" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Initialize hardware components based on setup configuration.</p>
-<p>This method sets up ports and camera if configured in the experiment parameters.</p>
-
-
-            <details class="quote">
-              <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_initialize_hardware</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize hardware components based on setup configuration.</span>
-
-<span class="sd">    This method sets up ports and camera if configured in the experiment parameters.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Initialize ports</span>
-    <span class="n">port_configs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-        <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration.Port&quot;</span><span class="p">,</span>
-        <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
-        <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">port_config</span> <span class="ow">in</span> <span class="n">port_configs</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Port</span><span class="p">(</span><span class="o">**</span><span class="n">port_config</span><span class="p">))</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">ports</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">proximity_ports</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">port</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;Proximity&quot;</span><span class="p">]</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rew_ports</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">port</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">reward</span><span class="p">])</span>
-
-    <span class="c1"># Initialize camera if configured</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_camera</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
