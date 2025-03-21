@@ -3259,7 +3259,7 @@ updates.</p>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_log_task_details</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the task file, name and git_hash in the database.&quot;&quot;&quot;</span>
-        <span class="n">version_info</span> <span class="o">=</span> <span class="n">get_code_version_info</span><span class="p">()</span>
+        <span class="n">version_info</span> <span class="o">=</span> <span class="n">get_code_version_info</span><span class="p">(</span><span class="n">package_name</span><span class="o">=</span><span class="s2">&quot;ethopy&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;Session.Version&quot;</span><span class="p">,</span> <span class="nb">tuple</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">,</span> <span class="o">**</span><span class="n">version_info</span><span class="p">})</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Code version: </span><span class="si">{</span><span class="n">version_info</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
