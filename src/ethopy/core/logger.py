@@ -758,7 +758,7 @@ class Logger:
 
     def _log_task_details(self) -> None:
         """Save the task file, name and git_hash in the database."""
-        version_info = get_code_version_info()
+        version_info = get_code_version_info(package_name="ethopy")
         self.put(table="Session.Version", tuple={**self.trial_key, **version_info})
         log.debug(f"Code version: {version_info}")
 

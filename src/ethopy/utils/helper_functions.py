@@ -279,7 +279,7 @@ def convert_numeric_keys(data: Dict) -> Dict:
     return data
 
 
-def get_code_version_info(project_path: str = None) -> Dict[str, Any]:
+def get_code_version_info(project_path: str = None, package_name: str=None) -> Dict[str, Any]:
     """Determine version information for a project directory.
 
     Checks git hash first, then PyPI version, then returns None.
@@ -300,8 +300,8 @@ def get_code_version_info(project_path: str = None) -> Dict[str, Any]:
         # two_folders_back = project_path.parents[1]
     result = {
         "project_path": os.path.abspath(project_path),
-        "source_type": None,
-        "version": None,
+        "source_type": 'None',
+        "version": '',
         "repository_url": '',
         "is_dirty": False,
     }
@@ -379,16 +379,16 @@ def get_code_version_info(project_path: str = None) -> Dict[str, Any]:
             log.debug(f"Not a git repository or git error: {e}")
 
     # Check if it's installed via PyPI
-    try:
-        # Try to get package metadata
-        package_name = "ethopy"
-        package_version = importlib.metadata.version(package_name)
+    if package_name is not None:
+        try:
+            # Try to get package metadata
+            package_version = importlib.metadata.version(package_name)
 
-        result["source_type"] = "pypi"
-        result["version"] = package_version
-        return result
-    except (importlib.metadata.PackageNotFoundError, ImportError) as e:
-        log.debug(f"Not a PyPI package or error: {e}")
+            result["source_type"] = "pypi"
+            result["version"] = package_version
+            return result
+        except (importlib.metadata.PackageNotFoundError, ImportError) as e:
+            log.debug(f"Not a PyPI package or error: {e}")
 
     # If we get here, we couldn't determine version info
     return result
