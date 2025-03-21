@@ -1,20 +1,33 @@
 import base64
 import functools
 import hashlib
+import importlib.metadata
 import logging
 import os
+import platform
+import socket
+import subprocess
 from dataclasses import dataclass, field
 from datetime import datetime
 from getpass import getpass
 from itertools import product
+from multiprocessing.shared_memory import SharedMemory
 from typing import Any, Dict, List, Tuple
-import subprocess
-import importlib.metadata
+
 import datajoint as dj
 import numpy as np
-from scipy import ndimage
-import platform
-import socket
+
+try:
+    import yaml
+    IMPORT_YALM = True
+except ImportError:
+    IMPORT_YALM = False
+
+try:
+    from scipy import ndimage
+    IMPORT_SCIPY = True
+except ImportError:
+    IMPORT_SCIPY = False
 
 log = logging.getLogger(__name__)
 
@@ -106,6 +119,11 @@ def flat2curve(I, dist, mon_size, **kwargs):
         x = rho * np.cos(phi)
         y = rho * np.sin(phi)
         return (x, y)
+
+    if not globals()["IMPORT_SCIPY"]:
+        raise ImportError(
+            "you need to install the scipy: sudo pip3 install scipy"
+        )
 
     params = dict(
         {"center_x": 0, "center_y": 0, "method": "index"}, **kwargs
@@ -458,3 +476,73 @@ def get_environment_info() -> Dict[str, Any]:
         "hostname": socket.gethostname(),
         "username": os.getlogin() if hasattr(os, "getlogin") else "unknown",
     }
+
+
+def read_yalm(path: str, filename: str, variable: str) -> Any:
+    """
+    Read a YAML file and return a specific variable.
+
+    Parameters:
+        path (str): The path to the directory containing the file.
+        filename (str): The name of the YAML file.
+        variable (str): The name of the variable to retrieve from the YAML file.
+
+    Returns:
+        Any: The value of the specified variable from the YAML file.
+
+    Raises:
+        FileNotFoundError: If the specified file does not exist.
+        KeyError: If the specified variable is not found in the YAML file.
+    """
+    if not globals()["IMPORT_YALM"]:
+        raise ImportError(
+            "you need to install the skvideo: sudo pip3 install PyYAML"
+        )
+
+    file_path = os.path.join(path, filename)
+    if os.path.exists(file_path):
+        with open(file_path, "r", encoding="UTF-8") as stream:
+            file_yaml = yaml.safe_load(stream)
+            try:
+                return file_yaml[variable]
+            except KeyError as exc:
+                raise KeyError(f"The variable '{variable}' is not found in the YAML file.") from exc
+    else:
+        raise FileNotFoundError(f"There is no file '{filename}' in directory: '{path}'")
+    
+def shared_memory_array(name: str, rows_len: int, columns_len: int, dtype: str = "float32") -> tuple:
+    """
+    Creates or retrieves a shared memory array.
+
+    Parameters:
+        name (str): Name of the shared memory.
+        rows_len (int): Number of rows in the array.
+        columns_len (int): Number of columns in the array.
+        dtype (str, optional): Data type of the array. Defaults to "float32".
+
+    Returns:
+        tuple(numpy.ndarray, multiprocessing.shared_memory.SharedMemory): 
+        Shared memory array and SharedMemory object.
+        dict with all the informations about the shared memory
+    """
+    try:
+        dtype_obj = np.dtype(dtype)
+        bytes_per_item = dtype_obj.itemsize
+        n_bytes = rows_len * columns_len * bytes_per_item
+
+        # Create or retrieve the shared memory
+        sm = SharedMemory(name=name, create=True, size=n_bytes)
+    except FileExistsError:
+        # Shared memory already exists, retrieve it
+        sm = SharedMemory(name=name, create=False, size=n_bytes)
+    except Exception as e:
+        raise RuntimeError('Error creating/retrieving shared memory: ' + str(e)) from e
+
+    # Create a numpy array that uses the shared memory
+    shared_array = np.ndarray((rows_len, columns_len), dtype=dtype_obj, buffer=sm.buf)
+    shared_array.fill(0)
+    conf: Dict = {"name": "pose",
+                  "shape": (rows_len, columns_len),
+                  "dtype": dtype_obj}
+
+    return shared_array, sm, conf
