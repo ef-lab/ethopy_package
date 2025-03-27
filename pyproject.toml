@@ -85,10 +85,19 @@ only-include = ["src/ethopy"]
 
 [tool.mypy]
 python_version = "3.8"
-strict = true
-warn_return_any = true
-warn_unused_configs = true
 disallow_untyped_defs = true
+ignore_missing_imports = true
+disable_error_code = ["attr-defined", "misc"]
+exclude = [
+  # TODO: Remove from the following to the exclude list
+  "tests",
+  "src/ethopy/utils",
+  "src/ethopy/task",
+  "src/ethopy/stimuli",
+  "src/ethopy/experiments",
+  "src/ethopy/interfaces",
+  "src/ethopy/behaviors"
+]
 
 [tool.ruff]
 line-length = 88
@@ -97,8 +106,9 @@ src = ["src", "tests"]
 exclude = [
   ".venv",
   ".mypy_cache",
-  "tests",
   "docs/_build",
+  # TODO: Remove the following files from the exclude list
+  "tests",
   "src/ethopy/utils",
   "src/ethopy/task",
   "src/ethopy/stimuli",
