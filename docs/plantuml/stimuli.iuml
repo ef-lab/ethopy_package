@@ -22,7 +22,7 @@ arrow {
 * Stimulus Schema
 ** StimCondition\n----\n<size:9>Unique stimulus hash</size>
 *** Trial\n----\n<size:9>Trial hash</size>
+*** CUSTOM_STIM\n----\n<size:9>Custom stim object </size> \n<size:9>condition</size>
 ** Configuration\n----\n<size:9>Session stimulus configuration info</size>
 *** Screen\n----\n<size:9>Screen info</size>
-** CUSTOM_STIM\n----\n<size:9>Custom stim object </size> \n<size:9>condition</size>
 @endwbs

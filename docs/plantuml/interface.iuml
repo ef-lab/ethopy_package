@@ -1,0 +1,32 @@
+@startwbs
+<style>
+node {
+    LineColor lightgray
+    BackgroundColor whitesmoke
+    RoundCorner 10
+    MaximumWidth 100
+}
+arrow {
+  // Targetting only connector between Mexico-Chihuahua and USA-Texas
+  LineColor gray
+  LineThickness .5
+}
+:depth(0) {
+  BackgroundColor White
+  RoundCorner 0
+  Shadowing 0
+  LineThickness 0
+ }
+}
+</style>
+* Interface Schema
+** Setup Configuration\n----\n<size:9>Unique setup id</size>
+*** Port\n----\n<size:9>Port info</size>
+*** Screen\n----\n<size:9>Screen info</size>
+** Session Configuration\n----\n<size:9>Session configuration info</size>
+*** Screen\n----\n<size:9>Screen info</size>
+*** Port\n----\n<size:9>Port info</size>
+** PortCalibration
+*** Liquid\n----\n<size:9>Liquid delivery calibration</size>
+*** Test\n----\n<size:9>Delivery test</size>
+@endwbs
