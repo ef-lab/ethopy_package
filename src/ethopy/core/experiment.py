@@ -203,7 +203,11 @@ class ExperimentClass:
         self.setup_conf_idx = session_params.get("setup_conf_idx", 0)
         session_params["setup_conf_idx"] = self.setup_conf_idx
 
-        self.params = {**self.default_key, **session_params, "setup_conf_idx": self.setup_conf_idx}
+        self.params = {
+            **self.default_key,
+            **session_params,
+            "setup_conf_idx": self.setup_conf_idx,
+        }
 
         self.logger = logger
         self.beh = behavior_class()
@@ -290,7 +294,9 @@ class ExperimentClass:
     def _get_task_classes(self, stim_class) -> Dict:
         exp_name = {"experiment_class": self.cond_tables[0]}
         beh_name = {
-            "behavior_class": self.beh.cond_tables[0] if self.beh.cond_tables else "None"
+            "behavior_class": self.beh.cond_tables[0]
+            if self.beh.cond_tables
+            else "None"
         }
         stim_name = {"stimulus_class": stim_class.name()}
         return {**exp_name, **beh_name, **stim_name}
@@ -606,7 +612,7 @@ class ExperimentClass:
 
     def _anti_bias(self, choice_h, un_choices):
         choice_h = np.array(
-            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"] :]]
+            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"]:]]
         )
         if len(choice_h) < self.curr_cond["bias_window"]:
             choice_h = self.choices
@@ -923,12 +929,12 @@ class Session(dj.Manual):  # noqa: D101
         definition = """
         # Code version info
         -> Session
-        project_path   : varchar(256)              # path
+        project_path   : varchar(256)                 # path
         ---
-        source_type    : enum('pypi', 'git')        # task or setup
-        version        : varchar(32)               # pip version or git hash
-        repository_url : varchar(256)              # git repository url if available
-        is_dirty       : bool                      # uncommited changes in git
+        source_type    : enum('pypi', 'git', 'None')  # task or setup
+        version        : varchar(32)                  # pip version or git hash
+        repository_url : varchar(256)                 # git repository url if available
+        is_dirty       : bool                         # uncommited changes in git
         """
 
     class Enviroment(dj.Part):  # noqa: D101, D106
@@ -1035,5 +1041,3 @@ class Task(dj.Lookup):  # noqa: D101
     description=""              : varchar(2048) # task description
     timestamp=CURRENT_TIMESTAMP : timestamp
     """
-
-
