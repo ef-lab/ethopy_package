@@ -19,15 +19,6 @@ log = logging.getLogger(__name__)
 
 
 class RPPorts(Interface):
-    channels = {'Odor': {1: 24, 2: 25},
-                'Liquid': {1: 22, 2: 23},
-                'Lick': {1: 17, 2: 27},
-                'Proximity': {3: 9, 1: 5, 2: 6},
-                'Sound': {1: 13},
-                'Sync': {'in': 21, 'rec': 26, 'out': 16},
-                'Opto': 19,
-                'Status': 20}
-
     def __init__(self, **kwargs):
         if not globals()["IMPORT_RP"]:
             raise ImportError(
