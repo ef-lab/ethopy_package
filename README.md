@@ -21,8 +21,8 @@ The full documentation is available at:
 
 - **Modular Design**: Comprised of several overridable modules that define the structure of experiments, stimuli, and behavioral control
 - **Database Integration**: Automatic storage and management of experimental data using Datajoint
-- **Multiple Experiment Types**: Support for various experiment paradigms (MatchToSample, Navigation, Passive Viewing, etc.)
-- **Hardware Integration**: Interfaces with multiple hardware setups
+- **Multiple Experiment Types**: Support for various experiment paradigms (match to sample, 2AFC, open field, etc.)
+- **Hardware Integration**: Interfaces with multiple hardware setups (raspberry, arduino, desktop computer, screen, camera etc.)
 - **Stimulus Control**: Various stimulus types supported (Gratings, Movies, Olfactory, 3D Objects)
 - **Real-time Control**: State-based experiment control with precise timing
 - **Extensible**: Easy to add new experiment types, stimuli, or behavioral interfaces
@@ -31,7 +31,7 @@ The full documentation is available at:
 
 The following diagram illustrates the relationship between the core modules:
 
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/modules.iuml">
+<img src="docs/plantuml/modules_uml.png">
 
 [Datajoint]: https://github.com/datajoint/datajoint-python
 
@@ -42,8 +42,8 @@ The following diagram illustrates the relationship between the core modules:
 ### Requirements
 
 - Python 3.8 or higher
-- Docker (for database setup)
-- Dependencies: numpy, pandas, datajoint, pygame, pillow, and more (automatically installed)
+- Maria DB Database (instructions for [database setup](docs/database.md))
+
 
 ### Basic Installation
 
@@ -51,64 +51,7 @@ The following diagram illustrates the relationship between the core modules:
 pip install ethopy
 ```
 
-For optional features:
-```bash
-# For 3D object support
-pip install "ethopy[obj]"
-
-# For development
-pip install "ethopy[dev]"
-
-# For documentation
-pip install "ethopy[docs]"
-```
-
-### Database Setup
-
-1. Start the database container:
-```bash
-ethopy-setup-djdocker  # This will start a MySQL container for data storage
-```
-
-2. Configure the database connection (this tells Ethopy how to connect to the database):
-
-Create a configuration file at:
-- Linux/macOS: `~/.ethopy/local_conf.json`
-- Windows: `%USERPROFILE%\.ethopy\local_conf.json`
-
-```json
-{
-    "dj_local_conf": {
-        "database.host": "127.0.0.1",
-        "database.user": "root",
-        "database.password": "your_password",
-        "database.port": 3306
-    },
-    "source_path": "/path/to/data",
-    "target_path": "/path/to/backup",
-    "logging": {
-        "level": "INFO",
-        "filename": "ethopy.log"
-    }
-}
-```
-
-3. Verify database connection:
-```bash
-ethopy-db-connection  # Ensures Ethopy can connect to the database
-```
-
-4. Create required schemas:
-```bash
-ethopy-setup-schema  # Sets up all necessary database tables for experiments
-```
-
-After completing these steps, your database will be ready to store experiment data, configurations, and results.
-
 ### Running Experiments
-
-1. **Service Mode**: Controlled by the Control table in the database
-2. **Direct Mode**: Run a specific task directly
 
 Example of running a task:
 ```bash
@@ -129,11 +72,27 @@ Understanding Ethopy's core architecture is essential for both using the system 
 
 The base experiment module defines the state control system. Each experiment is composed of multiple states, with Entry and Exit states being mandatory.
 
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/states.iuml">
+#### Example of a State Machine Diagram
+
+This diagram illustrates a simple state machine, a computational model that transitions between discrete states in response to inputs or events. State machines are used to model systems with a finite number of possible states and well-defined transitions between them.
+- Entry: The initial state, marking the start of the process.
+- PreTrial: A preparatory state before the actual trial begins.
+- Trial: The main state where the trial takes place. It can loop back to itself, representing iterative actions within the trial.
+- Abort, Reward, Punish: Possible outcomes of the trial, leading to different branches.
+- InterTrial: A state between trials, possibly for processing results or preparing for the next trial.
+- Exit: The final state, indicating the end of the process.
+
+<div style="text-align: left;">
+  <p style="font-weight: bold; margin-bottom: 10px;">State Machine Diagram</p>
+  <img src="docs/plantuml/states_uml.png" alt="Image Description" style="max-width: 500px;">
+</div>
 
 Each state has four overridable functions that control its behavior:
+<div style="text-align: left;">
+  <p style="font-weight: bold; margin-bottom: 10px;">State Functions</p>
+  <img src="docs/plantuml/state_functions_uml.png" alt="Image Description" style="max-width: 500px;">
+</div>
 
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/state_functions.iuml">
 
 #### Available Experiment Types
 
@@ -141,15 +100,6 @@ Each state has four overridable functions that control its behavior:
 - **Passive**: Passive stimulus presentation
 - **FreeWater**: Water delivery experiments
 - **Calibrate**: Port calibration for water delivery
-
-#### Configuration
-
-Experiments require setup configuration through:
-- `SetupConfiguration`
-- `SetupConfiguration.Port`
-- `SetupConfiguration.Screen`
-
-Experiment parameters are defined in Python configuration files and stored in the `Task` table within the `lab_experiment` schema.
 
 ### 2. Behavior Module
 
@@ -172,22 +122,35 @@ Controls stimulus presentation and management.
   - Bar: Moving bars for retinotopic mapping
   - Dot: Moving dots
 
-### 4. Core System Modules
 
-#### Logger Module (Non-overridable)
+### Logger Module (Non-overridable)
 Manages all database interactions across modules. Data is stored in three schemas:
 
 **lab_experiments**:  
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/experiments.iuml">
+<img src="docs/plantuml/experiment_uml.png">
 
 **lab_behavior**:  
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/behavior.iuml">
+<img src="docs/plantuml/behavior_uml.png">
 
 **lab_stimuli**:  
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/stimuli.iuml">
+<img src="docs/plantuml/stimuli_uml.png">
 
-#### Interface Module (Non-overridable)
-Manages hardware communication and control.
+**interface**:  
+<img src="docs/plantuml/interface_uml.png">
+
+### Interface Module (Non-overridable)
+Manages hardware interactions and the configuration of hardware based on setup index.
+
+#### Available Interfaces
+- **Arduino**: Interfaces with Arduino microcontrollers for reward delivery, lick detection, and proximity sensing
+- **Ball**: Tracks animal movement on a spherical treadmill using two mice for position, orientation, and speed
+- **Camera**: Manages camera recordings with timestamping and HTTP streaming capabilities
+- **dlc**: DeepLabCut integration for real-time animal pose tracking and arena detection
+- **DummyPorts**: Simulates animal interaction ports for testing and development without physical hardware
+- **PCPorts**: Controls PC hardware interfaces via serial connections for synchronization and stimulation
+- **RPPorts**: Interfaces with Raspberry Pi GPIO pins to control lick ports, valves, sensors, and stimulation
+- **RPVR**: Extends RPPorts for virtual reality experiments with additional odor control capabilities
+
 
 ## Development & Contributing
 
