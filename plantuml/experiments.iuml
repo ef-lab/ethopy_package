@@ -19,19 +19,23 @@ arrow {
  }
 </style>
 * Experiment Schema
+
 ** Session\n----\n<size:9>Session logging</size>
 *** Notes\n----\n<size:9>Session notes</size>
 *** Protocol\n----\n<size:9>Protocol info</size>
 *** Excluded\n----\n<size:9>Excluded sessions</size>
+*** Task\n----\n<size:9>Task files</size>
+*** Version\n----\n<size:9>Code version</size>
+*** Enviroment\n----\n<size:9>Setup Enviroment (os, python version etc.)</size>
+
 ** Trial\n----\n<size:9>Session trial</size>
 *** Aborted\n----\n<size:9>Aborted Trials</size>
 *** StateOnset\n----\n<size:9>Trial state timing info</size>
-** SetupConfiguration\n----\n<size:9>Setup configuration info</size>
-*** Screen\n----\n<size:9>Screen info</size>
-*** Port\n----\n<size:9>Reward probes</size>
-*** Ball\n----\n<size:9>Ball Info</size>
+
 ** Condition\n----\n<size:9>unique experiment conditions</size>
 *** CUSTOM_EXP\n----\n<size:9>Custom exp object condition</size>
+
 ** ~#Control\n----\n<size:9>Control table</size>
 ** ~#Task\n----\n<size:9>Experiment</size> \n<size:9>parameters</size>
+
 @endwbs

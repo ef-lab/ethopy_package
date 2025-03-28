@@ -1,0 +1,1867 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Python Boilerplate contains all the boilerplate you need to create a Python package.">
+      
+      
+        <meta name="author" content="olakiril, alexevag">
+      
+      
+        <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/match_port_example/">
+      
+      
+        <link rel="prev" href="../creating_custom_components/">
+      
+      
+        <link rel="next" href="../dot_stimulus_example/">
+      
+      
+      <link rel="icon" href="../assets/LabPageBrain.gif">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
+    
+    
+      
+        <title>Experiment - EthoPy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:300,300i,400,400i,700,700i%7CRegular:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Google Sans";--md-code-font:"Regular"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creating-a-custom-experiment-match-port-example" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="EthoPy" class="md-header__button md-logo" aria-label="EthoPy" data-md-component="logo">
+      
+  <img src="../assets/LabPageBrain.gif" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            EthoPy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Experiment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5M7 15a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ef-lab/ethopy_package" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  Overview
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../getting_started/" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../API/logger/" class="md-tabs__link">
+          
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contributing/" class="md-tabs__link">
+        
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://github.com/ef-lab/ethopy_package/issues" class="md-tabs__link">
+        
+  
+    
+  
+  Report Issues
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="EthoPy" class="md-nav__button md-logo" aria-label="EthoPy" data-md-component="logo">
+      
+  <img src="../assets/LabPageBrain.gif" alt="logo">
+
+    </a>
+    EthoPy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ef-lab/ethopy_package" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Overview
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating_custom_components/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Experiment
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Experiment
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-states-and-experiments-in-ethopy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding States and Experiments in Ethopy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding States and Experiments in Ethopy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a State?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-use-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Use States?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-components-for-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Components for Experiments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-the-match-port-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of the Match Port Experiment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-database-tables-with-datajoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining Database Tables with DataJoint
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-base-experiment-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating the Base Experiment Class
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-individual-state-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Individual State Classes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating Individual State Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-entry-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. entry() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-run-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. run() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-next-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. next() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-exit-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. exit() method
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-machine-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      State Machine Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-create-your-own-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Create Your Own Experiment
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dot_stimulus_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stimulus
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi_port_behavior_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Behavior
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../local_conf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Local Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../task_setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Control Experiment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup_configuration_idx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup Configuration Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/logger/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logger Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/behavior/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Behavior Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/experiment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Experiment Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/stimulus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stimulus Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/ef-lab/ethopy_package/issues" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Report Issues
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-states-and-experiments-in-ethopy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding States and Experiments in Ethopy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding States and Experiments in Ethopy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a State?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-use-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Use States?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-components-for-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Components for Experiments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-the-match-port-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of the Match Port Experiment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-database-tables-with-datajoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining Database Tables with DataJoint
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-base-experiment-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating the Base Experiment Class
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-individual-state-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Individual State Classes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating Individual State Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-entry-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. entry() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-run-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. run() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-next-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. next() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-exit-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. exit() method
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-machine-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      State Machine Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-create-your-own-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Create Your Own Experiment
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+
+                  
+
+
+  
+  
+
+
+<h1 id="creating-a-custom-experiment-match-port-example">Creating a Custom Experiment: Match Port Example<a class="headerlink" href="#creating-a-custom-experiment-match-port-example" title="Permanent link">&para;</a></h1>
+<p>This guide explains how to create a custom experiment in Ethopy by examining the <code>match_port.py</code> example, which implements a 2-Alternative Forced Choice (2AFC) task.</p>
+<h2 id="understanding-states-and-experiments-in-ethopy">Understanding States and Experiments in Ethopy<a class="headerlink" href="#understanding-states-and-experiments-in-ethopy" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-state">What is a State?<a class="headerlink" href="#what-is-a-state" title="Permanent link">&para;</a></h3>
+<p>A State in Ethopy represents a distinct phase of an experiment with specific behaviors and transitions. States are fundamental building blocks of the experimental flow and follow these principles:</p>
+<ul>
+<li><strong>Encapsulated Logic</strong>: Each state handles a specific part of the experiment (e.g., waiting for a response, delivering a reward)</li>
+<li><strong>Well-defined Transitions</strong>: States define clear rules for when to transition to other states</li>
+<li><strong>Shared Context</strong>: All states share experiment variables through a shared state dictionary</li>
+<li><strong>Lifecycle Methods</strong>: States implement standard methods (<code>entry()</code>, <code>run()</code>, <code>next()</code>, <code>exit()</code>) for predictable behavior</li>
+</ul>
+<p>The State pattern allows complex behavioral experiments to be broken down into manageable, reusable components that can be combined to create sophisticated experimental flows.</p>
+<h3 id="why-use-states">Why Use States?<a class="headerlink" href="#why-use-states" title="Permanent link">&para;</a></h3>
+<p>States provide several advantages in experimental design:</p>
+<ol>
+<li><strong>Modularity</strong>: Each state handles one specific aspect of the experiment</li>
+<li><strong>Reusability</strong>: States can be reused across different experiments</li>
+<li><strong>Maintainability</strong>: Easier to debug and modify individual states without affecting others</li>
+<li><strong>Readability</strong>: Experimental flow becomes clearer when broken into distinct states</li>
+<li><strong>Robustness</strong>: State transitions are explicitly defined, reducing the chance of unexpected behavior</li>
+</ol>
+<h3 id="required-components-for-experiments">Required Components for Experiments<a class="headerlink" href="#required-components-for-experiments" title="Permanent link">&para;</a></h3>
+<p>Every Ethopy experiment requires:</p>
+<ol>
+<li><strong>Condition Tables</strong>: DataJoint tables that define the experimental parameters</li>
+<li><strong>Entry and Exit States</strong>: Special states required by the StateMachine</li>
+<li><strong>Base Experiment Class</strong>: Inherits from both <code>State</code> and <code>ExperimentClass</code></li>
+<li><strong>Custom States</strong>: Implementation of experiment-specific states</li>
+</ol>
+<p>The StateMachine in Ethopy automatically finds all state classes that inherit from the base experiment class and handles the flow between them based on their <code>next()</code> method returns.</p>
+<h2 id="overview-of-the-match-port-experiment">Overview of the Match Port Experiment<a class="headerlink" href="#overview-of-the-match-port-experiment" title="Permanent link">&para;</a></h2>
+<p>The Match Port experiment challenges animals to correctly choose between ports based on stimuli. </p>
+<p>It implements:
+- Adaptive difficulty using staircase methods
+- Reward and punishment handling
+- Sleep/wake cycle management
+- State machine architecture for task flow</p>
+<h2 id="defining-database-tables-with-datajoint">Defining Database Tables with DataJoint<a class="headerlink" href="#defining-database-tables-with-datajoint" title="Permanent link">&para;</a></h2>
+<p>Each experiment requires defining conditions tables that store parameters. Here's how the Match Port experiment defines its table:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@experiment</span><span class="o">.</span><span class="n">schema</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Condition</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">MatchPort</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # 2AFC experiment conditions</span>
+<span class="s2">        -&gt; Condition</span>
+<span class="s2">        ---</span>
+<span class="s2">        max_reward=3000             : smallint</span>
+<span class="s2">        min_reward=500              : smallint</span>
+<span class="s2">        hydrate_delay=0             : int # delay hydration in minutes</span>
+
+<span class="s2">        trial_selection=&#39;staircase&#39; : enum(&#39;fixed&#39;,&#39;block&#39;,&#39;random&#39;,&#39;staircase&#39;, &#39;biased&#39;)</span>
+<span class="s2">        difficulty                  : int</span>
+<span class="s2">        bias_window=5               : smallint</span>
+<span class="s2">        staircase_window=20         : smallint</span>
+<span class="s2">        stair_up=0.7                : float</span>
+<span class="s2">        stair_down=0.55             : float</span>
+<span class="s2">        noresponse_intertrial=1     : tinyint(1)</span>
+<span class="s2">        incremental_punishment=1    : tinyint(1)</span>
+<span class="s2">        next_up=0                   : tinyint</span>
+<span class="s2">        next_down=0                 : tinyint</span>
+<span class="s2">        metric=&#39;accuracy&#39;           : enum(&#39;accuracy&#39;,&#39;dprime&#39;)</span>
+<span class="s2">        antibias=1                  : tinyint(1)</span>
+
+<span class="s2">        init_ready                  : int</span>
+<span class="s2">        trial_ready                 : int</span>
+<span class="s2">        intertrial_duration         : int</span>
+<span class="s2">        trial_duration              : int</span>
+<span class="s2">        reward_duration             : int</span>
+<span class="s2">        punish_duration             : int</span>
+<span class="s2">        abort_duration              : int</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+</code></pre></div></td></tr></table></div>
+<p>This table definition:
+- Uses the <code>@experiment.schema</code> decorator to associate with the experiment database
+- Creates a part table <code>MatchPort</code> under the parent <code>Condition</code> table (all parameters of the experiements are part table of the <code>Condition</code> table)
+- Defines fields with default values and data types
+- Documents the purpose with a comment at the top</p>
+<p>for more details check <a href="https://datajoint.com/docs/core/datajoint-python/latest/">datajoint documentation</a></p>
+<h2 id="creating-the-base-experiment-class">Creating the Base Experiment Class<a class="headerlink" href="#creating-the-base-experiment-class" title="Permanent link">&para;</a></h2>
+<p>The main experiment class sets up the foundation for all states and defines required parameters:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Experiment</span><span class="p">(</span><span class="n">State</span><span class="p">,</span> <span class="n">ExperimentClass</span><span class="p">):</span>
+    <span class="n">cond_tables</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MatchPort&quot;</span><span class="p">]</span>
+    <span class="n">required_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;difficulty&quot;</span><span class="p">]</span>
+    <span class="n">default_key</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;max_reward&quot;</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
+        <span class="s2">&quot;min_reward&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+        <span class="s2">&quot;hydrate_delay&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;trial_selection&quot;</span><span class="p">:</span> <span class="s2">&quot;staircase&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;init_ready&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;trial_ready&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;intertrial_duration&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">&quot;trial_duration&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">&quot;reward_duration&quot;</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span>
+        <span class="s2">&quot;punish_duration&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">&quot;abort_duration&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;noresponse_intertrial&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;incremental_punishment&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">ExperimentClass</span><span class="o">.</span><span class="n">Block</span><span class="p">()</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">entry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">curr_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Trial.StateOnset&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">()})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state_timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p>Key components:
+- <code>cond_tables</code>: Lists the condition tables this experiment uses and define/store the parameters of the experiment.
+- <code>required_fields</code>: Specifies which fields must be provided in the task file
+- <code>default_key</code>: Sets default values for parameters
+required_fields + default_key must have all the parameters from the Condition.MatchPort table 
+- <code>entry()</code>: Common initialization for all states. The entry function initializes the state by logging the state transition in the Trial.StateOnset in the experiment schema, resetting the response readiness flag, and starting a timer to track the duration of the state.</p>
+<h2 id="creating-individual-state-classes">Creating Individual State Classes<a class="headerlink" href="#creating-individual-state-classes" title="Permanent link">&para;</a></h2>
+<p>Each state is implemented as a class inheriting from the base <code>Experiment</code> class. Let's analyze in detail the <code>Trial</code> state, which manages stimulus presentation and response detection:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Trial</span><span class="p">(</span><span class="n">Experiment</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">entry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">entry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">present</span><span class="p">()</span>  <span class="c1"># Start Stimulus</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">has_responded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_ready</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;trial_ready&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">ready_stim</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_off_proximity</span><span class="p">():</span>  <span class="c1"># did not wait</span>
+            <span class="k">return</span> <span class="s2">&quot;Abort&quot;</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">has_responded</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_correct</span><span class="p">()</span>
+        <span class="p">):</span>  <span class="c1"># response to incorrect probe</span>
+            <span class="k">return</span> <span class="s2">&quot;Punish&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_responded</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_correct</span><span class="p">():</span>  <span class="c1"># response to correct probe</span>
+            <span class="k">return</span> <span class="s2">&quot;Reward&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;trial_duration&quot;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="s2">&quot;Abort&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_stopped</span><span class="p">():</span>
+            <span class="k">return</span> <span class="s2">&quot;Exit&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Trial&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># stop stimulus when timeout</span>
+</code></pre></div></td></tr></table></div>
+<p>Let's break down the Trial state's functionality in detail:</p>
+<h3 id="1-entry-method">1. <code>entry()</code> method<a class="headerlink" href="#1-entry-method" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">entry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">entry</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><code>self.resp_ready = False</code>: Resets the response readiness flag at the beginning of each trial</li>
+<li><code>super().entry()</code>: Calls the parent class's entry method which:</li>
+<li>Records the current state in the logger</li>
+<li>Logs a state transition event with timestamp</li>
+<li>Starts the state timer</li>
+<li><code>self.stim.start()</code>: Initializes the stimulus for the current trial, activating any hardware or software components needed</li>
+</ul>
+<h3 id="2-run-method">2. <code>run()</code> method<a class="headerlink" href="#2-run-method" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">present</span><span class="p">()</span>  <span class="c1"># Start Stimulus</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">has_responded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_ready</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;trial_ready&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">ready_stim</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p>This method is called repeatedly while in the Trial state:</p>
+<ul>
+<li><code>self.stim.present()</code>: Updates the stimulus presentation on each iteration, which might involve:</li>
+<li>Moving visual elements</li>
+<li>Updating sound playback</li>
+<li>
+<p>Refreshing displays</p>
+</li>
+<li>
+<p><code>self.beh.get_response(self.start_time)</code>: Checks if the animal has made a response since the trial started</p>
+</li>
+<li>Returns a boolean value indicating response status</li>
+<li>
+<p>The <code>start_time</code> parameter allows measuring response time relative to trial start</p>
+</li>
+<li>
+<p>Response readiness check:</p>
+</li>
+<li><code>self.beh.is_ready(...)</code>: Determines if the animal is in position and ready for the stimulus</li>
+<li>Uses <code>trial_ready</code> parameter from current condition to check timing requirements</li>
+<li>If the animal is ready AND we haven't yet marked the trial as ready:<ul>
+<li>Sets <code>self.resp_ready = True</code> to indicate the animal is in position</li>
+<li>Calls <code>self.stim.ready_stim()</code> to potentially modify the stimulus (e.g., changing color, activating a cue)</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-next-method">3. <code>next()</code> method<a class="headerlink" href="#3-next-method" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_off_proximity</span><span class="p">():</span>  <span class="c1"># did not wait</span>
+        <span class="k">return</span> <span class="s2">&quot;Abort&quot;</span>
+    <span class="k">elif</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">has_responded</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_correct</span><span class="p">()</span>
+    <span class="p">):</span>  <span class="c1"># response to incorrect probe</span>
+        <span class="k">return</span> <span class="s2">&quot;Punish&quot;</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_responded</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_correct</span><span class="p">():</span>  <span class="c1"># response to correct probe</span>
+        <span class="k">return</span> <span class="s2">&quot;Reward&quot;</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;trial_duration&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="s2">&quot;Abort&quot;</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_stopped</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s2">&quot;Exit&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Trial&quot;</span>
+</code></pre></div></td></tr></table></div>
+<p>This method determines the next state based on the animal's behavior and timing:</p>
+<ul>
+<li><strong>Early Withdrawal Check</strong>: </li>
+<li><code>if not self.resp_ready and self.beh.is_off_proximity()</code>: Checks if the animal left before being ready</li>
+<li>
+<p>If true → transition to "Abort" state</p>
+</li>
+<li>
+<p><strong>Incorrect Response Check</strong>: </p>
+</li>
+<li><code>elif self.has_responded and not self.beh.is_correct()</code>: Animal responded but to the wrong port</li>
+<li>
+<p>If true → transition to "Punish" state</p>
+</li>
+<li>
+<p><strong>Correct Response Check</strong>:</p>
+</li>
+<li><code>elif self.has_responded and self.beh.is_correct()</code>: Animal responded correctly</li>
+<li>
+<p>If true → transition to "Reward" state</p>
+</li>
+<li>
+<p><strong>Timeout Check</strong>:</p>
+</li>
+<li><code>elif self.state_timer.elapsed_time() &gt; self.stim.curr_cond["trial_duration"]</code>: Trial ran too long</li>
+<li>
+<p>If true → transition to "Abort" state</p>
+</li>
+<li>
+<p><strong>Experiment Stop Check</strong>:</p>
+</li>
+<li><code>elif self.is_stopped()</code>: Checks if experiment has been externally requested to stop</li>
+<li>
+<p>If true → transition to "Exit" state</p>
+</li>
+<li>
+<p><strong>Default Case</strong>:</p>
+</li>
+<li><code>else: return "Trial"</code>: If none of the above conditions are met, stay in the Trial state</li>
+</ul>
+<h3 id="4-exit-method">4. <code>exit()</code> method<a class="headerlink" href="#4-exit-method" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># stop stimulus when timeout</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><code>self.stim.stop()</code>: Stops the stimulus presentation</li>
+<li>Cleans up resources</li>
+<li>Resets hardware components if necessary</li>
+<li>Prepares for the next state</li>
+</ul>
+<h2 id="state-machine-flow">State Machine Flow<a class="headerlink" href="#state-machine-flow" title="Permanent link">&para;</a></h2>
+<p>The experiment implements a state machine that flows through these main states:</p>
+<ol>
+<li><code>Entry</code> → Initial setup</li>
+<li><code>PreTrial</code> → Prepare stimulus and wait for animal readiness</li>
+<li><code>Trial</code> → Present stimulus and detect response</li>
+<li><code>Reward</code> or <code>Punish</code> → Handle correct or incorrect responses</li>
+<li><code>InterTrial</code> → Pause between trials</li>
+<li><code>Hydrate</code> → Ensure animal drink the minimum reward amount</li>
+<li><code>Offtime</code> → Handle sleep periods</li>
+<li><code>Exit</code> → Clean up and end experiment</li>
+</ol>
+<h2 id="how-to-create-your-own-experiment">How to Create Your Own Experiment<a class="headerlink" href="#how-to-create-your-own-experiment" title="Permanent link">&para;</a></h2>
+<p>To create your own experiment:</p>
+<ol>
+<li>Define your condition table with DataJoint</li>
+<li>Create a base experiment class that inherits from <code>State</code> and <code>ExperimentClass</code></li>
+<li>Specify <code>cond_tables</code>, <code>required_fields</code>, and <code>default_key</code></li>
+<li>Implement the <code>entry()</code> method for common state initialization</li>
+<li>Create individual state classes for each stage of your experiment</li>
+<li>Implement the state machine flow through the <code>next()</code> methods</li>
+</ol>
+<p>By following this pattern, you can create complex behavioral experiments that handle stimulus presentation, animal responses, and data logging in a structured manner.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -18,7 +18,7 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="../installation/">
+        <link rel="next" href="../creating_custom_components/">
       
       
       <link rel="icon" href="../assets/LabPageBrain.gif">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Getting Started - EthoPy</title>
+        <title>Quickstart - EthoPy</title>
       
     
     
@@ -94,7 +94,7 @@
 
   
 
-<header class="md-header md-header--shadow" data-md-component="header">
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="EthoPy" class="md-header__button md-logo" aria-label="EthoPy" data-md-component="logo">
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Getting Started
+              Quickstart
             
           </span>
         </div>
@@ -130,8 +130,18 @@
     
     <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5M7 15a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
       </label>
     
   
@@ -171,6 +181,8 @@
         </button>
       </nav>
       
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
@@ -200,13 +212,112 @@
     
   </nav>
   
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  Overview
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../API/logger/" class="md-tabs__link">
+          
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contributing/" class="md-tabs__link">
+        
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://github.com/ef-lab/ethopy_package/issues" class="md-tabs__link">
+        
+  
+    
+  
+  Report Issues
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
-        
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -220,8 +331,10 @@
                     
 
 
+  
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="EthoPy" class="md-nav__button md-logo" aria-label="EthoPy" data-md-component="logo">
       
@@ -251,12 +364,51 @@
   
   
   
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Overview
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href=".." class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Home
+    Overview
     
   </span>
   
@@ -265,9 +417,61 @@
     </li>
   
 
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
     
       
       
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
   
   
     
@@ -286,7 +490,7 @@
           
   
   <span class="md-ellipsis">
-    Getting Started
+    Quickstart
     
   </span>
   
@@ -298,7 +502,7 @@
         
   
   <span class="md-ellipsis">
-    Getting Started
+    Quickstart
     
   </span>
   
@@ -330,28 +534,76 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#step-1-installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Installation
+      Step 1: Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-a-virtual-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Up a Virtual Environment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting Up a Virtual Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-ethopy-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install EthoPy Package
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-database-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Database Setup
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#database-setup" class="md-nav__link">
+  <a href="#step-3-configure-ethopy" class="md-nav__link">
     <span class="md-ellipsis">
-      Database Setup
+      Step 3: Configure ethopy
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Database Setup">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-create-required-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Create required schemas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Create required schemas">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#run-your-first-experiment" class="md-nav__link">
+  <a href="#step-5-run-your-first-experiment" class="md-nav__link">
     <span class="md-ellipsis">
-      Run your first experiment
+      Step 5: Run your first experiment
     </span>
   </a>
   
@@ -396,9 +648,145 @@
     </li>
   
 
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
     
       
       
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating_custom_components/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../match_port_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Experiment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dot_stimulus_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stimulus
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi_port_behavior_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Behavior
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
   
   
   
@@ -417,9 +805,10 @@
     </li>
   
 
-    
-      
-      
+              
+            
+              
+                
   
   
   
@@ -429,7 +818,7 @@
         
   
   <span class="md-ellipsis">
-    Local configuration
+    Local Configuration
     
   </span>
   
@@ -438,9 +827,120 @@
     </li>
   
 
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../task_setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task Setup
     
-      
-      
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Control Experiment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup_configuration_idx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup Configuration Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
   
   
   
@@ -459,93 +959,10 @@
     </li>
   
 
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../task_setup/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Task
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../control/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Control
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../plugin/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Plugin System
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setup_configuration_idx/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Setup conf index
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
+              
+            
+              
+                
   
   
   
@@ -561,6 +978,170 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/logger/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logger Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/behavior/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Behavior Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/experiment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Experiment Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/stimulus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stimulus Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -607,180 +1188,6 @@
   
 
     
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../logging/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Logging
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
-        
-          
-          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    API Reference
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_14">
-            <span class="md-nav__icon md-icon"></span>
-            API Reference
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../logger/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Logger module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../behavior/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Behavior module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../experiment/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Experiment module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../interface/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Interface module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../stimulus/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Stimulus module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -817,28 +1224,76 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#step-1-installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Installation
+      Step 1: Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-a-virtual-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Up a Virtual Environment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting Up a Virtual Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-ethopy-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install EthoPy Package
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-database-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Database Setup
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#database-setup" class="md-nav__link">
+  <a href="#step-3-configure-ethopy" class="md-nav__link">
     <span class="md-ellipsis">
-      Database Setup
+      Step 3: Configure ethopy
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Database Setup">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-create-required-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Create required schemas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Create required schemas">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#run-your-first-experiment" class="md-nav__link">
+  <a href="#step-5-run-your-first-experiment" class="md-nav__link">
     <span class="md-ellipsis">
-      Run your first experiment
+      Step 5: Run your first experiment
     </span>
   </a>
   
@@ -904,32 +1359,71 @@
 <p>Before starting, ensure you have:</p>
 <ul>
 <li>Python 3.8 or higher (but less than 3.12) installed</li>
-<li><a href="https://www.docker.com/blog/getting-started-with-docker-desktop/">Docker</a> (for new database setup)</li>
+<li>MariaDB database</li>
 </ul>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>Install EthoPy package:</strong></li>
-</ol>
-<p>For the basic installation with core functionality:</p>
+<div class="admonition note database setup">
+<p class="admonition-title">Note</p>
+<p>We recommend using <a href="https://www.docker.com/blog/getting-started-with-docker-desktop/">Docker</a> for setting up a new database.</p>
+</div>
+<h2 id="step-1-installation">Step 1: Installation<a class="headerlink" href="#step-1-installation" title="Permanent link">&para;</a></h2>
+<h3 id="setting-up-a-virtual-environment">Setting Up a Virtual Environment<a class="headerlink" href="#setting-up-a-virtual-environment" title="Permanent link">&para;</a></h3>
+<p>Before installing dependencies, it's recommended to use a virtual environment to keep your project isolated and manageable. Choose one of the following methods:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Conda</label><label for="__tabbed_1_2">venv (pip)</label><label for="__tabbed_1_3">uv</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>myenv<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.x
+conda<span class="w"> </span>activate<span class="w"> </span>myenv
+</code></pre></div></td></tr></table></div>
+<a href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">More details</a></p>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate<span class="w">  </span><span class="c1"># On Windows use: venv\Scripts\activate</span>
+</code></pre></div></td></tr></table></div>
+<a href="https://docs.python.org/3/library/venv.html">More details</a></p>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>uv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># On Windows use: .venv\Scripts\activate</span>
+</code></pre></div></td></tr></table></div>
+<a href="https://github.com/astral-sh/uv">More details</a></p>
+</div>
+</div>
+</div>
+<p>Once activated, proceed with installation.</p>
+<h4 id="install-ethopy-package">Install EthoPy Package<a class="headerlink" href="#install-ethopy-package" title="Permanent link">&para;</a></h4>
+<p>Choose the installation method that fits your needs:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Basic Installation</label><label for="__tabbed_2_2">Latest Development Version</label><label for="__tabbed_2_3">Development Installation</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Install with pip:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ethopy
-</code></pre></div></td></tr></table></div>
-<p>From source (latest development version):</p>
+</code></pre></div></td></tr></table></div></p>
+</div>
+<div class="tabbed-block">
+<p>Install from source:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/ef-lab/ethopy_package
-</code></pre></div></td></tr></table></div>
-<p>For development installation:</p>
+</code></pre></div></td></tr></table></div></p>
+</div>
+<div class="tabbed-block">
+<p>For contributing or modifying the package:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ef-lab/ethopy_package.git
 <span class="nb">cd</span><span class="w"> </span>ethopy_package
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev,docs]&quot;</span>
-</code></pre></div></td></tr></table></div>
-<ol>
-<li><strong>Verify installation:</strong></li>
-</ol>
+</code></pre></div></td></tr></table></div></p>
+</div>
+</div>
+</div>
+<p><strong>Verify installation:</strong></p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span>--version
 </code></pre></div></td></tr></table></div>
-<h2 id="database-setup">Database Setup<a class="headerlink" href="#database-setup" title="Permanent link">&para;</a></h2>
-<p>EthoPy relies on a database for experiment configuration and data logging. If there is not a database availabe, here is a quick setup of setting mysql database with docker:</p>
+<h2 id="step-2-database-setup">Step 2: Database Setup<a class="headerlink" href="#step-2-database-setup" title="Permanent link">&para;</a></h2>
+<p>EthoPy relies on a MariaDB database for experiment configuration and data logging. If there is not a database availabe, here is a quick setup of setting mysql database with docker:</p>
 <ol>
 <li><strong>Start the database container:</strong></li>
 </ol>
@@ -938,7 +1432,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
    alterative follow the instruction from datajoint <a href="https://github.com/datajoint/mysql-docker">here</a></p>
 <p>The default username is "root".</p>
 <blockquote>
-<p><strong>Note:</strong> ethopy-setup-djdocker works only in unix operating systems, for windows try to setup the docker image based on the <a href="https://github.com/datajoint/mysql-docker">datajoint instructions</a></p>
+<p><strong>Note:</strong> if ethopy-setup-djdocker not works try to setup the docker image based on the <a href="https://github.com/datajoint/mysql-docker">datajoint instructions</a></p>
 <p><strong>Note:</strong> By default, Docker requires sudo because the Docker daemon runs as root.
 This command adds your user to the docker group, so you can run Docker commands without sudo.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
@@ -948,13 +1442,20 @@ This command adds your user to the docker group, so you can run Docker commands 
 </code></pre></div></td></tr></table></div>
 </p>
 </blockquote>
-<ol>
-<li><strong>Configure the database connection:</strong></li>
-</ol>
-<p>Create a configuration file at:
-   - Linux/macOS: <code>~/.ethopy/local_conf.json</code>
-   - Windows: <code>%USERPROFILE%\.ethopy\local_conf.json</code></p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<h2 id="step-3-configure-ethopy">Step 3: Configure ethopy<a class="headerlink" href="#step-3-configure-ethopy" title="Permanent link">&para;</a></h2>
+<p>Create a configuration file at path:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Linux/macOS</label><label for="__tabbed_3_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><code>~/.ethopy/local_conf.json</code></p>
+</div>
+<div class="tabbed-block">
+<p><code>%USERPROFILE%\.ethopy\local_conf.json</code></p>
+</div>
+</div>
+</div>
+<p>dj_local_conf have all the parameters refers to <a href="dj_local_conf">datajoint configuration</a>:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -967,36 +1468,35 @@ This command adds your user to the docker group, so you can run Docker commands 
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_password&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">&quot;SCHEMATA&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;experiment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_experiments&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;stimulus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_stimuli&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;behavior&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_behavior&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;recording&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_recordings&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;interface&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_interface&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;recording&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_recordings&quot;</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<ol>
-<li><strong>Verify database connection:</strong></li>
-</ol>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-db-connection
-</code></pre></div></td></tr></table></div>
-<ol>
-<li><strong>Create required schemas:</strong></li>
-</ol>
+</code></pre></div></td></tr></table></div></p>
+<p>Check if connection with db is established with your local configuration.
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-db-connection
+</code></pre></div></td></tr></table></div></p>
+<h2 id="step-4-create-required-schemas">Step 4: Create required schemas<a class="headerlink" href="#step-4-create-required-schemas" title="Permanent link">&para;</a></h2>
+<p>Create all required database schemas.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-setup-schema
 </code></pre></div></td></tr></table></div>
 <div class="admonition tip check database">
 <p class="admonition-title">Tip</p>
 <p>For verifing the schema/tables creation you can download <a href="https://dbeaver.io/">DBeaver</a> which is a popular and versatile database tool.</p>
 </div>
-<h3 id="run-your-first-experiment">Run your first experiment<a class="headerlink" href="#run-your-first-experiment" title="Permanent link">&para;</a></h3>
+<h3 id="step-5-run-your-first-experiment">Step 5: Run your first experiment<a class="headerlink" href="#step-5-run-your-first-experiment" title="Permanent link">&para;</a></h3>
 <p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy --task-path grating_test.py --log-console
 </code></pre></div></td></tr></table></div>
 The option --task-path is for defining the path of the task. The <a href="https://github.com/ef-lab/ethopy_package/tree/main/src/ethopy/task">example tasks</a> can run by the file name, for any other experiment you must define the full path.
@@ -1006,339 +1506,7 @@ Option --log-console is to enable the logging in terminal.</p>
 </code></pre></div></td></tr></table></div></p>
 <h2 id="example-tasks">Example Tasks<a class="headerlink" href="#example-tasks" title="Permanent link">&para;</a></h2>
 <p>Explore these sample tasks in the <code>ethopy/task/</code> directory:</p>
-<!-- ## Setting Up Your First Experiment
-
-### 1. Local Configuration
-
-Create a local configuration file to specify your database connection and hardware setup.
-
-1. **Create a configuration file** at:
-   - Linux/macOS: `~/.ethopy/local_conf.json`
-   - Windows: `%USERPROFILE%\.ethopy\local_conf.json`
-
-   Basic configuration structure:
-
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_username&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_password&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;database.reconnect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;database.use_tls&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;datajoint.loglevel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;WARNING&quot;</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/data&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/backup&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;directory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~/.ethopy/&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ethopy.log&quot;</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;SCHEMATA&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;experiment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_experiments&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;stimulus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_stimuli&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;behavior&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_behavior&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;recording&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_recordings&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-
-2. **For hardware experiments**, configure GPIO pin mappings (Raspberry Pi):
-
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;Liquid&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">},</span><span class="w">      </span><span class="c1">// Liquid reward valves</span>
-<span class="w">    </span><span class="nt">&quot;Lick&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">27</span><span class="p">},</span><span class="w">        </span><span class="c1">// Lick detection sensors</span>
-<span class="w">    </span><span class="nt">&quot;Proximity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">},</span><span class="w">     </span><span class="c1">// Proximity sensors</span>
-<span class="w">    </span><span class="nt">&quot;Odor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">},</span><span class="w">        </span><span class="c1">// Odor delivery valves</span>
-<span class="w">    </span><span class="nt">&quot;Sound&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">},</span><span class="w">                </span><span class="c1">// Sound output</span>
-<span class="w">    </span><span class="nt">&quot;Sync&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;in&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;rec&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;out&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">},</span><span class="w">  </span><span class="c1">// Synchronization pins</span>
-<span class="w">    </span><span class="nt">&quot;Status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="w">                       </span><span class="c1">// Status LED</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-
-3. **Programmatically accessing configuration** in your scripts:
-
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigurationManager</span>
-
-<span class="c1"># Initialize with default configuration</span>
-<span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationManager</span><span class="p">()</span>
-
-<span class="c1"># Get a configuration value</span>
-<span class="n">db_host</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;database.host&#39;</span><span class="p">)</span>
-<span class="n">log_level</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;logging.level&#39;</span><span class="p">,</span> <span class="s1">&#39;INFO&#39;</span><span class="p">)</span>  <span class="c1"># With default value</span>
-
-<span class="c1"># Set a configuration value</span>
-<span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;logging.level&#39;</span><span class="p">,</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">)</span>
-
-<span class="c1"># Save changes</span>
-<span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-</code></pre></div></td></tr></table></div>
-
-### 2. Create a Simple Task
-
-Let's create a simple task that displays a stimulus and waits for a response.
-
-1. Create a file named `simple_task.py`:
-
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Orientation discrimination experiment</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.behaviors.multi_port</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiPort</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.experiments.match_port</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.stimuli.grating</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grating</span>
-
-<span class="c1"># define session parameters</span>
-<span class="n">session_params</span> <span class="o">=</span> <span class="p">{</span>
-   <span class="s2">&quot;trial_selection&quot;</span><span class="p">:</span> <span class="s2">&quot;staircase&quot;</span><span class="p">,</span>
-   <span class="s2">&quot;max_reward&quot;</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
-   <span class="s2">&quot;min_reward&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
-   <span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="p">}</span>
-
-<span class="n">exp</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">()</span>
-<span class="n">exp</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">MultiPort</span><span class="p">,</span> <span class="n">session_params</span><span class="p">)</span>
-
-<span class="c1"># define stimulus conditions</span>
-<span class="n">key</span> <span class="o">=</span> <span class="p">{</span>
-   <span class="s2">&quot;contrast&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-   <span class="s2">&quot;spatial_freq&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>  <span class="c1"># cycles/deg</span>
-   <span class="s2">&quot;square&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># squarewave or Guassian</span>
-   <span class="s2">&quot;temporal_freq&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># cycles/sec</span>
-   <span class="s2">&quot;flatness_correction&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># adjustment of spatiotemporal frequencies based on animal distance</span>
-   <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>
-   <span class="s2">&quot;difficulty&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-   <span class="s2">&quot;trial_duration&quot;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>
-   <span class="s2">&quot;intertrial_duration&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-   <span class="s2">&quot;reward_amount&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-<span class="p">}</span>
-
-<span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="n">ports</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-         <span class="mi">2</span><span class="p">:</span> <span class="mi">90</span><span class="p">}</span>
-
-<span class="n">block</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">difficulty</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">next_up</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">next_down</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">trial_selection</span><span class="o">=</span><span class="s1">&#39;staircase&#39;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;dprime&#39;</span><span class="p">,</span> <span class="n">stair_up</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stair_down</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-
-<span class="c1"># For port 1 and theta 0</span>
-<span class="n">conditions</span> <span class="o">+=</span> <span class="n">exp</span><span class="o">.</span><span class="n">make_conditions</span><span class="p">(</span><span class="n">stim_class</span><span class="o">=</span><span class="n">Grating</span><span class="p">(),</span>
-                                  <span class="n">conditions</span><span class="o">=</span><span class="p">{</span>
-                                    <span class="o">**</span><span class="n">block</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
-                                    <span class="o">**</span><span class="n">key</span><span class="p">,</span>
-                                    <span class="s1">&#39;theta&#39;</span>        <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                                    <span class="s1">&#39;reward_port&#39;</span>  <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                                    <span class="s1">&#39;response_port&#39;</span><span class="p">:</span> <span class="mi">1</span>
-                                    <span class="p">}</span>
-                                 <span class="p">)</span>
-
-<span class="c1"># For port 2 and theta 90</span>
-<span class="n">conditions</span> <span class="o">+=</span> <span class="n">exp</span><span class="o">.</span><span class="n">make_conditions</span><span class="p">(</span><span class="n">stim_class</span><span class="o">=</span><span class="n">Grating</span><span class="p">(),</span>
-                                  <span class="n">conditions</span><span class="o">=</span><span class="p">{</span>
-                                    <span class="o">**</span><span class="n">block</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
-                                    <span class="o">**</span><span class="n">key</span><span class="p">,</span>
-                                    <span class="s1">&#39;theta&#39;</span>        <span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
-                                    <span class="s1">&#39;reward_port&#39;</span>  <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-                                    <span class="s1">&#39;response_port&#39;</span><span class="p">:</span> <span class="mi">2</span>
-                                    <span class="p">}</span>
-                                 <span class="p">)</span>
-
-<span class="c1"># run experiments</span>
-<span class="n">exp</span><span class="o">.</span><span class="n">push_conditions</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
-<span class="n">exp</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</code></pre></div></td></tr></table></div>
-
-### 3. Run Your Experiment
-
-Now that you have your task defined, you can run it:
-
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span>-p<span class="w"> </span>simple_task.py<span class="w"> </span>--log-console
-</code></pre></div></td></tr></table></div>
-
-This will:
-1. Set up your experiment with the specified configuration
-2. Initialize the behavior and stimulus classes
-3. Begin the experiment state machine
-4. Log all events and data to the database
-
-## Common Experiment Types
-
-EthoPy comes with several built-in experiment types that you can use or customize:
-
-1. **FreeWater**: Simple reward delivery when an animal licks a port
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.experiments.freewater</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
-</code></pre></div></td></tr></table></div>
-
-2. **MatchPort**: Associate specific stimuli with reward ports
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.experiments.match_port</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
-</code></pre></div></td></tr></table></div>
-
-3. **Passive**: Present stimuli without requiring responses
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.experiments.passive</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
-</code></pre></div></td></tr></table></div>
-
-4. **Calibrate**: Calibrate water delivery amounts
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.experiments.calibrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
-</code></pre></div></td></tr></table></div>
-
-Each experiment type has a predefined state machine with states like Entry, Trial, Response, Reward, and Exit. These states control the flow of the experiment.
-
-## Behavior and Stimulus Classes
-
-EthoPy's modular design allows you to combine different experiment types with behavior and stimulus classes:
-
-### Behavior Types
-- **MultiPort**: Standard setup with lick, liquid delivery, and proximity ports
-  <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.behaviors</span><span class="p">,</span><span class="n">multi_port</span> <span class="kn">import</span><span class="w"> </span><span class="nn">MultiPort</span>
-</code></pre></div></td></tr></table></div>
-
-- **MultiPort**: Standard setup with lick, liquid delivery, and proximity ports
-  <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.behaviors.head_fixed</span><span class="w"> </span><span class="kn">import</span> <span class="n">HeadFixed</span>
-</code></pre></div></td></tr></table></div>
-
-### Stimulus Types
-- **Grating**: Orientation gratings
-  <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.stimuli.grating</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grating</span>
-</code></pre></div></td></tr></table></div>
-- **Bar**: Moving bar for retinotopic mapping
-  <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.stimuli.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bar</span>
-</code></pre></div></td></tr></table></div>
-- **Dot**: Moving dot patterns
-  <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.stimuli.dot</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dot</span>
-</code></pre></div></td></tr></table></div>
-
-## Next Steps
-
-After successfully running your first experiment, you can:
-
-1. **Customize your task** by modifying parameters
-2. **Create a new experiment type** by subclassing from the base classes
-3. **Add hardware interfaces** for real behavioral experiments
-4. **Configure database logging** for data analysis
-
-## State Machine Architecture
-
-Understanding the state machine is crucial for working with EthoPy:
-
-1. Each experiment has a **StateMachine** dictionary mapping state names to methods
-2. The current state is tracked in the **State** variable
-3. Each state function is called repeatedly until it changes the State
-4. Every state function can have four special methods:
-   - **entry_state**: Called once when entering the state
-   - **run_state**: Called repeatedly while in the state
-   - **exit_state**: Called once when exiting the state
-   - **state**: Combined method that manages all the above -->
-
 <ol>
-<li><strong>calibrate_ports.py</strong> - Calibrate water delivery ports</li>
-<li><strong>free_water.py</strong> - Reward delivery without complex stimuli</li>
-<li><strong>no_stimulus.py</strong> - Run experiment without visual stimuli</li>
 <li><strong>grating_test.py</strong> - Grating stimulus presentation</li>
 <li><strong>bar_test.py</strong> - Moving bar stimulus</li>
 <li><strong>dot_test.py</strong> - Moving dot patterns</li>
@@ -1346,18 +1514,19 @@ Understanding the state machine is crucial for working with EthoPy:
 <h2 id="troubleshooting-and-help">Troubleshooting and Help<a class="headerlink" href="#troubleshooting-and-help" title="Permanent link">&para;</a></h2>
 <p>If you encounter issues, refer to the <a href="../troubleshooting/">Troubleshooting Guide</a>.</p>
 <p>For specific questions, check the:
-- <a href="../logger/">API Reference</a> for detailed module documentation
+- <a href="logger.md">API Reference</a> for detailed module documentation
 - <a href="https://github.com/ef-lab/ethopy_package/issues">GitHub Issues</a> for known problems</p>
 <hr />
 <h2 id="where-to-go-next">Where to Go Next<a class="headerlink" href="#where-to-go-next" title="Permanent link">&para;</a></h2>
 <p>Now that you have a basic understanding of EthoPy:</p>
 <ol>
-<li>Dive deeper into <a href="../local_conf/">Local Configuration</a> for advanced settings</li>
-<li>Understand <a href="../setup_configuration_idx/">setup configuration index</a></li>
+<li><a href="../creating_custom_components/">Creating Custom Components</a></li>
 <li>How to <a href="https://ef-lab.github.io/ethopy_package/task_setup/">create a Task </a></li>
 <li>Explore the <a href="../plugin/">Plugin System</a> to extend functionality</li>
-<li>Learn about <a href="../database/">Database Setup</a> for data storage</li>
-<li>Study the <a href="../logger/">API Reference</a> for detailed documentation</li>
+<li>Dive deeper into <a href="../local_conf/">Local Configuration</a> for advanced settings</li>
+<li>Understand <a href="../setup_configuration_idx/">setup configuration index</a></li>
+<li>Learn more about <a href="../database/">Database Setup</a></li>
+<li>Study the <a href="logger.md">API Reference</a> for detailed documentation</li>
 <li>Check <a href="../contributing/">Contributing</a> if you want to help improve EthoPy</li>
 </ol>
 
@@ -1378,6 +1547,8 @@ Understanding the state machine is crucial for working with EthoPy:
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
@@ -1394,10 +1565,6 @@ Understanding the state machine is crucial for working with EthoPy:
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
-  
-    <div class="md-copyright__highlight">
-      Copyright &copy; 2024 - 2024 Alex Evangelou
-    </div>
   
   
     Made with
@@ -1417,7 +1584,7 @@ Understanding the state machine is crucial for working with EthoPy:
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>

@@ -24,7 +24,7 @@
     
     
       
-        <title>EthoPy</title>
+        <title>Overview - EthoPy</title>
       
     
     
@@ -92,7 +92,7 @@
 
   
 
-<header class="md-header md-header--shadow" data-md-component="header">
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="." title="EthoPy" class="md-header__button md-logo" aria-label="EthoPy" data-md-component="logo">
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Overview
             
           </span>
         </div>
@@ -128,8 +128,18 @@
     
     <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5M7 15a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
       </label>
     
   
@@ -169,6 +179,8 @@
         </button>
       </nav>
       
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
@@ -198,13 +210,112 @@
     
   </nav>
   
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="." class="md-tabs__link">
+          
+  
+  Overview
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="getting_started/" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="API/logger/" class="md-tabs__link">
+          
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="contributing/" class="md-tabs__link">
+        
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://github.com/ef-lab/ethopy_package/issues" class="md-tabs__link">
+        
+  
+    
+  
+  Report Issues
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
-        
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -218,8 +329,10 @@
                     
 
 
+  
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="." title="EthoPy" class="md-nav__button md-logo" aria-label="EthoPy" data-md-component="logo">
       
@@ -251,6 +364,50 @@
   
   
   
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Overview
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -263,7 +420,7 @@
           
   
   <span class="md-ellipsis">
-    Home
+    Overview
     
   </span>
   
@@ -275,7 +432,7 @@
         
   
   <span class="md-ellipsis">
-    Home
+    Overview
     
   </span>
   
@@ -316,55 +473,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#core-modules" class="md-nav__link">
+  <a href="#installation-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Core modules:
+      Installation &amp; Setup
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Core modules:">
+    <nav class="md-nav" aria-label="Installation &amp; Setup">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#experiment" class="md-nav__link">
+  <a href="#requirements" class="md-nav__link">
     <span class="md-ellipsis">
-      Experiment
+      Requirements
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#behavior" class="md-nav__link">
+  <a href="#basic-installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Behavior
+      Basic Installation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#stimulus" class="md-nav__link">
+  <a href="#running-experiments" class="md-nav__link">
     <span class="md-ellipsis">
-      Stimulus
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#logger-non-overridable" class="md-nav__link">
-    <span class="md-ellipsis">
-      Logger (non-overridable)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interface-non-overridable" class="md-nav__link">
-    <span class="md-ellipsis">
-      Interface (non-overridable)
+      Running Experiments
     </span>
   </a>
   
@@ -376,11 +515,176 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-run" class="md-nav__link">
+  <a href="#core-architecture" class="md-nav__link">
     <span class="md-ellipsis">
-      How to run
+      Core Architecture
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Core Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-experiment-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Experiment Module
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Experiment Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#available-experiment-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Experiment Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-behavior-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Behavior Module
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Behavior Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#available-behavior-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Behavior Types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-stimulus-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Stimulus Module
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Stimulus Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#available-stimulus-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Stimulus Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logger-module-non-overridable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logger Module (Non-overridable)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-module-non-overridable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface Module (Non-overridable)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development &amp; Contributing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development &amp; Contributing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#development-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Quality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -391,9 +695,56 @@
     </li>
   
 
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
     
       
       
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
   
   
   
@@ -403,7 +754,7 @@
         
   
   <span class="md-ellipsis">
-    Getting Started
+    Quickstart
     
   </span>
   
@@ -412,9 +763,145 @@
     </li>
   
 
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
     
       
       
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="creating_custom_components/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="match_port_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Experiment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dot_stimulus_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stimulus
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="multi_port_behavior_example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Behavior
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
   
   
   
@@ -433,9 +920,10 @@
     </li>
   
 
-    
-      
-      
+              
+            
+              
+                
   
   
   
@@ -445,7 +933,7 @@
         
   
   <span class="md-ellipsis">
-    Local configuration
+    Local Configuration
     
   </span>
   
@@ -454,9 +942,120 @@
     </li>
   
 
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="task_setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Task Setup
     
-      
-      
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Control Experiment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="setup_configuration_idx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup Configuration Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
   
   
   
@@ -475,93 +1074,10 @@
     </li>
   
 
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="task_setup/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Task
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="control/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Control
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="plugin/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Plugin System
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="setup_configuration_idx/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Setup conf index
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
+              
+            
+              
+                
   
   
   
@@ -577,6 +1093,170 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="API/logger/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logger Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="API/behavior/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Behavior Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="API/experiment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Experiment Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="API/interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="API/stimulus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stimulus Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -619,180 +1299,6 @@
   
 
       </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="logging/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Logging
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
-        
-          
-          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    API Reference
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_14">
-            <span class="md-nav__icon md-icon"></span>
-            API Reference
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="logger/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Logger module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="behavior/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Behavior module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="experiment/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Experiment module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="interface/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Interface module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="stimulus/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Stimulus module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -842,55 +1348,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#core-modules" class="md-nav__link">
+  <a href="#installation-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Core modules:
+      Installation &amp; Setup
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Core modules:">
+    <nav class="md-nav" aria-label="Installation &amp; Setup">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#experiment" class="md-nav__link">
+  <a href="#requirements" class="md-nav__link">
     <span class="md-ellipsis">
-      Experiment
+      Requirements
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#behavior" class="md-nav__link">
+  <a href="#basic-installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Behavior
+      Basic Installation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#stimulus" class="md-nav__link">
+  <a href="#running-experiments" class="md-nav__link">
     <span class="md-ellipsis">
-      Stimulus
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#logger-non-overridable" class="md-nav__link">
-    <span class="md-ellipsis">
-      Logger (non-overridable)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interface-non-overridable" class="md-nav__link">
-    <span class="md-ellipsis">
-      Interface (non-overridable)
+      Running Experiments
     </span>
   </a>
   
@@ -902,11 +1390,176 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-run" class="md-nav__link">
+  <a href="#core-architecture" class="md-nav__link">
     <span class="md-ellipsis">
-      How to run
+      Core Architecture
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Core Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-experiment-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Experiment Module
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Experiment Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#available-experiment-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Experiment Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-behavior-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Behavior Module
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Behavior Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#available-behavior-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Behavior Types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-stimulus-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Stimulus Module
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Stimulus Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#available-stimulus-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Stimulus Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logger-module-non-overridable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logger Module (Non-overridable)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-module-non-overridable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface Module (Non-overridable)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development &amp; Contributing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development &amp; Contributing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#development-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Quality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -935,10 +1588,11 @@
 <h1 id="ethopy">Ethopy<a class="headerlink" href="#ethopy" title="Permanent link">&para;</a></h1>
 <p><a href="https://pypi.python.org/pypi/ethopy"><img alt="PyPI Version" src="https://img.shields.io/pypi/v/ethopy.svg" /></a>
 <a href="https://pypi.org/project/ethopy/"><img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/ethopy.svg" /></a>
+<a href="https://ef-lab.github.io/ethopy_package/"><img alt="Documentation" src="https://img.shields.io/badge/docs-available-brightgreen.svg" /></a>
 <a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a></p>
 <p>Ethopy is a state control system for automated, high-throughput behavioral training based on Python. It provides a flexible framework for designing and running behavioral experiments with:</p>
 <ul>
-<li>Tight integration with database storage &amp; control using <a href="https://github.com/datajoint/datajoint-python">Datajoint</a></li>
+<li>Tight integration with database storage &amp; control using <a href="https://docs.datajoint.org/python/">Datajoint</a></li>
 <li>Cross-platform support (Linux, macOS, Windows)</li>
 <li>Optimized for Raspberry Pi boards</li>
 <li>Modular architecture with overridable components</li>
@@ -948,8 +1602,8 @@
 <ul>
 <li><strong>Modular Design</strong>: Comprised of several overridable modules that define the structure of experiments, stimuli, and behavioral control</li>
 <li><strong>Database Integration</strong>: Automatic storage and management of experimental data using Datajoint</li>
-<li><strong>Multiple Experiment Types</strong>: Support for various experiment paradigms (MatchToSample, Navigation, Passive Viewing, etc.)</li>
-<li><strong>Hardware Integration</strong>: Interfaces with multiple hardware setups (MultiPort, VRBall, Touchscreen)</li>
+<li><strong>Multiple Experiment Types</strong>: Support for various experiment paradigms (match to sample, 2AFC, open field, etc.)</li>
+<li><strong>Hardware Integration</strong>: Interfaces with multiple hardware setups (raspberry, arduino, desktop computer, screen, camera etc.)</li>
 <li><strong>Stimulus Control</strong>: Various stimulus types supported (Gratings, Movies, Olfactory, 3D Objects)</li>
 <li><strong>Real-time Control</strong>: State-based experiment control with precise timing</li>
 <li><strong>Extensible</strong>: Easy to add new experiment types, stimuli, or behavioral interfaces</li>
@@ -958,63 +1612,33 @@
 <p>The following diagram illustrates the relationship between the core modules:</p>
 <p><img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/modules.iuml"></p>
 <hr />
-<h2 id="core-modules">Core modules:<a class="headerlink" href="#core-modules" title="Permanent link">&para;</a></h2>
-<h3 id="experiment">Experiment<a class="headerlink" href="#experiment" title="Permanent link">&para;</a></h3>
-<p>Main state experiment Empty class that is overriden by other classes depending on the type of experiment.</p>
-<p>This class can have various State classes. An Entry and Exit State are necessary, all the rest can be customized.</p>
-<p>A typical experiment state diagram:</p>
-<p><img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/states.iuml"></p>
-<p>Each of the states is discribed by 4 overridable funcions:</p>
-<p><img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/state_functions.iuml"></p>
-<p>Tables that are needed for the experiment that discribe the setup:</p>
-<blockquote>
-<p>SetupConfiguration<br />
-SetupConfiguration.Port<br />
-SetupConfiguration.Screen</p>
-</blockquote>
-<p>The experiment parameters are specified in *.py script configuration files that are entered in the Task table within the lab_experriment schema.
- Some examples are in the conf folder but any folder that is accessible to the system can be used. Each protocol has a unique task_idx identifier that is used uppon running. </p>
-<p>Implemented experiment types:<br />
-* MatchToSample: Experiment with Cue/Delay/Response periods 
-* MatchPort: Stimulus matched to ports
-* Navigate: Navigation experiment
-* Passive: Passive stimulus presentation experiment
-* FreeWater: Free water delivery experiment
-* Calibrate: Port Calibration of water amount
-* PortTest: Testing port for water delivery</p>
-<h3 id="behavior">Behavior<a class="headerlink" href="#behavior" title="Permanent link">&para;</a></h3>
-<p>Empty class that handles the animal behavior in the experiment.  </p>
-<p>IMPORTANT: Liquid calibration protocol needs to be run frequently for accurate liquid delivery</p>
-<p>Implemented Behavior types:
-* MultiPort:  Default RP setup with lick, liquid delivery and proximity port
-* VRBall (beta): Ball for 2D environments with single lick/liquid delivery port
-* Touch (beta): Touchscreen interface</p>
-<h3 id="stimulus">Stimulus<a class="headerlink" href="#stimulus" title="Permanent link">&para;</a></h3>
-<p>Empty class that handles the stimuli used in the experiment.</p>
-<p>Implemented stimulus types:
-* Grating: Orientation gratings
-* Bar: Moving bar for retinotopic mapping
-* Movies: Movie presentation
-* Olfactory: Odor persentation
-* Panda: Object presentation
-* VROdors: Virtual environment with odors
-* SmellyObjects: Odor-Visual objects</p>
-<p>Non-overridable classes:</p>
-<h3 id="logger-non-overridable">Logger (non-overridable)<a class="headerlink" href="#logger-non-overridable" title="Permanent link">&para;</a></h3>
-<p>Handles all database interactions and it is shared across Experiment/Behavior/Stimulus classes
-non-overridable</p>
-<p>Data are storred in tables within 3 different schemata that are automatically created:</p>
-<p>lab_experiments:<br />
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/experiments.iuml"></p>
-<p>lab_behavior:<br />
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/behavior.iuml"></p>
-<p>lab_stimuli:<br />
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/stimuli.iuml"></p>
-<h3 id="interface-non-overridable">Interface (non-overridable)<a class="headerlink" href="#interface-non-overridable" title="Permanent link">&para;</a></h3>
-<p>Handles all communication with hardware</p>
-<hr />
-<h2 id="how-to-run">How to run<a class="headerlink" href="#how-to-run" title="Permanent link">&para;</a></h2>
-<p>You can run experiments in two modes:</p>
+<h2 id="installation-setup">Installation &amp; Setup<a class="headerlink" href="#installation-setup" title="Permanent link">&para;</a></h2>
+<h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Python 3.8 or higher</li>
+<li>Maria DB Database (instructions for <a href="docs/database.md">database setup</a>)</li>
+</ul>
+<h3 id="basic-installation">Basic Installation<a class="headerlink" href="#basic-installation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ethopy
+</code></pre></div></td></tr></table></div>
+<p>For optional features:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># For 3D object support</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ethopy[obj]&quot;</span>
+
+<span class="c1"># For development</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ethopy[dev]&quot;</span>
+
+<span class="c1"># For documentation</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ethopy[docs]&quot;</span>
+</code></pre></div></td></tr></table></div></p>
+<h3 id="running-experiments">Running Experiments<a class="headerlink" href="#running-experiments" title="Permanent link">&para;</a></h3>
 <ol>
 <li><strong>Service Mode</strong>: Controlled by the Control table in the database</li>
 <li><strong>Direct Mode</strong>: Run a specific task directly</li>
@@ -1030,7 +1654,95 @@ ethopy<span class="w"> </span>-p<span class="w"> </span>grating_test.py
 <span class="c1"># Run a specific task by ID</span>
 ethopy<span class="w"> </span>--task-idx<span class="w"> </span><span class="m">1</span>
 </code></pre></div></td></tr></table></div></p>
-<p>This process can be automated by either a bash script that runs on startup or through control from a salt server. </p>
+<hr />
+<h2 id="core-architecture">Core Architecture<a class="headerlink" href="#core-architecture" title="Permanent link">&para;</a></h2>
+<p>Understanding Ethopy's core architecture is essential for both using the system effectively and extending it for your needs. Ethopy is built around four core modules that work together to provide a flexible and extensible experimental framework. Each module handles a specific aspect of the experiment, from controlling the overall flow to managing stimuli and recording behavior.</p>
+<h3 id="1-experiment-module">1. Experiment Module<a class="headerlink" href="#1-experiment-module" title="Permanent link">&para;</a></h3>
+<p>The base experiment module defines the state control system. Each experiment is composed of multiple states, with Entry and Exit states being mandatory.</p>
+<p><img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/states.iuml"></p>
+<p>Each state has four overridable functions that control its behavior:</p>
+<p><img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/state_functions.iuml"></p>
+<h4 id="available-experiment-types">Available Experiment Types<a class="headerlink" href="#available-experiment-types" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>MatchPort</strong>: Stimulus-port matching experiments</li>
+<li><strong>Passive</strong>: Passive stimulus presentation</li>
+<li><strong>FreeWater</strong>: Water delivery experiments</li>
+<li><strong>Calibrate</strong>: Port calibration for water delivery</li>
+</ul>
+<h4 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h4>
+<p>Experiments require setup configuration through:
+- <code>SetupConfiguration</code>
+- <code>SetupConfiguration.Port</code>
+- <code>SetupConfiguration.Screen</code></p>
+<p>Experiment parameters are defined in Python configuration files and stored in the <code>Task</code> table within the <code>lab_experiment</code> schema.</p>
+<h3 id="2-behavior-module">2. Behavior Module<a class="headerlink" href="#2-behavior-module" title="Permanent link">&para;</a></h3>
+<p>Handles animal behavior tracking and response processing.</p>
+<h4 id="available-behavior-types">Available Behavior Types<a class="headerlink" href="#available-behavior-types" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>MultiPort</strong>: Standard setup with lick detection, liquid delivery, and proximity sensing</li>
+<li><strong>HeadFixed</strong>: Passive head fixed setup<blockquote>
+<p><strong>Important</strong>: Regular liquid calibration is essential for accurate reward delivery. We recommend calibrating at least once per week to ensure consistent reward volumes and reliable experimental results.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="3-stimulus-module">3. Stimulus Module<a class="headerlink" href="#3-stimulus-module" title="Permanent link">&para;</a></h3>
+<p>Controls stimulus presentation and management.</p>
+<h4 id="available-stimulus-types">Available Stimulus Types<a class="headerlink" href="#available-stimulus-types" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Visual</strong></li>
+<li>Grating: Orientation gratings</li>
+<li>Bar: Moving bars for retinotopic mapping</li>
+<li>Dot: Moving dots</li>
+</ul>
+<h4 id="logger-module-non-overridable">Logger Module (Non-overridable)<a class="headerlink" href="#logger-module-non-overridable" title="Permanent link">&para;</a></h4>
+<p>Manages all database interactions across modules. Data is stored in three schemas:</p>
+<p><strong>lab_experiments</strong>:<br />
+<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/experiments.iuml"></p>
+<p><strong>lab_behavior</strong>:<br />
+<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/behavior.iuml"></p>
+<p><strong>lab_stimuli</strong>:<br />
+<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/stimuli.iuml"></p>
+<h4 id="interface-module-non-overridable">Interface Module (Non-overridable)<a class="headerlink" href="#interface-module-non-overridable" title="Permanent link">&para;</a></h4>
+<p>Manages hardware communication and control.</p>
+<h2 id="development-contributing">Development &amp; Contributing<a class="headerlink" href="#development-contributing" title="Permanent link">&para;</a></h2>
+<h3 id="development-setup">Development Setup<a class="headerlink" href="#development-setup" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Clone the repository:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ef-lab/ethopy_package/<span class="w">  </span><span class="c1"># Main repository</span>
+<span class="nb">cd</span><span class="w"> </span>ethopy
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p>Install development dependencies:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev,docs]&quot;</span>
+</code></pre></div></td></tr></table></div></p>
+</li>
+</ol>
+<h3 id="code-quality">Code Quality<a class="headerlink" href="#code-quality" title="Permanent link">&para;</a></h3>
+<p>The project uses several tools to maintain code quality:</p>
+<ul>
+<li><strong>ruff</strong>: Code formatting and linting</li>
+<li><strong>isort</strong>: Import sorting</li>
+<li><strong>pytest</strong>: Testing and test coverage</li>
+</ul>
+<p>Run tests:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pytest<span class="w"> </span>tests/
+</code></pre></div></td></tr></table></div></p>
+<h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h3>
+<p>Documentation is built using MkDocs. Install documentation dependencies and serve locally:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;.[docs]&quot;</span>
+mkdocs<span class="w"> </span>serve
+</code></pre></div></td></tr></table></div>
+<h3 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h3>
+<p>This project is licensed under the MIT License - see the <a href="https://github.com/ef-lab/ethopy_package/blob/master/LICENSE">LICENSE</a> file for details.</p>
+<h3 id="support">Support<a class="headerlink" href="#support" title="Permanent link">&para;</a></h3>
+<p>For questions and support:</p>
+<ul>
+<li>Open an issue on <a href="https://github.com/ef-lab/ethopy_package/issues">GitHub</a></li>
+</ul>
 
 
 
@@ -1049,6 +1761,8 @@ ethopy<span class="w"> </span>--task-idx<span class="w"> </span><span class="m">
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
@@ -1065,10 +1779,6 @@ ethopy<span class="w"> </span>--task-idx<span class="w"> </span><span class="m">
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
-  
-    <div class="md-copyright__highlight">
-      Copyright &copy; 2024 - 2024 Alex Evangelou
-    </div>
   
   
     Made with
@@ -1088,7 +1798,7 @@ ethopy<span class="w"> </span>--task-idx<span class="w"> </span><span class="m">
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="assets/javascripts/bundle.c8b220af.min.js"></script>

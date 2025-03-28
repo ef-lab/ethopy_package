@@ -12,11 +12,13 @@
         <meta name="author" content="olakiril, alexevag">
       
       
-        <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/contributing/">
+        <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/creating_custom_components/">
       
       
-        <link rel="prev" href="../API/stimulus/">
+        <link rel="prev" href="../getting_started/">
       
+      
+        <link rel="next" href="../match_port_example/">
       
       
       <link rel="icon" href="../assets/LabPageBrain.gif">
@@ -24,7 +26,7 @@
     
     
       
-        <title>Contributing - EthoPy</title>
+        <title>Overview - EthoPy</title>
       
     
     
@@ -78,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#contributing" class="md-skip">
+        <a href="#creating-custom-components-in-ethopy" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Contributing
+              Overview
             
           </span>
         </div>
@@ -237,10 +239,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../getting_started/" class="md-tabs__link">
           
   
@@ -273,11 +277,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../contributing/" class="md-tabs__link">
         
   
     
@@ -428,23 +430,28 @@
       
   
   
+    
   
   
+  
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -456,7 +463,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
@@ -489,6 +496,8 @@
                 
   
   
+    
+  
   
   
     
@@ -498,11 +507,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
@@ -517,7 +526,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             Examples
@@ -528,10 +537,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../creating_custom_components/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -541,6 +571,104 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-match-port-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Match Port Experiment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dot-stimulus" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Dot Stimulus
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-multiport-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. MultiPort Behavior
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Component Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-your-own-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Your Own Components
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -985,31 +1113,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Contributing
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1019,104 +1126,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#types-of-contributions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Types of Contributions
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Types of Contributions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#report-bugs" class="md-nav__link">
-    <span class="md-ellipsis">
-      Report Bugs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fix-bugs" class="md-nav__link">
-    <span class="md-ellipsis">
-      Fix Bugs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#implement-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implement Features
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#write-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Write Documentation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#submit-feedback" class="md-nav__link">
-    <span class="md-ellipsis">
-      Submit Feedback
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#development-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Development Setup
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pull-request-guidelines" class="md-nav__link">
-    <span class="md-ellipsis">
-      Pull Request Guidelines
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1169,55 +1178,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#types-of-contributions" class="md-nav__link">
+  <a href="#core-architecture" class="md-nav__link">
     <span class="md-ellipsis">
-      Types of Contributions
+      Core Architecture
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Types of Contributions">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example Components">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#report-bugs" class="md-nav__link">
+  <a href="#1-match-port-experiment" class="md-nav__link">
     <span class="md-ellipsis">
-      Report Bugs
+      1. Match Port Experiment
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#fix-bugs" class="md-nav__link">
+  <a href="#2-dot-stimulus" class="md-nav__link">
     <span class="md-ellipsis">
-      Fix Bugs
+      2. Dot Stimulus
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#implement-features" class="md-nav__link">
+  <a href="#3-multiport-behavior" class="md-nav__link">
     <span class="md-ellipsis">
-      Implement Features
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#write-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Write Documentation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#submit-feedback" class="md-nav__link">
-    <span class="md-ellipsis">
-      Submit Feedback
+      3. MultiPort Behavior
     </span>
   </a>
   
@@ -1229,18 +1229,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#development-setup" class="md-nav__link">
+  <a href="#component-integration" class="md-nav__link">
     <span class="md-ellipsis">
-      Development Setup
+      Component Integration
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pull-request-guidelines" class="md-nav__link">
+  <a href="#creating-your-own-components" class="md-nav__link">
     <span class="md-ellipsis">
-      Pull Request Guidelines
+      Creating Your Own Components
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -1268,112 +1277,80 @@
   
 
 
-<h1 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h1>
-<p>Contributions are welcome, and they are greatly appreciated! Every
-little bit helps, and credit will always be given.</p>
-<p>You can contribute in many ways:</p>
-<h2 id="types-of-contributions">Types of Contributions<a class="headerlink" href="#types-of-contributions" title="Permanent link">&para;</a></h2>
-<h3 id="report-bugs">Report Bugs<a class="headerlink" href="#report-bugs" title="Permanent link">&para;</a></h3>
-<p>Report bugs at <a href="https://github.com/ef-lab/ethopy_package/issues">https://github.com/ef-lab/ethopy_package/issues</a>.</p>
-<p>If you are reporting a bug, please include:</p>
-<ul>
-<li>Your operating system name and version.</li>
-<li>Any details about your local setup that might be helpful in troubleshooting.</li>
-<li>Detailed steps to reproduce the bug.</li>
-</ul>
-<h3 id="fix-bugs">Fix Bugs<a class="headerlink" href="#fix-bugs" title="Permanent link">&para;</a></h3>
-<p>Look through the GitHub issues for bugs. Anything tagged with <code>bug</code> and
-<code>help wanted</code> is open to whoever wants to implement it.</p>
-<h3 id="implement-features">Implement Features<a class="headerlink" href="#implement-features" title="Permanent link">&para;</a></h3>
-<p>Look through the GitHub issues for features. Anything tagged with
-<code>enhancement</code> and <code>help wanted</code> is open to whoever wants to implement it.</p>
-<h3 id="write-documentation">Write Documentation<a class="headerlink" href="#write-documentation" title="Permanent link">&para;</a></h3>
-<p>EthoPy could always use more documentation,
-whether as part of the official EthoPy docs,
-in docstrings, or even on the web in blog posts, articles, and such.</p>
-<h3 id="submit-feedback">Submit Feedback<a class="headerlink" href="#submit-feedback" title="Permanent link">&para;</a></h3>
-<p>The best way to send feedback is to file an issue at
-<a href="https://github.com/ef-lab/ethopy_package/issues">https://github.com/ef-lab/ethopy_package/issues</a>.</p>
-<p>If you are proposing a feature:</p>
-<ul>
-<li>Explain in detail how it would work.</li>
-<li>Keep the scope as narrow as possible, to make it easier to implement.</li>
-<li>Remember that this is a volunteer-driven project, and that contributions are welcome :)</li>
-</ul>
-<h2 id="development-setup">Development Setup<a class="headerlink" href="#development-setup" title="Permanent link">&para;</a></h2>
-<p>Ready to contribute? Here's how to set up Ethopy for local development:</p>
+<h1 id="creating-custom-components-in-ethopy">Creating Custom Components in Ethopy<a class="headerlink" href="#creating-custom-components-in-ethopy" title="Permanent link">&para;</a></h1>
+<p>This guide provides an introduction to extending Ethopy with your own custom components. Ethopy's modular design allows you to create specialized experiments by implementing three core component types:</p>
 <ol>
-<li>
-<p>Fork the Ethopy repo on GitHub.</p>
-</li>
-<li>
-<p>Clone your fork locally:
-    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:your_name_here/ethopy.git
-<span class="nb">cd</span><span class="w"> </span>ethopy
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Install development dependencies:
-    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev,docs]&quot;</span>
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Create a branch for local development:
-    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>name-of-your-bugfix-or-feature
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Make your changes locally. The project uses several tools to maintain code quality:
-        - <strong>ruff</strong>: Code formatting
-        - <strong>isort</strong>: Import sorting
-        - <strong>mypy</strong>: Static type checking
-        - <strong>ruff</strong>: Linting
-        - <strong>pytest</strong>: Testing</p>
-</li>
-<li>
-<p>Run the test suite and code quality checks:
-    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Run tests with coverage</span>
-pytest
-
-<span class="c1"># Run linting</span>
-ruff<span class="w"> </span>check<span class="w"> </span>src/ethopy
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Build and check documentation locally:
-    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>mkdocs<span class="w"> </span>serve
-</code></pre></div></td></tr></table></div>
-   Visit http://127.0.0.1:8000 to view the documentation.</p>
-</li>
-<li>
-<p>Commit your changes and push your branch to GitHub:
-    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Your detailed description of your changes.&quot;</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>name-of-your-bugfix-or-feature
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Submit a pull request through the GitHub website.</p>
-</li>
+<li><strong>Experiments</strong>: Define the overall experimental flow and state transitions</li>
+<li><strong>Stimuli</strong>: Create visual, auditory, or other sensory presentations</li>
+<li><strong>Behaviors</strong>: Handle animal interactions and responses</li>
 </ol>
-<h2 id="pull-request-guidelines">Pull Request Guidelines<a class="headerlink" href="#pull-request-guidelines" title="Permanent link">&para;</a></h2>
-<p>Before you submit a pull request, check that it meets these guidelines:</p>
+<h2 id="core-architecture">Core Architecture<a class="headerlink" href="#core-architecture" title="Permanent link">&para;</a></h2>
+<p>Ethopy uses a modular architecture where each component has specific responsibilities:</p>
+<ul>
+<li><strong>Experiments</strong> manage the overall flow of your task using a state machine</li>
+<li><strong>Stimuli</strong> control what is presented to the subject</li>
+<li><strong>Behaviors</strong> track and validate responses</li>
+<li><strong>Interfaces</strong> communicate with hardware</li>
+<li><strong>Loggers</strong> record data to the database</li>
+</ul>
+<p>All components integrate with the DataJoint database system to store parameters and results.</p>
+<h2 id="example-components">Example Components<a class="headerlink" href="#example-components" title="Permanent link">&para;</a></h2>
+<p>We provide three detailed examples to help you understand how to create your own components:</p>
+<h3 id="1-match-port-experiment">1. <a href="../match_port_example/">Match Port Experiment</a><a class="headerlink" href="#1-match-port-experiment" title="Permanent link">&para;</a></h3>
+<p>The Match Port experiment implements a 2-Alternative Forced Choice (2AFC) task where animals need to choose the correct port based on stimuli. This example demonstrates:</p>
+<ul>
+<li>Creating a complex state machine with multiple states</li>
+<li>Implementing state transitions based on animal behavior</li>
+<li>Managing adaptive difficulty through staircase methods</li>
+<li>Handling reward, punishment, and intertrial periods</li>
+</ul>
+<h3 id="2-dot-stimulus">2. <a href="../dot_stimulus_example/">Dot Stimulus</a><a class="headerlink" href="#2-dot-stimulus" title="Permanent link">&para;</a></h3>
+<p>The Dot stimulus provides a simple visual element that can be displayed at different positions and sizes. This example shows:</p>
+<ul>
+<li>Defining stimulus parameters in a DataJoint table</li>
+<li>Calculating screen positions based on monitor resolution</li>
+<li>Managing the lifecycle of visual elements</li>
+<li>Implementing timing-based presentation</li>
+</ul>
+<h3 id="3-multiport-behavior">3. <a href="../multi_port_behavior_example/">MultiPort Behavior</a><a class="headerlink" href="#3-multiport-behavior" title="Permanent link">&para;</a></h3>
+<p>The MultiPort behavior handles interactions with multiple response ports. This example illustrates:</p>
+<ul>
+<li>Tracking which ports an animal interacts with</li>
+<li>Validating responses based on experimental conditions</li>
+<li>Managing reward delivery at specific ports</li>
+<li>Recording response history and outcomes</li>
+</ul>
+<h2 id="component-integration">Component Integration<a class="headerlink" href="#component-integration" title="Permanent link">&para;</a></h2>
+<p>These three component types work together to create a complete experimental setup:</p>
 <ol>
-<li>The pull request should include tests.</li>
-<li>If the pull request adds functionality, the docs should be updated.
-    Put your new functionality into a function with a docstring, and add
-    the feature to the list in README.md</li>
-<li>The pull request should work for Python 3.8 and later, and
-    for PyPy. Check <a href="https://github.com/ef-lab/ethopy_package/pulls">https://github.com/ef-lab/ethopy_package/pulls</a> and make sure that the tests pass for all
-    supported Python versions.</li>
+<li>The <strong>Experiment</strong> defines the sequence of states (e.g., ready → trial → reward)</li>
+<li>The <strong>Stimulus</strong> determines what the animal sees or hears in each state</li>
+<li>The <strong>Behavior</strong> handler tracks and validates the animal's responses</li>
 </ol>
+<p>For example, in a typical trial:
+- The experiment enters the "Trial" state
+- The stimulus presents a visual cue
+- The behavior handler detects when the animal responds
+- The experiment transitions to "Reward" or "Punish" based on the response
+- The cycle continues to the next trial</p>
+<h2 id="creating-your-own-components">Creating Your Own Components<a class="headerlink" href="#creating-your-own-components" title="Permanent link">&para;</a></h2>
+<p>To create your own custom components:</p>
+<ol>
+<li><strong>Start with the examples</strong>: Use the provided examples as templates</li>
+<li><strong>Understand the lifecycle</strong>: Each component type has specific initialization, operation, and cleanup methods</li>
+<li><strong>Define database tables</strong>: Create appropriate DataJoint tables for your parameters</li>
+<li><strong>Implement required methods</strong>: Each component type has essential methods that must be implemented</li>
+<li><strong>Test incrementally</strong>: Start with simple implementations and add complexity gradually</li>
+</ol>
+<p>The detailed documentation for each example provides step-by-step guidance for implementing your own versions.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Explore each example in detail:</p>
+<ul>
+<li><a href="../match_port_example/">Experiment</a> for state machine implementation</li>
+<li><a href="../dot_stimulus_example/">Stimulus</a> for visual stimulus creation</li>
+<li><a href="../multi_port_behavior_example/">Behavior</a> for response handling</li>
+</ul>
+<p>These examples provide a foundation for understanding how to extend Ethopy with custom components tailored to your specific experimental needs.</p>
 
 
 

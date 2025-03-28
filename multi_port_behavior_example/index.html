@@ -12,9 +12,13 @@
         <meta name="author" content="olakiril, alexevag">
       
       
-        <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/raspberry_pi/">
+        <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/multi_port_behavior_example/">
       
       
+        <link rel="prev" href="../dot_stimulus_example/">
+      
+      
+        <link rel="next" href="../installation/">
       
       
       <link rel="icon" href="../assets/LabPageBrain.gif">
@@ -22,7 +26,7 @@
     
     
       
-        <title>Raspberry pi - EthoPy</title>
+        <title>Behavior - EthoPy</title>
       
     
     
@@ -76,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#raspberry-pi-setup-guide" class="md-skip">
+        <a href="#creating-a-custom-behavior-multiport-example" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Raspberry pi
+              Behavior
             
           </span>
         </div>
@@ -235,10 +239,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../getting_started/" class="md-tabs__link">
           
   
@@ -424,23 +430,28 @@
       
   
   
+    
   
   
+  
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -452,7 +463,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
@@ -485,6 +496,8 @@
                 
   
   
+    
+  
   
   
     
@@ -494,11 +507,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
@@ -513,7 +526,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             Examples
@@ -590,10 +603,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../multi_port_behavior_example/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Behavior
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -603,6 +637,131 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-the-multiport-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of the MultiPort Behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-the-behavior-database-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining the Behavior Database Tables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementing-the-behavior-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementing the Behavior Class
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementing the Behavior Class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-__init__-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. __init__() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-is_ready-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. is_ready() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-is_correct-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. is_correct() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-reward-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. reward() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-punish-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. punish() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-exit-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. exit() method
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#behavior-handler-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Behavior Handler Lifecycle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-create-your-own-behavior-handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Create Your Own Behavior Handler
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1046,55 +1205,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#initial-setup" class="md-nav__link">
+  <a href="#overview-of-the-multiport-behavior" class="md-nav__link">
     <span class="md-ellipsis">
-      Initial Setup
+      Overview of the MultiPort Behavior
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#system-dependencies" class="md-nav__link">
+  <a href="#defining-the-behavior-database-tables" class="md-nav__link">
     <span class="md-ellipsis">
-      System Dependencies
+      Defining the Behavior Database Tables
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hardware-specific-setup" class="md-nav__link">
+  <a href="#implementing-the-behavior-class" class="md-nav__link">
     <span class="md-ellipsis">
-      Hardware-Specific Setup
+      Implementing the Behavior Class
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Hardware-Specific Setup">
+    <nav class="md-nav" aria-label="Implementing the Behavior Class">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#7-raspberry-pi-touchscreen" class="md-nav__link">
+  <a href="#1-__init__-method" class="md-nav__link">
     <span class="md-ellipsis">
-      7" Raspberry Pi Touchscreen
+      1. __init__() method
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3d-graphics-support" class="md-nav__link">
+  <a href="#2-is_ready-method" class="md-nav__link">
     <span class="md-ellipsis">
-      3D Graphics Support
+      2. is_ready() method
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#gpio-support" class="md-nav__link">
+  <a href="#3-is_correct-method" class="md-nav__link">
     <span class="md-ellipsis">
-      GPIO Support
+      3. is_correct() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-reward-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. reward() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-punish-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. punish() method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-exit-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. exit() method
     </span>
   </a>
   
@@ -1106,62 +1292,20 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#x-display-configuration" class="md-nav__link">
+  <a href="#behavior-handler-lifecycle" class="md-nav__link">
     <span class="md-ellipsis">
-      X Display Configuration
+      Behavior Handler Lifecycle
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#remote-control-setup-optional" class="md-nav__link">
+  <a href="#how-to-create-your-own-behavior-handler" class="md-nav__link">
     <span class="md-ellipsis">
-      Remote Control Setup (Optional)
+      How to Create Your Own Behavior Handler
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ethopy-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ethopy Installation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#running-experiments" class="md-nav__link">
-    <span class="md-ellipsis">
-      Running Experiments
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#common-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Issues
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1187,46 +1331,24 @@
   
 
 
-<!-- ToDo -->
-<h1 id="raspberry-pi-setup-guide">Raspberry Pi Setup Guide<a class="headerlink" href="#raspberry-pi-setup-guide" title="Permanent link">&para;</a></h1>
-<p>This guide provides detailed instructions for setting up Ethopy on a Raspberry Pi device.</p>
-<h2 id="initial-setup">Initial Setup<a class="headerlink" href="#initial-setup" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p>Get the latest Raspberry Pi OS (Raspbian)</p>
-</li>
-<li>
-<p>Configure Raspberry Pi settings using <code>raspi-config</code>:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>raspi-config
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>Enable SSH</li>
-<li>Disable screen blanking</li>
-<li>
-<p>Enable Desktop auto-login</p>
-</li>
-<li>
-<p>(Optional) Change hostname for easier identification:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>sed<span class="w"> </span>-r<span class="w"> </span>-i<span class="w"> </span>s/raspberrypi/&lt;&lt;HOSTNAME&gt;&gt;/g<span class="w"> </span>/etc/hostname<span class="w"> </span>/etc/hosts
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>(Optional) Change default username:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>useradd<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>-d<span class="w"> </span>/home/<span class="s">&lt;&lt;USERNAME&gt;&gt;/ -m -G sudo &lt;&lt;USERNAME</span>&gt;&gt;
-sudo<span class="w"> </span>passwd<span class="w"> </span><span class="s">&lt;&lt;USERNAME&gt;&gt;</span>
-<span class="s">mkhomedir_helper &lt;&lt;USERNAME</span>&gt;&gt;
-sudo<span class="w"> </span>userdel<span class="w"> </span>-r<span class="w"> </span>-f<span class="w"> </span>pi
-</code></pre></div></td></tr></table></div></p>
-</li>
-</ol>
-<h2 id="system-dependencies">System Dependencies<a class="headerlink" href="#system-dependencies" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p>Install required system libraries:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<h1 id="creating-a-custom-behavior-multiport-example">Creating a Custom Behavior: MultiPort Example<a class="headerlink" href="#creating-a-custom-behavior-multiport-example" title="Permanent link">&para;</a></h1>
+<p>This guide explains how to create a custom behavior handler in Ethopy by examining the <code>multi_port.py</code> example, which implements a behavior system for experiments with multiple response and reward ports.</p>
+<h2 id="overview-of-the-multiport-behavior">Overview of the MultiPort Behavior<a class="headerlink" href="#overview-of-the-multiport-behavior" title="Permanent link">&para;</a></h2>
+<p>The MultiPort behavior manages interactions with multiple response ports in an experimental setup. It's designed for:</p>
+<ul>
+<li>Tracking which ports an animal interacts with</li>
+<li>Validating responses based on experiment conditions</li>
+<li>Managing reward delivery at specific ports</li>
+<li>Logging behavioral data throughout the experiment</li>
+</ul>
+<p>This behavior is particularly useful for:
+- Two-alternative forced choice (2AFC) tasks
+- Multiple-choice experiments
+- Complex reward contingency studies
+- Tasks requiring specific response sequences</p>
+<h2 id="defining-the-behavior-database-tables">Defining the Behavior Database Tables<a class="headerlink" href="#defining-the-behavior-database-tables" title="Permanent link">&para;</a></h2>
+<p>The MultiPort behavior uses multiple tables to define its parameters:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -1248,90 +1370,72 @@ sudo<span class="w"> </span>userdel<span class="w"> </span>-r<span class="w"> </
 <span class="normal">20</span>
 <span class="normal">21</span>
 <span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>python-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libatlas-base-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>build-essential<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libavformat-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libavcodec-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libswscale-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libsquish-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libeigen3-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libopenal-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libfreetype6-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>zlib1g-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libx11-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libjpeg-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libvorbis-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libogg-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libassimp-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libode-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libssl-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libgles2<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libgles1<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libegl1
-</code></pre></div></td></tr></table></div></p>
+<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@behavior</span><span class="o">.</span><span class="n">schema</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MultiPort</span><span class="p">(</span><span class="n">Behavior</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # This class handles the behavior variables for RP</span>
+<span class="s2">    -&gt;behavior.BehCondition</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Response</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # Lick response condition</span>
+<span class="s2">        -&gt; MultiPort</span>
+<span class="s2">        response_port              : tinyint          # response port id</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Reward</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        # reward port conditions</span>
+<span class="s2">        -&gt; MultiPort</span>
+<span class="s2">        ---</span>
+<span class="s2">        reward_port               : tinyint          # reward port id</span>
+<span class="s2">        reward_amount=0           : float            # reward amount</span>
+<span class="s2">        reward_type               : varchar(16)      # reward type</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+</code></pre></div></td></tr></table></div>
+<p>This database definition consists of:</p>
+<ol>
+<li><strong>Main MultiPort table</strong>:</li>
+<li>Inherits from both the <code>Behavior</code> base class and <code>dj.Manual</code> (DataJoint)</li>
+<li>
+<p>Links to the parent <code>behavior.BehCondition</code> table with a foreign key</p>
 </li>
 <li>
-<p>Install Python packages:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;numpy&gt;=1.19.1&#39;</span><span class="w"> </span><span class="nv">pygame</span><span class="o">==</span><span class="m">1</span>.9.6<span class="w"> </span>cython<span class="w"> </span>pybind11<span class="w"> </span>scipy<span class="w"> </span>datajoint<span class="w"> </span>omxplayer-wrapper<span class="w"> </span>imageio<span class="w"> </span>imageio-ffmpeg
-</code></pre></div></td></tr></table></div></p>
+<p><strong>Response part table</strong>: </p>
 </li>
+<li>Defines which ports can be used for responses</li>
+<li>
+<p>Contains the <code>response_port</code> field that identifies valid response ports</p>
+</li>
+<li>
+<p><strong>Reward part table</strong>:</p>
+</li>
+<li>Specifies which ports can deliver rewards</li>
+<li>Defines the reward amount and type for each port</li>
+<li>Links back to the parent MultiPort table</li>
 </ol>
-<h2 id="hardware-specific-setup">Hardware-Specific Setup<a class="headerlink" href="#hardware-specific-setup" title="Permanent link">&para;</a></h2>
-<h3 id="7-raspberry-pi-touchscreen">7" Raspberry Pi Touchscreen<a class="headerlink" href="#7-raspberry-pi-touchscreen" title="Permanent link">&para;</a></h3>
-<p>Install multitouch driver:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>http://github.com/ef-lab/python-multitouch<span class="w"> </span>~/github/python-multitouch
-<span class="nb">cd</span><span class="w"> </span>~/github/python-multitouch/library
-sudo<span class="w"> </span>python3<span class="w"> </span>setup.py<span class="w"> </span>install
-</code></pre></div></td></tr></table></div></p>
-<h3 id="3d-graphics-support">3D Graphics Support<a class="headerlink" href="#3d-graphics-support" title="Permanent link">&para;</a></h3>
-<p>Install Panda3D for Raspberry Pi:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>wget<span class="w"> </span>ftp://eflab.org/shared/panda3d1.11_1.11.0_armhf.deb
-sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>panda3d1.11_1.11.0_armhf.deb
-</code></pre></div></td></tr></table></div></p>
-<h3 id="gpio-support">GPIO Support<a class="headerlink" href="#gpio-support" title="Permanent link">&para;</a></h3>
-<p>Enable pigpio service:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>wget<span class="w"> </span>https://raw.githubusercontent.com/joan2937/pigpio/master/util/pigpiod.service
-sudo<span class="w"> </span>cp<span class="w"> </span>pigpiod.service<span class="w"> </span>/etc/systemd/system
-sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>pigpiod.service
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>pigpiod.service
-</code></pre></div></td></tr></table></div></p>
-<h2 id="x-display-configuration">X Display Configuration<a class="headerlink" href="#x-display-configuration" title="Permanent link">&para;</a></h2>
-<p>For running graphical applications via SSH:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export DISPLAY=:0&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.profile
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;xhost + &gt; /dev/null&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.profile
-</code></pre></div></td></tr></table></div></p>
-<h2 id="remote-control-setup-optional">Remote Control Setup (Optional)<a class="headerlink" href="#remote-control-setup-optional" title="Permanent link">&para;</a></h2>
-<p>If you want to use Salt for remote control:
+<h2 id="implementing-the-behavior-class">Implementing the Behavior Class<a class="headerlink" href="#implementing-the-behavior-class" title="Permanent link">&para;</a></h2>
+<p>The MultiPort class implements several key methods that manage the animal's interaction with the experimental apparatus:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>salt-minion<span class="w"> </span>-y
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;master: &lt;&lt;YOUR_SALT-MASTER_IP&gt;&gt;&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/salt/minion
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;id: &lt;&lt;HOSTNAME&gt;&gt;&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/salt/minion
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;master_finger: &lt;&lt;MASTER-FINGER&gt;&gt;&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/salt/minion
-sudo<span class="w"> </span>service<span class="w"> </span>salt-minion<span class="w"> </span>restart
-</code></pre></div></td></tr></table></div></p>
-<h2 id="ethopy-installation">Ethopy Installation<a class="headerlink" href="#ethopy-installation" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p>Install Ethopy:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ethopy[obj]&quot;</span><span class="w">  </span><span class="c1"># Includes 3D object support</span>
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Create configuration file at <code>~/.ethopy/local_conf.json</code>:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MultiPort&quot;</span><span class="p">,</span> <span class="s2">&quot;MultiPort.Response&quot;</span><span class="p">,</span> <span class="s2">&quot;MultiPort.Reward&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;response_port&quot;</span><span class="p">,</span> <span class="s2">&quot;reward_port&quot;</span><span class="p">,</span> <span class="s2">&quot;reward_amount&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">default_key</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;reward_type&quot;</span><span class="p">:</span> <span class="s2">&quot;water&quot;</span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="1-__init__-method">1. <code>__init__()</code> method<a class="headerlink" href="#1-__init__-method" title="Permanent link">&para;</a></h3>
+<p>This initializes the behavior handler and specifies:</p>
+<ul>
+<li><code>self.cond_tables</code>: List of tables used for conditions (main table and part tables)</li>
+<li><code>self.required_fields</code>: Parameters that must be provided for this behavior</li>
+<li><code>self.default_key</code>: Default values for optional parameters (like reward type)</li>
+</ul>
+<h3 id="2-is_ready-method">2. <code>is_ready()</code> method<a class="headerlink" href="#2-is_ready-method" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -1342,63 +1446,173 @@ sudo<span class="w"> </span>service<span class="w"> </span>salt-minion<span clas
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YOUR DATABASE&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USERNAME&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PASSWORD&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.reconnect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.enable_python_native_blobs&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LOCAL_RECORDINGS_DIRECTORY&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TARGET_RECORDINGS_DIRECTORY&quot;</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Initialize database schemas:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-setup-schema
-</code></pre></div></td></tr></table></div></p>
-</li>
-</ol>
-<h2 id="running-experiments">Running Experiments<a class="headerlink" href="#running-experiments" title="Permanent link">&para;</a></h2>
-<p>You can run experiments in two modes:</p>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">since</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">position</span><span class="p">,</span> <span class="n">ready_time</span><span class="p">,</span> <span class="n">tmst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">in_position</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">duration</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">position</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">position</span><span class="o">.</span><span class="n">ready</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">since</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ready_time</span> <span class="o">&gt;</span> <span class="n">duration</span>  <span class="c1"># in position for specified duration</span>
+    <span class="k">elif</span> <span class="n">tmst</span> <span class="o">&gt;=</span> <span class="n">since</span><span class="p">:</span>
+        <span class="c1"># has been in position for specified duration since timepoint</span>
+        <span class="k">return</span> <span class="n">ready_time</span> <span class="o">&gt;</span> <span class="n">duration</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># has been in position for specified duration since timepoint</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">ready_time</span> <span class="o">+</span> <span class="n">tmst</span> <span class="o">-</span> <span class="n">since</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">duration</span>
+</code></pre></div></td></tr></table></div>
+<p>This method determines if the animal is properly positioned and ready for the experiment:</p>
 <ol>
-<li>
-<p>Service Mode (controlled by database):
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Direct Mode (specific task):
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span>--task-idx<span class="w"> </span><span class="m">1</span>
-</code></pre></div></td></tr></table></div></p>
-</li>
+<li>Gets position information from the interface</li>
+<li>Handles different timing scenarios:</li>
+<li>If duration is 0, animal is always considered ready</li>
+<li>If no position is detected or the position is not ready, returns False</li>
+<li>Checks if the animal has been in position for the required duration</li>
+<li>If a 'since' timestamp is provided, calculates readiness relative to that time</li>
 </ol>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
+<h3 id="3-is_correct-method">3. <code>is_correct()</code> method<a class="headerlink" href="#3-is_correct-method" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_correct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if the response port is correct.</span>
+
+<span class="sd">    if current response port is -1, then any response port is correct</span>
+<span class="sd">    otherwise if the response port is equal to the current response port/ports,</span>
+<span class="sd">    then it is correct</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if correct, False otherwise</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;response_port&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> \
+        <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;response_port&#39;</span><span class="p">]))</span>
+</code></pre></div></td></tr></table></div>
+<p>This method validates if the animal's response was correct:
+- If the condition's response_port is -1, any response is considered correct
+- Otherwise, checks if the animal's response port matches the expected port in the current condition
+- Uses numpy's array comparison to support multiple correct ports</p>
+<h3 id="4-reward-method">4. <code>reward()</code> method<a class="headerlink" href="#4-reward-method" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">reward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmst</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Give reward at latest licked port.</span>
+
+<span class="sd">    After the animal has made a correct response, give the reward at the</span>
+<span class="sd">    first port that animal has licked and is definded as reward.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tmst (int, optional): Time in milliseconds. Defaults to 0.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if rewarded, False otherwise</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check that the last licked port is also a reward port</span>
+    <span class="n">licked_port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_licking</span><span class="p">(</span><span class="n">since</span><span class="o">=</span><span class="n">tmst</span><span class="p">,</span> <span class="n">reward</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">licked_port</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;reward_port&quot;</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">give_liquid</span><span class="p">(</span><span class="n">licked_port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_reward</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reward_amount</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_history</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reward_amount</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">licked_port</span><span class="p">])</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div></td></tr></table></div>
+<p>This method handles reward delivery:</p>
 <ol>
-<li><strong>Display Issues</strong></li>
-<li>Ensure DISPLAY is set correctly in ~/.profile</li>
-<li>Check X server is running</li>
-<li>
-<p>Verify permissions with <code>xhost +</code></p>
-</li>
-<li>
-<p><strong>GPIO Access</strong></p>
-</li>
-<li>Verify pigpiod service is running: <code>systemctl status pigpiod</code></li>
-<li>
-<p>Check user permissions for GPIO access</p>
-</li>
-<li>
-<p><strong>Database Connection</strong></p>
-</li>
-<li>Test connection: <code>ethopy-db-connection</code></li>
-<li>Check network connectivity to database server</li>
-<li>Verify credentials in local_conf.json</li>
+<li>Gets the port the animal is licking (since a specified time)</li>
+<li>If the licked port matches the reward port in the current condition:</li>
+<li>Triggers the hardware to deliver liquid reward through the interface</li>
+<li>Logs the reward amount</li>
+<li>Updates the history with the response port and reward amount</li>
+<li>Returns True (reward was given)</li>
+<li>Returns False if no reward was given</li>
 </ol>
+<h3 id="5-punish-method">5. <code>punish()</code> method<a class="headerlink" href="#5-punish-method" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">punish</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">port</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">port</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">update_history</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">punish</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>This method handles punishment for incorrect responses:
+- Gets the response port (or NaN if no response)
+- Updates the history to record the punishment event</p>
+<h3 id="6-exit-method">6. <code>exit()</code> method<a class="headerlink" href="#6-exit-method" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p>This method cleans up when the behavior handler is no longer needed:
+- Calls the parent class's exit method
+- Tells the interface to perform cleanup operations (e.g., closing ports, stopping pumps)</p>
+<h2 id="behavior-handler-lifecycle">Behavior Handler Lifecycle<a class="headerlink" href="#behavior-handler-lifecycle" title="Permanent link">&para;</a></h2>
+<p>The MultiPort behavior handler follows this lifecycle:</p>
+<ol>
+<li><strong>Initialization</strong>: Set up parameters, define required fields, set defaults</li>
+<li><strong>Setup</strong>: Connect to experiment, logger, and interface components</li>
+<li><strong>Operation</strong>: During the experiment, it:</li>
+<li>Checks if the animal is ready</li>
+<li>Validates responses</li>
+<li>Delivers rewards for correct responses</li>
+<li>Records punishments for incorrect responses</li>
+<li><strong>Cleanup</strong>: Release resources when the experiment ends</li>
+</ol>
+<h2 id="how-to-create-your-own-behavior-handler">How to Create Your Own Behavior Handler<a class="headerlink" href="#how-to-create-your-own-behavior-handler" title="Permanent link">&para;</a></h2>
+<p>To create your own behavior handler:</p>
+<ol>
+<li><strong>Define database tables</strong> appropriate for your experimental paradigm</li>
+<li>Consider what behavioral parameters need to be configured</li>
+<li>
+<p>Create part tables for related groups of parameters</p>
+</li>
+<li>
+<p><strong>Create a behavior class</strong> that inherits from the base <code>Behavior</code> class</p>
+</li>
+<li>Specify required fields and defaults in <code>__init__</code></li>
+<li>
+<p>Implement core behavior methods based on your experiment's needs</p>
+</li>
+<li>
+<p><strong>Implement these essential methods</strong>:</p>
+</li>
+<li><code>is_ready()</code>: Determine if the animal is positioned and ready</li>
+<li><code>is_correct()</code>: Validate if the animal's response was correct</li>
+<li><code>reward()</code>: Handle reward delivery for correct responses</li>
+<li><code>punish()</code>: Handle consequences for incorrect responses</li>
+<li><code>exit()</code>: Clean up resources when done</li>
+</ol>
+<p>By following this pattern, you can create behavior handlers for diverse experimental paradigms, from simple single-port setups to complex multi-stage behavioral tasks.</p>
 
 
 
