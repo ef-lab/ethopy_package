@@ -563,6 +563,7 @@ class ExperimentClass:
 
         processed_conditions = conditions.copy()
         for condition in processed_conditions:
+            _priority = priority
             # insert conditions fields to the correspond table
             for ctable in condition_tables:
                 # Get table metadata
@@ -596,17 +597,17 @@ class ExperimentClass:
                             table=ctable,
                             tuple=cond_key,
                             schema=schema,
-                            priority=priority,
+                            priority=_priority,
                         )
 
                 else:
                     self.logger.put(
-                        table=ctable, tuple=condition, schema=schema, priority=priority
+                        table=ctable, tuple=condition, schema=schema, priority=_priority
                     )
 
                 # Increment the priority for each subsequent table
                 # to ensure they are inserted in the correct order
-                priority += 1
+                _priority += 1
 
         return processed_conditions
 
