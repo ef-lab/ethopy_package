@@ -4,8 +4,6 @@ site_author: olakiril, alexevag
 site_url: https://ef-lab.github.io/ethopy_package/
 repo_url: https://github.com/ef-lab/ethopy_package
 
-copyright: "Copyright &copy; 2024 - 2024 Alex Evangelou"
-
 theme:
     palette:
         - scheme: slate
@@ -14,6 +12,12 @@ theme:
           toggle:
               icon: material/toggle-switch
               name: Switch to light mode
+        - scheme: default
+          primary: blue
+          accent: indigo
+          toggle:
+              icon: material/toggle-switch-off
+              name: Switch to dark mode
     name: material
     icon:
         repo: fontawesome/brands/github
@@ -23,8 +27,15 @@ theme:
         - navigation.instant
         - navigation.tracking
         - navigation.top
+        - navigation.tabs
+        - navigation.tabs.sticky
+        - navigation.path
         - search.highlight
         - search.share
+        - search.suggest
+        - content.tabs.link
+        - content.code.annotation
+        - content.code.copy
     custom_dir: "docs/overrides"
     font:
         text: Google Sans
@@ -52,31 +63,37 @@ markdown_extensions:
     - meta
     - md_in_html
     - pymdownx.superfences
+    - pymdownx.tabbed:
+        alternate_style: true
     - pymdownx.highlight:
           linenums: true
     - toc:
           permalink: true
 
 nav:
-    - Home: index.md
-    - Getting Started: getting_started.md
+  - Overview:
+    - Overview: index.md
+  - Getting Started:
+    - Quickstart: getting_started.md
+    - Examples:
+        - Overview: creating_custom_components.md
+        - Experiment: match_port_example.md
+        - Stimulus: dot_stimulus_example.md
+        - Behavior: multi_port_behavior_example.md
     - Installation: installation.md
-    - Local configuration: local_conf.md
-    - Database Setup: database.md
-    - Task: task_setup.md
-    - Control: control.md
-    - Plugin System: plugin.md
-    - Setup conf index: setup_configuration_idx.md
-    # - Gui: gui.md
-    - Troubleshooting: troubleshooting.md
-    - Contributing: contributing.md
-    # - FAQ: faq.md
-    # - Changelog: changelog.md
-    - Report Issues: https://github.com/ef-lab/ethopy_package/issues
+    - Local Configuration: local_conf.md
+    - Task Setup: task_setup.md
+    - Control Experiment: control.md
+    - Plugins: plugin.md
     - Logging: logging.md
-    - API Reference:
-          - Logger module: logger.md
-          - Behavior module: behavior.md
-          - Experiment module: experiment.md
-          - Interface module: interface.md
-          - Stimulus module: stimulus.md
+    - Setup Configuration Index: setup_configuration_idx.md
+    - Database Setup: database.md
+    - Troubleshooting: troubleshooting.md
+  - API Reference:
+      - Logger Module: API/logger.md
+      - Behavior Module: API/behavior.md
+      - Experiment Module: API/experiment.md
+      - Interface Module: API/interface.md
+      - Stimulus Module: API/stimulus.md
+  - Contributing: contributing.md
+  - Report Issues: https://github.com/ef-lab/ethopy_package/issues
