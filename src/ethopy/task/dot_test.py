@@ -28,6 +28,7 @@ key = {
     'dot_shape'             : 'rect',
     'dot_time'              : .25,
     'trial_selection'       : 'fixed',
+    'intertrial_duration'   : 500,
     'difficulty'            : 0
 }
 
