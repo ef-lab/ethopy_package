@@ -10,8 +10,8 @@ class Dot(Stimulus, dj.Manual):
     # This class handles the presentation of area mapping Bar stimulus
     -> stimulus.StimCondition
     ---
-    bg_level              : tinyblob  # 0-255 
-    dot_level             : tinyblob  # 0-255 
+    bg_level              : tinyblob  # 0-255 baground color
+    dot_level             : tinyblob  # 0-255 dot color
     dot_x                 : float  # (fraction of monitor width, 0 for center, from -0.5 to 0.5) position of dot on x axis
     dot_y                 : float  # (fraction of monitor width, 0 for center) position of dot on y axis
     dot_xsize             : float  # fraction of monitor width, width of dots
@@ -47,11 +47,13 @@ class Dot(Stimulus, dj.Manual):
 
     def stop(self):
         self.log_stop()
+        self.Presenter.fill(self.fill_colors.background)
         self.in_operation = False
 
     def present(self):
         if self.timer.elapsed_time() > self.curr_cond['dot_time']*1000:
             self.in_operation = False
+            self.Presenter.fill(self.fill_colors.background)
 
     def exit(self):
         self.Presenter.fill(self.fill_colors.background)
