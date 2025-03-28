@@ -209,9 +209,10 @@ class PluginManager:
         """
         path = os.path.abspath(path)
         if not os.path.isdir(path):
-            log.warning(f"Plugin path not found: {path}")
+            # log.warning(f"Plugin path not found: {path}")
             return
-
+        
+        log.info(f"Plugin path: {path}")
         if path not in self.plugin_paths:
             self.plugin_paths.add(path)
 
