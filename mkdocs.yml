@@ -7,13 +7,13 @@ repo_url: https://github.com/ef-lab/ethopy_package
 theme:
     palette:
         - scheme: slate
-          primary: blue
+          primary: teal
           accent: indigo
           toggle:
               icon: material/toggle-switch
               name: Switch to light mode
         - scheme: default
-          primary: blue
+          primary: teal
           accent: indigo
           toggle:
               icon: material/toggle-switch-off
@@ -21,8 +21,8 @@ theme:
     name: material
     icon:
         repo: fontawesome/brands/github
-    logo: assets/LabPageBrain.gif
-    favicon: assets/LabPageBrain.gif
+    logo: assets/EthoPy_logo.png
+    favicon: assets/EthoPy_logo.png
     features:
         - navigation.instant
         - navigation.tracking
