@@ -56,11 +56,6 @@ docs = [
     "mkdocstrings-python>=1.11.1",
 ]
 
-obj = [
-    "Panda3D",
-    "scikit-learn"
-]
-
 [project.urls]
 Documentation = "https://ef-lab.github.io/ethopy_package/"
 Repository = "https://github.com/ef-lab/ethopy_package"
