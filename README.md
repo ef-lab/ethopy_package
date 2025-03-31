@@ -42,7 +42,7 @@ The following diagram illustrates the relationship between the core modules:
 ### Requirements
 
 - Python 3.8 or higher
-- Maria DB Database (instructions for [database setup](docs/database.md))
+- Maria DB Database (instructions for [database setup](database.md))
 
 
 ### Basic Installation

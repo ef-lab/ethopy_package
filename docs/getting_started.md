@@ -109,7 +109,7 @@ This command adds your user to the docker group, so you can run Docker commands 
 
 === "Windows"
     `%USERPROFILE%\.ethopy\local_conf.json`
-   dj_local_conf have all the parameters refers to [datajoint configuration](dj_local_conf):
+   dj_local_conf have all the parameters refers to [datajoint configuration](https://datajoint.com/docs/elements/element-miniscope/0.2/tutorials/01-Configure/):
    ```json
    {
        "dj_local_conf": {
@@ -170,7 +170,7 @@ Explore these sample tasks in the `ethopy/task/` directory:
 If you encounter issues, refer to the [Troubleshooting Guide](troubleshooting.md).
 
 For specific questions, check the:
-- [API Reference](logger.md) for detailed module documentation
+- [API Reference](API/logger.md) for detailed module documentation
 - [GitHub Issues](https://github.com/ef-lab/ethopy_package/issues) for known problems
 
 ---
@@ -185,5 +185,5 @@ Now that you have a basic understanding of EthoPy:
 4. Dive deeper into [Local Configuration](local_conf.md) for advanced settings
 5. Understand [setup configuration index](setup_configuration_idx.md)
 6. Learn more about [Database Setup](database.md)
-7. Study the [API Reference](logger.md) for detailed documentation
+7. Study the [API Reference](API/logger.md) for detailed documentation
 8. Check [Contributing](contributing.md) if you want to help improve EthoPy
