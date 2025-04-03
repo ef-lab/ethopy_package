@@ -36,6 +36,59 @@ exp.push_conditions(conditions)
 exp.start()
 ```
 
+## Using of Task Templates in Ethopy
+
+### Overview
+The `ethopy-create-task` command generates a Python template file for an Ethopy experiment. This template includes default parameters and placeholders that you need to customize for your specific experiment.
+
+### Generating a Template
+To create a task template, run the following command in your terminal:
+
+```bash
+ethopy-create-task
+```
+
+You will be prompted to enter the module paths and class names for the experiment, behavior, and stimuli components. The generated file will include all required parameters with placeholders (`...`) that need to be filled.
+
+#### Template Generation Process
+The script follows these steps:
+
+1. **Prompt for Module Paths and Class Names**
+   - Enter the paths relative to `ethopy` for:
+     - Experiment module (e.g., `experiments.match_port`)
+     - Behavior module (e.g., `behaviors.multi_port`)
+     - Stimulus module (e.g., `stimuli.grating`)
+   - Enter corresponding class names for each module.
+
+2. **Validate Imports**
+   - The script attempts to import the specified modules and classes.
+   - If an import fails, an error message is displayed.
+
+3. **Extract Default Parameters**
+   - The script retrieves the parameters from the experiment, behavior, and stimulus classes.
+
+4. **Generate a Template File**
+   - A Python file is created with structured sections:
+     - **Session Parameters**: General experiment settings
+     - **Experiment Setup**: Instantiating the experiment
+     - **Trial Conditions**: Configuration for experiments, behaviors, and stimuli
+     - **Condition Merging**: Combining all conditions for trial generation
+     - **Execution**: Running the experiment
+
+5. **Save the File**
+   - The template is saved with a default filename (`task_<stimulus>_<date>.py`) or a user-specified name.
+
+## Next Steps
+After generating the template:
+
+1. **Open the generated file** in a text editor.
+2. **Fill in missing parameters** where indicated by `...`
+3. **Customize trial conditions** to match your experiment's requirements.
+4. **Run the script** to execute the experiment.
+
+By following these steps, you can quickly set up an Ethopy experiment with minimal manual configuration.
+
+
 ## Creating Tasks
 
 ### 1. Session Parameters
