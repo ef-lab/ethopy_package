@@ -73,6 +73,7 @@ ethopy = "ethopy.cli:main"
 ethopy-setup-djdocker = "ethopy.setup_db:setup_dj_docker"
 ethopy-db-connection = "ethopy.setup_db:check_db_connection"
 ethopy-setup-schema = "ethopy.setup_db:createschema"
+ethopy-create-task = "ethopy.utils.create_ethopy_task:generate_ethopy_template"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/ethopy"]
