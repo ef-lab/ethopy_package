@@ -3081,7 +3081,7 @@ updates.</p>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the task configuration.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            bool: True if task is available and valid</span>
+<span class="sd">            (bool): True if task is available and valid</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">manual_run</span><span class="p">:</span>
@@ -3321,7 +3321,7 @@ updates.</p>
 <span class="sd">            **kwargs: Additional keyword arguments to be passed to the put method.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            float: The elapsed time from the logger timer.</span>
+<span class="sd">            (float): The elapsed time from the logger timer.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tmst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span>
@@ -3371,7 +3371,7 @@ updates.</p>
 <span class="sd">        to the last session.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            int: The last session number or 0 if no sessions are found.</span>
+<span class="sd">            (int): The last session number or 0 if no sessions are found.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">last_sessions</span> <span class="o">=</span> <span class="p">(</span>
@@ -3748,7 +3748,7 @@ updates.</p>
 <span class="sd">            key_type (str): type of keys to return from the table</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list: The primary key of the specified table.</span>
+<span class="sd">            (list): The primary key of the specified table.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -3807,7 +3807,7 @@ updates.</p>
 <span class="sd">            db_log (bool, optional): If True call the log_recording</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            Tuple[str, Any]: A tuple containing the filename and the dataset object.</span>
+<span class="sd">            (Dict): A Dictionary containing the dataset object.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">folder</span> <span class="o">=</span> <span class="p">(</span>
@@ -3897,7 +3897,7 @@ updates.</p>
 <span class="sd">        defaults to localhost (127.0.0.1).</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: The local IP address.</span>
+<span class="sd">            (str): The local IP address.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
@@ -4349,7 +4349,7 @@ animal ID, session, and current timestamp.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Tuple[str, Any]: A tuple containing the filename and the dataset object.</p>
+                <p>A Dictionary containing the dataset object.</p>
               </div>
             </td>
           </tr>
@@ -4440,7 +4440,7 @@ animal ID, session, and current timestamp.</p>
 <span class="sd">        db_log (bool, optional): If True call the log_recording</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Tuple[str, Any]: A tuple containing the filename and the dataset object.</span>
+<span class="sd">        (Dict): A Dictionary containing the dataset object.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">folder</span> <span class="o">=</span> <span class="p">(</span>
@@ -4827,13 +4827,13 @@ defaults to localhost (127.0.0.1).</p>
     <table>
       <thead>
         <tr>
-<th>Name</th>          <th>Type</th>
+          <th>Type</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-<td><code>str</code></td>            <td>
+            <td>
                   <code><span title="str">str</span></code>
             </td>
             <td>
@@ -4877,7 +4877,7 @@ defaults to localhost (127.0.0.1).</p>
 <span class="sd">    defaults to localhost (127.0.0.1).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: The local IP address.</span>
+<span class="sd">        (str): The local IP address.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
@@ -5095,14 +5095,14 @@ dictionary.</p>
     <table>
       <thead>
         <tr>
-<th>Name</th>          <th>Type</th>
+          <th>Type</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-<td><code>list</code></td>            <td>
-                  <code><span title="typing.List">List</span>[<span title="str">str</span>]</code>
+            <td>
+                  <code><span title="list">list</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -5162,7 +5162,7 @@ dictionary.</p>
 <span class="sd">        key_type (str): type of keys to return from the table</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        list: The primary key of the specified table.</span>
+<span class="sd">        (list): The primary key of the specified table.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -5195,13 +5195,13 @@ dictionary.</p>
     <table>
       <thead>
         <tr>
-<th>Name</th>          <th>Type</th>
+          <th>Type</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-<td><code>bool</code></td>            <td>
+            <td>
                   <code><span title="bool">bool</span></code>
             </td>
             <td>
@@ -5230,7 +5230,7 @@ dictionary.</p>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the task configuration.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        bool: True if task is available and valid</span>
+<span class="sd">        (bool): True if task is available and valid</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">manual_run</span><span class="p">:</span>
@@ -5327,13 +5327,13 @@ dictionary.</p>
     <table>
       <thead>
         <tr>
-<th>Name</th>          <th>Type</th>
+          <th>Type</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-<td><code>float</code></td>            <td>
+            <td>
                   <code><span title="float">float</span></code>
             </td>
             <td>
@@ -5392,7 +5392,7 @@ dictionary.</p>
 <span class="sd">        **kwargs: Additional keyword arguments to be passed to the put method.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        float: The elapsed time from the logger timer.</span>
+<span class="sd">        (float): The elapsed time from the logger timer.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">tmst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span>

@@ -779,6 +779,63 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#using-of-task-templates-in-ethopy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using of Task Templates in Ethopy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using of Task Templates in Ethopy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating a Template
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generating a Template">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#template-generation-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Template Generation Process
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#creating-tasks" class="md-nav__link">
     <span class="md-ellipsis">
       Creating Tasks
@@ -1316,6 +1373,63 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#using-of-task-templates-in-ethopy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using of Task Templates in Ethopy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using of Task Templates in Ethopy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating a Template
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generating a Template">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#template-generation-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Template Generation Process
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#creating-tasks" class="md-nav__link">
     <span class="md-ellipsis">
       Creating Tasks
@@ -1517,6 +1631,67 @@
 <span class="n">exp</span><span class="o">.</span><span class="n">push_conditions</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
 <span class="n">exp</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
+<h2 id="using-of-task-templates-in-ethopy">Using of Task Templates in Ethopy<a class="headerlink" href="#using-of-task-templates-in-ethopy" title="Permanent link">&para;</a></h2>
+<h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<p>The <code>ethopy-create-task</code> command generates a Python template file for an Ethopy experiment. This template includes default parameters and placeholders that you need to customize for your specific experiment.</p>
+<h3 id="generating-a-template">Generating a Template<a class="headerlink" href="#generating-a-template" title="Permanent link">&para;</a></h3>
+<p>To create a task template, run the following command in your terminal:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-create-task
+</code></pre></div></td></tr></table></div>
+<p>You will be prompted to enter the module paths and class names for the experiment, behavior, and stimuli components. The generated file will include all required parameters with placeholders (<code>...</code>) that need to be filled.</p>
+<h4 id="template-generation-process">Template Generation Process<a class="headerlink" href="#template-generation-process" title="Permanent link">&para;</a></h4>
+<p>The script follows these steps:</p>
+<ol>
+<li><strong>Prompt for Module Paths and Class Names</strong></li>
+<li>Enter the paths relative to <code>ethopy</code> for:<ul>
+<li>Experiment module (e.g., <code>experiments.match_port</code>)</li>
+<li>Behavior module (e.g., <code>behaviors.multi_port</code>)</li>
+<li>Stimulus module (e.g., <code>stimuli.grating</code>)</li>
+</ul>
+</li>
+<li>
+<p>Enter corresponding class names for each module.</p>
+</li>
+<li>
+<p><strong>Validate Imports</strong></p>
+</li>
+<li>The script attempts to import the specified modules and classes.</li>
+<li>
+<p>If an import fails, an error message is displayed.</p>
+</li>
+<li>
+<p><strong>Extract Default Parameters</strong></p>
+</li>
+<li>
+<p>The script retrieves the parameters from the experiment, behavior, and stimulus classes.</p>
+</li>
+<li>
+<p><strong>Generate a Template File</strong></p>
+</li>
+<li>
+<p>A Python file is created with structured sections:</p>
+<ul>
+<li><strong>Session Parameters</strong>: General experiment settings</li>
+<li><strong>Experiment Setup</strong>: Instantiating the experiment</li>
+<li><strong>Trial Conditions</strong>: Configuration for experiments, behaviors, and stimuli</li>
+<li><strong>Condition Merging</strong>: Combining all conditions for trial generation</li>
+<li><strong>Execution</strong>: Running the experiment</li>
+</ul>
+</li>
+<li>
+<p><strong>Save the File</strong></p>
+</li>
+<li>The template is saved with a default filename (<code>task_&lt;stimulus&gt;_&lt;date&gt;.py</code>) or a user-specified name.</li>
+</ol>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>After generating the template:</p>
+<ol>
+<li><strong>Open the generated file</strong> in a text editor.</li>
+<li><strong>Fill in missing parameters</strong> where indicated by <code>...</code></li>
+<li><strong>Customize trial conditions</strong> to match your experiment's requirements.</li>
+<li><strong>Run the script</strong> to execute the experiment.</li>
+</ol>
+<p>By following these steps, you can quickly set up an Ethopy experiment with minimal manual configuration.</p>
 <h2 id="creating-tasks">Creating Tasks<a class="headerlink" href="#creating-tasks" title="Permanent link">&para;</a></h2>
 <h3 id="1-session-parameters">1. Session Parameters<a class="headerlink" href="#1-session-parameters" title="Permanent link">&para;</a></h3>
 <p>Session parameters control the overall experiment behavior:</p>
