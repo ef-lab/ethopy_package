@@ -155,7 +155,7 @@ class Behavior:
                 Defaults to True.
 
         Returns:
-            int: Port number of valid lick (0 if no valid lick detected)
+            (int): Port number of valid lick (0 if no valid lick detected)
 
         """
         # check if there is any licking since the given time

@@ -179,7 +179,7 @@ class Logger:
         """Get the task configuration.
 
         Returns:
-            bool: True if task is available and valid
+            (bool): True if task is available and valid
 
         """
         if not self.manual_run:
@@ -419,7 +419,7 @@ class Logger:
             **kwargs: Additional keyword arguments to be passed to the put method.
 
         Returns:
-            float: The elapsed time from the logger timer.
+            (float): The elapsed time from the logger timer.
 
         """
         tmst = self.logger_timer.elapsed_time()
@@ -469,7 +469,7 @@ class Logger:
         to the last session.
 
         Returns:
-            int: The last session number or 0 if no sessions are found.
+            (int): The last session number or 0 if no sessions are found.
 
         """
         last_sessions = (
@@ -846,7 +846,7 @@ class Logger:
             key_type (str): type of keys to return from the table
 
         Returns:
-            list: The primary key of the specified table.
+            (list): The primary key of the specified table.
 
         """
         if key is None:
@@ -905,7 +905,7 @@ class Logger:
             db_log (bool, optional): If True call the log_recording
 
         Returns:
-            Tuple[str, Any]: A tuple containing the filename and the dataset object.
+            (Dict): A Dictionary containing the dataset object.
 
         """
         folder = (
@@ -995,7 +995,7 @@ class Logger:
         defaults to localhost (127.0.0.1).
 
         Returns:
-            str: The local IP address.
+            (str): The local IP address.
 
         """
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
