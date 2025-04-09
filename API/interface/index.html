@@ -2850,7 +2850,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
         <span class="n">port_configs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
             <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration.Port&quot;</span><span class="p">,</span>
-            <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;setup_conf_idx=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">setup_conf_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -2874,11 +2874,11 @@ It provides methods for stimulus delivery, reward management, and hardware contr
             <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">],</span>
         <span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">setup_cameras</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">setup_conf_idx</span> <span class="ow">in</span> <span class="n">setup_cameras</span><span class="p">:</span>
             <span class="n">camera_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
                 <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
                 <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration.Camera&quot;</span><span class="p">,</span>
-                <span class="n">key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;setup_conf_idx=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;setup_conf_idx=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">setup_conf_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
                 <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 

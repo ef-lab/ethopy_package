@@ -2980,7 +2980,9 @@ updates.</p>
 <span class="normal">1006</span>
 <span class="normal">1007</span>
 <span class="normal">1008</span>
-<span class="normal">1009</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Logger</span><span class="p">:</span>
+<span class="normal">1009</span>
+<span class="normal">1010</span>
+<span class="normal">1011</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Logger</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Logger class for managing logging and data handling in an experimental setup.</span>
 
 <span class="sd">    This class is designed to handle the logging of experimental data, manage database</span>
@@ -3395,7 +3397,7 @@ updates.</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Initializes session parameters and logs the session start.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_session_params</span><span class="p">(</span>
-            <span class="n">session_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_name&quot;</span><span class="p">,</span> <span class="s2">&quot;bot&quot;</span><span class="p">),</span> <span class="n">experiment_type</span>
+            <span class="n">session_params</span><span class="p">[</span><span class="s2">&quot;user_name&quot;</span><span class="p">],</span> <span class="n">experiment_type</span>
         <span class="p">)</span>
 
         <span class="c1"># Save the task file, name and the git_hash in the database.</span>
@@ -3406,7 +3408,8 @@ updates.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">log_session_configs</span><span class="p">(</span><span class="n">session_params</span><span class="p">[</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">])</span>
 
         <span class="c1">#  Init the informations(e.g. trial_id=0, session) in control table</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_init_control_table</span><span class="p">(</span><span class="n">session_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_control_table</span><span class="p">(</span><span class="n">session_params</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">],</span>
+                                 <span class="n">session_params</span><span class="p">[</span><span class="s2">&quot;stop_time&quot;</span><span class="p">])</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># Start session time</span>
 
@@ -3553,7 +3556,7 @@ updates.</p>
                     <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span>
                 <span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_init_control_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_init_control_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">stop_time</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the control table informations for the setup.</span>
 
 <span class="sd">        This method sets various parameters related to the session setup, including</span>
@@ -3566,10 +3569,8 @@ updates.</p>
 <span class="sd">        updates the setup information accordingly.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            params (Dict[str, Any]): A dictionary containing parameters for the session</span>
-<span class="sd">            setup. This may include &#39;start_time&#39; and &#39;stop_time&#39; among other setup</span>
-<span class="sd">            parameters.</span>
-
+<span class="sd">            start_time (str): The start time of the session in &quot;%H:%M:%S&quot; format.</span>
+<span class="sd">            stop_time (str): The stop time of the session in &quot;%H:%M:%S&quot; format.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">key</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s2">&quot;session&quot;</span><span class="p">],</span>
@@ -3584,7 +3585,10 @@ updates.</p>
 
         <span class="c1"># if in the start_time is defined in the configuration use this</span>
         <span class="c1"># otherwise use the Control table</span>
-        <span class="k">if</span> <span class="s2">&quot;start_time&quot;</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">start_time</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">stop_time</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;If &#39;start_time&#39; is defined, &#39;stop_time&#39; &quot;</span>
+                                 <span class="s2">&quot;must also be defined.&quot;</span><span class="p">)</span>
 
             <span class="k">def</span><span class="w"> </span><span class="nf">_tdelta</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;%H:%M:%S&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span>
@@ -3593,8 +3597,8 @@ updates.</p>
 
             <span class="n">key</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                 <span class="p">{</span>
-                    <span class="s2">&quot;start_time&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">_tdelta</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">])),</span>
-                    <span class="s2">&quot;stop_time&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">_tdelta</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;stop_time&quot;</span><span class="p">])),</span>
+                    <span class="s2">&quot;start_time&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">_tdelta</span><span class="p">(</span><span class="n">start_time</span><span class="p">)),</span>
+                    <span class="s2">&quot;stop_time&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">_tdelta</span><span class="p">(</span><span class="n">stop_time</span><span class="p">)),</span>
                 <span class="p">}</span>
             <span class="p">)</span>
 
@@ -4167,9 +4171,7 @@ the logging thread to terminate.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">875</span>
-<span class="normal">876</span>
-<span class="normal">877</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">877</span>
 <span class="normal">878</span>
 <span class="normal">879</span>
 <span class="normal">880</span>
@@ -4180,7 +4182,9 @@ the logging thread to terminate.</p>
 <span class="normal">885</span>
 <span class="normal">886</span>
 <span class="normal">887</span>
-<span class="normal">888</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">888</span>
+<span class="normal">889</span>
+<span class="normal">890</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Wait for the logging queue to be empty and signals the logging thread to end.</span>
 
 <span class="sd">    This method checks if the logging queue is empty, and if not, it waits until it</span>
@@ -4218,14 +4222,14 @@ dataset object to properly close them.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">980</span>
-<span class="normal">981</span>
-<span class="normal">982</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">982</span>
 <span class="normal">983</span>
 <span class="normal">984</span>
 <span class="normal">985</span>
 <span class="normal">986</span>
-<span class="normal">987</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">closeDatasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">987</span>
+<span class="normal">988</span>
+<span class="normal">989</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">closeDatasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Close all datasets managed by this instance.</span>
 
 <span class="sd">    Iterates through the datasets dictionary, calling the `exit` method on each</span>
@@ -4359,9 +4363,7 @@ animal ID, session, and current timestamp.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">890</span>
-<span class="normal">891</span>
-<span class="normal">892</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">892</span>
 <span class="normal">893</span>
 <span class="normal">894</span>
 <span class="normal">895</span>
@@ -4422,7 +4424,9 @@ animal ID, session, and current timestamp.</p>
 <span class="normal">950</span>
 <span class="normal">951</span>
 <span class="normal">952</span>
-<span class="normal">953</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">createDataset</span><span class="p">(</span>
+<span class="normal">953</span>
+<span class="normal">954</span>
+<span class="normal">955</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">createDataset</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">dataset_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
@@ -4626,9 +4630,7 @@ animal ID, session, and current timestamp.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">802</span>
-<span class="normal">803</span>
-<span class="normal">804</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">804</span>
 <span class="normal">805</span>
 <span class="normal">806</span>
 <span class="normal">807</span>
@@ -4652,7 +4654,9 @@ animal ID, session, and current timestamp.</p>
 <span class="normal">825</span>
 <span class="normal">826</span>
 <span class="normal">827</span>
-<span class="normal">828</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
+<span class="normal">828</span>
+<span class="normal">829</span>
+<span class="normal">830</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;experiment&quot;</span><span class="p">,</span>
     <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Control&quot;</span><span class="p">,</span>
@@ -4761,8 +4765,7 @@ class defined within the outer class.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">562</span>
-<span class="normal">563</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">563</span>
 <span class="normal">564</span>
 <span class="normal">565</span>
 <span class="normal">566</span>
@@ -4778,7 +4781,8 @@ class defined within the outer class.</p>
 <span class="normal">576</span>
 <span class="normal">577</span>
 <span class="normal">578</span>
-<span class="normal">579</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="normal">579</span>
+<span class="normal">580</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_inner_classes_list</span><span class="p">(</span><span class="n">outer_class</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve a list of names of all inner classes defined within an outer class.</span>
 
@@ -4848,9 +4852,7 @@ defaults to localhost (127.0.0.1).</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 989</span>
-<span class="normal"> 990</span>
-<span class="normal"> 991</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 991</span>
 <span class="normal"> 992</span>
 <span class="normal"> 993</span>
 <span class="normal"> 994</span>
@@ -4868,7 +4870,9 @@ defaults to localhost (127.0.0.1).</p>
 <span class="normal">1006</span>
 <span class="normal">1007</span>
 <span class="normal">1008</span>
-<span class="normal">1009</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="normal">1009</span>
+<span class="normal">1010</span>
+<span class="normal">1011</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_ip</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve the local IP address of the machine.</span>
 
@@ -4966,9 +4970,7 @@ setup.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">789</span>
-<span class="normal">790</span>
-<span class="normal">791</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">791</span>
 <span class="normal">792</span>
 <span class="normal">793</span>
 <span class="normal">794</span>
@@ -4977,7 +4979,9 @@ setup.</p>
 <span class="normal">797</span>
 <span class="normal">798</span>
 <span class="normal">799</span>
-<span class="normal">800</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_setup_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">:</span>
+<span class="normal">800</span>
+<span class="normal">801</span>
+<span class="normal">802</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_setup_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve specific setup information from an experiment control table.</span>
 
 <span class="sd">    Args:</span>
@@ -5116,9 +5120,7 @@ dictionary.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">830</span>
-<span class="normal">831</span>
-<span class="normal">832</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">832</span>
 <span class="normal">833</span>
 <span class="normal">834</span>
 <span class="normal">835</span>
@@ -5143,7 +5145,9 @@ dictionary.</p>
 <span class="normal">854</span>
 <span class="normal">855</span>
 <span class="normal">856</span>
-<span class="normal">857</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_table_keys</span><span class="p">(</span>
+<span class="normal">857</span>
+<span class="normal">858</span>
+<span class="normal">859</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_table_keys</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;experiment&quot;</span><span class="p">,</span>
     <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Control&quot;</span><span class="p">,</span>
@@ -5461,9 +5465,7 @@ recordings and a <code>log</code> method to log the new recording entry.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">955</span>
-<span class="normal">956</span>
-<span class="normal">957</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">957</span>
 <span class="normal">958</span>
 <span class="normal">959</span>
 <span class="normal">960</span>
@@ -5484,7 +5486,9 @@ recordings and a <code>log</code> method to log the new recording entry.</p>
 <span class="normal">975</span>
 <span class="normal">976</span>
 <span class="normal">977</span>
-<span class="normal">978</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">log_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rec_key</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">978</span>
+<span class="normal">979</span>
+<span class="normal">980</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">log_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rec_key</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log a new recording entry with an incremented recording index.</span>
 
 <span class="sd">    This method retrieves the current recordings associated with the trial,</span>
@@ -5622,7 +5626,8 @@ recordings and a <code>log</code> method to log the new recording entry.</p>
 <span class="normal">506</span>
 <span class="normal">507</span>
 <span class="normal">508</span>
-<span class="normal">509</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">log_session</span><span class="p">(</span>
+<span class="normal">509</span>
+<span class="normal">510</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">log_session</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">session_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="n">experiment_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -5638,7 +5643,7 @@ recordings and a <code>log</code> method to log the new recording entry.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Initializes session parameters and logs the session start.</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_init_session_params</span><span class="p">(</span>
-        <span class="n">session_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_name&quot;</span><span class="p">,</span> <span class="s2">&quot;bot&quot;</span><span class="p">),</span> <span class="n">experiment_type</span>
+        <span class="n">session_params</span><span class="p">[</span><span class="s2">&quot;user_name&quot;</span><span class="p">],</span> <span class="n">experiment_type</span>
     <span class="p">)</span>
 
     <span class="c1"># Save the task file, name and the git_hash in the database.</span>
@@ -5649,7 +5654,8 @@ recordings and a <code>log</code> method to log the new recording entry.</p>
     <span class="bp">self</span><span class="o">.</span><span class="n">log_session_configs</span><span class="p">(</span><span class="n">session_params</span><span class="p">[</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">])</span>
 
     <span class="c1">#  Init the informations(e.g. trial_id=0, session) in control table</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_init_control_table</span><span class="p">(</span><span class="n">session_params</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_init_control_table</span><span class="p">(</span><span class="n">session_params</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">],</span>
+                             <span class="n">session_params</span><span class="p">[</span><span class="s2">&quot;stop_time&quot;</span><span class="p">])</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">logger_timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># Start session time</span>
 </code></pre></div></td></tr></table></div>
@@ -5686,8 +5692,7 @@ class's inner classes.
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">581</span>
-<span class="normal">582</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">582</span>
 <span class="normal">583</span>
 <span class="normal">584</span>
 <span class="normal">585</span>
@@ -5728,7 +5733,8 @@ class's inner classes.
 <span class="normal">620</span>
 <span class="normal">621</span>
 <span class="normal">622</span>
-<span class="normal">623</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">log_session_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_conf_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">623</span>
+<span class="normal">624</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">log_session_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_conf_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log parameter of a session into the appropriate schema tables.</span>
 
 <span class="sd">    This method performs several key operations to ensure that the configuration of</span>
@@ -6042,9 +6048,7 @@ Updates the setup_status attribute with the new status.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">701</span>
-<span class="normal">702</span>
-<span class="normal">703</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">703</span>
 <span class="normal">704</span>
 <span class="normal">705</span>
 <span class="normal">706</span>
@@ -6098,7 +6102,9 @@ Updates the setup_status attribute with the new status.</p>
 <span class="normal">754</span>
 <span class="normal">755</span>
 <span class="normal">756</span>
-<span class="normal">757</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update_setup_info</span><span class="p">(</span>
+<span class="normal">757</span>
+<span class="normal">758</span>
+<span class="normal">759</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update_setup_info</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the setup information in Control table with the provided info and key.</span>
@@ -6210,9 +6216,7 @@ exception in the threads.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">859</span>
-<span class="normal">860</span>
-<span class="normal">861</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">861</span>
 <span class="normal">862</span>
 <span class="normal">863</span>
 <span class="normal">864</span>
@@ -6224,7 +6228,9 @@ exception in the threads.</p>
 <span class="normal">870</span>
 <span class="normal">871</span>
 <span class="normal">872</span>
-<span class="normal">873</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update_trial_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trial_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">873</span>
+<span class="normal">874</span>
+<span class="normal">875</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update_trial_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trial_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Update trial index.</span>
 
 <span class="sd">    Updates the trial index in the trial_key dictionary and check if there is any</span>
@@ -6281,9 +6287,7 @@ exception in the threads.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1012</span>
-<span class="normal">1013</span>
-<span class="normal">1014</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1014</span>
 <span class="normal">1015</span>
 <span class="normal">1016</span>
 <span class="normal">1017</span>
@@ -6295,7 +6299,9 @@ exception in the threads.</p>
 <span class="normal">1023</span>
 <span class="normal">1024</span>
 <span class="normal">1025</span>
-<span class="normal">1026</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="normal">1026</span>
+<span class="normal">1027</span>
+<span class="normal">1028</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">PrioritizedItem</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A class used to represent an item with a priority for logging purposes.&quot;&quot;&quot;</span>
 
