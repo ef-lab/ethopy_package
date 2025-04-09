@@ -106,10 +106,14 @@ from ethopy.{stim_module_path} import {stim_class_name}
 # --- Session Parameters (Typically Fixed) ---
 # These parameters generally define the overall session constraints.
 session_params = {{
-    "max_reward": 3000,      # Maximum total reward
-    "min_reward": 30,        # Minimum total reward
-    "setup_conf_idx": 0,     # Index for setup configuration
+    "max_reward": 3000,      # Maximum total reward, default is based on experiment type
+    "min_reward": 30,        # Minimum total reward, default is based on experiment type
+    "setup_conf_idx": 0,     # Index for setup configuration, default is 0
     # Add any other relevant session-wide parameters here
+    # hydrate_delay: int # delay of hydration in minutes after session ends, default is based on experiment type
+    # user_name:  "bot" # name of user running the experiment default is "bot"
+    # start_time: "" # session start time if not defined, session will start based on control table
+    # stop_time: "" # session stop time if not defined, session will stop based on control table
 }}
 
 # --- Experiment Initialization and Setup ---
