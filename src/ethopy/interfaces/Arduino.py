@@ -30,7 +30,7 @@ class Arduino(Interface):
         self.port = self.logger.get(
             schema="interface",
             table="SetupConfiguration",
-            key=self.exp.params,
+            key=f"setup_conf_idx={self.exp.setup_conf_idx}",
             fields=["path"],
         )[0]
         self.baud = 115200

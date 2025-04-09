@@ -16,6 +16,7 @@ The module is built around three main classes:
 import logging
 import time
 from dataclasses import dataclass, field
+from datetime import datetime
 from importlib import import_module
 from itertools import product
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
@@ -25,10 +26,7 @@ import numpy as np
 from scipy import stats
 from sklearn.metrics import roc_auc_score
 
-# from ethopy.core.interface import Interface
 from ethopy.core.logger import Logger, experiment
-
-# from ethopy.core.stimulus import Stimulus
 from ethopy.utils.helper_functions import factorize, make_hash
 from ethopy.utils.task_helper_funcs import format_params_print, get_parameters
 from ethopy.utils.timer import Timer
@@ -200,14 +198,10 @@ class ExperimentClass:
         self.stims = dict()
         self.curr_trial = 0
         self.cur_block_sz = 0
-        self.setup_conf_idx = session_params.get("setup_conf_idx", 0)
-        session_params["setup_conf_idx"] = self.setup_conf_idx
 
-        self.params = {
-            **self.default_key,
-            **session_params,
-            "setup_conf_idx": self.setup_conf_idx,
-        }
+        self.session_params = self.setup_session_params(session_params, self.default_key)
+
+        self.setup_conf_idx = self.session_params["setup_conf_idx"]
 
         self.logger = logger
         self.beh = behavior_class()
@@ -218,12 +212,28 @@ class ExperimentClass:
         self.beh.setup(self)
 
         self.logger.log_session(
-            session_params, experiment_type=self.cond_tables[0], log_task=True
+            self.session_params, experiment_type=self.cond_tables[0], log_task=True
         )
 
         self.session_timer = Timer()
 
         np.random.seed(0)  # fix random seed, it can be overidden in the task file
+
+    def setup_session_params(
+        self, session_params: Dict[str, Any], default_key: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """Set up session parameters with validation.
+
+        Args:
+            session_params: Dictionary of session parameters
+            default_key: Dictionary of default parameter values
+        Returns:
+            Dictionary of session parameters with defaults applied
+        """
+        # Convert dict to SessionParameters for validation and defaults
+        params = SessionParameters.from_dict(session_params, default_key)
+        params.validate()
+        return params.to_dict()
 
     def _interface_setup(self, beh, logger: Logger, setup_conf_idx: int) -> "Interface":  # noqa: F821
         interface_module = logger.get(
@@ -285,7 +295,7 @@ class ExperimentClass:
             keys (list): The list of keys to extract.
 
         Returns:
-            dict: A new dictionary with only the specified keys if they exist.
+            (dict): A new dictionary with only the specified keys if they exist.
 
         """
         keys_set = set(keys)  # Convert list to set for O(1) lookup
@@ -405,7 +415,7 @@ class ExperimentClass:
 
         for cond in exp_conditions:
             self.validate_condition(cond)
-            cond.update({**self.default_key, **self.params, **cond})
+            cond.update({**self.default_key, **self.session_params, **cond})
         cond_tables = ["Condition." + table for table in self.cond_tables]
         conditions_list = self.log_conditions(
             exp_conditions, condition_tables=["Condition"] + cond_tables
@@ -459,13 +469,10 @@ class ExperimentClass:
         """
         log.info(f"Number of conditions: {len(conditions)}")
         self.conditions = conditions
-        resp_cond = (
-            self.params["resp_cond"] if "resp_cond" in self.params else "response_port"
-        )
         self.blocks = np.array([cond["difficulty"] for cond in self.conditions])
-        if np.all([resp_cond in cond for cond in conditions]):
+        if np.all(["response_port" in cond for cond in conditions]):
             self.choices = np.array(
-                [make_hash([d[resp_cond], d["difficulty"]]) for d in conditions]
+                [make_hash([d["response_port"], d["difficulty"]]) for d in conditions]
             )
             self.un_choices, un_idx = np.unique(self.choices, axis=0, return_index=True)
             self.un_blocks = self.blocks[un_idx]
@@ -613,7 +620,7 @@ class ExperimentClass:
 
     def _anti_bias(self, choice_h, un_choices):
         choice_h = np.array(
-            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"]:]]
+            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"] :]]
         )
         if len(choice_h) < self.curr_cond["bias_window"]:
             choice_h = self.choices
@@ -866,7 +873,7 @@ class ExperimentClass:
     class Block:
         """A class representing a block of trials in an experiment.
 
-        Attributes:
+        Args:
             difficulty (int): The difficulty level of the block. Default is 0.
             stair_up (float): Threshold given to compare if performance is higher in
                 order to go to the next_up difficulty. Default is 0.7.
@@ -882,10 +889,6 @@ class ExperimentClass:
             metric (str): The metric used for evaluating performance. Default is
                 "accuracy".
             antibias (bool): Whether to apply antibias correction. Default is True.
-
-        Returns:
-            Dict: A dictionary containing the block parameters.
-
         """
 
         difficulty: int = field(compare=True, default=0, hash=True)
@@ -902,6 +905,79 @@ class ExperimentClass:
         def dict(self) -> Dict:
             """Rerurn parameters as dictionary."""
             return self.__dict__
+
+
+@dataclass
+class SessionParameters:
+    """Internal class for managing and validating session-wide parameters.
+
+    This class handles all parameters that apply to the entire experimental session,
+    as opposed to parameters that vary between trials/conditions.
+
+    Attributes:
+        setup_conf_idx (int): Index for setup configuration (defaults to 0)
+        user_name (str): Name of user running the experiment (defaults to "bot")
+        start_time (str): Session start time in "HH:MM:SS" format (defaults to empty string)
+        stop_time (str): Session stop time in "HH:MM:SS" format (defaults to empty string)
+        max_reward (float): Maximum total reward allowed in session
+        min_reward (float): Minimum reward per trial
+        hydrate_delay (int): Delay between hydration rewards in ms
+        noresponse_intertrial (bool): Whether to have intertrial period on no response
+        bias_window (int): Window size for bias correction
+    """
+    max_reward: float
+    min_reward: float
+    hydrate_delay: int
+    setup_conf_idx: int = 0  # Default value for setup configuration
+    user_name: str = "bot"
+    start_time: str = ""
+    stop_time: str = ""
+
+    @classmethod
+    def from_dict(
+        cls, params: Dict[str, Any], default_key: Dict[str, Any]
+    ) -> "SessionParameters":
+        """Create parameters from a dictionary, using defaults for missing values.
+
+        Args:
+            params: Dictionary of session parameters
+            default_key: Dictionary of default parameter values
+        Returns:
+            SessionParameters instance with merged parameters
+        """
+        # Only use keys that exist in the dataclass
+        valid_keys = set(cls.__annotations__.keys())
+        invalid_keys = set(params.keys()) - valid_keys
+        if invalid_keys:
+            log.warning(f"Not used session parameters: {invalid_keys}")
+
+        # Get valid parameters from both sources
+        filtered_params = {}
+        for key in valid_keys:
+            if key in params:
+                filtered_params[key] = params[key]
+            elif key in default_key:
+                filtered_params[key] = default_key[key]
+
+        return cls(**filtered_params)
+
+    def validate(self) -> None:
+        """Validate parameters."""
+        if self.start_time and not self.stop_time:
+            raise ValueError(
+                "If 'start_time' is defined, 'stop_time' must also be defined"
+            )
+
+        if self.start_time:
+            try:
+                datetime.strptime(self.start_time, "%H:%M:%S")
+                datetime.strptime(self.stop_time, "%H:%M:%S")
+            except ValueError:
+                raise ValueError("Time must be in 'HH:MM:SS' format")
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert parameters to dictionary format."""
+        return {k: v for k, v in self.__dict__.items() if v is not None}
 
 
 @experiment.schema

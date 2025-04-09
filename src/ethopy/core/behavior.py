@@ -86,13 +86,13 @@ class Behavior:
         self.response_queue: Queue = Queue(maxsize=4)
         self.last_lick = None
 
-        self.params = None
+        self.session_params = None
         self.exp = None
         self.logger = None
 
     def setup(self, exp: ExperimentClass) -> None:
         """Set up behavior."""
-        self.params = exp.params
+        self.session_params = exp.session_params
         self.exp = exp
         self.logger = exp.logger
         self.interface = exp.interface
@@ -352,8 +352,8 @@ class Behavior:
         """
         if rew:
             return self.logger.total_reward >= rew
-        elif self.params["max_reward"]:
-            return self.logger.total_reward >= self.params["max_reward"]
+        elif self.session_params["max_reward"]:
+            return self.logger.total_reward >= self.session_params["max_reward"]
         else:
             return False
 

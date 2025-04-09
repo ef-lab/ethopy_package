@@ -493,7 +493,7 @@ class Logger:
         """
         # Initializes session parameters and logs the session start.
         self._init_session_params(
-            session_params.get("user_name", "bot"), experiment_type
+            session_params["user_name"], experiment_type
         )
 
         # Save the task file, name and the git_hash in the database.
@@ -504,7 +504,8 @@ class Logger:
         self.log_session_configs(session_params["setup_conf_idx"])
 
         #  Init the informations(e.g. trial_id=0, session) in control table
-        self._init_control_table(session_params)
+        self._init_control_table(session_params["start_time"],
+                                 session_params["stop_time"])
 
         self.logger_timer.start()  # Start session time
 
@@ -651,7 +652,7 @@ class Logger:
                     schema=schema,
                 )
 
-    def _init_control_table(self, params: Dict[str, Any]) -> None:
+    def _init_control_table(self, start_time: str = None, stop_time: str = None) -> None:
         """Set the control table informations for the setup.
 
         This method sets various parameters related to the session setup, including
@@ -664,10 +665,8 @@ class Logger:
         updates the setup information accordingly.
 
         Args:
-            params (Dict[str, Any]): A dictionary containing parameters for the session
-            setup. This may include 'start_time' and 'stop_time' among other setup
-            parameters.
-
+            start_time (str): The start time of the session in "%H:%M:%S" format.
+            stop_time (str): The stop time of the session in "%H:%M:%S" format.
         """
         key = {
             "session": self.trial_key["session"],
@@ -682,7 +681,10 @@ class Logger:
 
         # if in the start_time is defined in the configuration use this
         # otherwise use the Control table
-        if "start_time" in params:
+        if start_time:
+            if not stop_time:
+                raise ValueError("If 'start_time' is defined, 'stop_time' "
+                                 "must also be defined.")
 
             def _tdelta(t: str) -> datetime:
                 return datetime.strptime(t, "%H:%M:%S") - datetime.strptime(
@@ -691,8 +693,8 @@ class Logger:
 
             key.update(
                 {
-                    "start_time": str(_tdelta(params["start_time"])),
-                    "stop_time": str(_tdelta(params["stop_time"])),
+                    "start_time": str(_tdelta(start_time)),
+                    "stop_time": str(_tdelta(stop_time)),
                 }
             )
 

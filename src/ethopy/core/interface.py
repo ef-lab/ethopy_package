@@ -102,7 +102,7 @@ class Interface:
         port_configs = self.logger.get(
             schema="interface",
             table="SetupConfiguration.Port",
-            key=self.exp.params,
+            key=f"setup_conf_idx={self.exp.setup_conf_idx}",
             as_dict=True,
         )
 
@@ -126,11 +126,11 @@ class Interface:
             fields=["setup_conf_idx"],
         )
 
-        if self.exp.params["setup_conf_idx"] in setup_cameras:
+        if self.exp.setup_conf_idx in setup_cameras:
             camera_params = self.logger.get(
                 schema="interface",
                 table="SetupConfiguration.Camera",
-                key=f"setup_conf_idx={self.exp.params['setup_conf_idx']}",
+                key=f"setup_conf_idx={self.exp.setup_conf_idx}",
                 as_dict=True,
             )[0]
 

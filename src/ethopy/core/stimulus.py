@@ -74,7 +74,7 @@ class Stimulus:
         screen_properties = self.logger.get(
             schema="interface",
             table="SetupConfiguration.Screen",
-            key=self.exp.params,
+            key=f"setup_conf_idx={self.exp.setup_conf_idx}",
             as_dict=True,
         )
         self.monitor = DictStruct(screen_properties[0])

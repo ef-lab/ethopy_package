@@ -96,7 +96,7 @@ class PreTrial(Experiment):
             return "Exit"
         elif (
             is_sleep_time
-            and not self.beh.is_hydrated(self.params["min_reward"])
+            and not self.beh.is_hydrated(self.session_params["min_reward"])
             and self.curr_trial > 1
         ):
             return "Hydrate"
@@ -211,7 +211,7 @@ class InterTrial(Experiment):
         if self.is_stopped():
             return "Exit"
         elif self.beh.is_sleep_time() and not self.beh.is_hydrated(
-            self.params["min_reward"]
+            self.session_params["min_reward"]
         ):
             return "Hydrate"
         elif self.beh.is_sleep_time() or self.beh.is_hydrated():
@@ -233,7 +233,7 @@ class Hydrate(Experiment):
         if (
             self.beh.get_response()
             and self.state_timer.elapsed_time()
-            > self.params["hydrate_delay"] * 60 * 1000
+            > self.session_params["hydrate_delay"] * 60 * 1000
         ):
             self.stim.ready_stim()
             self.beh.reward()
@@ -243,7 +243,7 @@ class Hydrate(Experiment):
         if self.is_stopped():  # if wake up then update session
             return "Exit"
         elif (
-            self.beh.is_hydrated(self.params["min_reward"])
+            self.beh.is_hydrated(self.session_params["min_reward"])
             or not self.beh.is_sleep_time()
         ):
             return "Offtime"
