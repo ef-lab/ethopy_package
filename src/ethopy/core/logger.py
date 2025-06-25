@@ -720,8 +720,9 @@ class Logger:
 
         """
         if self.thread_exception:
+            exc = self.thread_exception
             self.thread_exception = None
-            raise Exception("Thread exception occurred: %s", self.thread_exception)
+            raise Exception(f"Thread exception occurred: {exc}")
         if key is None:
             key = dict()
 
@@ -871,8 +872,9 @@ class Logger:
         self.trial_key["trial_idx"] = trial_idx
         log.info("\nTrial idx: %s", self.trial_key["trial_idx"])
         if self.thread_exception:
+            exc = self.thread_exception
             self.thread_exception = None
-            raise Exception("Thread exception occurred: %s", self.thread_exception)
+            raise Exception(f"Thread exception occurred: {exc}")
 
     def cleanup(self) -> None:
         """Wait for the logging queue to be empty and signals the logging thread to end.
