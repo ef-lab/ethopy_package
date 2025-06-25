@@ -470,7 +470,7 @@ class BehCondition(dj.Manual):
 
     definition = """
     # reward probe conditions
-    beh_hash               : char(24)                     # unique reward hash
+    beh_hash               : char(24)                     # unique behavior hash
     """
 
     class Trial(dj.Part):
