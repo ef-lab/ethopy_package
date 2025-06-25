@@ -88,6 +88,7 @@ nav:
     - Logging: logging.md
     - Setup Configuration Index: setup_configuration_idx.md
     - Database Setup: database.md
+    - Export to NWB: nwb_docs.md
     - Troubleshooting: troubleshooting.md
   - API Reference:
       - Logger Module: API/logger.md
