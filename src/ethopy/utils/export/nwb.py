@@ -636,7 +636,6 @@ def add_states_data(
     states_module.add(dynamic_table)
 
 
-
 def save_nwb_file(nwbfile: NWBFile, filename: str) -> None:
     """
     Save NWB file to disk.
