@@ -1,6 +1,6 @@
 # Arduino Firmware for Ethopy
 
-This directory contains two Arduino firmware options for interfacing with behavioral experiment hardware. Both support lick detection, proximity sensing, and liquid reward delivery.
+This directory contains two Arduino firmware options for interfacing with behavioral experiment hardware.
 
 ## Choose Your Firmware
 
@@ -22,11 +22,11 @@ This directory contains two Arduino firmware options for interfacing with behavi
 - Sends real-time JSON messages to computer about sensor events
 - Receives commands from computer to control liquid dispensers
 - Digital pin outputs (same as Option 1) for immediate hardware responses
-- Advanced event detection and logging
+- Event detection and logging
 
 **Use this if:**
 - You want to record all animal behavior data on your computer
-- You need to control liquid dispensers remotely from software
+- You need to control liquid dispensers
 - You want real-time monitoring and data logging
 
 **Technical details:**
@@ -136,7 +136,6 @@ Works with Ethopy's `RPPorts.py` interface for Raspberry Pi:
 - **Capacitive lick detectors**: Connect to analog inputs A1, A2
 - **Optical break-beam sensors**: Use with voltage divider circuits
 - **Proximity sensors**: IR or capacitive types on A0
-- **Custom analog sensors**: 0-5V output range
 
 ## Testing & Troubleshooting
 
