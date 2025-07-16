@@ -49,46 +49,6 @@ cd ethopy
 pip install -e ".[dev,docs]"
 ```
 
-## Database Setup
-
-1. Start the database container:
-```bash
-ethopy-setup-djdocker
-```
-
-2. Configure the database connection:
-
-Create a configuration file at:
-- Linux/macOS: `~/.ethopy/local_conf.json`
-- Windows: `%USERPROFILE%\.ethopy\local_conf.json`
-
-```json
-{
-    "dj_local_conf": {
-        "database.host": "127.0.0.1",
-        "database.user": "root",
-        "database.password": "your_password",
-        "database.port": 3306
-    },
-    "source_path": "/path/to/data",
-    "target_path": "/path/to/backup",
-    "logging": {
-        "level": "INFO",
-        "filename": "ethopy.log"
-    }
-}
-```
-
-3. Verify database connection:
-```bash
-ethopy-db-connection
-```
-
-4. Create required schemas:
-```bash
-ethopy-setup-schema
-```
-
 ## Raspberry Pi Setup
 
 For detailed Raspberry Pi setup instructions, including hardware-specific configurations and dependencies, please refer to our [Raspberry Pi Setup Guide](raspberry_pi.md).
