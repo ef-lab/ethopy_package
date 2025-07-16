@@ -87,7 +87,7 @@ nav:
     - Plugins: plugin.md
     - Logging: logging.md
     - Setup Configuration Index: setup_configuration_idx.md
-    - Database Setup: database.md
+    - Database Setup: database_setup.md
     - Export to NWB: nwb_docs.md
     - Troubleshooting: troubleshooting.md
   - API Reference:

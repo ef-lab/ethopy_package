@@ -64,11 +64,11 @@ ports:
   - '0.0.0.0:3306:3306'
 ```
 
-2. Configure the remote machine's `local_conf.json`:
+2. In the computer that will run ethopy configure the section dj_local_conf in the `local_conf.json`, example:
 ```json
 {
     "dj_local_conf": {
-        "database.host": "remote_server_ip",
+        "database.host": "database_ip",
         "database.user": "root",
         "database.password": "your_password",
         "database.port": 3306
@@ -78,6 +78,10 @@ ports:
 
 3. Ensure the Docker host's firewall allows connections on port 3306
 
+Verify port 3306 is available:
+```bash
+netstat -an | grep 3306
+```
 ## Standalone MySQL Setup
 
 If you prefer not to use Docker, you can install MySQL directly:
