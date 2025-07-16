@@ -27,6 +27,12 @@ log_manager = LoggingManager("ethopy")
     help="Task ID from database",
 )
 @click.option(
+    "-c",
+    "--config",
+    type=click.Path(exists=True),
+    help="Path to configuration file (default: ~/.ethopy/local_conf.json)",
+)
+@click.option(
     "--log-console",
     is_flag=True,
     help="Enable console logging",
@@ -38,11 +44,18 @@ log_manager = LoggingManager("ethopy")
 )
 @click.version_option()
 def main(
-    task_path: Path, task_id: int, log_console: bool, log_level: str = None
+    task_path: Path, task_id: int, config: str, log_console: bool, log_level: str = None
 ) -> None:
     """EthoPy - Behavioral Training Control System."""
-    # Load configuration
-    local_conf = ConfigurationManager()
+    # Load configuration (custom or default)
+    if config:
+        # Create configuration manager with custom config file
+        local_conf = ConfigurationManager(config_file=config)
+        # Update the global configuration with the custom settings
+        local_conf.update_global_config()
+    else:
+        # Use default configuration
+        local_conf = ConfigurationManager()
 
     # Set a configuration value
     if not log_level:

@@ -309,4 +309,17 @@ export ETHOPY_DB_PASSWORD="your_secret_password"
 Then in your config file, you can leave the password field empty - EthoPy will use the environment variable instead.
 
 ### Custom Configuration Locations
-By default, EthoPy looks for configuration in `~/.ethopy/local_conf.json`. If you need to use a different location, you can specify it when starting EthoPy (ask your technical support person for help with this).
+By default, EthoPy looks for configuration in `~/.ethopy/local_conf.json`. You can specify a different configuration file using the `--config` option:
+
+```bash
+# Use a custom configuration file
+ethopy --config /path/to/my_config.json
+
+# Or use the short form
+ethopy -c /path/to/my_config.json
+```
+
+This is useful when you want to:
+- Switch between different experimental setups
+- Test with different database configurations
+- Keep separate configurations for different projects

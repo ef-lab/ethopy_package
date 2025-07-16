@@ -197,3 +197,35 @@ class ConfigurationManager:
         """Update multiple configuration values at once."""
         for key, value in updates.items():
             self.set(key, value)
+
+    def update_global_config(self) -> None:
+        """Update the global EthoPy configuration with this instance's settings.
+
+        This method updates the global configuration state used throughout EthoPy,
+        including DataJoint settings, schema mappings, and plugin manager.
+        Useful for CLI applications that need to override global configuration.
+        """
+        try:
+            import ethopy
+            import datajoint as dj
+            from ethopy.plugin_manager import PluginManager
+
+            # Update the global configuration instance
+            ethopy.local_conf = self
+
+            # Update DataJoint configuration with this instance's settings
+            dj_config = self.get("dj_local_conf", {})
+            dj.config.update(dj_config)
+            dj.logger.setLevel(dj_config.get("datajoint.loglevel", "WARNING"))
+
+            # Update global schema mappings
+            ethopy.SCHEMATA = self.get("SCHEMATA", {})
+
+            # Update plugin manager with new plugin path
+            ethopy.plugin_manager = PluginManager(self.get("plugin_path"))
+
+            self.logging.info(f"Updated configuration from {self.config_file}")
+
+        except Exception as e:
+            self.logging.error(f"Error updating configuration: {e}")
+            raise
