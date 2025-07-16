@@ -760,15 +760,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#database-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Database Setup
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#raspberry-pi-setup" class="md-nav__link">
     <span class="md-ellipsis">
       Raspberry Pi Setup
@@ -931,7 +922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../database/" class="md-nav__link">
+      <a href="../database_setup/" class="md-nav__link">
         
   
   
@@ -1285,15 +1276,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#database-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Database Setup
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#raspberry-pi-setup" class="md-nav__link">
     <span class="md-ellipsis">
       Raspberry Pi Setup
@@ -1366,60 +1348,6 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot
 <span class="nb">cd</span><span class="w"> </span>ethopy
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev,docs]&quot;</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="database-setup">Database Setup<a class="headerlink" href="#database-setup" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p>Start the database container:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-setup-djdocker
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Configure the database connection:</p>
-</li>
-</ol>
-<p>Create a configuration file at:
-- Linux/macOS: <code>~/.ethopy/local_conf.json</code>
-- Windows: <code>%USERPROFILE%\.ethopy\local_conf.json</code></p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_password&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/data&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/backup&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ethopy.log&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<ol>
-<li>
-<p>Verify database connection:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-db-connection
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Create required schemas:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-setup-schema
-</code></pre></div></td></tr></table></div></p>
-</li>
-</ol>
 <h2 id="raspberry-pi-setup">Raspberry Pi Setup<a class="headerlink" href="#raspberry-pi-setup" title="Permanent link">&para;</a></h2>
 <p>For detailed Raspberry Pi setup instructions, including hardware-specific configurations and dependencies, please refer to our <a href="../raspberry_pi/">Raspberry Pi Setup Guide</a>.</p>
 

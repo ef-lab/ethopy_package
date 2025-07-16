@@ -15,6 +15,10 @@
         <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/database_setup/">
       
       
+        <link rel="prev" href="../setup_configuration_idx/">
+      
+      
+        <link rel="next" href="../nwb_docs/">
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
@@ -22,7 +26,7 @@
     
     
       
-        <title>Database Setup Guide - EthoPy</title>
+        <title>Database Setup - EthoPy</title>
       
     
     
@@ -111,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Database Setup Guide
+              Database Setup
             
           </span>
         </div>
@@ -241,10 +245,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../getting_started/" class="md-tabs__link">
           
   
@@ -440,24 +446,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -470,7 +481,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
@@ -806,10 +817,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../database/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Database Setup
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -820,6 +853,170 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker-setup-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Setup (Recommended)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker Setup (Recommended)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-built-in-setup-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the Built-in Setup Command
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-docker-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual Docker Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remote Access
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standalone-mysql-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standalone MySQL Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Standalone MySQL Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ubuntudebian" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ubuntu/Debian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos-using-homebrew" class="md-nav__link">
+    <span class="md-ellipsis">
+      macOS (using Homebrew)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-schema-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Schema Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful Commands
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Resources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1343,7 +1540,7 @@
 </code></pre></div></td></tr></table></div></p>
 </li>
 <li>
-<p>Configure the remote machine's <code>local_conf.json</code>:
+<p>In the computer that will run ethopy configure the section dj_local_conf in the <code>local_conf.json</code>, example:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -1353,7 +1550,7 @@
 <span class="normal">7</span>
 <span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;remote_server_ip&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;database_ip&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_password&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
@@ -1365,6 +1562,9 @@
 <p>Ensure the Docker host's firewall allows connections on port 3306</p>
 </li>
 </ol>
+<p>Verify port 3306 is available:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>netstat<span class="w"> </span>-an<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">3306</span>
+</code></pre></div></td></tr></table></div></p>
 <h2 id="standalone-mysql-setup">Standalone MySQL Setup<a class="headerlink" href="#standalone-mysql-setup" title="Permanent link">&para;</a></h2>
 <p>If you prefer not to use Docker, you can install MySQL directly:</p>
 <h3 id="ubuntudebian">Ubuntu/Debian<a class="headerlink" href="#ubuntudebian" title="Permanent link">&para;</a></h3>
