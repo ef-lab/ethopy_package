@@ -2140,7 +2140,21 @@
 </code></pre></div></td></tr></table></div>
 <p>Then in your config file, you can leave the password field empty - EthoPy will use the environment variable instead.</p>
 <h3 id="custom-configuration-locations">Custom Configuration Locations<a class="headerlink" href="#custom-configuration-locations" title="Permanent link">&para;</a></h3>
-<p>By default, EthoPy looks for configuration in <code>~/.ethopy/local_conf.json</code>. If you need to use a different location, you can specify it when starting EthoPy (ask your technical support person for help with this).</p>
+<p>By default, EthoPy looks for configuration in <code>~/.ethopy/local_conf.json</code>. You can specify a different configuration file using the <code>--config</code> option:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Use a custom configuration file</span>
+ethopy<span class="w"> </span>--config<span class="w"> </span>/path/to/my_config.json
+
+<span class="c1"># Or use the short form</span>
+ethopy<span class="w"> </span>-c<span class="w"> </span>/path/to/my_config.json
+</code></pre></div></td></tr></table></div>
+<p>This is useful when you want to:
+- Switch between different experimental setups
+- Test with different database configurations
+- Keep separate configurations for different projects</p>
 
 
 
