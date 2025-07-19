@@ -80,11 +80,11 @@ EthoPy relies on a MariaDB database for experiment configuration and data loggin
    ```bash
    ethopy-setup-djdocker
    ```
-   alterative follow the instruction from datajoint [here](https://github.com/datajoint/mysql-docker)
+   Alteratively follow the instructions from datajoint [here](https://github.com/datajoint/mysql-docker)
 
    The default username is "root".
 
-> **Note:** if ethopy-setup-djdocker not works try to setup the docker image based on the [datajoint instructions](https://github.com/datajoint/mysql-docker)
+> **Note:** if ethopy-setup-djdocker does not work try to setup the docker image based on the [datajoint instructions](https://github.com/datajoint/mysql-docker)
 
 
 > **Note:** By default, Docker requires sudo because the Docker daemon runs as root.
@@ -109,7 +109,7 @@ This command adds your user to the docker group, so you can run Docker commands 
 
 === "Windows"
     `%USERPROFILE%\.ethopy\local_conf.json`
-   dj_local_conf have all the parameters refers to [datajoint configuration](https://datajoint.com/docs/elements/element-miniscope/0.2/tutorials/01-Configure/):
+   dj_local_conf includes the parameters relevant to the [datajoint configuration](https://datajoint.com/docs/elements/element-miniscope/0.2/tutorials/01-Configure/):
    ```json
    {
        "dj_local_conf": {
