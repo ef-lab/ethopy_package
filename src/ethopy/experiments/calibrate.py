@@ -61,6 +61,7 @@ class Experiment:
         interface = getattr(
             import_module(f"ethopy.interfaces.{interface_module}"), interface_module
         )
+        self.setup_conf_idx = self.params["setup_conf_idx"]
 
         self.interface = interface(exp=self, callbacks=False)
 
