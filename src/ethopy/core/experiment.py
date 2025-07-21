@@ -925,9 +925,9 @@ class SessionParameters:
         noresponse_intertrial (bool): Whether to have intertrial period on no response
         bias_window (int): Window size for bias correction
     """
-    max_reward: float
-    min_reward: float
-    hydrate_delay: int
+    max_reward: float = None
+    min_reward: float = None
+    hydrate_delay: int = 0
     setup_conf_idx: int = 0  # Default value for setup configuration
     user_name: str = "bot"
     start_time: str = ""
