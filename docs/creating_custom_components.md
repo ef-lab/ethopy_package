@@ -1,6 +1,6 @@
 # Creating Custom Components in Ethopy
 
-This guide provides an introduction to extending Ethopy with your own custom components. Ethopy's modular design allows you to create specialized experiments by implementing three core component types:
+This guide provides an introduction to extending Ethopy with your custom components. Ethopy's modular design allows you to create specialized experiments by implementing three core component types:
 
 1. **Experiments**: Define the overall experimental flow and state transitions
 2. **Stimuli**: Create visual, auditory, or other sensory presentations
