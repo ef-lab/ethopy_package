@@ -1105,7 +1105,7 @@ class Control(dj.Lookup):  # noqa: D101
     notes=''                    : varchar(256)
     queue_size=0                : int
     ip=null                     : varchar(16)                  # setup IP address
-    user_name                   : varchar(256)
+    user_name='bot'             : varchar(256)
     """  # noqa: E501
 
 
