@@ -328,10 +328,10 @@ class DLCContinuousPoseEstimator(DLCProcessor):
             for p in ["_x", "_y", "_score"]
         ]
         self.pose_hdf5 = logger.createDataset(
-            "dlc", np.dtype(joints_types), self.filename_dlc, log=False
+            "dlc", np.dtype(joints_types), self.filename_dlc, db_log=False
         )
         self.pose_hdf5_infer = logger.createDataset(
-            "dlc_infer", np.dtype(joints_types), self.filename_dlc, log=False
+            "dlc_infer", np.dtype(joints_types), self.filename_dlc, db_log=False
         )
 
         processed_joints_types = [
@@ -344,7 +344,7 @@ class DLCContinuousPoseEstimator(DLCProcessor):
             "dlc_processed",
             np.dtype(processed_joints_types),
             self.filename_dlc,
-            log=False,
+            db_log=False,
             )
 
     def _process_frame(self, pose, timestamp):
