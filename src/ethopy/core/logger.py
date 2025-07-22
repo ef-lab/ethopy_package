@@ -891,6 +891,24 @@ class Logger:
         if not self.queue.empty():
             log.warning("Clean up finished but queue size is: %d", self.queue.qsize())
 
+    def log_setup_confs(self, conf_tables, setup_conf_idx):
+        for target_table, source_tables in conf_tables.items():
+            # target_schema, target_table = split_first_word(target_table)
+            if isinstance(source_tables, str):
+                source_tables = [source_tables]
+            if len(source_tables) > 1:
+                source_tables[0] = source_tables[0]+".proj()"
+                t = ((eval(" * ".join(source_tables)) & f"setup_conf_idx={setup_conf_idx}")
+                    * (interface.Configuration() & self.trial_key))
+            else:
+                t = ((eval(" * ".join(source_tables))() & f"setup_conf_idx={setup_conf_idx}")
+                    * (interface.Configuration() & self.trial_key))
+
+            dict_ins = (t).fetch(as_dict=True)
+            if len(dict_ins) == 0:
+                raise Exception(f"Update tables {source_tables} for setup conf idx {setup_conf_idx}")
+            eval(target_table)().insert(dict_ins, ignore_extra_fields=True, skip_duplicates=True)
+
     def createDataset(
         self,
         dataset_name: str,
@@ -956,7 +974,7 @@ class Logger:
 
         return self.datasets[filename]
 
-    def log_recording(self, rec_key: Dict) -> None:
+    def log_recording(self, rec_key: Dict, **kwargs) -> None:
         """Log a new recording entry with an incremented recording index.
 
         This method retrieves the current recordings associated with the trial,
@@ -967,6 +985,7 @@ class Logger:
         Args:
             rec_key (dict): A dictionary containing the key information for the
                 recording entry.
+            **kwargs: Additional keyword arguments to be passed to the log method.
 
         The method assumes the existence of a `get` method to retrieve existing
         recordings and a `log` method to log the new recording entry.
@@ -979,7 +998,8 @@ class Logger:
             fields=["rec_idx"],
         )
         rec_idx = 1 if not recs else max(recs) + 1
-        self.log("Recording", data={**rec_key, "rec_idx": rec_idx}, schema="recording")
+        self.log("Recording", data={**rec_key, "rec_idx": rec_idx},
+                 schema="recording", **kwargs)
 
     def closeDatasets(self) -> None:
         """Close all datasets managed by this instance.
