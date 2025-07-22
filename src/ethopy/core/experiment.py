@@ -204,16 +204,16 @@ class ExperimentClass:
         self.setup_conf_idx = self.session_params["setup_conf_idx"]
 
         self.logger = logger
+        self.logger.log_session(
+            self.session_params, experiment_type=self.cond_tables[0], log_task=True
+        )
+
         self.beh = behavior_class()
         self.interface = self._interface_setup(
             self.beh, self.logger, self.setup_conf_idx
         )
         self.interface.load_calibration()
         self.beh.setup(self)
-
-        self.logger.log_session(
-            self.session_params, experiment_type=self.cond_tables[0], log_task=True
-        )
 
         self.session_timer = Timer()
 
