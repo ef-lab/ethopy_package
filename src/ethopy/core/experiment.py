@@ -199,7 +199,8 @@ class ExperimentClass:
         self.curr_trial = 0
         self.cur_block_sz = 0
 
-        self.session_params = self.setup_session_params(session_params, self.default_key)
+        self.session_params = self.setup_session_params(session_params,
+                                                        self.default_key)
 
         self.setup_conf_idx = self.session_params["setup_conf_idx"]
 
@@ -620,7 +621,7 @@ class ExperimentClass:
 
     def _anti_bias(self, choice_h, un_choices):
         choice_h = np.array(
-            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"] :]]
+            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"]:]]
         )
         if len(choice_h) < self.curr_cond["bias_window"]:
             choice_h = self.choices
