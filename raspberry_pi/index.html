@@ -1112,78 +1112,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#initial-setup" class="md-nav__link">
+  <a href="#ssh-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Initial Setup
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#system-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      System Dependencies
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hardware-specific-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Hardware-Specific Setup
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Hardware-Specific Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#7-raspberry-pi-touchscreen" class="md-nav__link">
-    <span class="md-ellipsis">
-      7" Raspberry Pi Touchscreen
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3d-graphics-support" class="md-nav__link">
-    <span class="md-ellipsis">
-      3D Graphics Support
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gpio-support" class="md-nav__link">
-    <span class="md-ellipsis">
-      GPIO Support
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#x-display-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      X Display Configuration
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#remote-control-setup-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      Remote Control Setup (Optional)
+      SSH Setup
     </span>
   </a>
   
@@ -1199,9 +1130,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-experiments" class="md-nav__link">
+  <a href="#gpio-hardware-support" class="md-nav__link">
     <span class="md-ellipsis">
-      Running Experiments
+      GPIO Hardware Support
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#display-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Display Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screen-blanking-disable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Screen Blanking Disable
     </span>
   </a>
   
@@ -1255,193 +1204,41 @@
 
 <!-- ToDo -->
 <h1 id="raspberry-pi-setup-guide">Raspberry Pi Setup Guide<a class="headerlink" href="#raspberry-pi-setup-guide" title="Permanent link">&para;</a></h1>
-<p>This guide provides detailed instructions for setting up Ethopy on a Raspberry Pi device.</p>
-<h2 id="initial-setup">Initial Setup<a class="headerlink" href="#initial-setup" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p>Get the latest Raspberry Pi OS (Raspbian)</p>
-</li>
-<li>
-<p>Configure Raspberry Pi settings using <code>raspi-config</code>:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>raspi-config
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>Enable SSH</li>
-<li>Disable screen blanking</li>
-<li>
-<p>Enable Desktop auto-login</p>
-</li>
-<li>
-<p>(Optional) Change hostname for easier identification:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>sed<span class="w"> </span>-r<span class="w"> </span>-i<span class="w"> </span>s/raspberrypi/&lt;&lt;HOSTNAME&gt;&gt;/g<span class="w"> </span>/etc/hostname<span class="w"> </span>/etc/hosts
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>(Optional) Change default username:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>useradd<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>-d<span class="w"> </span>/home/<span class="s">&lt;&lt;USERNAME&gt;&gt;/ -m -G sudo &lt;&lt;USERNAME</span>&gt;&gt;
-sudo<span class="w"> </span>passwd<span class="w"> </span><span class="s">&lt;&lt;USERNAME&gt;&gt;</span>
-<span class="s">mkhomedir_helper &lt;&lt;USERNAME</span>&gt;&gt;
-sudo<span class="w"> </span>userdel<span class="w"> </span>-r<span class="w"> </span>-f<span class="w"> </span>pi
-</code></pre></div></td></tr></table></div></p>
-</li>
-</ol>
-<h2 id="system-dependencies">System Dependencies<a class="headerlink" href="#system-dependencies" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p>Install required system libraries:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>python-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libatlas-base-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>build-essential<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libavformat-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libavcodec-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libswscale-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libsquish-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libeigen3-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libopenal-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libfreetype6-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>zlib1g-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libx11-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libjpeg-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libvorbis-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libogg-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libassimp-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libode-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libssl-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libgles2<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libgles1<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libegl1
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Install Python packages:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;numpy&gt;=1.19.1&#39;</span><span class="w"> </span><span class="nv">pygame</span><span class="o">==</span><span class="m">1</span>.9.6<span class="w"> </span>cython<span class="w"> </span>pybind11<span class="w"> </span>scipy<span class="w"> </span>datajoint<span class="w"> </span>omxplayer-wrapper<span class="w"> </span>imageio<span class="w"> </span>imageio-ffmpeg
-</code></pre></div></td></tr></table></div></p>
-</li>
-</ol>
-<h2 id="hardware-specific-setup">Hardware-Specific Setup<a class="headerlink" href="#hardware-specific-setup" title="Permanent link">&para;</a></h2>
-<h3 id="7-raspberry-pi-touchscreen">7" Raspberry Pi Touchscreen<a class="headerlink" href="#7-raspberry-pi-touchscreen" title="Permanent link">&para;</a></h3>
-<p>Install multitouch driver:
+<p>This guide provides essential commands for setting up Ethopy on a Raspberry Pi device.</p>
+<h2 id="ssh-setup">SSH Setup<a class="headerlink" href="#ssh-setup" title="Permanent link">&para;</a></h2>
+<p>Enable SSH service for remote access:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>http://github.com/ef-lab/python-multitouch<span class="w"> </span>~/github/python-multitouch
-<span class="nb">cd</span><span class="w"> </span>~/github/python-multitouch/library
-sudo<span class="w"> </span>python3<span class="w"> </span>setup.py<span class="w"> </span>install
-</code></pre></div></td></tr></table></div></p>
-<h3 id="3d-graphics-support">3D Graphics Support<a class="headerlink" href="#3d-graphics-support" title="Permanent link">&para;</a></h3>
-<p>Install Panda3D for Raspberry Pi:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>wget<span class="w"> </span>ftp://eflab.org/shared/panda3d1.11_1.11.0_armhf.deb
-sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>panda3d1.11_1.11.0_armhf.deb
-</code></pre></div></td></tr></table></div></p>
-<h3 id="gpio-support">GPIO Support<a class="headerlink" href="#gpio-support" title="Permanent link">&para;</a></h3>
-<p>Enable pigpio service:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>wget<span class="w"> </span>https://raw.githubusercontent.com/joan2937/pigpio/master/util/pigpiod.service
-sudo<span class="w"> </span>cp<span class="w"> </span>pigpiod.service<span class="w"> </span>/etc/systemd/system
-sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>pigpiod.service
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>pigpiod.service
-</code></pre></div></td></tr></table></div></p>
-<h2 id="x-display-configuration">X Display Configuration<a class="headerlink" href="#x-display-configuration" title="Permanent link">&para;</a></h2>
-<p>For running graphical applications via SSH:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export DISPLAY=:0&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.profile
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;xhost + &gt; /dev/null&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.profile
-</code></pre></div></td></tr></table></div></p>
-<h2 id="remote-control-setup-optional">Remote Control Setup (Optional)<a class="headerlink" href="#remote-control-setup-optional" title="Permanent link">&para;</a></h2>
-<p>If you want to use Salt for remote control:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>salt-minion<span class="w"> </span>-y
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;master: &lt;&lt;YOUR_SALT-MASTER_IP&gt;&gt;&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/salt/minion
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;id: &lt;&lt;HOSTNAME&gt;&gt;&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/salt/minion
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;master_finger: &lt;&lt;MASTER-FINGER&gt;&gt;&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/salt/minion
-sudo<span class="w"> </span>service<span class="w"> </span>salt-minion<span class="w"> </span>restart
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ssh<span class="w">  </span><span class="c1"># Enables SSH to start automatically at boot</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>ssh<span class="w">   </span><span class="c1"># Starts SSH service immediately</span>
 </code></pre></div></td></tr></table></div></p>
 <h2 id="ethopy-installation">Ethopy Installation<a class="headerlink" href="#ethopy-installation" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p>Install Ethopy:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ethopy[obj]&quot;</span><span class="w">  </span><span class="c1"># Includes 3D object support</span>
+<p>Τest database connection:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-db-connection<span class="w">     </span><span class="c1"># Tests database connection to verify setup</span>
 </code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Create configuration file at <code>~/.ethopy/local_conf.json</code>:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YOUR DATABASE&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USERNAME&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PASSWORD&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.reconnect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.enable_python_native_blobs&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LOCAL_RECORDINGS_DIRECTORY&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TARGET_RECORDINGS_DIRECTORY&quot;</span>
-<span class="p">}</span>
+<h2 id="gpio-hardware-support">GPIO Hardware Support<a class="headerlink" href="#gpio-hardware-support" title="Permanent link">&para;</a></h2>
+<p>Enable pigpio daemon for GPIO control:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>pigpiod.service<span class="w">  </span><span class="c1"># Enables pigpio daemon to start at boot</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>pigpiod.service<span class="w">   </span><span class="c1"># Starts pigpio daemon for immediate GPIO access</span>
 </code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Initialize database schemas:
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-setup-schema
+<p>Install GPIO libraries:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pigpio<span class="w">              </span><span class="c1"># Python library for pigpio daemon communication</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>python3-rpi.gpio<span class="w">  </span><span class="c1"># Alternative GPIO library for Raspberry Pi</span>
 </code></pre></div></td></tr></table></div></p>
-</li>
-</ol>
-<h2 id="running-experiments">Running Experiments<a class="headerlink" href="#running-experiments" title="Permanent link">&para;</a></h2>
-<p>You can run experiments in two modes:</p>
-<ol>
-<li>
-<p>Service Mode (controlled by database):
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy
+<h2 id="display-configuration">Display Configuration<a class="headerlink" href="#display-configuration" title="Permanent link">&para;</a></h2>
+<p>Configure display settings for GUI applications via SSH:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">DISPLAY</span><span class="o">=</span>:0<span class="w">                           </span><span class="c1"># Sets display to primary screen</span>
+sed<span class="w"> </span>-i<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;$aexport DISPLAY=:0&#39;</span><span class="w"> </span>~/.profile<span class="w">  </span><span class="c1"># Persists DISPLAY setting in profile</span>
+sed<span class="w"> </span>-i<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;$axhost +  &gt; /dev/null&#39;</span><span class="w"> </span>~/.profile<span class="w">  </span><span class="c1"># Allows X11 forwarding access</span>
 </code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p>Direct Mode (specific task):
-   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span>--task-idx<span class="w"> </span><span class="m">1</span>
-</code></pre></div></td></tr></table></div></p>
-</li>
-</ol>
+<h2 id="screen-blanking-disable">Screen Blanking Disable<a class="headerlink" href="#screen-blanking-disable" title="Permanent link">&para;</a></h2>
+<p>To prevent screen from turning off, run raspi-config:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>raspi-config
+</code></pre></div></td></tr></table></div>
+Navigate to "Display Options" → "Screen Blanking" → Set to "No"</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
 <ol>
