@@ -1150,6 +1150,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#ethopy.core.logger.Logger.log_setup_confs" class="md-nav__link">
+    <span class="md-ellipsis">
+      log_setup_confs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ethopy.core.logger.Logger.put" class="md-nav__link">
     <span class="md-ellipsis">
       put
@@ -1535,6 +1544,15 @@
   <a href="#ethopy.core.logger.Logger.log_session_configs" class="md-nav__link">
     <span class="md-ellipsis">
       log_session_configs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethopy.core.logger.Logger.log_setup_confs" class="md-nav__link">
+    <span class="md-ellipsis">
+      log_setup_confs
     </span>
   </a>
   
@@ -3007,7 +3025,44 @@ updates.</p>
 <span class="normal">1010</span>
 <span class="normal">1011</span>
 <span class="normal">1012</span>
-<span class="normal">1013</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Logger</span><span class="p">:</span>
+<span class="normal">1013</span>
+<span class="normal">1014</span>
+<span class="normal">1015</span>
+<span class="normal">1016</span>
+<span class="normal">1017</span>
+<span class="normal">1018</span>
+<span class="normal">1019</span>
+<span class="normal">1020</span>
+<span class="normal">1021</span>
+<span class="normal">1022</span>
+<span class="normal">1023</span>
+<span class="normal">1024</span>
+<span class="normal">1025</span>
+<span class="normal">1026</span>
+<span class="normal">1027</span>
+<span class="normal">1028</span>
+<span class="normal">1029</span>
+<span class="normal">1030</span>
+<span class="normal">1031</span>
+<span class="normal">1032</span>
+<span class="normal">1033</span>
+<span class="normal">1034</span>
+<span class="normal">1035</span>
+<span class="normal">1036</span>
+<span class="normal">1037</span>
+<span class="normal">1038</span>
+<span class="normal">1039</span>
+<span class="normal">1040</span>
+<span class="normal">1041</span>
+<span class="normal">1042</span>
+<span class="normal">1043</span>
+<span class="normal">1044</span>
+<span class="normal">1045</span>
+<span class="normal">1046</span>
+<span class="normal">1047</span>
+<span class="normal">1048</span>
+<span class="normal">1049</span>
+<span class="normal">1050</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Logger</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Logger class for managing logging and data handling in an experimental setup.</span>
 
 <span class="sd">    This class is designed to handle the logging of experimental data, manage database</span>
@@ -3820,6 +3875,41 @@ updates.</p>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
             <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Clean up finished but queue size is: </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">())</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_setup_confs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conf_tables</span><span class="p">,</span> <span class="n">setup_conf_idx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Log setup configuration tables into the database.</span>
+
+<span class="sd">        This method iterates over the provided configuration tables, fetches the</span>
+<span class="sd">        relevant configuration data for the given setup configuration index, and inserts</span>
+<span class="sd">        it into the target tables.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            conf_tables (dict): A dictionary mapping target table names to source table</span>
+<span class="sd">                names or lists of source tables.</span>
+<span class="sd">            setup_conf_idx (int): The index indicating the setup configuration to use.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception: If no configuration data is found for a given setup configuration</span>
+<span class="sd">                index.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">target_table</span><span class="p">,</span> <span class="n">source_tables</span> <span class="ow">in</span> <span class="n">conf_tables</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># target_schema, target_table = split_first_word(target_table)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source_tables</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">source_tables_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">source_tables</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">source_tables_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">source_tables</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">source_tables_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">source_tables_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_tables_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;.proj()&quot;</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="p">((</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot; * &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source_tables_list</span><span class="p">))</span> <span class="o">&amp;</span> <span class="sa">f</span><span class="s2">&quot;setup_conf_idx=</span><span class="si">{</span><span class="n">setup_conf_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="p">(</span><span class="n">interface</span><span class="o">.</span><span class="n">Configuration</span><span class="p">()</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="p">((</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot; * &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source_tables_list</span><span class="p">))()</span> <span class="o">&amp;</span> <span class="sa">f</span><span class="s2">&quot;setup_conf_idx=</span><span class="si">{</span><span class="n">setup_conf_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="p">(</span><span class="n">interface</span><span class="o">.</span><span class="n">Configuration</span><span class="p">()</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">))</span>
+
+            <span class="n">dict_ins</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dict_ins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Update tables </span><span class="si">{</span><span class="n">source_tables_list</span><span class="si">}</span><span class="s2"> for setup conf idx </span><span class="si">{</span><span class="n">setup_conf_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">eval</span><span class="p">(</span><span class="n">target_table</span><span class="p">)()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">dict_ins</span><span class="p">,</span> <span class="n">ignore_extra_fields</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_duplicates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">createDataset</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -3885,7 +3975,7 @@ updates.</p>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">log_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rec_key</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rec_key</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Log a new recording entry with an incremented recording index.</span>
 
 <span class="sd">        This method retrieves the current recordings associated with the trial,</span>
@@ -3896,6 +3986,7 @@ updates.</p>
 <span class="sd">        Args:</span>
 <span class="sd">            rec_key (dict): A dictionary containing the key information for the</span>
 <span class="sd">                recording entry.</span>
+<span class="sd">            **kwargs: Additional keyword arguments to be passed to the log method.</span>
 
 <span class="sd">        The method assumes the existence of a `get` method to retrieve existing</span>
 <span class="sd">        recordings and a `log` method to log the new recording entry.</span>
@@ -3908,7 +3999,8 @@ updates.</p>
             <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;rec_idx&quot;</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="n">rec_idx</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">recs</span> <span class="k">else</span> <span class="nb">max</span><span class="p">(</span><span class="n">recs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Recording&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">rec_key</span><span class="p">,</span> <span class="s2">&quot;rec_idx&quot;</span><span class="p">:</span> <span class="n">rec_idx</span><span class="p">},</span> <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;recording&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Recording&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">rec_key</span><span class="p">,</span> <span class="s2">&quot;rec_idx&quot;</span><span class="p">:</span> <span class="n">rec_idx</span><span class="p">},</span>
+                 <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;recording&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">closeDatasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Close all datasets managed by this instance.</span>
@@ -4249,14 +4341,14 @@ dataset object to properly close them.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">984</span>
-<span class="normal">985</span>
-<span class="normal">986</span>
-<span class="normal">987</span>
-<span class="normal">988</span>
-<span class="normal">989</span>
-<span class="normal">990</span>
-<span class="normal">991</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">closeDatasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1021</span>
+<span class="normal">1022</span>
+<span class="normal">1023</span>
+<span class="normal">1024</span>
+<span class="normal">1025</span>
+<span class="normal">1026</span>
+<span class="normal">1027</span>
+<span class="normal">1028</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">closeDatasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Close all datasets managed by this instance.</span>
 
 <span class="sd">    Iterates through the datasets dictionary, calling the `exit` method on each</span>
@@ -4390,42 +4482,7 @@ animal ID, session, and current timestamp.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">894</span>
-<span class="normal">895</span>
-<span class="normal">896</span>
-<span class="normal">897</span>
-<span class="normal">898</span>
-<span class="normal">899</span>
-<span class="normal">900</span>
-<span class="normal">901</span>
-<span class="normal">902</span>
-<span class="normal">903</span>
-<span class="normal">904</span>
-<span class="normal">905</span>
-<span class="normal">906</span>
-<span class="normal">907</span>
-<span class="normal">908</span>
-<span class="normal">909</span>
-<span class="normal">910</span>
-<span class="normal">911</span>
-<span class="normal">912</span>
-<span class="normal">913</span>
-<span class="normal">914</span>
-<span class="normal">915</span>
-<span class="normal">916</span>
-<span class="normal">917</span>
-<span class="normal">918</span>
-<span class="normal">919</span>
-<span class="normal">920</span>
-<span class="normal">921</span>
-<span class="normal">922</span>
-<span class="normal">923</span>
-<span class="normal">924</span>
-<span class="normal">925</span>
-<span class="normal">926</span>
-<span class="normal">927</span>
-<span class="normal">928</span>
-<span class="normal">929</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">929</span>
 <span class="normal">930</span>
 <span class="normal">931</span>
 <span class="normal">932</span>
@@ -4453,7 +4510,42 @@ animal ID, session, and current timestamp.</p>
 <span class="normal">954</span>
 <span class="normal">955</span>
 <span class="normal">956</span>
-<span class="normal">957</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">createDataset</span><span class="p">(</span>
+<span class="normal">957</span>
+<span class="normal">958</span>
+<span class="normal">959</span>
+<span class="normal">960</span>
+<span class="normal">961</span>
+<span class="normal">962</span>
+<span class="normal">963</span>
+<span class="normal">964</span>
+<span class="normal">965</span>
+<span class="normal">966</span>
+<span class="normal">967</span>
+<span class="normal">968</span>
+<span class="normal">969</span>
+<span class="normal">970</span>
+<span class="normal">971</span>
+<span class="normal">972</span>
+<span class="normal">973</span>
+<span class="normal">974</span>
+<span class="normal">975</span>
+<span class="normal">976</span>
+<span class="normal">977</span>
+<span class="normal">978</span>
+<span class="normal">979</span>
+<span class="normal">980</span>
+<span class="normal">981</span>
+<span class="normal">982</span>
+<span class="normal">983</span>
+<span class="normal">984</span>
+<span class="normal">985</span>
+<span class="normal">986</span>
+<span class="normal">987</span>
+<span class="normal">988</span>
+<span class="normal">989</span>
+<span class="normal">990</span>
+<span class="normal">991</span>
+<span class="normal">992</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">createDataset</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">dataset_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
@@ -4879,27 +4971,27 @@ defaults to localhost (127.0.0.1).</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 993</span>
-<span class="normal"> 994</span>
-<span class="normal"> 995</span>
-<span class="normal"> 996</span>
-<span class="normal"> 997</span>
-<span class="normal"> 998</span>
-<span class="normal"> 999</span>
-<span class="normal">1000</span>
-<span class="normal">1001</span>
-<span class="normal">1002</span>
-<span class="normal">1003</span>
-<span class="normal">1004</span>
-<span class="normal">1005</span>
-<span class="normal">1006</span>
-<span class="normal">1007</span>
-<span class="normal">1008</span>
-<span class="normal">1009</span>
-<span class="normal">1010</span>
-<span class="normal">1011</span>
-<span class="normal">1012</span>
-<span class="normal">1013</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1030</span>
+<span class="normal">1031</span>
+<span class="normal">1032</span>
+<span class="normal">1033</span>
+<span class="normal">1034</span>
+<span class="normal">1035</span>
+<span class="normal">1036</span>
+<span class="normal">1037</span>
+<span class="normal">1038</span>
+<span class="normal">1039</span>
+<span class="normal">1040</span>
+<span class="normal">1041</span>
+<span class="normal">1042</span>
+<span class="normal">1043</span>
+<span class="normal">1044</span>
+<span class="normal">1045</span>
+<span class="normal">1046</span>
+<span class="normal">1047</span>
+<span class="normal">1048</span>
+<span class="normal">1049</span>
+<span class="normal">1050</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_ip</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve the local IP address of the machine.</span>
 
@@ -5442,7 +5534,7 @@ dictionary.</p>
 
 
 <h3 id="ethopy.core.logger.Logger.log_recording" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">log_recording</span><span class="p">(</span><span class="n">rec_key</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">log_recording</span><span class="p">(</span><span class="n">rec_key</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 <a href="#ethopy.core.logger.Logger.log_recording" class="headerlink" title="Permanent link">&para;</a></h3>
 
@@ -5484,6 +5576,21 @@ recording entry.</p>
                 <em>required</em>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>**kwargs</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Additional keyword arguments to be passed to the log method.</p>
+              </div>
+            </td>
+            <td>
+                  <code>{}</code>
+            </td>
+          </tr>
       </tbody>
     </table>
         <p>The method assumes the existence of a <code>get</code> method to retrieve existing
@@ -5492,30 +5599,32 @@ recordings and a <code>log</code> method to log the new recording entry.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">959</span>
-<span class="normal">960</span>
-<span class="normal">961</span>
-<span class="normal">962</span>
-<span class="normal">963</span>
-<span class="normal">964</span>
-<span class="normal">965</span>
-<span class="normal">966</span>
-<span class="normal">967</span>
-<span class="normal">968</span>
-<span class="normal">969</span>
-<span class="normal">970</span>
-<span class="normal">971</span>
-<span class="normal">972</span>
-<span class="normal">973</span>
-<span class="normal">974</span>
-<span class="normal">975</span>
-<span class="normal">976</span>
-<span class="normal">977</span>
-<span class="normal">978</span>
-<span class="normal">979</span>
-<span class="normal">980</span>
-<span class="normal">981</span>
-<span class="normal">982</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">log_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rec_key</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 994</span>
+<span class="normal"> 995</span>
+<span class="normal"> 996</span>
+<span class="normal"> 997</span>
+<span class="normal"> 998</span>
+<span class="normal"> 999</span>
+<span class="normal">1000</span>
+<span class="normal">1001</span>
+<span class="normal">1002</span>
+<span class="normal">1003</span>
+<span class="normal">1004</span>
+<span class="normal">1005</span>
+<span class="normal">1006</span>
+<span class="normal">1007</span>
+<span class="normal">1008</span>
+<span class="normal">1009</span>
+<span class="normal">1010</span>
+<span class="normal">1011</span>
+<span class="normal">1012</span>
+<span class="normal">1013</span>
+<span class="normal">1014</span>
+<span class="normal">1015</span>
+<span class="normal">1016</span>
+<span class="normal">1017</span>
+<span class="normal">1018</span>
+<span class="normal">1019</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">log_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rec_key</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log a new recording entry with an incremented recording index.</span>
 
 <span class="sd">    This method retrieves the current recordings associated with the trial,</span>
@@ -5526,6 +5635,7 @@ recordings and a <code>log</code> method to log the new recording entry.</p>
 <span class="sd">    Args:</span>
 <span class="sd">        rec_key (dict): A dictionary containing the key information for the</span>
 <span class="sd">            recording entry.</span>
+<span class="sd">        **kwargs: Additional keyword arguments to be passed to the log method.</span>
 
 <span class="sd">    The method assumes the existence of a `get` method to retrieve existing</span>
 <span class="sd">    recordings and a `log` method to log the new recording entry.</span>
@@ -5538,7 +5648,8 @@ recordings and a <code>log</code> method to log the new recording entry.</p>
         <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;rec_idx&quot;</span><span class="p">],</span>
     <span class="p">)</span>
     <span class="n">rec_idx</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">recs</span> <span class="k">else</span> <span class="nb">max</span><span class="p">(</span><span class="n">recs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Recording&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">rec_key</span><span class="p">,</span> <span class="s2">&quot;rec_idx&quot;</span><span class="p">:</span> <span class="n">rec_idx</span><span class="p">},</span> <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;recording&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Recording&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">rec_key</span><span class="p">,</span> <span class="s2">&quot;rec_idx&quot;</span><span class="p">:</span> <span class="n">rec_idx</span><span class="p">},</span>
+             <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;recording&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -5804,6 +5915,170 @@ class's inner classes.
     <span class="c1"># update the sub tables of Configuration table</span>
     <span class="k">for</span> <span class="n">schema</span><span class="p">,</span> <span class="n">config_tables</span> <span class="ow">in</span> <span class="n">conf_table_schema</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_log_sub_tables_config</span><span class="p">(</span><span class="n">setup_conf_idx</span><span class="p">,</span> <span class="n">config_tables</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="ethopy.core.logger.Logger.log_setup_confs" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">log_setup_confs</span><span class="p">(</span><span class="n">conf_tables</span><span class="p">,</span> <span class="n">setup_conf_idx</span><span class="p">)</span></code>
+
+<a href="#ethopy.core.logger.Logger.log_setup_confs" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Log setup configuration tables into the database.</p>
+<p>This method iterates over the provided configuration tables, fetches the
+relevant configuration data for the given setup configuration index, and inserts
+it into the target tables.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>conf_tables</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary mapping target table names to source table
+names or lists of source tables.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>setup_conf_idx</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The index indicating the setup configuration to use.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="Exception">Exception</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If no configuration data is found for a given setup configuration
+index.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="quote">
+              <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">894</span>
+<span class="normal">895</span>
+<span class="normal">896</span>
+<span class="normal">897</span>
+<span class="normal">898</span>
+<span class="normal">899</span>
+<span class="normal">900</span>
+<span class="normal">901</span>
+<span class="normal">902</span>
+<span class="normal">903</span>
+<span class="normal">904</span>
+<span class="normal">905</span>
+<span class="normal">906</span>
+<span class="normal">907</span>
+<span class="normal">908</span>
+<span class="normal">909</span>
+<span class="normal">910</span>
+<span class="normal">911</span>
+<span class="normal">912</span>
+<span class="normal">913</span>
+<span class="normal">914</span>
+<span class="normal">915</span>
+<span class="normal">916</span>
+<span class="normal">917</span>
+<span class="normal">918</span>
+<span class="normal">919</span>
+<span class="normal">920</span>
+<span class="normal">921</span>
+<span class="normal">922</span>
+<span class="normal">923</span>
+<span class="normal">924</span>
+<span class="normal">925</span>
+<span class="normal">926</span>
+<span class="normal">927</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">log_setup_confs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conf_tables</span><span class="p">,</span> <span class="n">setup_conf_idx</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Log setup configuration tables into the database.</span>
+
+<span class="sd">    This method iterates over the provided configuration tables, fetches the</span>
+<span class="sd">    relevant configuration data for the given setup configuration index, and inserts</span>
+<span class="sd">    it into the target tables.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        conf_tables (dict): A dictionary mapping target table names to source table</span>
+<span class="sd">            names or lists of source tables.</span>
+<span class="sd">        setup_conf_idx (int): The index indicating the setup configuration to use.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exception: If no configuration data is found for a given setup configuration</span>
+<span class="sd">            index.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">target_table</span><span class="p">,</span> <span class="n">source_tables</span> <span class="ow">in</span> <span class="n">conf_tables</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># target_schema, target_table = split_first_word(target_table)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source_tables</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">source_tables_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">source_tables</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">source_tables_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">source_tables</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">source_tables_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">source_tables_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_tables_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;.proj()&quot;</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="p">((</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot; * &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source_tables_list</span><span class="p">))</span> <span class="o">&amp;</span> <span class="sa">f</span><span class="s2">&quot;setup_conf_idx=</span><span class="si">{</span><span class="n">setup_conf_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="o">*</span> <span class="p">(</span><span class="n">interface</span><span class="o">.</span><span class="n">Configuration</span><span class="p">()</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="p">((</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot; * &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source_tables_list</span><span class="p">))()</span> <span class="o">&amp;</span> <span class="sa">f</span><span class="s2">&quot;setup_conf_idx=</span><span class="si">{</span><span class="n">setup_conf_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="o">*</span> <span class="p">(</span><span class="n">interface</span><span class="o">.</span><span class="n">Configuration</span><span class="p">()</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">))</span>
+
+        <span class="n">dict_ins</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dict_ins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Update tables </span><span class="si">{</span><span class="n">source_tables_list</span><span class="si">}</span><span class="s2"> for setup conf idx </span><span class="si">{</span><span class="n">setup_conf_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">eval</span><span class="p">(</span><span class="n">target_table</span><span class="p">)()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">dict_ins</span><span class="p">,</span> <span class="n">ignore_extra_fields</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_duplicates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -6318,21 +6593,21 @@ exception in the threads.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/ethopy/core/logger.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1016</span>
-<span class="normal">1017</span>
-<span class="normal">1018</span>
-<span class="normal">1019</span>
-<span class="normal">1020</span>
-<span class="normal">1021</span>
-<span class="normal">1022</span>
-<span class="normal">1023</span>
-<span class="normal">1024</span>
-<span class="normal">1025</span>
-<span class="normal">1026</span>
-<span class="normal">1027</span>
-<span class="normal">1028</span>
-<span class="normal">1029</span>
-<span class="normal">1030</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1053</span>
+<span class="normal">1054</span>
+<span class="normal">1055</span>
+<span class="normal">1056</span>
+<span class="normal">1057</span>
+<span class="normal">1058</span>
+<span class="normal">1059</span>
+<span class="normal">1060</span>
+<span class="normal">1061</span>
+<span class="normal">1062</span>
+<span class="normal">1063</span>
+<span class="normal">1064</span>
+<span class="normal">1065</span>
+<span class="normal">1066</span>
+<span class="normal">1067</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">PrioritizedItem</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A class used to represent an item with a priority for logging purposes.&quot;&quot;&quot;</span>
 
