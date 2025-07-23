@@ -44,6 +44,7 @@ class Experiment(State, ExperimentClass):
     cond_tables = ["MatchPort"]
     required_fields = ["difficulty"]
     default_key = {
+        **ExperimentClass.Block().dict(),
         "max_reward": 3000,
         "min_reward": 500,
         "hydrate_delay": 0,
@@ -57,7 +58,6 @@ class Experiment(State, ExperimentClass):
         "abort_duration": 0,
         "noresponse_intertrial": True,
         "incremental_punishment": 0,
-        **ExperimentClass.Block().dict(),
     }
 
     def entry(self):

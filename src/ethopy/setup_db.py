@@ -158,6 +158,7 @@ def start_existing_container(
 @click.option(
     "--container-name", default="ethopy_sql_db", help="Name for the MySQL container"
 )
+@click.help_option("-h", "--help")
 def setup_dj_docker(mysql_path: Optional[str], container_name: str) -> None:
     """Initialize the database environment using Docker.
 

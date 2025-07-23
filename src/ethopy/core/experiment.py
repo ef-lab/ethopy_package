@@ -199,21 +199,22 @@ class ExperimentClass:
         self.curr_trial = 0
         self.cur_block_sz = 0
 
-        self.session_params = self.setup_session_params(session_params, self.default_key)
+        self.session_params = self.setup_session_params(session_params,
+                                                        self.default_key)
 
         self.setup_conf_idx = self.session_params["setup_conf_idx"]
 
         self.logger = logger
+        self.logger.log_session(
+            self.session_params, experiment_type=self.cond_tables[0], log_task=True
+        )
+
         self.beh = behavior_class()
         self.interface = self._interface_setup(
             self.beh, self.logger, self.setup_conf_idx
         )
         self.interface.load_calibration()
         self.beh.setup(self)
-
-        self.logger.log_session(
-            self.session_params, experiment_type=self.cond_tables[0], log_task=True
-        )
 
         self.session_timer = Timer()
 
@@ -486,8 +487,12 @@ class ExperimentClass:
         """Prepare trial conditions, stimuli and update trial index."""
         old_cond = self.curr_cond
         self._get_new_cond()
-
-        if not self.curr_cond or self.logger.thread_end.is_set():
+        if not self.curr_cond:
+            log.debug("No conditions left to run, stopping experiment.")
+            self.quit = True
+            return
+        if self.logger.thread_end.is_set():
+            log.debug("thread_end is set, stopping experiment.")
             self.quit = True
             return
         if (
@@ -620,7 +625,7 @@ class ExperimentClass:
 
     def _anti_bias(self, choice_h, un_choices):
         choice_h = np.array(
-            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"] :]]
+            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"]:]]
         )
         if len(choice_h) < self.curr_cond["bias_window"]:
             choice_h = self.choices
@@ -925,9 +930,9 @@ class SessionParameters:
         noresponse_intertrial (bool): Whether to have intertrial period on no response
         bias_window (int): Window size for bias correction
     """
-    max_reward: float
-    min_reward: float
-    hydrate_delay: int
+    max_reward: float = None
+    min_reward: float = None
+    hydrate_delay: int = 0
     setup_conf_idx: int = 0  # Default value for setup configuration
     user_name: str = "bot"
     start_time: str = ""
@@ -1105,7 +1110,7 @@ class Control(dj.Lookup):  # noqa: D101
     notes=''                    : varchar(256)
     queue_size=0                : int
     ip=null                     : varchar(16)                  # setup IP address
-    user_name                   : varchar(256)
+    user_name='bot'             : varchar(256)
     """  # noqa: E501
 
 

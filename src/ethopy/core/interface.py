@@ -135,7 +135,7 @@ class Interface:
             )[0]
 
             camera_class = getattr(
-                import_module("Interfaces.Camera"), camera_params["discription"]
+                import_module("ethopy.interfaces.Camera"), camera_params["discription"]
             )
 
             self.camera = camera_class(
