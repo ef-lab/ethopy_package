@@ -75,16 +75,16 @@ nav:
     - Overview: index.md
   - Getting Started:
     - Quickstart: getting_started.md
+    - Installation: installation.md
+    - Local Configuration: local_conf.md
     - Examples:
         - Overview: creating_custom_components.md
         - Experiment: match_port_example.md
         - Stimulus: dot_stimulus_example.md
         - Behavior: multi_port_behavior_example.md
-    - Installation: installation.md
-    - Local Configuration: local_conf.md
+    - Plugins: plugin.md
     - Task Setup: task_setup.md
     - Control Experiment: control.md
-    - Plugins: plugin.md
     - Logging: logging.md
     - Setup Configuration Index: setup_configuration_idx.md
     - Database Setup: database_setup.md

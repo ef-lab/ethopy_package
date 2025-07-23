@@ -38,7 +38,7 @@ The StateMachine in Ethopy automatically finds all state classes that inherit fr
 
 ## Overview of the Match Port Experiment
 
-The Match Port experiment challenges animals to correctly choose between ports based on stimuli. 
+The Match Port experiment requires animals to correctly choose between ports based on stimuli. 
 
 It implements:
 - Adaptive difficulty using staircase methods
@@ -139,7 +139,6 @@ Each state is implemented as a class inheriting from the base `Experiment` class
 ```python
 class Trial(Experiment):
     def entry(self):
-        self.resp_ready = False
         super().entry()
         self.stim.start()
 
@@ -179,16 +178,15 @@ Let's break down the Trial state's functionality in detail:
 
 ```python
 def entry(self):
-    self.resp_ready = False
     super().entry()
     self.stim.start()
 ```
 
-- `self.resp_ready = False`: Resets the response readiness flag at the beginning of each trial
 - `super().entry()`: Calls the parent class's entry method which:
   - Records the current state in the logger
   - Logs a state transition event with timestamp
   - Starts the state timer
+  - Resets the response readiness flag at the beginning of each Trial
 - `self.stim.start()`: Initializes the stimulus for the current trial, activating any hardware or software components needed
 
 ### 2. `run()` method
@@ -282,7 +280,7 @@ def exit(self):
 
 ## State Machine Flow
 
-The experiment implements a state machine that flows through these main states:
+The MatchPort experiment implements a state machine that flows through these main states:
 
 1. `Entry` → Initial setup
 2. `PreTrial` → Prepare stimulus and wait for animal readiness

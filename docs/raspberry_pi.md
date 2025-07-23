@@ -132,24 +132,11 @@ sudo service salt-minion restart
        "target_path": "TARGET_RECORDINGS_DIRECTORY"
    }
    ```
+For detailed desciption of configuration files, see [Local configuration](local_conf.md). 
 
 3. Initialize database schemas:
    ```bash
    ethopy-setup-schema
-   ```
-
-## Running Experiments
-
-You can run experiments in two modes:
-
-1. Service Mode (controlled by database):
-   ```bash
-   ethopy
-   ```
-
-2. Direct Mode (specific task):
-   ```bash
-   ethopy --task-idx 1
    ```
 
 ## Troubleshooting

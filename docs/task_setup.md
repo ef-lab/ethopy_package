@@ -1,13 +1,13 @@
 # Tasks
 
-Tasks in Ethopy define the experimental protocol by combining experiments, behaviors, and stimuli with specific parameters. They serve as configuration files that specify how an experiment should run.
+Tasks in Ethopy define the experimental protocol by combining experiments, behaviors, and stimuli and specifying their parameters. They serve as configuration files of the experiments.
 
 ## Task Structure
 
 A typical task file consists of three main parts:
 
-1. **Session Parameters**: Global settings for the experiment
-2. **Stimulus/Behavior/Experiment Conditions**: Parameters
+1. **Session Parameters**: Global settings of the experiment
+2. **Stimulus/Behavior/Experiment Conditions**: Parameters of the respective condition tables
 3. **Experiment Configuration**: Setup and execution of the experiment
 
 ### Basic Structure

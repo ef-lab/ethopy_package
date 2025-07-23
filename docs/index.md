@@ -47,18 +47,7 @@ For a step-by-step guide of installation procedure see [here](getting_started.md
 ```bash
 pip install ethopy
 ```
-
-For optional features:
-```bash
-# For 3D object support
-pip install "ethopy[obj]"
-
-# For development
-pip install "ethopy[dev]"
-
-# For documentation
-pip install "ethopy[docs]"
-```
+For more detailed instructions follow the [Installation](installation.md)
 
 ### Running Experiments
 
@@ -97,7 +86,7 @@ Each state has four overridable functions that control its behavior:
 - **FreeWater**: Water delivery experiments
 - **Calibrate**: Port calibration for water delivery
 
-Experiment parameters are defined in Python configuration files and stored in the `Task` table within the `lab_experiment` schema.
+Experiment parameters are defined in Python configuration files and stored in the `Task` table within the `lab_experiments` schema.
 
 ### 2. Behavior Module
 

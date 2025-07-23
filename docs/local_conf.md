@@ -12,7 +12,6 @@ EthoPy automatically looks for a file called `local_conf.json` in a special fold
 
 ## Quick Start Guide
 
-### Step 1: Basic Setup
 When you first start EthoPy, you'll need to create a configuration file. Here's a simple example to get you started:
 
 ```json
@@ -28,7 +27,7 @@ When you first start EthoPy, you'll need to create a configuration file. Here's 
 }
 ```
 
-### Step 2: What Each Part Means
+What Each Part Means
 - **database settings**: How to connect to your MySQL database
 - **source_path**: Where your experimental data is stored
 - **target_path**: Where backup copies should be saved
@@ -40,22 +39,30 @@ Here's what a full configuration file looks like with all the optional settings:
 ```json
 {
     "dj_local_conf": {
-        "database.host": "127.0.0.1",
-        "database.user": "root",
-        "database.password": "your_password",
-        "database.port": 3306
+        "database.host": "YOUR DATABASE",
+        "database.user": "USERNAME",
+        "database.password": "PASSWORD",
+        "database.port": "PORT",
+        "database.reconnect": true,
+        "database.enable_python_native_blobs": true
     },
-    "source_path": "/path/to/data",
-    "target_path": "/path/to/backup",
     "logging": {
         "level": "INFO",
         "directory": "~/.ethopy/",
         "filename": "ethopy.log"
     },
+    "SCHEMATA": {
+        "experiment": "Experiment_Name",   
+        "behavior": "Behavior_Name", 
+        "stimulus": "Stimulus_Name",
+        "interface": "Interface_Name",  
+        "recording": "Recording_Name",      
+    },
     "channels": {
-        "Liquid": {"1": 22, "2": 23},
-        "Lick": {"1": 17, "2": 27}
-    }
+        "Signal": {"PORT1": "GPIO_pin", "PORT2": "GPIO"},
+    },
+    "source_path": "LOCAL_RECORDINGS_DIRECTORY",
+    "target_path": "TARGET_RECORDINGS_DIRECTORY",
 }
 ```
 
@@ -63,7 +70,7 @@ Here's what a full configuration file looks like with all the optional settings:
 
 ### 1. Database Settings (`dj_local_conf`)
 
-This section tells EthoPy how to connect to your MySQL database:
+This section instructs EthoPy to connect to your MySQL database. Below we analyze an indicative example:
 
 ```json
 {
@@ -82,7 +89,7 @@ This section tells EthoPy how to connect to your MySQL database:
 
 ### 2. File Paths
 
-These tell EthoPy where to find and save your data:
+These instruct EthoPy where to find and save your data:
 
 ```json
 {
@@ -107,9 +114,9 @@ This controls how EthoPy saves information about what it's doing:
 }
 ```
 
-### 4. Schema Names
+### 4. Schema Names (Optional)
 
-If your database uses custom names for different parts of your experiment data:
+If your database uses custom names for different parts of your experiment data, e.g.:
 
 ```json
 {
@@ -127,13 +134,12 @@ If your database uses custom names for different parts of your experiment data:
 
 **Skip this section if you're not using physical hardware like valves, sensors, or LEDs.**
 
-If you're running experiments with physical hardware (like water valevs, lick detectors, or LEDs), you need to tell EthoPy which pins on your Raspberry Pi connect to which devices.
+If you're running experiments with physical hardware (like water valves, lick detectors, or LEDs) connected to a Rasberry Pi, you need to instruct EthoPy which GPIO pins on your Raspberry Pi connect to which devices.
 
 ```json
 {
     "channels": {
-        "Liquid": {"1": 22, "2": 23},    // Water valve connections
-        "Lick": {"1": 17, "2": 27},      // Lick sensor connections
+        "Signal": {"PORT1": "GPIO_pin", "PORT2": "GPIO_pin"},    
     }
 }
 ```
@@ -205,12 +211,12 @@ Your database is on a different computer in the lab:
 ```json
 {
     "dj_local_conf": {
-        "database.host": "192.168.1.100",
+        "database.host": "database_ip",   // Database server address (make sure your db has fix ip)
         "database.user": "lab_user",
         "database.password": "lab_password",
         "database.port": 3306
     },
-    "source_path": "/Users/yourname/experiment_data",
+    "source_path": "/Users/yourname/experiment_data",   
     "target_path": "/Users/yourname/experiment_backup"
 }
 ```
@@ -272,7 +278,7 @@ You're running behavioral experiments with physical hardware:
 
 ### Problem: "Hardware not responding"
 
-**Symptoms:** Your pumps, sensors, or LEDs aren't working
+**Symptoms:** Your valves, sensors, or LEDs aren't working
 
 **Solutions to try:**
 1. **Check physical connections** - Make sure all wires are properly connected
