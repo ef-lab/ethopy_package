@@ -487,8 +487,12 @@ class ExperimentClass:
         """Prepare trial conditions, stimuli and update trial index."""
         old_cond = self.curr_cond
         self._get_new_cond()
-
-        if not self.curr_cond or self.logger.thread_end.is_set():
+        if not self.curr_cond:
+            log.debug("No conditions left to run, stopping experiment.")
+            self.quit = True
+            return
+        if self.logger.thread_end.is_set():
+            log.debug("thread_end is set, stopping experiment.")
             self.quit = True
             return
         if (
