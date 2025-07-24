@@ -18,7 +18,7 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="../creating_custom_components/">
+        <link rel="next" href="../installation/">
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
@@ -676,6 +676,52 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../local_conf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Local Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -688,10 +734,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
         
           
-          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
             
   
   
@@ -704,8 +750,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
             Examples
           </label>
@@ -818,35 +864,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/" class="md-nav__link">
+      <a href="../plugin/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Installation
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../local_conf/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Local Configuration
+    Plugins
     
   </span>
   
@@ -893,29 +916,6 @@
   
   <span class="md-ellipsis">
     Control Experiment
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../plugin/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Plugins
     
   </span>
   
@@ -1496,10 +1496,10 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </ol>
 <p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-setup-djdocker
 </code></pre></div></td></tr></table></div>
-   alterative follow the instruction from datajoint <a href="https://github.com/datajoint/mysql-docker">here</a></p>
+   Alteratively follow the instructions from datajoint <a href="https://github.com/datajoint/mysql-docker">here</a></p>
 <p>The default username is "root".</p>
 <blockquote>
-<p><strong>Note:</strong> if ethopy-setup-djdocker not works try to setup the docker image based on the <a href="https://github.com/datajoint/mysql-docker">datajoint instructions</a></p>
+<p><strong>Note:</strong> if ethopy-setup-djdocker does not work try to setup the docker image based on the <a href="https://github.com/datajoint/mysql-docker">datajoint instructions</a></p>
 <p><strong>Note:</strong> By default, Docker requires sudo because the Docker daemon runs as root.
 This command adds your user to the docker group, so you can run Docker commands without sudo.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
@@ -1521,7 +1521,7 @@ This command adds your user to the docker group, so you can run Docker commands 
 </div>
 </div>
 </div>
-<p>dj_local_conf have all the parameters refers to <a href="https://datajoint.com/docs/elements/element-miniscope/0.2/tutorials/01-Configure/">datajoint configuration</a>:
+<p>dj_local_conf includes the parameters relevant to the <a href="https://datajoint.com/docs/elements/element-miniscope/0.2/tutorials/01-Configure/">datajoint configuration</a>:
    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
