@@ -11,7 +11,31 @@ sudo systemctl start ssh   # Starts SSH service immediately
 ```
 
 ## Ethopy Installation
-Τest database connection:
+
+1. Install Ethopy:
+   ```bash
+   pip install ethopy
+   ```
+
+2. Create configuration file at `~/.ethopy/local_conf.json`:
+   ```json
+   {
+       "dj_local_conf": {
+           "database.host": "YOUR DATABASE",
+           "database.user": "USERNAME",
+           "database.password": "PASSWORD",
+           "database.port": "PORT",
+           "database.reconnect": true,
+           "database.enable_python_native_blobs": true
+       },
+       "source_path": "LOCAL_RECORDINGS_DIRECTORY",
+       "target_path": "TARGET_RECORDINGS_DIRECTORY"
+   }
+   ```
+For detailed desciption of configuration files, see [Local configuration](local_conf.md). 
+
+
+## Database connection:
 ```bash
 ethopy-db-connection     # Tests database connection to verify setup
 ```

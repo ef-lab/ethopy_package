@@ -20,6 +20,8 @@ Plugins can be placed in the following locations (in order of precedence):
 1. Default locations:
     - `~/.ethopy/ethopy_plugins/` (User's home directory)
 
+    **Note:** Create the folder "ethopy_plugins" to the respective directory.
+
 2. Custom locations specified by the `ETHOPY_PLUGIN_PATH` environment variable:
    ```bash
    export ETHOPY_PLUGIN_PATH=/path/to/plugins,/another/plugin/path
@@ -65,13 +67,17 @@ class MyModule:
         return "Hello from MyModule!"
 ```
 
-### Behavior Plugins
+### Categorized Modules
+Examples of the behavior, experiment and stimulus plugin content can be found [here](creating_costum_components.md).
+
+#### Behavior Plugins
 
 Create a Python file in the `behaviors` directory:
 
 ```python
 # ~/.ethopy/ethopy_plugins/behaviors/custom_behavior.py
 from ethopy.core.behavior import Behavior
+from ethopy.core.logger import behavior
 
 class CustomBehavior(Behavior):
     def __init__(self):
@@ -83,13 +89,14 @@ class CustomBehavior(Behavior):
         pass
 ```
 
-### Experiment Plugins
+#### Experiment Plugins
 
 Create a Python file in the `experiments` directory:
 
 ```python
 # ~/.ethopy/ethopy_plugins/experiments/custom_experiment.py
 from ethopy.core.experiment import ExperimentClass, State
+from ethopy.core.logger import experiment
 
 class CustomExperiment(State, ExperimentClass):
     def __init__(self):
@@ -100,6 +107,24 @@ class CustomExperiment(State, ExperimentClass):
         # Your experiment implementation
         pass
 ```
+#### Stimulus Plugins
+
+Create a Python file in the `stimuli` directory:
+
+```python
+# ~/.ethopy/ethopy_plugins/stimuli/custom_stimulus.py
+from ethopy.core.stimulus import Stimulus
+from ethopy.core.logger import stimulus
+
+class CustomStimulus(Stimulus):
+    def __init__(self):
+        super().__init__()
+        # Your initialization code
+    
+    def start(self):
+        # Your stimulus implementation
+        pass
+```
 
 ### Plugin Registration
 
@@ -107,6 +132,14 @@ Plugins are automatically discovered and registered when:
 1. They are placed in a recognized plugin directory
 2. The file name doesn't start with an underscore
 3. The file has a `.py` extension
+
+!!! tip Create new condition tables
+    When your costume module creates new condition tables, make sure to run
+    
+    ```bash
+    ethopy-setup-schema
+    ```
+    to create the new tables.
 
 ## Using Plugins
 
@@ -124,10 +157,14 @@ from ethopy.behaviors.custom_behavior import CustomBehavior
 # Import experiment plugin
 from ethopy.experiments.custom_experiment import CustomExperiment
 
+# Import stimulus plugin
+from ethopy.stimuli.custom_stimulus import CustomStimulus
+
 # Use plugins
 my_module = MyModule()
 behavior = CustomBehavior()
 experiment = CustomExperiment()
+stimulus = CustomStimulus()
 ```
 
 ### Plugin Management

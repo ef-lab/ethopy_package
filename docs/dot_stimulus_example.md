@@ -84,13 +84,12 @@ def prepare(self, curr_cond):
 ```
 
 This method:
-1. Stores the current condition parameters
-2. Sets the background color
-3. Calculates the dot's position and size based on:
+1. Sets the background color
+2. Calculates the dot's position and size based on:
    - Monitor resolution (to maintain aspect ratio)
    - Condition parameters for position and size
    - Conversion from normalized coordinates to actual screen coordinates
-4. Creates a rectangle tuple (left, top, right, bottom) for drawing
+3. Creates a rectangle tuple (left, top, right, bottom) for drawing
 
 ### 3. `start()` method
 

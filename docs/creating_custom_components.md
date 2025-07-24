@@ -1,19 +1,12 @@
 # Creating Custom Components in Ethopy
 
-This guide provides an introduction to extending Ethopy with your own custom components. Ethopy's modular design allows you to create specialized experiments by implementing three core component types:
+This guide provides an introduction to extending Ethopy with custom components. Ethopy's modular design allows you to create specialized experiments by implementing three core component types:
 
 1. **Experiments**: Define the overall experimental flow and state transitions
-2. **Stimuli**: Create visual, auditory, or other sensory presentations
-3. **Behaviors**: Handle animal interactions and responses
+2. **Stimuli**: Create and control visual, auditory, or other sensory presentations 
+3. **Behaviors**: Handle and track animal interactions and responses
 
-## Core Architecture
-
-Ethopy uses a modular architecture where each component has specific responsibilities:
-
-
-- **Experiments** manage the overall flow of your task using a state machine
-- **Stimuli** control what is presented to the subject
-- **Behaviors** track and validate responses
+In addition, the following two core modules can be implemented
 - **Interfaces** communicate with hardware
 - **Loggers** record data to the database
 
@@ -27,7 +20,7 @@ We provide three detailed examples to help you understand how to create your own
 
 The Match Port experiment implements a 2-Alternative Forced Choice (2AFC) task where animals need to choose the correct port based on stimuli. This example demonstrates:
 
-- Creating a complex state machine with multiple states
+- Creating a state machine with multiple states
 - Implementing state transitions based on animal behavior
 - Managing adaptive difficulty through staircase methods
 - Handling reward, punishment, and intertrial periods
@@ -55,7 +48,7 @@ The MultiPort behavior handles interactions with multiple response ports. This e
 These three component types work together to create a complete experimental setup:
 
 1. The **Experiment** defines the sequence of states (e.g., ready → trial → reward)
-2. The **Stimulus** determines what the animal sees or hears in each state
+2. The **Stimulus** determines what the stimulus the animal experiences in each state
 3. The **Behavior** handler tracks and validates the animal's responses
 
 For example, in a typical trial:
