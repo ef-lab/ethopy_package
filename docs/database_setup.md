@@ -68,9 +68,9 @@ ports:
 ```json
 {
     "dj_local_conf": {
-        "database.host": "database_ip",
-        "database.user": "root",
-        "database.password": "your_password",
+        "database.host": "YOUR_DATABASE",
+        "database.user": "ROOT",
+        "database.password": "YOUR_PASSWORD",
         "database.port": 3306
     }
 }
