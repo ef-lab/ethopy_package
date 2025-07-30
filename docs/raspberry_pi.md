@@ -68,7 +68,7 @@ Once activated, proceed with installation.
            "database.host": "YOUR DATABASE",
            "database.user": "USERNAME",
            "database.password": "PASSWORD",
-           "database.port": "PORT",
+           "database.port": 3306,
            "database.reconnect": true,
            "database.enable_python_native_blobs": true
        },

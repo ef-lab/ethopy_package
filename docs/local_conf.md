@@ -18,8 +18,8 @@ When you first start EthoPy, you'll need to create a configuration file. Here's 
 {
     "dj_local_conf": {
         "database.host": "127.0.0.1",
-        "database.user": "root",
-        "database.password": "your_password_here",
+        "database.user": "ROOT",
+        "database.password": "YOUR_PASSWORD_HERE",
         "database.port": 3306
     },
     "source_path": "/path/to/your/data",
@@ -62,7 +62,7 @@ Here's what a full configuration file looks like with all the optional settings:
         "Signal": {"PORT1": "GPIO_pin", "PORT2": "GPIO"},
     },
     "source_path": "LOCAL_RECORDINGS_DIRECTORY",
-    "target_path": "TARGET_RECORDINGS_DIRECTORY",
+    "target_path": "TARGET_RECORDINGS_DIRECTORY"
 }
 ```
 
@@ -76,15 +76,15 @@ This section instructs EthoPy to connect to your MySQL database. Below we analyz
 {
     "dj_local_conf": {
         "database.host": "127.0.0.1",     // Database server address (127.0.0.1 means your computer)
-        "database.user": "root",          // Your database username
-        "database.password": "password",  // Your database password
+        "database.user": "ROOT",          // Your database username
+        "database.password": "PASSWORD",  // Your database password
         "database.port": 3306            // Database port number (3306 is standard for MySQL)
     }
 }
 ```
 
 **What you need to change:**
-- Replace `"password"` with your actual MySQL password
+- Replace `"PASSWORD"` with your actual MySQL password
 - If your database is on another computer, change `"127.0.0.1"` to that computer's address
 
 ### 2. File Paths
@@ -196,8 +196,8 @@ You have MySQL running on your computer and want to store data locally:
 {
     "dj_local_conf": {
         "database.host": "127.0.0.1",
-        "database.user": "root",
-        "database.password": "your_mysql_password",
+        "database.user": "ROOT",
+        "database.password": "YOUR_MYSQL_PASSWORD",
         "database.port": 3306
     },
     "source_path": "/Users/yourname/experiment_data",
@@ -211,9 +211,9 @@ Your database is on a different computer in the lab:
 ```json
 {
     "dj_local_conf": {
-        "database.host": "database_ip",   // Database server address (make sure your db has fix ip)
-        "database.user": "lab_user",
-        "database.password": "lab_password",
+        "database.host": "YOUR DATABASE",   // Database server address (make sure your db has fix ip)
+        "database.user": "LAB_USER",
+        "database.password": "LAB_PASSWORD",
         "database.port": 3306
     },
     "source_path": "/Users/yourname/experiment_data",   
@@ -228,8 +228,8 @@ You're running behavioral experiments with physical hardware:
 {
     "dj_local_conf": {
         "database.host": "127.0.0.1",
-        "database.user": "root",
-        "database.password": "your_password",
+        "database.user": "ROOT",
+        "database.password": "YOUR_PASSWORD",
         "database.port": 3306
     },
     "source_path": "/home/pi/experiment_data",
