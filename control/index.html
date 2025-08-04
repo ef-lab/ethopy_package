@@ -12,22 +12,28 @@
         <meta name="author" content="olakiril, alexevag">
       
       
+        <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/control/">
       
       
+        <link rel="prev" href="../task_setup/">
       
-      <link rel="icon" href="/ethopy_package/assets/EthoPy_logo.png">
+      
+        <link rel="next" href="../logging/">
+      
+      
+      <link rel="icon" href="../assets/EthoPy_logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
-        <title>EthoPy</title>
+        <title>Control Experiment - EthoPy</title>
       
     
     
-      <link rel="stylesheet" href="/ethopy_package/assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
       
         
-        <link rel="stylesheet" href="/ethopy_package/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -46,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="/ethopy_package/assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
-    <script>__md_scope=new URL("/ethopy_package/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -73,6 +79,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#using-of-the-control-table" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -85,9 +96,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/ethopy_package/." title="EthoPy" class="md-header__button md-logo" aria-label="EthoPy" data-md-component="logo">
+    <a href=".." title="EthoPy" class="md-header__button md-logo" aria-label="EthoPy" data-md-component="logo">
       
-  <img src="/ethopy_package/assets/EthoPy_logo.png" alt="logo">
+  <img src="../assets/EthoPy_logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -104,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Control Experiment
             
           </span>
         </div>
@@ -218,7 +229,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/ethopy_package/." class="md-tabs__link">
+        <a href=".." class="md-tabs__link">
           
   
   
@@ -234,11 +245,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/ethopy_package/getting_started/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../getting_started/" class="md-tabs__link">
           
   
   
@@ -258,7 +271,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/ethopy_package/API/logger/" class="md-tabs__link">
+        <a href="../API/logger/" class="md-tabs__link">
           
   
   
@@ -276,7 +289,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/ethopy_package/contributing/" class="md-tabs__link">
+      <a href="../contributing/" class="md-tabs__link">
         
   
   
@@ -336,9 +349,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/ethopy_package/." title="EthoPy" class="md-nav__button md-logo" aria-label="EthoPy" data-md-component="logo">
+    <a href=".." title="EthoPy" class="md-nav__button md-logo" aria-label="EthoPy" data-md-component="logo">
       
-  <img src="/ethopy_package/assets/EthoPy_logo.png" alt="logo">
+  <img src="../assets/EthoPy_logo.png" alt="logo">
 
     </a>
     EthoPy
@@ -406,7 +419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -433,24 +446,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -463,7 +481,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
@@ -477,7 +495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/getting_started/" class="md-nav__link">
+      <a href="../getting_started/" class="md-nav__link">
         
   
   
@@ -500,7 +518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/installation/" class="md-nav__link">
+      <a href="../installation/" class="md-nav__link">
         
   
   
@@ -523,7 +541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/local_conf/" class="md-nav__link">
+      <a href="../local_conf/" class="md-nav__link">
         
   
   
@@ -587,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/creating_custom_components/" class="md-nav__link">
+      <a href="../creating_custom_components/" class="md-nav__link">
         
   
   
@@ -610,7 +628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/match_port_example/" class="md-nav__link">
+      <a href="../match_port_example/" class="md-nav__link">
         
   
   
@@ -633,7 +651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/dot_stimulus_example/" class="md-nav__link">
+      <a href="../dot_stimulus_example/" class="md-nav__link">
         
   
   
@@ -656,7 +674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/multi_port_behavior_example/" class="md-nav__link">
+      <a href="../multi_port_behavior_example/" class="md-nav__link">
         
   
   
@@ -687,7 +705,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/plugin/" class="md-nav__link">
+      <a href="../plugin/" class="md-nav__link">
         
   
   
@@ -710,7 +728,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/task_setup/" class="md-nav__link">
+      <a href="../task_setup/" class="md-nav__link">
         
   
   
@@ -730,10 +748,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/ethopy_package/control/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Control Experiment
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -744,6 +784,113 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#control-table-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Table Fields
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-the-control-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Use the Control Table
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Use the Control Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-service-mode-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Service Mode Operation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-monitoring-experiment-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Monitoring Experiment Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-controlling-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Controlling Experiments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-usage-in-service-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage in Service Mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Details
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -756,7 +903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/logging/" class="md-nav__link">
+      <a href="../logging/" class="md-nav__link">
         
   
   
@@ -779,7 +926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/setup_configuration_idx/" class="md-nav__link">
+      <a href="../setup_configuration_idx/" class="md-nav__link">
         
   
   
@@ -802,7 +949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/database_setup/" class="md-nav__link">
+      <a href="../database_setup/" class="md-nav__link">
         
   
   
@@ -825,7 +972,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/nwb_docs/" class="md-nav__link">
+      <a href="../nwb_docs/" class="md-nav__link">
         
   
   
@@ -848,7 +995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/troubleshooting/" class="md-nav__link">
+      <a href="../troubleshooting/" class="md-nav__link">
         
   
   
@@ -919,7 +1066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/API/logger/" class="md-nav__link">
+      <a href="../API/logger/" class="md-nav__link">
         
   
   
@@ -942,7 +1089,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/API/behavior/" class="md-nav__link">
+      <a href="../API/behavior/" class="md-nav__link">
         
   
   
@@ -965,7 +1112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/API/experiment/" class="md-nav__link">
+      <a href="../API/experiment/" class="md-nav__link">
         
   
   
@@ -988,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/API/interface/" class="md-nav__link">
+      <a href="../API/interface/" class="md-nav__link">
         
   
   
@@ -1011,7 +1158,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/API/stimulus/" class="md-nav__link">
+      <a href="../API/stimulus/" class="md-nav__link">
         
   
   
@@ -1041,7 +1188,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/ethopy_package/contributing/" class="md-nav__link">
+      <a href="../contributing/" class="md-nav__link">
         
   
   
@@ -1095,6 +1242,103 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#control-table-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Table Fields
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-the-control-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Use the Control Table
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Use the Control Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-service-mode-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Service Mode Operation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-monitoring-experiment-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Monitoring Experiment Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-controlling-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Controlling Experiments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-usage-in-service-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage in Service Mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Details
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1106,7 +1350,258 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+
+
+
+                  
+
+
+  
+  
+
+
+<h1 id="using-of-the-control-table">Using of the Control Table<a class="headerlink" href="#using-of-the-control-table" title="Permanent link">&para;</a></h1>
+<p>The Control table is a critical component in EthoPy that manages experiment execution and setup status. It's part of the <code>lab_experiments</code> schema and is used primarily when running EthoPy in Service Mode.</p>
+<h2 id="control-table-fields">Control Table Fields<a class="headerlink" href="#control-table-fields" title="Permanent link">&para;</a></h2>
+<p>The Control table contains the following important fields:</p>
+<ol>
+<li>
+<p><code>setup</code> (primary key)</p>
+<ul>
+<li>The hostname of the machine running the experiment</li>
+<li>Used to identify different experimental setups</li>
+</ul>
+</li>
+<li>
+<p><code>status</code></p>
+<ul>
+<li>Current status of the setup</li>
+<li>Possible values:<ul>
+<li>"ready" - Setup is in Welcome gui and ready for a new experiment</li>
+<li>"running" - Experiment is currently running</li>
+<li>"stop" - Request to stop the current experiment</li>
+<li>"exit" - An error has occured and it is in exit</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>last_ping</code></p>
+<ul>
+<li>Timestamp of the last status update</li>
+<li>Format: "YYYY-MM-DD HH:MM:SS"</li>
+<li>Updated every 5 seconds by default</li>
+</ul>
+</li>
+<li>
+<p><code>queue_size</code></p>
+<ul>
+<li>Number of pending operations in the queue</li>
+<li>Indicates the backlog of data waiting to be written to the database</li>
+</ul>
+</li>
+<li>
+<p><code>trials</code></p>
+<ul>
+<li>Current trial index in the session</li>
+<li>Tracks progress through the experiment</li>
+</ul>
+</li>
+<li>
+<p><code>total_liquid</code></p>
+<ul>
+<li>Total amount of reward delivered in the session</li>
+<li>Used for tracking reward delivery</li>
+</ul>
+</li>
+<li>
+<p><code>state</code></p>
+<ul>
+<li>Current state of the experiment</li>
+<li>Reflects which part of the experiment is currently executing (check experiment states)</li>
+</ul>
+</li>
+<li>
+<p><code>task_idx</code></p>
+<ul>
+<li>Index of the task to be executed</li>
+<li>Used to determine which experiment configuration to load</li>
+</ul>
+</li>
+</ol>
+<h2 id="how-to-use-the-control-table">How to Use the Control Table<a class="headerlink" href="#how-to-use-the-control-table" title="Permanent link">&para;</a></h2>
+<h3 id="1-service-mode-operation">1. Service Mode Operation<a class="headerlink" href="#1-service-mode-operation" title="Permanent link">&para;</a></h3>
+<p>The Control table is automatically updated by the Logger class. You don't need to modify it directly in most cases.</p>
+<h3 id="2-monitoring-experiment-status">2. Monitoring Experiment Status<a class="headerlink" href="#2-monitoring-experiment-status" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Example of checking setup status</span>
+<span class="n">control_entry</span> <span class="o">=</span> <span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">Control</span> <span class="o">&amp;</span> <span class="p">{</span><span class="s1">&#39;setup&#39;</span><span class="p">:</span> <span class="n">setup_name</span><span class="p">})</span><span class="o">.</span><span class="n">fetch1</span><span class="p">()</span>
+<span class="n">current_status</span> <span class="o">=</span> <span class="n">control_entry</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span>
+<span class="n">current_state</span> <span class="o">=</span> <span class="n">control_entry</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="3-controlling-experiments">3. Controlling Experiments<a class="headerlink" href="#3-controlling-experiments" title="Permanent link">&para;</a></h3>
+<p>The user only change the status of the experiment from running to stop and from ready to running. Also can change the animal_id and the task_id.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># To start an experiment on a setup</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">update1</span><span class="p">({</span>
+    <span class="s1">&#39;setup&#39;</span><span class="p">:</span> <span class="n">setup_name</span><span class="p">,</span>
+    <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="s1">&#39;running&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;task_idx&#39;</span><span class="p">:</span> <span class="n">your_task_id</span>
+<span class="p">})</span>
+
+<span class="c1"># To stop an experiment</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">update1</span><span class="p">({</span>
+    <span class="s1">&#39;setup&#39;</span><span class="p">:</span> <span class="n">setup_name</span><span class="p">,</span>
+    <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="s1">&#39;stop&#39;</span>
+<span class="p">})</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="important-notes">Important Notes<a class="headerlink" href="#important-notes" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Automatic Updates</strong>: The Control table is automatically updated by the Logger class every 5 seconds (default update_period = 5000ms)</p>
+</li>
+<li>
+<p><strong>Status Flow</strong>:</p>
+<ul>
+<li>Normal flow: ready -&gt; running</li>
+<li>Stop flow: running -&gt; stop -&gt; ready</li>
+<li>Exit flow: any_status (raised error) -&gt; exit</li>
+</ul>
+</li>
+<li>
+<p><strong>Error Handling</strong>:</p>
+<ul>
+<li>If an error occurs during experiment execution, the state field will show "ERROR!"</li>
+<li>Additional error details will be stored in the notes field</li>
+</ul>
+</li>
+<li>
+<p><strong>Monitoring</strong>:</p>
+<ul>
+<li>The <code>last_ping</code> field can be used to monitor if a setup is active</li>
+<li>If a setup hasn't updated its status for a long time, it might indicate issues</li>
+</ul>
+</li>
+<li>
+<p><strong>Thread Safety</strong>:</p>
+<ul>
+<li>All Control table operations are thread-safe</li>
+<li>Updates are protected by a thread lock to prevent race conditions</li>
+</ul>
+</li>
+</ol>
+<h2 id="example-usage-in-service-mode">Example Usage in Service Mode<a class="headerlink" href="#example-usage-in-service-mode" title="Permanent link">&para;</a></h2>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.core.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">Logger</span>
+
+<span class="c1"># Initialize logger</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">()</span>
+
+<span class="c1"># Logger will automatically:</span>
+<span class="c1"># 1. Create an entry in Control table for this setup</span>
+<span class="c1"># 2. Monitor Control table for status changes</span>
+<span class="c1"># 3. Update setup status every 5 seconds</span>
+<span class="c1"># 4. Execute tasks based on task_idx when status is &#39;running&#39;</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
+<p>The Control table is managed primarily by the Logger class (<code>ethopy.core.logger.Logger</code>). Key implementation details include:</p>
+<ol>
+<li>
+<p><strong>Status Synchronization</strong>:</p>
+<ul>
+<li>The <code>_sync_control_table</code> method runs in a separate thread</li>
+<li>Updates occur every 5 seconds by default</li>
+<li>Uses thread locks to ensure thread-safe operations</li>
+</ul>
+</li>
+<li>
+<p><strong>Setup Information Updates</strong>:
+   <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Example of information updated in each cycle</span>
+<span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;last_ping&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;queue_size&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">(),</span>
+    <span class="s1">&#39;trials&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;trial_idx&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;total_liquid&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_reward</span><span class="p">,</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_state</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p><strong>Error Recovery</strong>:</p>
+<ul>
+<li>The system includes automatic error recovery mechanisms</li>
+<li>Failed database operations are retried with increased priority</li>
+<li>Persistent failures trigger system shutdown with error logging</li>
+</ul>
+</li>
+</ol>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Status Monitoring</strong>:</p>
+<ul>
+<li>Regularly check <code>last_ping</code> to ensure setups are active</li>
+<li>Monitor <code>queue_size</code> to detect potential bottlenecks</li>
+<li>Use <code>state</code> field to track experiment progress</li>
+</ul>
+</li>
+<li>
+<p><strong>Error Handling</strong>:</p>
+<ul>
+<li>Implement monitoring for "ERROR!" states</li>
+<li>Check notes field for detailed error information</li>
+<li>check ethopy.log to track the issue</li>
+</ul>
+</li>
+<li>
+<p><strong>Resource Management</strong>:</p>
+<ul>
+<li>Monitor <code>total_liquid</code> to ensure proper reward delivery</li>
+<li>Track <code>trials</code> to ensure experiment progress</li>
+<li>Use <code>task_idx</code> to verify correct experiment execution</li>
+</ul>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
 
               </article>
             </div>
@@ -1151,10 +1646,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "/ethopy_package/", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "/ethopy_package/assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="/ethopy_package/assets/javascripts/bundle.50899def.min.js"></script>
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
       
     
   </body>
