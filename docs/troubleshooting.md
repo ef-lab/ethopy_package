@@ -47,8 +47,8 @@ This guide addresses common issues you might encounter when using EthoPy and pro
    {
     "dj_local_conf": {
         "database.host": "127.0.0.1",
-        "database.user": "your_username",
-        "database.password": "your_password",
+        "database.user": "YOUR_USERNAME",
+        "database.password": "YOUR_PASSWORD",
         "database.port": 3306,
         "database.reconnect": true,
         "database.use_tls": false,

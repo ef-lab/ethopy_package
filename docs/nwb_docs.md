@@ -150,9 +150,9 @@ The configuration file is a JSON file that specifies how to connect to your Data
 ```json
 {
     "dj_local_conf": {
-        "database.host": "localhost",
-        "database.user": "myuser",
-        "database.password": "mypassword",
+        "database.host": "LOCALHOST",
+        "database.user": "MYUSER",
+        "database.password": "MYPASSWORD",
         "database.port": 3306,
         "database.reconnect": true,
         "database.use_tls": false,
