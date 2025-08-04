@@ -151,6 +151,7 @@ ethopy --task-path grating_test.py --log-console
 The option --task-path is for defining the path of the task. The [example tasks](https://github.com/ef-lab/ethopy_package/tree/main/src/ethopy/task) can run by the file name, for any other experiment you must define the full path.
 Option --log-console is to enable the logging in terminal.
 
+**Simulation Interface (setup_conf_idx 0):** in this task, EthoPy runs with setup_conf_idx 0, which uses the DummyPorts interface for simulation. This allows you to test tasks on your computer without requiring actual hardware. The interface maps keyboard inputs to behavioral ports: **left arrow** activates the left port, **right arrow** activates the right port, and **spacebar** controls proximity detection (press to indicate animal in position, release for off position). This simulation mode enables fast prototyping and testing of behavioral tasks.
 
 You can check all the options of ethopy by:
 ```bash
