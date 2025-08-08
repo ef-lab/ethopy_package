@@ -7,8 +7,8 @@ Configuration tells EthoPy how to connect to your database, where to find your d
 ## Where is the Configuration File?
 
 EthoPy automatically looks for a file called `local_conf.json` in a special folder:
-- **Mac/Linux**: In your home folder under `.ethopy/local_conf.json`
-- **Windows**: In your user folder under `.ethopy\local_conf.json`
+- **Mac/Linux**: In your home folder under `~/.ethopy/local_conf.json`
+- **Windows**: In your user folder under ``%USERPROFILE%\.ethopy\local_conf.json`
 
 ## Quick Start Guide
 
