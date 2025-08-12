@@ -57,7 +57,9 @@ This guide addresses common issues you might encounter when using EthoPy and pro
    }
    ```
 
-2. Make sure MySQL is running:
+2. check if Database is running (advanced):
+
+Make sure MySQL is running in the database server:
    ```bash
    # For Linux/Mac
    sudo service mysql status
@@ -67,7 +69,7 @@ This guide addresses common issues you might encounter when using EthoPy and pro
    # For Windows (check in services)
    ```
 
-3. Test connection with MySQL client:
+Test connection with MySQL client:
    ```bash
    mysql -u your_username -p
    ```
