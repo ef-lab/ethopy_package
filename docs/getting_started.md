@@ -114,7 +114,7 @@ This command adds your user to the docker group, so you can run Docker commands 
    {
        "dj_local_conf": {
            "database.host": "127.0.0.1",
-           "database.user": "root",
+           "database.user": "ROOT",
            "database.password": ...,
            "database.port": 3306
        },
@@ -185,6 +185,6 @@ Now that you have a basic understanding of EthoPy:
 3. Explore the [Plugin System](plugin.md) to extend functionality
 4. Dive deeper into [Local Configuration](local_conf.md) for advanced settings
 5. Understand [setup configuration index](setup_configuration_idx.md)
-6. Learn more about [Database Setup](database.md)
+6. Learn more about [Database Setup](database_setup.md)
 7. Study the [API Reference](API/logger.md) for detailed documentation
 8. Check [Contributing](contributing.md) if you want to help improve EthoPy
