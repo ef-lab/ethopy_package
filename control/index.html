@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
@@ -816,54 +816,12 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How to Use the Control Table">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-service-mode-operation" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Service Mode Operation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-monitoring-experiment-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Monitoring Experiment Status
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-controlling-experiments" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Controlling Experiments
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
   <a href="#important-notes" class="md-nav__link">
     <span class="md-ellipsis">
       Important Notes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-usage-in-service-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example Usage in Service Mode
     </span>
   </a>
   
@@ -1267,54 +1225,12 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How to Use the Control Table">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-service-mode-operation" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Service Mode Operation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-monitoring-experiment-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Monitoring Experiment Status
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-controlling-experiments" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Controlling Experiments
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
   <a href="#important-notes" class="md-nav__link">
     <span class="md-ellipsis">
       Important Notes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-usage-in-service-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example Usage in Service Mode
     </span>
   </a>
   
@@ -1425,24 +1341,31 @@
 <p><code>task_idx</code></p>
 <ul>
 <li>Index of the task to be executed</li>
-<li>Used to determine which experiment configuration to load</li>
+</ul>
+</li>
+<li>
+<p><code>start_time</code></p>
+<ul>
+<li>Scheduled start time for the experiment session</li>
+<li>Format: "HH:MM:SS" (e.g., "09:00:00")</li>
+<li>Default: "00:00:00" (midnight)</li>
+<li>Used to control when experiments can begin running</li>
+</ul>
+</li>
+<li>
+<p><code>stop_time</code></p>
+<ul>
+<li>Scheduled stop time for the experiment session</li>
+<li>Format: "HH:MM:SS" (e.g., "17:00:00") </li>
+<li>Default: "23:59:00" (11:59 PM)</li>
+<li>Used to control when experiments should go to stop/sleep</li>
+<li>Must be defined if <code>start_time</code> is specified</li>
 </ul>
 </li>
 </ol>
 <h2 id="how-to-use-the-control-table">How to Use the Control Table<a class="headerlink" href="#how-to-use-the-control-table" title="Permanent link">&para;</a></h2>
-<h3 id="1-service-mode-operation">1. Service Mode Operation<a class="headerlink" href="#1-service-mode-operation" title="Permanent link">&para;</a></h3>
 <p>The Control table is automatically updated by the Logger class. You don't need to modify it directly in most cases.</p>
-<h3 id="2-monitoring-experiment-status">2. Monitoring Experiment Status<a class="headerlink" href="#2-monitoring-experiment-status" title="Permanent link">&para;</a></h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Example of checking setup status</span>
-<span class="n">control_entry</span> <span class="o">=</span> <span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">Control</span> <span class="o">&amp;</span> <span class="p">{</span><span class="s1">&#39;setup&#39;</span><span class="p">:</span> <span class="n">setup_name</span><span class="p">})</span><span class="o">.</span><span class="n">fetch1</span><span class="p">()</span>
-<span class="n">current_status</span> <span class="o">=</span> <span class="n">control_entry</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span>
-<span class="n">current_state</span> <span class="o">=</span> <span class="n">control_entry</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="3-controlling-experiments">3. Controlling Experiments<a class="headerlink" href="#3-controlling-experiments" title="Permanent link">&para;</a></h3>
-<p>The user only change the status of the experiment from running to stop and from ready to running. Also can change the animal_id and the task_id.</p>
+<p>The user only change the status of the experiment from running to stop and from ready to running. The user can aslo change the animal_id, the task_id, start_time and stop_time.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1502,27 +1425,6 @@
 </ul>
 </li>
 </ol>
-<h2 id="example-usage-in-service-mode">Example Usage in Service Mode<a class="headerlink" href="#example-usage-in-service-mode" title="Permanent link">&para;</a></h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.core.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">Logger</span>
-
-<span class="c1"># Initialize logger</span>
-<span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">()</span>
-
-<span class="c1"># Logger will automatically:</span>
-<span class="c1"># 1. Create an entry in Control table for this setup</span>
-<span class="c1"># 2. Monitor Control table for status changes</span>
-<span class="c1"># 3. Update setup status every 5 seconds</span>
-<span class="c1"># 4. Execute tasks based on task_idx when status is &#39;running&#39;</span>
-</code></pre></div></td></tr></table></div>
 <h2 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
 <p>The Control table is managed primarily by the Logger class (<code>ethopy.core.logger.Logger</code>). Key implementation details include:</p>
 <ol>
@@ -1646,10 +1548,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
   </body>

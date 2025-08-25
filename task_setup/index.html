@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
@@ -859,6 +859,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#task-identification-and-database-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task Identification and Database Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task Identification and Database Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-task_idx-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      The task_idx System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The task_idx System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-task_idx-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How task_idx Works
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#creating-tasks" class="md-nav__link">
     <span class="md-ellipsis">
       Creating Tasks
@@ -1453,6 +1492,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#task-identification-and-database-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task Identification and Database Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task Identification and Database Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-task_idx-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      The task_idx System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The task_idx System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-task_idx-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How task_idx Works
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#creating-tasks" class="md-nav__link">
     <span class="md-ellipsis">
       Creating Tasks
@@ -1715,6 +1793,28 @@
 <li><strong>Run the script</strong> to execute the experiment.</li>
 </ol>
 <p>By following these steps, you can quickly set up an Ethopy experiment with minimal manual configuration.</p>
+<h2 id="task-identification-and-database-integration">Task Identification and Database Integration<a class="headerlink" href="#task-identification-and-database-integration" title="Permanent link">&para;</a></h2>
+<h3 id="the-task_idx-system">The <code>task_idx</code> System<a class="headerlink" href="#the-task_idx-system" title="Permanent link">&para;</a></h3>
+<p>Ethopy uses a <code>task_idx</code> (task index) system to uniquely identify and manage experiment configurations. This index serves as the primary key linking tasks across the Control and Task database tables.</p>
+<h4 id="how-task_idx-works">How <code>task_idx</code> Works<a class="headerlink" href="#how-task_idx-works" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Task Table Storage</strong>:</li>
+<li>Each experimental configuration is stored in the <code>Task</code> table with a unique <code>task_idx</code></li>
+<li>
+<p>The <code>Task</code> table contains:</p>
+<ul>
+<li><code>task_idx</code> (primary key): Unique identifier for the task</li>
+<li><code>path</code>: The actual task file</li>
+<li><code>description</code>: Human-readable description of the task</li>
+<li><code>timestamp</code>: The timestamp of the task creation</li>
+</ul>
+</li>
+<li>
+<p><strong>Control Table Usage</strong>:</p>
+</li>
+<li>The <code>Control</code> table uses <code>task_idx</code> to specify which experiment configuration to run</li>
+<li>When you set <code>task_idx</code> in the Control table, the system loads the corresponding task configuration file</li>
+</ol>
 <h2 id="creating-tasks">Creating Tasks<a class="headerlink" href="#creating-tasks" title="Permanent link">&para;</a></h2>
 <h3 id="1-session-parameters">1. Session Parameters<a class="headerlink" href="#1-session-parameters" title="Permanent link">&para;</a></h3>
 <p>Session parameters control the overall experiment behavior:</p>
@@ -2006,10 +2106,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
   </body>
