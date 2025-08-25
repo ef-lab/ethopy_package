@@ -41,6 +41,8 @@ The Control table contains the following important fields:
 
 8. `task_idx`
       - Index of the task to be executed
+      - References a specific task configuration path stored in the Task table at lab_experiment
+      - The system automatically loads the corresponding task configuration when the session starts
 
 9. `start_time`
       - Scheduled start time for the experiment session
