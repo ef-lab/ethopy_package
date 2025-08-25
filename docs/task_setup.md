@@ -89,6 +89,27 @@ After generating the template:
 By following these steps, you can quickly set up an Ethopy experiment with minimal manual configuration.
 
 
+## Task Identification and Database Integration
+
+### The `task_idx` System
+
+Ethopy uses a `task_idx` (task index) system to uniquely identify and manage experiment configurations. This index serves as the primary key linking tasks across the Control and Task database tables.
+
+#### How `task_idx` Works
+
+1. **Task Table Storage**:
+   - Each experimental configuration is stored in the `Task` table with a unique `task_idx`
+   - The `Task` table contains:
+     - `task_idx` (primary key): Unique identifier for the task
+     - `path`: The actual task file
+     - `description`: Human-readable description of the task
+     - `timestamp`: The timestamp of the task creation
+
+2. **Control Table Usage**:
+   - The `Control` table uses `task_idx` to specify which experiment configuration to run
+   - When you set `task_idx` in the Control table, the system loads the corresponding task configuration file
+
+
 ## Creating Tasks
 
 ### 1. Session Parameters
