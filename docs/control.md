@@ -41,25 +41,24 @@ The Control table contains the following important fields:
 
 8. `task_idx`
       - Index of the task to be executed
-      - Used to determine which experiment configuration to load
+
+9. `start_time`
+      - Scheduled start time for the experiment session
+      - Format: "HH:MM:SS" (e.g., "09:00:00")
+      - Default: "00:00:00" (midnight)
+      - Used to control when experiments can begin running
+
+10. `stop_time`
+      - Scheduled stop time for the experiment session
+      - Format: "HH:MM:SS" (e.g., "17:00:00") 
+      - Default: "23:59:00" (11:59 PM)
+      - Used to control when experiments should go to stop/sleep
+      - Must be defined if `start_time` is specified
 
 ## How to Use the Control Table
-
-### 1. Service Mode Operation
-
 The Control table is automatically updated by the Logger class. You don't need to modify it directly in most cases.
 
-### 2. Monitoring Experiment Status
-
-```python
-# Example of checking setup status
-control_entry = (experiment.Control & {'setup': setup_name}).fetch1()
-current_status = control_entry['status']
-current_state = control_entry['state']
-```
-
-### 3. Controlling Experiments
-The user only change the status of the experiment from running to stop and from ready to running. Also can change the animal_id and the task_id.
+The user only change the status of the experiment from running to stop and from ready to running. The user can aslo change the animal_id, the task_id, start_time and stop_time.
 
 ```python
 # To start an experiment on a setup
@@ -97,20 +96,6 @@ experiment.Control.update1({
       - All Control table operations are thread-safe
       - Updates are protected by a thread lock to prevent race conditions
 
-## Example Usage in Service Mode
-
-```python
-from ethopy.core.logger import Logger
-
-# Initialize logger
-logger = Logger()
-
-# Logger will automatically:
-# 1. Create an entry in Control table for this setup
-# 2. Monitor Control table for status changes
-# 3. Update setup status every 5 seconds
-# 4. Execute tasks based on task_idx when status is 'running'
-```
 
 ## Implementation Details
 
