@@ -44,8 +44,8 @@ pip install git+https://github.com/ef-lab/ethopy_package
 For development installation:
 
 ```bash
-git clone https://github.com/ef-lab/ethopy_package/.git
-cd ethopy
+git clone https://github.com/ef-lab/ethopy_package.git
+cd ethopy_package
 pip install -e ".[dev,docs]"
 ```
 
