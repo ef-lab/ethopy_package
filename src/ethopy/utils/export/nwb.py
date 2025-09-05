@@ -33,11 +33,13 @@ logger = logging.getLogger(__name__)
 
 class NWBExportError(Exception):
     """Custom exception for NWB export errors."""
+
     pass
 
 
 class SessionClasses(NamedTuple):
     """Container for session class information."""
+
     stimulus: np.ndarray
     behavior: np.ndarray
     experiment: np.ndarray
@@ -45,6 +47,7 @@ class SessionClasses(NamedTuple):
 
 class TrialData(NamedTuple):
     """Container for processed trial data."""
+
     pretrial_times: List[float]
     intertrial_times: List[float]
     valid_indices: List[int]
@@ -76,15 +79,30 @@ def _get_session_timestamp(experiment: Any, session_key: Dict[str, Any]) -> date
     return tmst
 
 
-def milliseconds_to_seconds(milliseconds: Union[float, np.ndarray, pd.Series]) -> Union[float, np.ndarray, pd.Series]:
+def milliseconds_to_seconds(
+    milliseconds: Union[float, np.ndarray, pd.Series],
+) -> Union[float, np.ndarray, pd.Series]:
     """Convert milliseconds to seconds."""
     return milliseconds / 1000.0
 
 
-def get_non_empty_children(table: dj.Table) -> List[dj.Table]:
+def get_non_empty_children(table: dj.Table, session_key: Dict[str, Any]) -> List[dj.Table]:
     """Get all non-empty children of a DataJoint table."""
     children = table.children(as_objects=True)
-    return [child for child in children if len(child) > 0]
+    return [child & session_key for child in children if len(child & session_key) > 0]
+
+
+def parse_compound_stimulus(stimulus_class: str) -> List[str]:
+    """
+    Parse compound stimulus names separated by underscores.
+    
+    Args:
+        stimulus_class: Stimulus class name (e.g., 'Tones_Grating')
+    
+    Returns:
+        List of individual stimulus components (e.g., ['Tones', 'Grating'])
+    """
+    return stimulus_class.split('_')
 
 
 def combine_children_tables(children: List[dj.Table]) -> dj.Table:
@@ -92,7 +110,9 @@ def combine_children_tables(children: List[dj.Table]) -> dj.Table:
     return reduce(lambda x, y: x * y, children)
 
 
-def get_stimulus_conditions(stimulus_module: Any, session_key: Dict[str, Any], class_name: str) -> dj.Table:
+def get_stimulus_conditions(
+    stimulus_module: Any, session_key: Dict[str, Any], class_name: str
+) -> dj.Table:
     """
     Fetch stimulus conditions for a given class.
 
@@ -108,7 +128,78 @@ def get_stimulus_conditions(stimulus_module: Any, session_key: Dict[str, Any], c
     return (stimulus_module.StimCondition.Trial & session_key) * stim_class
 
 
-def get_experiment_conditions(experiment_module: Any, session_key: Dict[str, Any], class_name: str) -> dj.Table:
+def validate_stimulus_components(stimulus_module: Any, class_name: str) -> Tuple[bool, List[str]]:
+    """
+    Validate that all components of a compound stimulus exist in the stimulus module.
+    
+    Args:
+        stimulus_module: DataJoint stimulus module
+        class_name: Name of the compound stimulus class (e.g., 'Tones_Grating')
+    
+    Returns:
+        Tuple of (all_exist: bool, missing_components: List[str])
+    """
+    stimulus_components = parse_compound_stimulus(class_name)
+    missing_components = []
+    
+    for component in stimulus_components:
+        try:
+            getattr(stimulus_module, component)
+            logger.debug(f"Stimulus component '{component}' found in module")
+        except AttributeError:
+            missing_components.append(component)
+            logger.error(f"Stimulus component '{component}' not found in stimulus module")
+    
+    all_exist = len(missing_components) == 0
+    return all_exist, missing_components
+
+
+def get_multiple_stimulus_conditions(
+    stimulus_module: Any, session_key: Dict[str, Any], class_name: str
+) -> Dict[str, dj.Table]:
+    """
+    Fetch stimulus conditions for compound stimulus classes (e.g., 'Tones_Grating').
+    
+    Args:
+        stimulus_module: DataJoint stimulus module
+        session_key: Primary key identifying the session
+        class_name: Name of the compound stimulus class (e.g., 'Tones_Grating')
+    
+    Returns:
+        Dictionary mapping component names to their condition tables
+    
+    Raises:
+        NWBExportError: If any stimulus components are missing from the database
+    """
+    # First validate that all components exist
+    all_exist, missing_components = validate_stimulus_components(stimulus_module, class_name)
+    
+    if not all_exist:
+        raise NWBExportError(
+            f"Missing stimulus components in database: {missing_components}. "
+            f"Cannot export compound stimulus '{class_name}'"
+        )
+    
+    stimulus_components = parse_compound_stimulus(class_name)
+    conditions_dict = {}
+    
+    for component in stimulus_components:
+        component_conditions = get_stimulus_conditions(stimulus_module, session_key, component)
+        if len(component_conditions) > 0:
+            conditions_dict[component] = component_conditions
+            logger.info(f"Found {len(component_conditions)} conditions for stimulus component '{component}'")
+        else:
+            logger.warning(f"No conditions found for stimulus component '{component}' in session")
+    
+    if not conditions_dict:
+        logger.error(f"No stimulus conditions found for any component of '{class_name}' in session")
+    
+    return conditions_dict
+
+
+def get_experiment_conditions(
+    experiment_module: Any, session_key: Dict[str, Any], class_name: str
+) -> dj.Table:
     """
     Fetch experiment conditions for a given class.
 
@@ -121,10 +212,14 @@ def get_experiment_conditions(experiment_module: Any, session_key: Dict[str, Any
         DataJoint table with experiment conditions
     """
     exp_class = getattr(experiment_module.Condition, class_name)
-    return ((experiment_module.Trial() & session_key) * experiment_module.Condition) * exp_class
+    return (
+        (experiment_module.Trial() & session_key) * experiment_module.Condition
+    ) * exp_class
 
 
-def get_behavior_conditions(behavior_module: Any, session_key: Dict[str, Any], class_name: str) -> dj.Table:
+def get_behavior_conditions(
+    behavior_module: Any, session_key: Dict[str, Any], class_name: str
+) -> dj.Table:
     """
     Fetch behavior conditions for a given class.
 
@@ -288,9 +383,7 @@ def process_trial_states(experiment: Any, session_key: Dict[str, Any]) -> TrialD
         TrialData containing pretrial times, intertrial times, and valid trial indices
     """
     states_df = (
-        (experiment.Trial.StateOnset & session_key)
-        .fetch(format="frame")
-        .reset_index()
+        (experiment.Trial.StateOnset & session_key).fetch(format="frame").reset_index()
     )
 
     if states_df.empty:
@@ -316,6 +409,20 @@ def process_trial_states(experiment: Any, session_key: Dict[str, Any]) -> TrialD
         logger.warning("No trials found with both PreTrial and InterTrial states")
         return TrialData([], [], [])
 
+    # Log problematic trials (those missing timing data)
+    incomplete_trials = trial_states_pivot[trial_states_pivot.isnull().any(axis=1)]
+    if not incomplete_trials.empty:
+        logger.warning(
+            f"Found {len(incomplete_trials)} trials with incomplete timing data:"
+        )
+        for trial_idx, row in incomplete_trials.iterrows():
+            missing_states = []
+            if pd.isna(row.get("PreTrial")):
+                missing_states.append("PreTrial")
+            if pd.isna(row.get("InterTrial")):
+                missing_states.append("InterTrial")
+            logger.warning(f"  Trial {trial_idx}: missing states {missing_states}")
+
     # Convert to seconds and extract times
     pretrial_times = milliseconds_to_seconds(complete_trials["PreTrial"]).tolist()
     intertrial_times = milliseconds_to_seconds(complete_trials["InterTrial"]).tolist()
@@ -324,6 +431,9 @@ def process_trial_states(experiment: Any, session_key: Dict[str, Any]) -> TrialD
     # Log processing results
     total_trials = len(states_df["trial_idx"].unique())
     logger.info(f"Processed {len(complete_trials)}/{total_trials} trials")
+    logger.info(
+        f"Valid trial indices: {sorted(valid_trial_indices)[:10]}{'...' if len(valid_trial_indices) > 10 else ''}"
+    )
 
     return TrialData(pretrial_times, intertrial_times, valid_trial_indices)
 
@@ -344,13 +454,15 @@ def add_trials_to_nwb(
         keep_columns: List of columns to keep in the trial table
     """
     if len(trial_hash) == 0:
-        logger.warning("Trial hashes are mising check experiment,condition and stimulus hashes ")
+        logger.warning(
+            "Trial hashes are mising check experiment,condition and stimulus hashes "
+        )
         return
 
     if not trial_data.valid_indices:
         logger.warning("No valid trial indices provided")
         return
-    logger.info(f'trial_data {len(trial_data)}, {len(trial_data.pretrial_times)}')
+    logger.info(f"trial_data {len(trial_data)}, {len(trial_data.pretrial_times)}")
 
     # Add trial columns
     trial_columns = {
@@ -365,24 +477,66 @@ def add_trials_to_nwb(
     # Add trial data
     all_columns = set(trial_hash.heading.names)
     columns_to_remove = all_columns - set(keep_columns)
-    logging.info(f"all_columns {all_columns}")
+    logger.info(f"all_columns {all_columns}")
 
-    for i, trial in enumerate(trial_hash.fetch(as_dict=True)):
-        # if i >= len(trial_data.pretrial_times) or i >= len(trial_data.intertrial_times):
-        #     logger.warning(f"Timing data missing for trial {i}")
-        #     continue
+    # Create a mapping from trial_idx to timing data indices for efficient lookup
+    valid_indices_to_timing_idx = {
+        trial_idx: i for i, trial_idx in enumerate(trial_data.valid_indices)
+    }
 
-        trial.update({
-            "start_time": float(trial_data.pretrial_times[i]),
-            "stop_time": float(trial_data.intertrial_times[i]),
-            "id": trial_data.valid_indices[i]
-        })
+    # Get all trial_idx values from trial_hash for debugging
+    trial_hash_indices = [t.get("trial_idx") for t in trial_hash.fetch(as_dict=True)]
+    logger.info(
+        f"Trial hash contains {len(trial_hash_indices)} trials with indices: {sorted(trial_hash_indices)[:10]}{'...' if len(trial_hash_indices) > 10 else ''}"
+    )
+    logger.info(
+        f"Timing data available for {len(trial_data.valid_indices)} trials with indices: {sorted(trial_data.valid_indices)[:10]}{'...' if len(trial_data.valid_indices) > 10 else ''}"
+    )
+
+    # Find mismatches between trial_hash and timing data
+    missing_timing = set(trial_hash_indices) - set(trial_data.valid_indices)
+    missing_trials = set(trial_data.valid_indices) - set(trial_hash_indices)
+
+    if missing_timing:
+        logger.warning(
+            f"Trials in trial_hash without timing data: {sorted(missing_timing)[:10]}{'...' if len(missing_timing) > 10 else ''} (total: {len(missing_timing)})"
+        )
+    if missing_trials:
+        logger.info(
+            f"Trials with timing data not in trial_hash: {sorted(missing_trials)[:10]}{'...' if len(missing_trials) > 10 else ''} (total: {len(missing_trials)})"
+        )
+
+    trials_added = 0
+    trials_skipped = 0
+    for trial in trial_hash.fetch(as_dict=True):
+        trial_idx = trial.get("trial_idx")
+
+        # Find corresponding timing data by trial_idx
+        timing_idx = valid_indices_to_timing_idx.get(trial_idx)
+
+        if timing_idx is None:
+            logger.warning(f"No timing data found for trial_idx {trial_idx}, skipping")
+            trials_skipped += 1
+            continue
+
+        trial.update(
+            {
+                "start_time": float(trial_data.pretrial_times[timing_idx]),
+                "stop_time": float(trial_data.intertrial_times[timing_idx]),
+                "id": trial_idx,
+            }
+        )
 
         # Remove unwanted columns
         for col in columns_to_remove:
             trial.pop(col, None)
 
         nwbfile.add_trial(**trial)
+        trials_added += 1
+
+    logger.info(
+        f"Added {trials_added} trials to NWB file, skipped {trials_skipped} trials due to missing timing data"
+    )
 
 
 def add_conditions_module(
@@ -409,9 +563,13 @@ def add_conditions_module(
     )
 
     # Helper function to add condition table
-    def add_condition_table(conditions: dj.Table, name: str, description: str, columns_to_remove: List[str]):
+    def add_condition_table(
+        conditions: dj.Table, name: str, description: str, columns_to_remove: List[str]
+    ):
         df = conditions.fetch(format="frame").reset_index()
-        columns_of_interest = [col for col in conditions.heading.names if col not in columns_to_remove]
+        columns_of_interest = [
+            col for col in conditions.heading.names if col not in columns_to_remove
+        ]
         unique_combinations = df[columns_of_interest].drop_duplicates()
 
         if unique_combinations.empty:
@@ -422,7 +580,10 @@ def add_conditions_module(
 
         # Add columns
         trial_columns = {
-            tag: {"name": tag, "description": conditions.heading.attributes[tag].comment}
+            tag: {
+                "name": tag,
+                "description": conditions.heading.attributes[tag].comment,
+            }
             for tag in conditions.heading.names
             if tag in columns_of_interest
         }
@@ -441,15 +602,15 @@ def add_conditions_module(
     # Add condition tables
     skip_cols = ["animal_id", "session", "trial_idx", "time"]
 
-    add_condition_table(
-        beh_conditions, "Behavior", class_names.behavior[0], skip_cols
-    )
+    add_condition_table(beh_conditions, "Behavior", class_names.behavior[0], skip_cols)
     add_condition_table(
         exp_conditions, "Experiment", class_names.experiment[0], skip_cols
     )
     add_condition_table(
-        stim_conditions, "Stimulus", class_names.stimulus[0],
-        skip_cols + ["start_time", "end_time"]
+        stim_conditions,
+        "Stimulus",
+        class_names.stimulus[0],
+        skip_cols + ["start_time", "end_time"],
     )
 
 
@@ -458,7 +619,7 @@ def create_dynamic_table_from_dj_table(
     table_name: str,
     description: str,
     skip_columns: Optional[List[str]] = None,
-    id_column: str = "trial_idx"
+    id_column: str = "trial_idx",
 ) -> DynamicTable:
     """
     Create a PyNWB DynamicTable from a DataJoint table.
@@ -473,6 +634,7 @@ def create_dynamic_table_from_dj_table(
     Returns:
         DynamicTable object
     """
+    logger.debug(f"Creating dynamic table: {table_name, table}")
     skip_columns = skip_columns or []
 
     # Create dynamic table
@@ -490,13 +652,14 @@ def create_dynamic_table_from_dj_table(
     }
 
     for column_info in trial_columns.values():
+        logger.debug(f"Adding column: {column_info['name'], column_info['description']}")
         dynamic_table.add_column(
-            name=column_info["name"],
-            description=column_info["description"]
+            name=column_info["name"], description=column_info["description"]
         )
 
     # Add rows
-    for trial in table.fetch(as_dict=True):
+    _table = table.fetch(as_dict=True)
+    for trial in _table:
         trial["id"] = trial.get(id_column, len(dynamic_table))
         for key in skip_columns:
             trial.pop(key, None)
@@ -505,7 +668,9 @@ def create_dynamic_table_from_dj_table(
     return dynamic_table
 
 
-def add_activity_data(nwbfile: NWBFile, behavior_module: Any, session_key: Dict[str, Any]) -> None:
+def add_activity_data(
+    nwbfile: NWBFile, behavior_module: Any, session_key: Dict[str, Any]
+) -> None:
     """
     Add activity data to NWB file.
 
@@ -519,19 +684,21 @@ def add_activity_data(nwbfile: NWBFile, behavior_module: Any, session_key: Dict[
         name="Activity data", description="Custom behavioral metadata"
     )
 
-    activity_tables = get_non_empty_children(behavior_module.Activity & session_key)
+    activity_tables = get_non_empty_children(behavior_module.Activity, session_key)
 
     for table in activity_tables:
         dynamic_table = create_dynamic_table_from_dj_table(
             table,
             table._table_name,
             str(table._heading),
-            skip_columns=["animal_id", "session", "start_time", "stop_time"]
+            skip_columns=["animal_id", "session", "start_time", "stop_time"],
         )
         activity_module.add(dynamic_table)
 
 
-def add_reward_data(nwbfile: NWBFile, behavior_module: Any, session_key: Dict[str, Any]) -> None:
+def add_reward_data(
+    nwbfile: NWBFile, behavior_module: Any, session_key: Dict[str, Any]
+) -> None:
     """
     Add reward delivery data to NWB file.
 
@@ -596,11 +763,30 @@ def add_stimulus_data(
     nwbfile.add_stimulus(table)
 
 
+def add_multiple_stimulus_data(
+    nwbfile: NWBFile, stimulus_conditions_dict: Dict[str, dj.Table]
+) -> None:
+    """
+    Add multiple stimulus components to NWB file for compound stimuli.
+    
+    Args:
+        nwbfile: NWB file object
+        stimulus_conditions_dict: Dictionary mapping component names to their condition tables
+    """
+    if not stimulus_conditions_dict:
+        logger.warning("No stimulus components found")
+        return
+    
+    for component_name, stim_conditions in stimulus_conditions_dict.items():
+        logger.info(f"Adding stimulus data for component: {component_name}")
+        add_stimulus_data(nwbfile, stim_conditions, component_name)
+
+
 def add_states_data(
     nwbfile: NWBFile,
     experiment_module: Any,
     session_key: Dict[str, Any],
-    valid_trial_indices: List[int]
+    valid_trial_indices: List[int],
 ) -> None:
     """
     Add states data to NWB file.
@@ -630,7 +816,7 @@ def add_states_data(
         states_table,
         "States Onset",
         str(states_table._heading),
-        skip_columns=["animal_id", "session"]
+        skip_columns=["animal_id", "session"],
     )
 
     states_module.add(dynamic_table)
@@ -652,7 +838,9 @@ def save_nwb_file(nwbfile: NWBFile, filename: str) -> None:
     print(f"NWB file saved as: {filename}")
 
 
-def setup_datajoint_connection(config_path: Optional[str] = None) -> Tuple[Any, Any, Any, Any, Any]:
+def setup_datajoint_connection(
+    config_path: Optional[str] = None,
+) -> Tuple[Any, Any, Any, Any, Any]:
     """
     Set up DataJoint connection and create virtual modules.
 
@@ -699,7 +887,7 @@ def get_session_classes(experiment: Any, session_key: Dict[str, Any]) -> Session
     return SessionClasses(
         stimulus=np.unique(session_classes.fetch("stimulus_class")),
         behavior=np.unique(session_classes.fetch("behavior_class")),
-        experiment=np.unique(session_classes.fetch("experiment_class"))
+        experiment=np.unique(session_classes.fetch("experiment_class")),
     )
 
 
@@ -754,7 +942,7 @@ def export_to_nwb(
     # Additional options
     overwrite: bool = False,
     return_nwb_object: bool = False,
-    config_path: Optional[str] = None
+    config_path: Optional[str] = None,
 ) -> Union[str, Tuple[str, NWBFile]]:
     """
     Export experimental data from DataJoint tables to NWB format.
@@ -838,9 +1026,34 @@ def export_to_nwb(
             logger.info(f"Processing {len(trial_data.valid_indices)} valid trials")
 
             # Get conditions
-            exp_conditions = get_experiment_conditions(experiment, session_key, class_names.experiment[0])
-            stim_conditions = get_stimulus_conditions(stimulus, session_key, class_names.stimulus[0])
-            beh_conditions = get_behavior_conditions(behavior, session_key, class_names.behavior[0])
+            exp_conditions = get_experiment_conditions(
+                experiment, session_key, class_names.experiment[0]
+            )
+            
+            # Check if stimulus is compound (contains underscore)
+            stimulus_class = class_names.stimulus[0]
+            is_compound_stimulus = '_' in stimulus_class
+            
+            if is_compound_stimulus:
+                logger.info(f"Detected compound stimulus: {stimulus_class}")
+                stimulus_conditions_dict = get_multiple_stimulus_conditions(
+                    stimulus, session_key, stimulus_class
+                )
+                # For trial hash, use the first available stimulus conditions
+                if stimulus_conditions_dict:
+                    stim_conditions = next(iter(stimulus_conditions_dict.values()))
+                else:
+                    logger.error(f"No stimulus conditions found for any component of {stimulus_class}")
+                    stim_conditions = None
+            else:
+                stim_conditions = get_stimulus_conditions(
+                    stimulus, session_key, stimulus_class
+                )
+                stimulus_conditions_dict = {stimulus_class: stim_conditions}
+            
+            beh_conditions = get_behavior_conditions(
+                behavior, session_key, class_names.behavior[0]
+            )
 
             # Create trial hash and add trials
             trial_hash = (
@@ -851,22 +1064,37 @@ def export_to_nwb(
             trial_hash = trial_hash & f"trial_idx<={max(trial_data.valid_indices)}"
 
             keep_columns = [
-                "trial_idx", "stimulus_class", "behavior_class",
-                "experiment_class", "cond_hash", "stim_hash", "beh_hash"
+                "trial_idx",
+                "stimulus_class",
+                "behavior_class",
+                "experiment_class",
+                "cond_hash",
+                "stim_hash",
+                "beh_hash",
             ]
 
             add_trials_to_nwb(nwbfile, trial_hash, trial_data, keep_columns)
 
             # Add conditions metadata
-            add_conditions_module(nwbfile, exp_conditions, stim_conditions, beh_conditions, class_names)
+            add_conditions_module(
+                nwbfile, exp_conditions, stim_conditions, beh_conditions, class_names
+            )
 
             # Add stimulus data
-            add_stimulus_data(nwbfile, stim_conditions, class_names.stimulus[0])
+            if is_compound_stimulus and stimulus_conditions_dict:
+                logger.info(f"Adding multiple stimulus components: {list(stimulus_conditions_dict.keys())}")
+                add_multiple_stimulus_data(nwbfile, stimulus_conditions_dict)
+            elif stim_conditions is not None:
+                add_stimulus_data(nwbfile, stim_conditions, stimulus_class)
+            else:
+                logger.warning("No stimulus data to add")
 
             # Add states data
             add_states_data(nwbfile, experiment, session_key, trial_data.valid_indices)
         else:
-            logger.warning("No valid trials found with both PreTrial and InterTrial states")
+            logger.warning(
+                "No valid trials found with both PreTrial and InterTrial states"
+            )
 
         # Add activity and reward data
         add_activity_data(nwbfile, behavior, session_key)
@@ -888,7 +1116,7 @@ def export_to_nwb(
 def batch_export_to_nwb(
     animal_session_list: List[Tuple[int, int]],
     output_directory: str = "nwb_exports",
-    **kwargs
+    **kwargs,
 ) -> List[str]:
     """
     Export multiple sessions to NWB format in batch.
@@ -926,7 +1154,9 @@ def batch_export_to_nwb(
             logger.error(f"Failed: Animal {animal_id}, Session {session_id} - {e}")
 
     # Summary
-    logger.info(f"Batch Export Summary: {len(exported_files)} succeeded, {len(failed_exports)} failed")
+    logger.info(
+        f"Batch Export Summary: {len(exported_files)} succeeded, {len(failed_exports)} failed"
+    )
 
     if failed_exports:
         logger.error("Failed sessions:")
