@@ -2258,7 +2258,9 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">filename</span> <span class="o">=</span> <span class="n">export_to_nwb</span><span class="p">(</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.utils.export.nwb</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_to_nwb</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="n">export_to_nwb</span><span class="p">(</span>
     <span class="n">animal_id</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span>
     <span class="n">session_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">experimenter</span><span class="o">=</span><span class="s2">&quot;Alex Smith&quot;</span><span class="p">,</span>
@@ -2278,7 +2280,11 @@
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">filename</span> <span class="o">=</span> <span class="n">export_to_nwb</span><span class="p">(</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.utils.export.nwb</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_to_nwb</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="n">export_to_nwb</span><span class="p">(</span>
     <span class="n">animal_id</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span>
     <span class="n">session_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">output_filename</span><span class="o">=</span><span class="s2">&quot;TwoAFCexperiment_session_1.nwb&quot;</span><span class="p">,</span>
@@ -2290,7 +2296,11 @@
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">filename</span> <span class="o">=</span> <span class="n">export_to_nwb</span><span class="p">(</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.utils.export.nwb</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_to_nwb</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="n">export_to_nwb</span><span class="p">(</span>
     <span class="n">animal_id</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span>
     <span class="n">session_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">config_path</span><span class="o">=</span><span class="s2">&quot;/path/to/custom_config.json&quot;</span>
@@ -2401,7 +2411,11 @@ Example of configuration file</p>
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Define sessions to export</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.utils.export.nwb</span><span class="w"> </span><span class="kn">import</span> <span class="n">batch_export_to_nwb</span>
+
+<span class="c1"># Define sessions to export</span>
 <span class="n">animal_session_list</span> <span class="o">=</span> <span class="p">[</span>
                         <span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
                         <span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
@@ -2411,7 +2425,7 @@ Example of configuration file</p>
 
 <span class="c1"># Batch export with common parameters</span>
 <span class="n">exported_files</span> <span class="o">=</span> <span class="n">batch_export_to_nwb</span><span class="p">(</span>
-    <span class="n">sessions</span><span class="p">,</span>
+    <span class="n">animal_session_list</span><span class="p">,</span>
     <span class="n">experimenter</span><span class="o">=</span><span class="s2">&quot;Dr. Smith&quot;</span><span class="p">,</span>
     <span class="n">lab</span><span class="o">=</span><span class="s2">&quot;Vision Lab&quot;</span><span class="p">,</span>
     <span class="n">institution</span><span class="o">=</span><span class="s2">&quot;FORTH IMBB&quot;</span><span class="p">,</span>
