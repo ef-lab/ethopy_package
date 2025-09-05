@@ -89,6 +89,7 @@ This will create a file named `nwb_animal_123_session_1.nwb` with default metada
 Export with custom metadata and subject information:
 
 ```python
+from ethopy.utils.export.nwb import export_to_nwb
 filename = export_to_nwb(
     animal_id=123,
     session_id=1,
@@ -108,6 +109,8 @@ filename = export_to_nwb(
 Specify a custom output filename:
 
 ```python
+from ethopy.utils.export.nwb import export_to_nwb
+
 filename = export_to_nwb(
     animal_id=123,
     session_id=1,
@@ -118,6 +121,8 @@ filename = export_to_nwb(
 
 ### Clarify the configuration path
 ```python
+from ethopy.utils.export.nwb import export_to_nwb
+
 filename = export_to_nwb(
     animal_id=123,
     session_id=1,
@@ -196,6 +201,8 @@ filename, nwb_obj = export_to_nwb(
 Export multiple sessions at once:
 
 ```python
+from ethopy.utils.export.nwb import batch_export_to_nwb
+
 # Define sessions to export
 animal_session_list = [
                         (123, 1),
@@ -206,7 +213,7 @@ animal_session_list = [
 
 # Batch export with common parameters
 exported_files = batch_export_to_nwb(
-    sessions,
+    animal_session_list,
     experimenter="Dr. Smith",
     lab="Vision Lab",
     institution="FORTH IMBB",
