@@ -405,37 +405,89 @@ def process_trial_states(experiment: Any, session_key: Dict[str, Any]) -> TrialD
     # Filter trials that have both required states
     complete_trials = trial_states_pivot.dropna(subset=["PreTrial", "InterTrial"])
 
-    if complete_trials.empty:
-        logger.warning("No trials found with both PreTrial and InterTrial states")
-        return TrialData([], [], [])
-
-    # Log problematic trials (those missing timing data)
+    # Log problematic trials (those missing timing data) and attempt fallback recovery
     incomplete_trials = trial_states_pivot[trial_states_pivot.isnull().any(axis=1)]
+    
+    # Initialize collections for combined data
+    all_pretrial_times = []
+    all_intertrial_times = []
+    all_valid_indices = []
+    fallback_count = 0
+    
+    # Process trials with both PreTrial and InterTrial states (primary strategy)
+    if not complete_trials.empty:
+        primary_pretrial_times = milliseconds_to_seconds(complete_trials["PreTrial"]).tolist()
+        primary_intertrial_times = milliseconds_to_seconds(complete_trials["InterTrial"]).tolist()
+        primary_valid_indices = complete_trials.index.tolist()
+        
+        all_pretrial_times.extend(primary_pretrial_times)
+        all_intertrial_times.extend(primary_intertrial_times)
+        all_valid_indices.extend(primary_valid_indices)
+    
+    # Process incomplete trials using fallback strategy
     if not incomplete_trials.empty:
         logger.warning(
-            f"Found {len(incomplete_trials)} trials with incomplete timing data:"
+            f"Found {len(incomplete_trials)} trials with incomplete PreTrial/InterTrial timing data."
         )
+        logger.info("Attempting fallback recovery using first/last states...")
+        
         for trial_idx, row in incomplete_trials.iterrows():
             missing_states = []
             if pd.isna(row.get("PreTrial")):
                 missing_states.append("PreTrial")
             if pd.isna(row.get("InterTrial")):
                 missing_states.append("InterTrial")
-            logger.warning(f"  Trial {trial_idx}: missing states {missing_states}")
+            
+            # Get all states for this trial for fallback
+            trial_states = states_df[states_df["trial_idx"] == trial_idx].copy()
+            trial_states = trial_states.sort_values("time")
+            
+            if len(trial_states) < 2:
+                logger.warning(f"  Trial {trial_idx}: Only {len(trial_states)} state(s) found, cannot determine trial duration. Skipping.")
+                continue
+            
+            # Use fallback timing: first and last available states
+            start_time = trial_states["time"].iloc[0]
+            end_time = trial_states["time"].iloc[-1]
+            available_states = trial_states["state"].tolist()
+            
+            # Log detailed fallback information
+            logger.info(
+                f"  Trial {trial_idx}: Using fallback timing (missing {', '.join(missing_states)})"
+            )
+            logger.info(
+                f"    Available states: {available_states}"
+            )
+            logger.info(
+                f"    Using: {available_states[0]} (start: {start_time}ms) → {available_states[-1]} (end: {end_time}ms)"
+            )
+            
+            # Add to combined dataset
+            all_pretrial_times.append(milliseconds_to_seconds(start_time))
+            all_intertrial_times.append(milliseconds_to_seconds(end_time))
+            all_valid_indices.append(trial_idx)
+            fallback_count += 1
 
-    # Convert to seconds and extract times
-    pretrial_times = milliseconds_to_seconds(complete_trials["PreTrial"]).tolist()
-    intertrial_times = milliseconds_to_seconds(complete_trials["InterTrial"]).tolist()
-    valid_trial_indices = complete_trials.index.tolist()
+    # Check if we have any valid trials at all
+    if not all_valid_indices:
+        logger.warning("No trials found with sufficient timing data (neither PreTrial/InterTrial nor fallback states)")
+        return TrialData([], [], [])
 
-    # Log processing results
+    # Log processing results with breakdown
     total_trials = len(states_df["trial_idx"].unique())
-    logger.info(f"Processed {len(complete_trials)}/{total_trials} trials")
+    primary_count = len(complete_trials) if not complete_trials.empty else 0
+    
+    logger.info(f"Trial timing summary: {primary_count} trials used PreTrial/InterTrial, {fallback_count} trials used fallback (first/last state)")
+    logger.info(f"Total processed: {len(all_valid_indices)}/{total_trials} trials")
+    
+    if fallback_count > 0:
+        logger.info(f"Fallback trials may have different timing characteristics. Review data quality as needed.")
+    
     logger.info(
-        f"Valid trial indices: {sorted(valid_trial_indices)[:10]}{'...' if len(valid_trial_indices) > 10 else ''}"
+        f"Valid trial indices: {len(all_valid_indices)}"
     )
 
-    return TrialData(pretrial_times, intertrial_times, valid_trial_indices)
+    return TrialData(all_pretrial_times, all_intertrial_times, all_valid_indices)
 
 
 def add_trials_to_nwb(
@@ -487,10 +539,10 @@ def add_trials_to_nwb(
     # Get all trial_idx values from trial_hash for debugging
     trial_hash_indices = [t.get("trial_idx") for t in trial_hash.fetch(as_dict=True)]
     logger.info(
-        f"Trial hash contains {len(trial_hash_indices)} trials with indices: {sorted(trial_hash_indices)[:10]}{'...' if len(trial_hash_indices) > 10 else ''}"
+        f"Trial hash contains {len(trial_hash_indices)}"
     )
     logger.info(
-        f"Timing data available for {len(trial_data.valid_indices)} trials with indices: {sorted(trial_data.valid_indices)[:10]}{'...' if len(trial_data.valid_indices) > 10 else ''}"
+        f"Timing data available for {len(trial_data.valid_indices)})"
     )
 
     # Find mismatches between trial_hash and timing data
