@@ -67,29 +67,28 @@ Here's the minimum configuration needed to get EthoPy running:
 **Settings explanation:**
 
 - **`database.host`**: Database server IP address or hostname
-  - **Default**: `"127.0.0.1"` (localhost - your computer)
-  - **Examples**: `"192.168.1.100"`, `"lab-database.university.edu"`
+    - **Default**: `"127.0.0.1"` (localhost - your computer)
+    - **Examples**: `"192.168.1.100"`, `"lab-database.university.edu"`
 
 - **`database.user`**: MySQL username for database connection
-  - **Default**: `"root"`
+    - **Default**: `"root"`
 
 - **`database.password`**: MySQL password for the specified user
-  - **Default**: `""` (empty string)
-  - **Important**: Must match your MySQL user's password
+    - **Default**: `""` (empty string)
 
 - **`database.port`**: MySQL server port number
-  - **Default**: `3306` (standard MySQL port)
-  - **Note**: Only change if your MySQL uses a different port
+    - **Default**: `3306` (standard MySQL port)
+    - **Note**: Only change if your MySQL uses a different port
 
 - **`database.reconnect`**: Automatically reconnect if connection is lost
-  - **Default**: `true`
+    - **Default**: `true`
 
 - **`database.use_tls`**: Use encrypted TLS connection to database, more details [here](https://docs.datajoint.com/core/datajoint-python/latest/client/settings/#tls-configuration)
-  - **Default**: `false`
+    - **Default**: `false`
 
 - **`datajoint.loglevel`**: DataJoint library logging verbosity
-  - **Default**: `"WARNING"`
-  - **Options**: `"DEBUG"`, `"INFO"`, `"WARNING"`, `"ERROR"`, `"CRITICAL"`
+    - **Default**: `"WARNING"`
+    - **Options**: `"DEBUG"`, `"INFO"`, `"WARNING"`, `"ERROR"`, `"CRITICAL"`
 
 ### 2. File Paths (Required)
 
@@ -103,14 +102,14 @@ Here's the minimum configuration needed to get EthoPy running:
 **Settings explanation:**
 
 - **`source_path`**: Local directory where experimental data files are saved
-  - **Default**: `"~/EthoPy_Files"` (EthoPy_Files folder in your home directory)
-  - **Purpose**: All recorded data (videos, sensor data, etc.) is stored here during experiments
-  - **Examples**: `"/Users/yourname/experiment_data"`, `"/home/pi/data"`
+    - **Default**: `"~/EthoPy_Files"` (EthoPy_Files folder in your home directory)
+    - **Purpose**: All recorded data (videos, sensor data, etc.) is stored here during experiments
+    - **Examples**: `"/Users/yourname/experiment_data"`, `"/home/pi/data"`
 
 - **`target_path`**: Directory where backup copies of data should be moved after experiments
-  - **Default**: `"/"` (root directory - usually needs to be changed)
-  - **Purpose**: Automatic backup/archival location for completed experiments
-  - **Examples**: `"/mnt/lab_storage"`
+    - **Default**: `"/"` (root directory - usually needs to be changed)
+    - **Purpose**: Automatic backup/archival location for completed experiments
+    - **Examples**: `"/mnt/lab_storage"`
 
 **Important**: Always use full paths starting from your drive root.
 
@@ -131,25 +130,25 @@ Here's the minimum configuration needed to get EthoPy running:
 **Settings explanation:**
 
 - **`level`**: Minimum log level to record
-  - **Default**: `"INFO"`
-  - **Options**: `"DEBUG"` (most verbose), `"INFO"`, `"WARNING"`, `"ERROR"`, `"CRITICAL"` (least verbose)
-  - **Purpose**: Controls how much detail is logged
+    - **Default**: `"INFO"`
+    - **Options**: `"DEBUG"` (most verbose), `"INFO"`, `"WARNING"`, `"ERROR"`, `"CRITICAL"` (least verbose)
+    - **Purpose**: Controls how much detail is logged
 
 - **`directory`**: Directory where log files are stored
-  - **Default**: `"~/.ethopy/"` (hidden .ethopy folder in your home directory)
-  - **Examples**: `"/var/log/ethopy"`, `"/Users/yourname/logs"`
+    - **Default**: `"~/.ethopy/"` (hidden .ethopy folder in your home directory)
+    - **Examples**: `"/var/log/ethopy"`, `"/Users/yourname/logs"`
 
 - **`filename`**: Name of the main log file
-  - **Default**: `"ethopy.log"`
-  - **Note**: Backup files will be named `ethopy.log.1`, `ethopy.log.2`, etc.
+    - **Default**: `"ethopy.log"`
+    - **Note**: Backup files will be named `ethopy.log.1`, `ethopy.log.2`, etc.
 
 - **`max_size`**: Maximum size of log file before rotation (in bytes)
-  - **Default**: `31457280` (30 MB)
-  - **Purpose**: Prevents log files from growing too large
+    - **Default**: `31457280` (30 MB)
+    - **Purpose**: Prevents log files from growing too large
 
 - **`backup_count`**: Number of old log files to keep
-  - **Default**: `5`
-  - **Purpose**: Maintains history while preventing unlimited disk usage
+    - **Default**: `5`
+    - **Purpose**: Maintains history while preventing unlimited disk usage
 
 ### 4. Hardware Setup (Optional - Raspberry Pi only)
 
@@ -168,24 +167,25 @@ If you're using physical hardware (valves, sensors, LEDs), specify GPIO pin conn
 **Settings explanation:**
 
 - **`channels`**: Maps hardware types to GPIO pin assignments
-  - **Default**: Not set (no hardware channels configured)
-  - **Purpose**: Tells EthoPy which GPIO pins control which hardware devices
+    - **Default**: Not set (no hardware channels configured)
+    - **Purpose**: Tells EthoPy which GPIO pins control which hardware devices
 
 **Hardware types:**
 
 - **`Liquid`**: Water delivery pumps/valves for reward delivery
-  - **Format**: `{"port_number": gpio_pin_number}`
-  - **Example**: `{"1": 22, "2": 23}` means port 1 uses GPIO pin 22, port 2 uses GPIO pin 23
+    - **Format**: `{"port_number": gpio_pin_number}`
+    - **Example**: `{"1": 22, "2": 23}` means port 1 uses GPIO pin 22, port 2 uses GPIO pin 23
 
 - **`Lick`**: Lick detection sensors for behavioral monitoring
-  - **Format**: `{"sensor_number": gpio_pin_number}`
-  - **Example**: `{"1": 17, "2": 27}` means lick sensor 1 on GPIO pin 17, sensor 2 on GPIO pin 27
+    - **Format**: `{"sensor_number": gpio_pin_number}`
+    - **Example**: `{"1": 17, "2": 27}` means lick sensor 1 on GPIO pin 17, sensor 2 on GPIO pin 27
 
 - **`Odor`**: Odor delivery valves for olfactory experiments
-  - **Format**: `{"valve_number": gpio_pin_number}`
-  - **Example**: `{"1": 24, "2": 25}` means valve 1 on GPIO pin 24, valve 2 on GPIO pin 25
+    - **Format**: `{"valve_number": gpio_pin_number}`
+    - **Example**: `{"1": 24, "2": 25}` means valve 1 on GPIO pin 24, valve 2 on GPIO pin 25
 
 **Important notes:**
+
 - Each GPIO pin number can only be used once across all hardware types
 
 ### 5. Custom Schema Names (Optional)
@@ -207,29 +207,29 @@ If your database uses custom schema names:
 **Settings explanation:**
 
 - **`SCHEMATA`**: Maps EthoPy data types to your custom database schema names
-  - **Purpose**: Allows EthoPy to work with existing databases that use different naming conventions
+    - **Purpose**: Allows EthoPy to work with existing databases that use different naming conventions
 
 **Schema types and defaults:**
 
 - **`experiment`**: Main experimental session data
-  - **Default**: `"lab_experiments"`
-  - **Contains**: Session info, trial data, animal information
+    - **Default**: `"lab_experiments"`
+    - **Contains**: Session info, trial data, animal information
 
 - **`behavior`**: Behavioral measurement data
-  - **Default**: `"lab_behavior"`
-  - **Contains**: Lick detection, movement tracking, response data
+    - **Default**: `"lab_behavior"`
+    - **Contains**: Lick detection, movement tracking, response data
 
 - **`stimulus`**: Stimulus presentation information
-  - **Default**: `"lab_stimuli"`
-  - **Contains**: Visual/auditory stimuli parameters, timing
+    - **Default**: `"lab_stimuli"`
+    - **Contains**: Visual/auditory stimuli parameters, timing
 
 - **`interface`**: Hardware interface configurations
-  - **Default**: `"lab_interface"`
-  - **Contains**: Hardware setup parameters, calibration data
+    - **Default**: `"lab_interface"`
+    - **Contains**: Hardware setup parameters, calibration data
 
 - **`recording`**: Data recording metadata
-  - **Default**: `"lab_recordings"`
-  - **Contains**: File paths, recording parameters, data format info
+    - **Default**: `"lab_recordings"`
+    - **Contains**: File paths, recording parameters, data format info
 
 **Note**: Most users can skip this section - EthoPy will use the default schema names.
 
@@ -244,9 +244,9 @@ If your database uses custom schema names:
 **Settings explanation:**
 
 - **`plugin_path`**: Directory where EthoPy plugins are stored
-  - **Default**: `"~/.ethopy/ethopy_plugins"` (plugins folder in your .ethopy directory)
-  - **Purpose**: Location for custom EthoPy extensions and plugins
-  - **Examples**: `"/Users/yourname/my_plugins"`, `"/opt/ethopy_plugins"`
+    - **Default**: `"~/.ethopy/ethopy_plugins"` (plugins folder in your .ethopy directory)
+    - **Purpose**: Location for custom EthoPy extensions and plugins
+    - **Examples**: `"/Users/yourname/my_plugins"`, `"/opt/ethopy_plugins"`
 
 **Note**: Only needed if you're using custom plugins or want to store them in a different location.
 
@@ -310,11 +310,11 @@ If your database uses custom schema names:
 1. **Check your password** - Verify the password matches your MySQL password
 
 2. **Advanced troubleshooting**: For remote databases or lab setups, contact your system administrator or IT support to verify database server status, network connectivity, and firewall settings. **Check if MySQL is running**
-   - If `database.host` is `127.0.0.1` or `localhost`: Run `mysql -u root -p` on the same machine as EthoPy
-   - If `database.host` is a remote IP (like `192.168.1.100`): Run the command on that remote database server
-   - The command should ask for your password and connect successfully
-   - If you get "command not found", MySQL client is not installed
-   - If you get "connection refused", MySQL server is not running
+    - If `database.host` is `127.0.0.1` or `localhost`: Run `mysql -u root -p` on the same machine as EthoPy
+    - If `database.host` is a remote IP (like `192.168.1.100`): Run the command on that remote database server
+    - The command should ask for your password and connect successfully
+    - If you get "command not found", MySQL client is not installed
+    - If you get "connection refused", MySQL server is not running
 
 3. **Check the database address** - For `127.0.0.1`, MySQL must be on your computer
 
@@ -364,17 +364,19 @@ If your database uses custom schema names:
 ## Local vs Database Settings
 
 **Store in local_conf.json:**
-- Database connection details
-- File paths specific to this machine
-- Hardware GPIO pin assignments
-- Logging preferences
-- Machine-specific settings
+
+  - Database connection details
+  - File paths specific to this machine
+  - Hardware GPIO pin assignments
+  - Logging preferences
+  - Machine-specific settings
 
 **Store in database:**
-- Experimental parameters
-- Trial configurations
-- Animal information
-- Session data
-- Results and measurements
+
+  - Experimental parameters
+  - Trial configurations
+  - Animal information
+  - Session data
+  - Results and measurements
 
 This separation keeps your experiments portable while maintaining machine-specific configurations.
