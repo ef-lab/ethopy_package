@@ -84,12 +84,13 @@ nav:
         - Behavior: multi_port_behavior_example.md
     - Plugins: plugin.md
     - Task Setup: task_setup.md
+    - Setup Configuration Index: setup_configuration_idx.md
     - Control Experiment: control.md
     - Logging: logging.md
-    - Setup Configuration Index: setup_configuration_idx.md
-    - Database Setup: database_setup.md
+    - Database:
+      - Database Setup: database_setup.md
+      - Database Organization: database_schemas.md
     - Export to NWB: nwb_docs.md
-    - Troubleshooting: troubleshooting.md
   - API Reference:
       - Logger Module: API/logger.md
       - Behavior Module: API/behavior.md
@@ -98,3 +99,4 @@ nav:
       - Stimulus Module: API/stimulus.md
   - Contributing: contributing.md
   - Report Issues: https://github.com/ef-lab/ethopy_package/issues
+  - Troubleshooting: troubleshooting.md
