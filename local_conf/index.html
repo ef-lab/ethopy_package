@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ethopy-configuration-guide" class="md-skip">
+        <a href="#ethopy-local-configuration-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -315,6 +315,25 @@
     
   
   Report Issues
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
 
       </a>
     </li>
@@ -591,64 +610,70 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-configuration" class="md-nav__link">
+  <a href="#what-is-local_confjson" class="md-nav__link">
     <span class="md-ellipsis">
-      What is Configuration?
+      What is local_conf.json?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#where-is-the-configuration-file" class="md-nav__link">
+  <a href="#file-location" class="md-nav__link">
     <span class="md-ellipsis">
-      Where is the Configuration File?
+      File Location
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-start-guide" class="md-nav__link">
+  <a href="#essential-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Quick Start Guide
+      Essential Configuration
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#complete-configuration-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      Complete Configuration Structure
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#understanding-each-section" class="md-nav__link">
-    <span class="md-ellipsis">
-      Understanding Each Section
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Understanding Each Section">
+    <nav class="md-nav" aria-label="Essential Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-database-settings-dj_local_conf" class="md-nav__link">
+  <a href="#minimal-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Database Settings (dj_local_conf)
+      Minimal Setup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Sections
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Sections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-database-settings-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Database Settings (Required)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-file-paths" class="md-nav__link">
+  <a href="#2-file-paths-required" class="md-nav__link">
     <span class="md-ellipsis">
-      2. File Paths
+      2. File Paths (Required)
     </span>
   </a>
   
@@ -664,84 +689,27 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-schema-names-optional" class="md-nav__link">
+  <a href="#4-hardware-setup-optional-raspberry-pi-only" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Schema Names (Optional)
+      4. Hardware Setup (Optional - Raspberry Pi only)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-hardware-setup-channels-for-raspberry-pi-users" class="md-nav__link">
+  <a href="#5-custom-schema-names-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Hardware Setup (channels) - For Raspberry Pi Users
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. Hardware Setup (channels) - For Raspberry Pi Users">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#common-hardware-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Hardware Types
+      5. Custom Schema Names (Optional)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#simple-hardware-configurations" class="md-nav__link">
+  <a href="#6-plugin-path-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      Simple Hardware Configurations
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-configuration-scenarios" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Configuration Scenarios
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Common Configuration Scenarios">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scenario-1-basic-local-setup-most-users" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scenario 1: Basic Local Setup (Most Users)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-2-remote-database-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scenario 2: Remote Database Setup
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-3-hardware-experiments-with-raspberry-pi" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scenario 3: Hardware Experiments with Raspberry Pi
+      6. Plugin Path (Optional)
     </span>
   </a>
   
@@ -753,28 +721,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#security-and-best-practices" class="md-nav__link">
+  <a href="#common-setup-scenarios" class="md-nav__link">
     <span class="md-ellipsis">
-      Security and Best Practices
+      Common Setup Scenarios
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Security and Best Practices">
+    <nav class="md-nav" aria-label="Common Setup Scenarios">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#keep-your-password-safe" class="md-nav__link">
+  <a href="#local-database-setup-most-common" class="md-nav__link">
     <span class="md-ellipsis">
-      Keep Your Password Safe
+      Local Database Setup (Most Common)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#file-organization" class="md-nav__link">
+  <a href="#remote-database-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      File Organization
+      Remote Database Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-experiment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware Experiment Setup
     </span>
   </a>
   
@@ -831,50 +808,26 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#getting-help" class="md-nav__link">
-    <span class="md-ellipsis">
-      Getting Help
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-topics" class="md-nav__link">
+  <a href="#security-best-practices" class="md-nav__link">
     <span class="md-ellipsis">
-      Advanced Topics
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced Topics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#using-environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Using Environment Variables
+      Security Best Practices
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-configuration-locations" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#local-vs-database-settings" class="md-nav__link">
     <span class="md-ellipsis">
-      Custom Configuration Locations
+      Local vs Database Settings
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1081,6 +1034,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../setup_configuration_idx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setup Configuration Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../control/" class="md-nav__link">
         
   
@@ -1126,22 +1102,40 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../setup_configuration_idx/" class="md-nav__link">
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
-    Setup Configuration Index
+    Database
     
   </span>
   
 
-      </a>
-    </li>
-  
-
-              
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Database
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -1173,17 +1167,25 @@
   
   
     <li class="md-nav__item">
-      <a href="../nwb_docs/" class="md-nav__link">
+      <a href="../database_schemas/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Export to NWB
+    Database Organization
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1196,12 +1198,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../nwb_docs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Troubleshooting
+    Export to NWB
     
   </span>
   
@@ -1426,6 +1428,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1453,64 +1477,70 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-configuration" class="md-nav__link">
+  <a href="#what-is-local_confjson" class="md-nav__link">
     <span class="md-ellipsis">
-      What is Configuration?
+      What is local_conf.json?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#where-is-the-configuration-file" class="md-nav__link">
+  <a href="#file-location" class="md-nav__link">
     <span class="md-ellipsis">
-      Where is the Configuration File?
+      File Location
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-start-guide" class="md-nav__link">
+  <a href="#essential-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Quick Start Guide
+      Essential Configuration
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#complete-configuration-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      Complete Configuration Structure
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#understanding-each-section" class="md-nav__link">
-    <span class="md-ellipsis">
-      Understanding Each Section
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Understanding Each Section">
+    <nav class="md-nav" aria-label="Essential Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-database-settings-dj_local_conf" class="md-nav__link">
+  <a href="#minimal-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Database Settings (dj_local_conf)
+      Minimal Setup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Sections
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Sections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-database-settings-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Database Settings (Required)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-file-paths" class="md-nav__link">
+  <a href="#2-file-paths-required" class="md-nav__link">
     <span class="md-ellipsis">
-      2. File Paths
+      2. File Paths (Required)
     </span>
   </a>
   
@@ -1526,84 +1556,27 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-schema-names-optional" class="md-nav__link">
+  <a href="#4-hardware-setup-optional-raspberry-pi-only" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Schema Names (Optional)
+      4. Hardware Setup (Optional - Raspberry Pi only)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-hardware-setup-channels-for-raspberry-pi-users" class="md-nav__link">
+  <a href="#5-custom-schema-names-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Hardware Setup (channels) - For Raspberry Pi Users
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. Hardware Setup (channels) - For Raspberry Pi Users">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#common-hardware-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Hardware Types
+      5. Custom Schema Names (Optional)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#simple-hardware-configurations" class="md-nav__link">
+  <a href="#6-plugin-path-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      Simple Hardware Configurations
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-configuration-scenarios" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Configuration Scenarios
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Common Configuration Scenarios">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scenario-1-basic-local-setup-most-users" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scenario 1: Basic Local Setup (Most Users)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-2-remote-database-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scenario 2: Remote Database Setup
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-3-hardware-experiments-with-raspberry-pi" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scenario 3: Hardware Experiments with Raspberry Pi
+      6. Plugin Path (Optional)
     </span>
   </a>
   
@@ -1615,28 +1588,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#security-and-best-practices" class="md-nav__link">
+  <a href="#common-setup-scenarios" class="md-nav__link">
     <span class="md-ellipsis">
-      Security and Best Practices
+      Common Setup Scenarios
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Security and Best Practices">
+    <nav class="md-nav" aria-label="Common Setup Scenarios">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#keep-your-password-safe" class="md-nav__link">
+  <a href="#local-database-setup-most-common" class="md-nav__link">
     <span class="md-ellipsis">
-      Keep Your Password Safe
+      Local Database Setup (Most Common)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#file-organization" class="md-nav__link">
+  <a href="#remote-database-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      File Organization
+      Remote Database Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-experiment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware Experiment Setup
     </span>
   </a>
   
@@ -1693,50 +1675,26 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#getting-help" class="md-nav__link">
-    <span class="md-ellipsis">
-      Getting Help
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-topics" class="md-nav__link">
+  <a href="#security-best-practices" class="md-nav__link">
     <span class="md-ellipsis">
-      Advanced Topics
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced Topics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#using-environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Using Environment Variables
+      Security Best Practices
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-configuration-locations" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#local-vs-database-settings" class="md-nav__link">
     <span class="md-ellipsis">
-      Custom Configuration Locations
+      Local vs Database Settings
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1762,15 +1720,27 @@
   
 
 
-<h1 id="ethopy-configuration-guide">EthoPy Configuration Guide<a class="headerlink" href="#ethopy-configuration-guide" title="Permanent link">&para;</a></h1>
-<h2 id="what-is-configuration">What is Configuration?<a class="headerlink" href="#what-is-configuration" title="Permanent link">&para;</a></h2>
-<p>Configuration tells EthoPy how to connect to your database, where to find your data, and how to configure your hardware. Think of it as a settings file that contains all the important information EthoPy needs to run your experiments.</p>
-<h2 id="where-is-the-configuration-file">Where is the Configuration File?<a class="headerlink" href="#where-is-the-configuration-file" title="Permanent link">&para;</a></h2>
-<p>EthoPy automatically looks for a file called <code>local_conf.json</code> in a special folder:
-- <strong>Mac/Linux</strong>: In your home folder under <code>~/.ethopy/local_conf.json</code>
-- <strong>Windows</strong>: In your user folder under <code>`%USERPROFILE%\.ethopy\local_conf.json</code></p>
-<h2 id="quick-start-guide">Quick Start Guide<a class="headerlink" href="#quick-start-guide" title="Permanent link">&para;</a></h2>
-<p>When you first start EthoPy, you'll need to create a configuration file. Here's a simple example to get you started:</p>
+<h1 id="ethopy-local-configuration-guide">EthoPy Local Configuration Guide<a class="headerlink" href="#ethopy-local-configuration-guide" title="Permanent link">&para;</a></h1>
+<h2 id="what-is-local_confjson">What is local_conf.json?<a class="headerlink" href="#what-is-local_confjson" title="Permanent link">&para;</a></h2>
+<p>The <code>local_conf.json</code> file stores <strong>device-specific settings</strong> that are unique to each computer or experimental setup. These are settings that:</p>
+<ul>
+<li>Are tied to your specific hardware (file paths, GPIO pins, database credentials)</li>
+<li>Need to be configured once per machine, not per experiment</li>
+</ul>
+<p><strong>Key distinction</strong>: Experimental parameters and data go in the database. Machine-specific settings go in <code>local_conf.json</code>.</p>
+<h2 id="file-location">File Location<a class="headerlink" href="#file-location" title="Permanent link">&para;</a></h2>
+<p>EthoPy automatically looks for your configuration file here:</p>
+<ul>
+<li><strong>Mac/Linux</strong>: <code>~/.ethopy/local_conf.json</code></li>
+<li><strong>Windows</strong>: <code>%USERPROFILE%\.ethopy\local_conf.json</code></li>
+</ul>
+<p>You can also specify a custom location using the environment variable:</p>
+<ul>
+<li><strong>Environment variable</strong>: Set <code>ETHOPY_CONFIG_PATH</code> to point to your custom config file location</li>
+</ul>
+<h2 id="essential-configuration">Essential Configuration<a class="headerlink" href="#essential-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="minimal-setup">Minimal Setup<a class="headerlink" href="#minimal-setup" title="Permanent link">&para;</a></h3>
+<p>Here's the minimum configuration needed to get EthoPy running:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1782,8 +1752,8 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_database_address&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_username&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_password_here&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
 <span class="w">    </span><span class="p">},</span>
@@ -1791,12 +1761,14 @@
 <span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/your/backup&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>What Each Part Means
-- <strong>database settings</strong>: How to connect to your MySQL database
-- <strong>source_path</strong>: Where your experimental data is stored
-- <strong>target_path</strong>: Where backup copies should be saved</p>
-<h2 id="complete-configuration-structure">Complete Configuration Structure<a class="headerlink" href="#complete-configuration-structure" title="Permanent link">&para;</a></h2>
-<p>Here's what a full configuration file looks like with all the optional settings:</p>
+<p><strong>What each part does:</strong></p>
+<ul>
+<li><strong><code>dj_local_conf</code></strong>: Database connection settings (required)</li>
+<li><strong><code>source_path</code></strong>: Where experimental data files are saved on this machine</li>
+<li><strong><code>target_path</code></strong>: Where backup copies should be saved</li>
+</ul>
+<h2 id="configuration-sections">Configuration Sections<a class="headerlink" href="#configuration-sections" title="Permanent link">&para;</a></h2>
+<h3 id="1-database-settings-required">1. Database Settings (Required)<a class="headerlink" href="#1-database-settings-required" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1808,52 +1780,90 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YOUR DATABASE&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USERNAME&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PASSWORD&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_mysql_password&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;database.reconnect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.enable_python_native_blobs&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;directory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~/.ethopy/&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ethopy.log&quot;</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;SCHEMATA&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;experiment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Experiment_Name&quot;</span><span class="p">,</span><span class="w">   </span>
-<span class="w">        </span><span class="nt">&quot;behavior&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Behavior_Name&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="nt">&quot;stimulus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Stimulus_Name&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;interface&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Interface_Name&quot;</span><span class="p">,</span><span class="w">  </span>
-<span class="w">        </span><span class="nt">&quot;recording&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Recording_Name&quot;</span><span class="p">,</span><span class="w">      </span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;Signal&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;PORT1&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GPIO_pin&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;PORT2&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GPIO&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LOCAL_RECORDINGS_DIRECTORY&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TARGET_RECORDINGS_DIRECTORY&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;database.use_tls&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;database.enable_python_native_blobs&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;datajoint.loglevel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;WARNING&quot;</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="understanding-each-section">Understanding Each Section<a class="headerlink" href="#understanding-each-section" title="Permanent link">&para;</a></h2>
-<h3 id="1-database-settings-dj_local_conf">1. Database Settings (<code>dj_local_conf</code>)<a class="headerlink" href="#1-database-settings-dj_local_conf" title="Permanent link">&para;</a></h3>
-<p>This section instructs EthoPy to connect to your MySQL database. Below we analyze an indicative example:</p>
+<p><strong>Settings explanation:</strong></p>
+<ul>
+<li><strong><code>database.host</code></strong>: Database server IP address or hostname</li>
+<li><strong>Default</strong>: <code>"127.0.0.1"</code> (localhost - your computer)</li>
+<li>
+<p><strong>Examples</strong>: <code>"192.168.1.100"</code>, <code>"lab-database.university.edu"</code></p>
+</li>
+<li>
+<p><strong><code>database.user</code></strong>: MySQL username for database connection</p>
+</li>
+<li>
+<p><strong>Default</strong>: <code>"root"</code></p>
+</li>
+<li>
+<p><strong><code>database.password</code></strong>: MySQL password for the specified user</p>
+</li>
+<li><strong>Default</strong>: <code>""</code> (empty string)</li>
+<li>
+<p><strong>Important</strong>: Must match your MySQL user's password</p>
+</li>
+<li>
+<p><strong><code>database.port</code></strong>: MySQL server port number</p>
+</li>
+<li><strong>Default</strong>: <code>3306</code> (standard MySQL port)</li>
+<li>
+<p><strong>Note</strong>: Only change if your MySQL uses a different port</p>
+</li>
+<li>
+<p><strong><code>database.reconnect</code></strong>: Automatically reconnect if connection is lost</p>
+</li>
+<li>
+<p><strong>Default</strong>: <code>true</code></p>
+</li>
+<li>
+<p><strong><code>database.use_tls</code></strong>: Use encrypted TLS connection to database, more details <a href="https://docs.datajoint.com/core/datajoint-python/latest/client/settings/#tls-configuration">here</a></p>
+</li>
+<li>
+<p><strong>Default</strong>: <code>false</code></p>
+</li>
+<li>
+<p><strong><code>datajoint.loglevel</code></strong>: DataJoint library logging verbosity</p>
+</li>
+<li><strong>Default</strong>: <code>"WARNING"</code></li>
+<li><strong>Options</strong>: <code>"DEBUG"</code>, <code>"INFO"</code>, <code>"WARNING"</code>, <code>"ERROR"</code>, <code>"CRITICAL"</code></li>
+</ul>
+<h3 id="2-file-paths-required">2. File Paths (Required)<a class="headerlink" href="#2-file-paths-required" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_data&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_backup&quot;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>Settings explanation:</strong></p>
+<ul>
+<li><strong><code>source_path</code></strong>: Local directory where experimental data files are saved</li>
+<li><strong>Default</strong>: <code>"~/EthoPy_Files"</code> (EthoPy_Files folder in your home directory)</li>
+<li><strong>Purpose</strong>: All recorded data (videos, sensor data, etc.) is stored here during experiments</li>
+<li>
+<p><strong>Examples</strong>: <code>"/Users/yourname/experiment_data"</code>, <code>"/home/pi/data"</code></p>
+</li>
+<li>
+<p><strong><code>target_path</code></strong>: Directory where backup copies of data should be moved after experiments</p>
+</li>
+<li><strong>Default</strong>: <code>"/"</code> (root directory - usually needs to be changed)</li>
+<li><strong>Purpose</strong>: Automatic backup/archival location for completed experiments</li>
+<li><strong>Examples</strong>: <code>"/mnt/lab_storage"</code></li>
+</ul>
+<p><strong>Important</strong>: Always use full paths starting from your drive root.</p>
+<h3 id="3-logging-settings-optional">3. Logging Settings (Optional)<a class="headerlink" href="#3-logging-settings-optional" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -1861,100 +1871,54 @@
 <span class="normal">5</span>
 <span class="normal">6</span>
 <span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span><span class="w">     </span><span class="c1">// Database server address (127.0.0.1 means your computer)</span>
-<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span><span class="w">          </span><span class="c1">// Your database username</span>
-<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;password&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// Your database password</span>
-<span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span><span class="w">            </span><span class="c1">// Database port number (3306 is standard for MySQL)</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<p><strong>What you need to change:</strong>
-- Replace <code>"password"</code> with your actual MySQL password
-- If your database is on another computer, change <code>"127.0.0.1"</code> to that computer's address</p>
-<h3 id="2-file-paths">2. File Paths<a class="headerlink" href="#2-file-paths" title="Permanent link">&para;</a></h3>
-<p>These instruct EthoPy where to find and save your data:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_data&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// Where your data files are stored</span>
-<span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/backup_data&quot;</span><span class="w">       </span><span class="c1">// Where to save backup copies</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<p><strong>Important:</strong> Use full paths (starting from the root of your drive) to avoid confusion.</p>
-<h3 id="3-logging-settings-optional">3. Logging Settings (Optional)<a class="headerlink" href="#3-logging-settings-optional" title="Permanent link">&para;</a></h3>
-<p>This controls how EthoPy saves information about what it's doing:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span><span class="w">              </span><span class="c1">// How much detail to log (DEBUG, INFO, WARNING, ERROR)</span>
-<span class="w">        </span><span class="nt">&quot;directory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~/.ethopy/&quot;</span><span class="p">,</span><span class="w">    </span><span class="c1">// Where to save log files</span>
-<span class="w">        </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ethopy.log&quot;</span><span class="w">      </span><span class="c1">// Name of the log file</span>
+<span class="w">        </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;directory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~/.ethopy/&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ethopy.log&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;max_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">31457280</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;backup_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="4-schema-names-optional">4. Schema Names (Optional)<a class="headerlink" href="#4-schema-names-optional" title="Permanent link">&para;</a></h3>
-<p>If your database uses custom names for different parts of your experiment data, e.g.:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;SCHEMATA&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;experiment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_experiments&quot;</span><span class="p">,</span><span class="w">   </span><span class="c1">// Custom name for experiment schema</span>
-<span class="w">        </span><span class="nt">&quot;behavior&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_behavior_data&quot;</span><span class="p">,</span><span class="w">   </span><span class="c1">// Custom name for behavior schema</span>
-<span class="w">        </span><span class="nt">&quot;recording&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_recordings&quot;</span><span class="w">      </span><span class="c1">// Custom name for recording schema</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<p><strong>Most users can skip this section</strong> - EthoPy will use standard names.</p>
-<h3 id="5-hardware-setup-channels-for-raspberry-pi-users">5. Hardware Setup (<code>channels</code>) - For Raspberry Pi Users<a class="headerlink" href="#5-hardware-setup-channels-for-raspberry-pi-users" title="Permanent link">&para;</a></h3>
-<p><strong>Skip this section if you're not using physical hardware like valves, sensors, or LEDs.</strong></p>
-<p>If you're running experiments with physical hardware (like water valves, lick detectors, or LEDs) connected to a Rasberry Pi, you need to instruct EthoPy which GPIO pins on your Raspberry Pi connect to which devices.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;Signal&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;PORT1&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GPIO_pin&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;PORT2&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GPIO_pin&quot;</span><span class="p">},</span><span class="w">    </span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<h4 id="common-hardware-types">Common Hardware Types<a class="headerlink" href="#common-hardware-types" title="Permanent link">&para;</a></h4>
-<p><strong>Liquid Delivery (Water Pumps)</strong>
-- Controls water rewards for your animals
-- Example: <code>"Liquid": {"1": 22, "2": 23}</code> means pump #1 is connected to pin 22, pump #2 to pin 23</p>
-<p><strong>Lick Detection (Sensors)</strong>
-- Detects when animals lick at reward ports
-- Example: <code>"Lick": {"1": 17, "2": 27}</code> means sensor #1 is on pin 17, sensor #2 on pin 27</p>
-<p><strong>Odor Delivery (Valves)</strong>
-- Controls scent delivery for olfactory experiments
-- Example: <code>"Odor": {"1": 24, "2": 25}</code> means valve #1 is on pin 24, valve #2 on pin 25</p>
-<h4 id="simple-hardware-configurations">Simple Hardware Configurations<a class="headerlink" href="#simple-hardware-configurations" title="Permanent link">&para;</a></h4>
-<p><strong>Basic Setup (just water and lick detection):</strong>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;Liquid&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;Lick&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">27</span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div></p>
-<p><strong>Full Setup (all hardware types):</strong>
+<p><strong>Settings explanation:</strong></p>
+<ul>
+<li><strong><code>level</code></strong>: Minimum log level to record</li>
+<li><strong>Default</strong>: <code>"INFO"</code></li>
+<li><strong>Options</strong>: <code>"DEBUG"</code> (most verbose), <code>"INFO"</code>, <code>"WARNING"</code>, <code>"ERROR"</code>, <code>"CRITICAL"</code> (least verbose)</li>
+<li>
+<p><strong>Purpose</strong>: Controls how much detail is logged</p>
+</li>
+<li>
+<p><strong><code>directory</code></strong>: Directory where log files are stored</p>
+</li>
+<li><strong>Default</strong>: <code>"~/.ethopy/"</code> (hidden .ethopy folder in your home directory)</li>
+<li>
+<p><strong>Examples</strong>: <code>"/var/log/ethopy"</code>, <code>"/Users/yourname/logs"</code></p>
+</li>
+<li>
+<p><strong><code>filename</code></strong>: Name of the main log file</p>
+</li>
+<li><strong>Default</strong>: <code>"ethopy.log"</code></li>
+<li>
+<p><strong>Note</strong>: Backup files will be named <code>ethopy.log.1</code>, <code>ethopy.log.2</code>, etc.</p>
+</li>
+<li>
+<p><strong><code>max_size</code></strong>: Maximum size of log file before rotation (in bytes)</p>
+</li>
+<li><strong>Default</strong>: <code>31457280</code> (30 MB)</li>
+<li>
+<p><strong>Purpose</strong>: Prevents log files from growing too large</p>
+</li>
+<li>
+<p><strong><code>backup_count</code></strong>: Number of old log files to keep</p>
+</li>
+<li><strong>Default</strong>: <code>5</code></li>
+<li><strong>Purpose</strong>: Maintains history while preventing unlimited disk usage</li>
+</ul>
+<h3 id="4-hardware-setup-optional-raspberry-pi-only">4. Hardware Setup (Optional - Raspberry Pi only)<a class="headerlink" href="#4-hardware-setup-optional-raspberry-pi-only" title="Permanent link">&para;</a></h3>
+<p>If you're using physical hardware (valves, sensors, LEDs), specify GPIO pin connections:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -1965,17 +1929,115 @@
 <span class="w">    </span><span class="nt">&quot;channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">&quot;Liquid&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">},</span>
 <span class="w">        </span><span class="nt">&quot;Lick&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">27</span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;Odor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;Odor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div></td></tr></table></div></p>
-<p><strong>Important Notes:</strong>
-- Each pin number can only be used once
-- Make sure your hardware is properly connected before running experiments
-- If you're not sure about pin numbers, check your circuit diagram or ask your hardware setup person</p>
-<h2 id="common-configuration-scenarios">Common Configuration Scenarios<a class="headerlink" href="#common-configuration-scenarios" title="Permanent link">&para;</a></h2>
-<h3 id="scenario-1-basic-local-setup-most-users">Scenario 1: Basic Local Setup (Most Users)<a class="headerlink" href="#scenario-1-basic-local-setup-most-users" title="Permanent link">&para;</a></h3>
-<p>You have MySQL running on your computer and want to store data locally:</p>
+</code></pre></div></td></tr></table></div>
+<p><strong>Settings explanation:</strong></p>
+<ul>
+<li><strong><code>channels</code></strong>: Maps hardware types to GPIO pin assignments</li>
+<li><strong>Default</strong>: Not set (no hardware channels configured)</li>
+<li><strong>Purpose</strong>: Tells EthoPy which GPIO pins control which hardware devices</li>
+</ul>
+<p><strong>Hardware types:</strong></p>
+<ul>
+<li><strong><code>Liquid</code></strong>: Water delivery pumps/valves for reward delivery</li>
+<li><strong>Format</strong>: <code>{"port_number": gpio_pin_number}</code></li>
+<li>
+<p><strong>Example</strong>: <code>{"1": 22, "2": 23}</code> means port 1 uses GPIO pin 22, port 2 uses GPIO pin 23</p>
+</li>
+<li>
+<p><strong><code>Lick</code></strong>: Lick detection sensors for behavioral monitoring</p>
+</li>
+<li><strong>Format</strong>: <code>{"sensor_number": gpio_pin_number}</code></li>
+<li>
+<p><strong>Example</strong>: <code>{"1": 17, "2": 27}</code> means lick sensor 1 on GPIO pin 17, sensor 2 on GPIO pin 27</p>
+</li>
+<li>
+<p><strong><code>Odor</code></strong>: Odor delivery valves for olfactory experiments</p>
+</li>
+<li><strong>Format</strong>: <code>{"valve_number": gpio_pin_number}</code></li>
+<li><strong>Example</strong>: <code>{"1": 24, "2": 25}</code> means valve 1 on GPIO pin 24, valve 2 on GPIO pin 25</li>
+</ul>
+<p><strong>Important notes:</strong>
+- Each GPIO pin number can only be used once across all hardware types</p>
+<h3 id="5-custom-schema-names-optional">5. Custom Schema Names (Optional)<a class="headerlink" href="#5-custom-schema-names-optional" title="Permanent link">&para;</a></h3>
+<p>If your database uses custom schema names:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SCHEMATA&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;experiment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_experiments&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;behavior&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_behavior_data&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;stimulus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_stimuli&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;interface&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_interface&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;recording&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_recordings&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>Settings explanation:</strong></p>
+<ul>
+<li><strong><code>SCHEMATA</code></strong>: Maps EthoPy data types to your custom database schema names</li>
+<li><strong>Purpose</strong>: Allows EthoPy to work with existing databases that use different naming conventions</li>
+</ul>
+<p><strong>Schema types and defaults:</strong></p>
+<ul>
+<li><strong><code>experiment</code></strong>: Main experimental session data</li>
+<li><strong>Default</strong>: <code>"lab_experiments"</code></li>
+<li>
+<p><strong>Contains</strong>: Session info, trial data, animal information</p>
+</li>
+<li>
+<p><strong><code>behavior</code></strong>: Behavioral measurement data</p>
+</li>
+<li><strong>Default</strong>: <code>"lab_behavior"</code></li>
+<li>
+<p><strong>Contains</strong>: Lick detection, movement tracking, response data</p>
+</li>
+<li>
+<p><strong><code>stimulus</code></strong>: Stimulus presentation information</p>
+</li>
+<li><strong>Default</strong>: <code>"lab_stimuli"</code></li>
+<li>
+<p><strong>Contains</strong>: Visual/auditory stimuli parameters, timing</p>
+</li>
+<li>
+<p><strong><code>interface</code></strong>: Hardware interface configurations</p>
+</li>
+<li><strong>Default</strong>: <code>"lab_interface"</code></li>
+<li>
+<p><strong>Contains</strong>: Hardware setup parameters, calibration data</p>
+</li>
+<li>
+<p><strong><code>recording</code></strong>: Data recording metadata</p>
+</li>
+<li><strong>Default</strong>: <code>"lab_recordings"</code></li>
+<li><strong>Contains</strong>: File paths, recording parameters, data format info</li>
+</ul>
+<p><strong>Note</strong>: Most users can skip this section - EthoPy will use the default schema names.</p>
+<h3 id="6-plugin-path-optional">6. Plugin Path (Optional)<a class="headerlink" href="#6-plugin-path-optional" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;plugin_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/.ethopy/ethopy_plugins&quot;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>Settings explanation:</strong></p>
+<ul>
+<li><strong><code>plugin_path</code></strong>: Directory where EthoPy plugins are stored</li>
+<li><strong>Default</strong>: <code>"~/.ethopy/ethopy_plugins"</code> (plugins folder in your .ethopy directory)</li>
+<li><strong>Purpose</strong>: Location for custom EthoPy extensions and plugins</li>
+<li><strong>Examples</strong>: <code>"/Users/yourname/my_plugins"</code>, <code>"/opt/ethopy_plugins"</code></li>
+</ul>
+<p><strong>Note</strong>: Only needed if you're using custom plugins or want to store them in a different location.</p>
+<h2 id="common-setup-scenarios">Common Setup Scenarios<a class="headerlink" href="#common-setup-scenarios" title="Permanent link">&para;</a></h2>
+<h3 id="local-database-setup-most-common">Local Database Setup (Most Common)<a class="headerlink" href="#local-database-setup-most-common" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1996,8 +2058,7 @@
 <span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_backup&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="scenario-2-remote-database-setup">Scenario 2: Remote Database Setup<a class="headerlink" href="#scenario-2-remote-database-setup" title="Permanent link">&para;</a></h3>
-<p>Your database is on a different computer in the lab:</p>
+<h3 id="remote-database-setup">Remote Database Setup<a class="headerlink" href="#remote-database-setup" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2009,17 +2070,16 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;database_ip&quot;</span><span class="p">,</span><span class="w">   </span><span class="c1">// Database server address (make sure your db has fix ip)</span>
+<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.1.100&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_user&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_password&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_data&quot;</span><span class="p">,</span><span class="w">   </span>
+<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_data&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_backup&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="scenario-3-hardware-experiments-with-raspberry-pi">Scenario 3: Hardware Experiments with Raspberry Pi<a class="headerlink" href="#scenario-3-hardware-experiments-with-raspberry-pi" title="Permanent link">&para;</a></h3>
-<p>You're running behavioral experiments with physical hardware:</p>
+<h3 id="hardware-experiment-setup">Hardware Experiment Setup<a class="headerlink" href="#hardware-experiment-setup" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2044,80 +2104,100 @@
 <span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/pi/experiment_backup&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">&quot;Liquid&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;Lick&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">27</span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;Lick&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">27</span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="security-and-best-practices">Security and Best Practices<a class="headerlink" href="#security-and-best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="keep-your-password-safe">Keep Your Password Safe<a class="headerlink" href="#keep-your-password-safe" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Never share your configuration file with others</li>
-<li>Use a strong password for your database</li>
-<li>Consider using environment variables for sensitive information</li>
-</ul>
-<h3 id="file-organization">File Organization<a class="headerlink" href="#file-organization" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Use full paths (like <code>/Users/yourname/data</code>) instead of relative paths (like <code>../data</code>)</li>
-<li>Make sure the folders you specify actually exist</li>
-<li>Keep backups of your configuration file</li>
-</ul>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="problem-cannot-connect-to-database">Problem: "Cannot connect to database"<a class="headerlink" href="#problem-cannot-connect-to-database" title="Permanent link">&para;</a></h3>
-<p><strong>Symptoms:</strong> EthoPy says it can't connect to your database</p>
-<p><strong>Solutions to try:</strong>
-1. <strong>Check your password</strong> - Make sure the password in your config file matches your MySQL password
-2. <strong>Check if MySQL is running</strong> - Open a terminal and try: <code>mysql -u root -p</code>
-3. <strong>Check the database address</strong> - If using <code>127.0.0.1</code>, make sure MySQL is running on your computer
-4. <strong>Check the port number</strong> - MySQL usually uses port 3306, but yours might be different</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Check your password</strong> - Verify the password matches your MySQL password</p>
+</li>
+<li>
+<p><strong>Advanced troubleshooting</strong>: For remote databases or lab setups, contact your system administrator or IT support to verify database server status, network connectivity, and firewall settings. <strong>Check if MySQL is running</strong></p>
+</li>
+<li>If <code>database.host</code> is <code>127.0.0.1</code> or <code>localhost</code>: Run <code>mysql -u root -p</code> on the same machine as EthoPy</li>
+<li>If <code>database.host</code> is a remote IP (like <code>192.168.1.100</code>): Run the command on that remote database server</li>
+<li>The command should ask for your password and connect successfully</li>
+<li>If you get "command not found", MySQL client is not installed</li>
+<li>
+<p>If you get "connection refused", MySQL server is not running</p>
+</li>
+<li>
+<p><strong>Check the database address</strong> - For <code>127.0.0.1</code>, MySQL must be on your computer</p>
+</li>
+<li>
+<p><strong>Check the port number</strong> - MySQL usually uses 3306</p>
+</li>
+</ol>
 <h3 id="problem-cannot-find-data-path">Problem: "Cannot find data path"<a class="headerlink" href="#problem-cannot-find-data-path" title="Permanent link">&para;</a></h3>
-<p><strong>Symptoms:</strong> EthoPy says it can't find your data folder</p>
-<p><strong>Solutions to try:</strong>
-1. <strong>Check the folder exists</strong> - Go to your file browser and make sure the folder actually exists
-2. <strong>Use full paths</strong> - Instead of <code>data/</code>, use <code>/Users/yourname/data/</code>
-3. <strong>Check permissions</strong> - Make sure you can read and write to the folder
-4. <strong>Create the folder</strong> - If it doesn't exist, create it first</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Check the folder exists</strong> - Verify the folder exists in your file system</p>
+</li>
+<li>
+<p><strong>Use full paths</strong> - Use <code>/Users/yourname/data/</code> not <code>data/</code></p>
+</li>
+<li>
+<p><strong>Check permissions</strong> - Ensure you can read and write to the folder</p>
+</li>
+<li>
+<p><strong>Create the folder</strong> - Create the folder if it doesn't exist</p>
+</li>
+</ol>
 <h3 id="problem-hardware-not-responding">Problem: "Hardware not responding"<a class="headerlink" href="#problem-hardware-not-responding" title="Permanent link">&para;</a></h3>
-<p><strong>Symptoms:</strong> Your valves, sensors, or LEDs aren't working</p>
-<p><strong>Solutions to try:</strong>
-1. <strong>Check physical connections</strong> - Make sure all wires are properly connected
-2. <strong>Check pin numbers</strong> - Verify the pin numbers in your config match your hardware setup
-3. <strong>Check for conflicts</strong> - Make sure no pin number is used twice
-4. <strong>Test with a simple LED</strong> - Connect a simple LED to verify basic functionality</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Check physical connections</strong> - Verify all wires are properly connected</p>
+</li>
+<li>
+<p><strong>Check pin numbers</strong> - Ensure pin numbers match your hardware setup</p>
+</li>
+<li>
+<p><strong>Check for conflicts</strong> - Make sure no pin number is used twice</p>
+</li>
+<li>
+<p><strong>Test with simple LED</strong> - Verify basic GPIO functionality</p>
+</li>
+</ol>
 <h3 id="problem-configuration-file-not-found">Problem: "Configuration file not found"<a class="headerlink" href="#problem-configuration-file-not-found" title="Permanent link">&para;</a></h3>
-<p><strong>Symptoms:</strong> EthoPy says it can't find your configuration</p>
-<p><strong>Solutions to try:</strong>
-1. <strong>Check the file location</strong> - Make sure <code>local_conf.json</code> is in the right folder (<code>.ethopy</code> in your home directory)
-2. <strong>Check file format</strong> - Make sure your JSON file is properly formatted (no missing commas or brackets)
-3. <strong>Start with a simple config</strong> - Copy one of the examples from this guide</p>
-<h3 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h3>
-<p>If you're still having trouble:
-1. Check the EthoPy log file (usually in <code>~/.ethopy/ethopy.log</code>)
-2. Ask your lab's technical support person
-3. Make sure you're using the latest version of EthoPy</p>
-<h2 id="advanced-topics">Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permanent link">&para;</a></h2>
-<h3 id="using-environment-variables">Using Environment Variables<a class="headerlink" href="#using-environment-variables" title="Permanent link">&para;</a></h3>
-<p>If you want to keep your database password separate from your config file, you can use environment variables:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># In your terminal before running EthoPy:</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">ETHOPY_DB_PASSWORD</span><span class="o">=</span><span class="s2">&quot;your_secret_password&quot;</span>
-</code></pre></div></td></tr></table></div>
-<p>Then in your config file, you can leave the password field empty - EthoPy will use the environment variable instead.</p>
-<h3 id="custom-configuration-locations">Custom Configuration Locations<a class="headerlink" href="#custom-configuration-locations" title="Permanent link">&para;</a></h3>
-<p>By default, EthoPy looks for configuration in <code>~/.ethopy/local_conf.json</code>. You can specify a different configuration file using the <code>--config</code> option:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Use a custom configuration file</span>
-ethopy<span class="w"> </span>--config<span class="w"> </span>/path/to/my_config.json
-
-<span class="c1"># Or use the short form</span>
-ethopy<span class="w"> </span>-c<span class="w"> </span>/path/to/my_config.json
-</code></pre></div></td></tr></table></div>
-<p>This is useful when you want to:
-- Switch between different experimental setups
-- Test with different database configurations
-- Keep separate configurations for different projects</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Check file location</strong> - Ensure <code>local_conf.json</code> is in <code>~/.ethopy/</code></p>
+</li>
+<li>
+<p><strong>Check JSON format</strong> - Verify proper JSON syntax (no missing commas/brackets)</p>
+</li>
+<li>
+<p><strong>Start simple</strong> - Copy one of the examples from this guide</p>
+</li>
+</ol>
+<h2 id="security-best-practices">Security Best Practices<a class="headerlink" href="#security-best-practices" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Never share your config file</strong> - It contains database passwords</li>
+<li><strong>Use strong passwords</strong> - Protect your database access</li>
+<li><strong>Keep backups</strong> - Save a copy of your working configuration</li>
+<li><strong>Use full paths</strong> - Avoid relative paths that might break</li>
+</ul>
+<h2 id="local-vs-database-settings">Local vs Database Settings<a class="headerlink" href="#local-vs-database-settings" title="Permanent link">&para;</a></h2>
+<p><strong>Store in local_conf.json:</strong>
+- Database connection details
+- File paths specific to this machine
+- Hardware GPIO pin assignments
+- Logging preferences
+- Machine-specific settings</p>
+<p><strong>Store in database:</strong>
+- Experimental parameters
+- Trial configurations
+- Animal information
+- Session data
+- Results and measurements</p>
+<p>This separation keeps your experiments portable while maintaining machine-specific configurations.</p>
 
 
 
@@ -2175,10 +2255,10 @@ ethopy<span class="w"> </span>-c<span class="w"> </span>/path/to/my_config.json
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
       
     
   </body>

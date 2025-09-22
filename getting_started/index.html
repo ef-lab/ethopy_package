@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -315,6 +315,25 @@
     
   
   Report Issues
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
 
       </a>
     </li>
@@ -659,6 +678,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Where to Go Next">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Packages
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -910,6 +953,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../setup_configuration_idx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setup Configuration Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../control/" class="md-nav__link">
         
   
@@ -955,22 +1021,40 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../setup_configuration_idx/" class="md-nav__link">
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
-    Setup Configuration Index
+    Database
     
   </span>
   
 
-      </a>
-    </li>
-  
-
-              
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Database
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -1002,17 +1086,25 @@
   
   
     <li class="md-nav__item">
-      <a href="../nwb_docs/" class="md-nav__link">
+      <a href="../database_schemas/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Export to NWB
+    Database Organization
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1025,12 +1117,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../nwb_docs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Troubleshooting
+    Export to NWB
     
   </span>
   
@@ -1255,6 +1347,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1396,6 +1510,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Where to Go Next">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Packages
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1428,8 +1566,8 @@
 <li>Python 3.8 or higher (but less than 3.12) installed</li>
 <li>MariaDB database</li>
 </ul>
-<div class="admonition note database setup">
-<p class="admonition-title">Note</p>
+<div class="admonition tip database setup">
+<p class="admonition-title">Tip</p>
 <p>We recommend using <a href="https://www.docker.com/blog/getting-started-with-docker-desktop/">Docker</a> for setting up a new database.</p>
 </div>
 <h2 id="step-1-installation">Step 1: Installation<a class="headerlink" href="#step-1-installation" title="Permanent link">&para;</a></h2>
@@ -1521,7 +1659,7 @@ This command adds your user to the docker group, so you can run Docker commands 
 </div>
 </div>
 </div>
-<p>dj_local_conf includes the parameters relevant to the <a href="https://datajoint.com/docs/elements/element-miniscope/0.2/tutorials/01-Configure/">datajoint configuration</a>:
+<p>dj_local_conf includes the parameters relevant to the <a href="https://datajoint.com/docs/elements/element-miniscope/0.2/tutorials/01-Configure/">datajoint configuration</a>, more details about the local_conf.json can be found <a href="../local_conf/">here</a>:
    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1568,12 +1706,12 @@ This command adds your user to the docker group, so you can run Docker commands 
 </code></pre></div></td></tr></table></div>
 The option --task-path is for defining the path of the task. The <a href="https://github.com/ef-lab/ethopy_package/tree/main/src/ethopy/task">example tasks</a> can run by the file name, for any other experiment you must define the full path.
 Option --log-console is to enable the logging in terminal.</p>
-<p><strong>Simulation Interface (setup_conf_idx 0):</strong> in this task, EthoPy runs with setup_conf_idx 0, which uses the DummyPorts interface for simulation. This allows you to test tasks on your computer without requiring actual hardware. The interface maps keyboard inputs to behavioral ports: <strong>left arrow</strong> activates the left port, <strong>right arrow</strong> activates the right port, and <strong>spacebar</strong> controls proximity detection (press to indicate animal in position, release for off position). This simulation mode enables fast prototyping and testing of behavioral tasks.</p>
+<p><strong>Simulation Interface (setup_conf_idx 0):</strong> in this task, EthoPy runs with setup_conf_idx 0, which uses the DummyPorts interface for simulation. This allows you to test tasks on your computer without requiring actual hardware. The interface maps keyboard inputs to behavioral port IDs: <strong>left arrow</strong> activates lick port ID 1, <strong>right arrow</strong> activates lick port ID 2, and <strong>spacebar</strong> controls the proximity port ID 1 (press to indicate animal in position, release for off position). This simulation mode enables fast prototyping and testing of behavioral tasks.</p>
 <p>You can check all the options of ethopy by:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span>--help
 </code></pre></div></td></tr></table></div></p>
 <h2 id="example-tasks">Example Tasks<a class="headerlink" href="#example-tasks" title="Permanent link">&para;</a></h2>
-<p>Explore these sample tasks in the <code>ethopy/task/</code> directory:</p>
+<p>Explore these sample tasks in the <a href="https://github.com/ef-lab/ethopy_package/tree/main/src/ethopy/task"><code>ethopy/task/</code></a> directory:</p>
 <ol>
 <li><strong>grating_test.py</strong> - Grating stimulus presentation</li>
 <li><strong>bar_test.py</strong> - Moving bar stimulus</li>
@@ -1587,16 +1725,24 @@ Option --log-console is to enable the logging in terminal.</p>
 <hr />
 <h2 id="where-to-go-next">Where to Go Next<a class="headerlink" href="#where-to-go-next" title="Permanent link">&para;</a></h2>
 <p>Now that you have a basic understanding of EthoPy:</p>
+<h3 id="core-documentation">Core Documentation<a class="headerlink" href="#core-documentation" title="Permanent link">&para;</a></h3>
 <ol>
 <li><a href="../creating_custom_components/">Creating Custom Components</a></li>
 <li>How to <a href="https://ef-lab.github.io/ethopy_package/task_setup/">create a Task </a></li>
 <li>Explore the <a href="../plugin/">Plugin System</a> to extend functionality</li>
 <li>Dive deeper into <a href="../local_conf/">Local Configuration</a> for advanced settings</li>
 <li>Understand <a href="../setup_configuration_idx/">setup configuration index</a></li>
-<li>Learn more about <a href="database.md">Database Setup</a></li>
+<li>Learn more about <a href="../database_setup/">Database Setup</a></li>
 <li>Study the <a href="../API/logger/">API Reference</a> for detailed documentation</li>
 <li>Check <a href="../contributing/">Contributing</a> if you want to help improve EthoPy</li>
 </ol>
+<h3 id="related-packages">Related Packages<a class="headerlink" href="#related-packages" title="Permanent link">&para;</a></h3>
+<p>Expand your EthoPy workflow with these companion packages:</p>
+<ul>
+<li><strong><a href="https://github.com/ef-lab/ethopy_analysis">EthoPy Analysis</a></strong> - Data analysis tools and plots for EthoPy experiments</li>
+<li><strong><a href="https://github.com/ef-lab/ethopy_plugins">EthoPy Plugins</a></strong> - Additional plugins and extensions for EthoPy functionality</li>
+<li><strong><a href="https://github.com/ef-lab/ethopy_control">EthoPy Control</a></strong> - Web-based control interface for remote experiment management</li>
+</ul>
 
 
 
@@ -1654,10 +1800,10 @@ Option --log-console is to enable the logging in terminal.</p>
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
       
     
   </body>

@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -315,6 +315,25 @@
     
   
   Report Issues
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
 
       </a>
     </li>
@@ -1036,6 +1055,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../setup_configuration_idx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setup Configuration Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../control/" class="md-nav__link">
         
   
@@ -1081,22 +1123,40 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../setup_configuration_idx/" class="md-nav__link">
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
-    Setup Configuration Index
+    Database
     
   </span>
   
 
-      </a>
-    </li>
-  
-
-              
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Database
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -1128,17 +1188,25 @@
   
   
     <li class="md-nav__item">
-      <a href="../nwb_docs/" class="md-nav__link">
+      <a href="../database_schemas/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Export to NWB
+    Database Organization
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1151,12 +1219,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../nwb_docs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Troubleshooting
+    Export to NWB
     
   </span>
   
@@ -1372,6 +1440,28 @@
   
   <span class="md-ellipsis">
     Report Issues
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
     
   </span>
   
@@ -1725,9 +1815,11 @@
 </code></pre></div></td></tr></table></div>
 <h2 id="creating-plugins">Creating Plugins<a class="headerlink" href="#creating-plugins" title="Permanent link">&para;</a></h2>
 <h3 id="plugin-naming">Plugin Naming<a class="headerlink" href="#plugin-naming" title="Permanent link">&para;</a></h3>
-<p>Plugins are imported using the <code>ethopy</code> namespace. For example:
-    - Standalone module: <code>ethopy.mymodule</code>
-    - Categorized plugin: <code>ethopy.behaviors.custom_behavior</code></p>
+<p>Plugins are imported using the <code>ethopy</code> namespace. For example:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>- Standalone module: `ethopy.mymodule`
+- Categorized plugin: `ethopy.behaviors.custom_behavior`
+</code></pre></div></td></tr></table></div>
 <p>Make sure to avoid naming conflicts with core Ethopy modules, as core modules take precedence over plugins.</p>
 <h3 id="standalone-modules">Standalone Modules<a class="headerlink" href="#standalone-modules" title="Permanent link">&para;</a></h3>
 <p>Create a Python file in the root of your plugin directory:</p>
@@ -1746,7 +1838,7 @@
         <span class="k">return</span> <span class="s2">&quot;Hello from MyModule!&quot;</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="categorized-modules">Categorized Modules<a class="headerlink" href="#categorized-modules" title="Permanent link">&para;</a></h3>
-<p>Examples of the behavior, experiment and stimulus plugin content can be found <a href="creating_costum_components.md">here</a>.</p>
+<p>Examples of the behavior, experiment and stimulus plugin content can be found <a href="../creating_custom_components/">here</a>.</p>
 <h4 id="behavior-plugins">Behavior Plugins<a class="headerlink" href="#behavior-plugins" title="Permanent link">&para;</a></h4>
 <p>Create a Python file in the <code>behaviors</code> directory:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1826,10 +1918,12 @@
         <span class="k">pass</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="plugin-registration">Plugin Registration<a class="headerlink" href="#plugin-registration" title="Permanent link">&para;</a></h3>
-<p>Plugins are automatically discovered and registered when:
-1. They are placed in a recognized plugin directory
-2. The file name doesn't start with an underscore
-3. The file has a <code>.py</code> extension</p>
+<p>Plugins are automatically discovered and registered when:</p>
+<ol>
+<li>They are placed in a recognized plugin directory</li>
+<li>The file name doesn't start with an underscore</li>
+<li>The file has a <code>.py</code> extension</li>
+</ol>
 <div class="admonition tip create new condition tables">
 <p class="admonition-title">Tip</p>
 <p>When your costume module creates new condition tables, make sure to run</p>
@@ -1875,11 +1969,13 @@ to create the new tables.</p>
 <span class="n">stimulus</span> <span class="o">=</span> <span class="n">CustomStimulus</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="plugin-management">Plugin Management<a class="headerlink" href="#plugin-management" title="Permanent link">&para;</a></h3>
-<p>The plugin system is managed by the <code>PluginManager</code> class, which handles:
-    - Plugin discovery and registration
-    - Import path management
-    - Conflict resolution
-    - Plugin information tracking</p>
+<p>The plugin system is managed by the <code>PluginManager</code> class, which handles:</p>
+<ul>
+<li>Plugin discovery and registration</li>
+<li>Import path management</li>
+<li>Conflict resolution</li>
+<li>Plugin information tracking</li>
+</ul>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1944,22 +2040,28 @@ to create the new tables.</p>
 </code></pre></div></td></tr></table></div>
 <h2 id="plugin-resolution">Plugin Resolution<a class="headerlink" href="#plugin-resolution" title="Permanent link">&para;</a></h2>
 <h3 id="load-order">Load Order<a class="headerlink" href="#load-order" title="Permanent link">&para;</a></h3>
-<p>Plugins are loaded in the following order:
-1. Core Ethopy modules (from main package)
-2. Default plugin directories
-3. Custom plugin paths from environment variable</p>
+<p>Plugins are loaded in the following order:</p>
+<ol>
+<li>Core Ethopy modules (from main package)</li>
+<li>Default plugin directories</li>
+<li>Custom plugin paths from environment variable</li>
+</ol>
 <h3 id="conflict-resolution">Conflict Resolution<a class="headerlink" href="#conflict-resolution" title="Permanent link">&para;</a></h3>
 <p>The plugin system uses the following precedence rules:</p>
 <ol>
 <li>
-<p><strong>Core vs Plugin Conflicts</strong>:
-        - Core Ethopy modules always take precedence over plugins
-        - Warning is issued when a plugin conflicts with a core module</p>
+<p><strong>Core vs Plugin Conflicts</strong>:</p>
+<ul>
+<li>Core Ethopy modules always take precedence over plugins</li>
+<li>Warning is issued when a plugin conflicts with a core module</li>
+</ul>
 </li>
 <li>
-<p><strong>Plugin vs Plugin Conflicts</strong>:
-        - Later added paths take precedence over earlier ones
-        - Warning is displayed showing which version is used/ignored</p>
+<p><strong>Plugin vs Plugin Conflicts</strong>:</p>
+<ul>
+<li>Later added paths take precedence over earlier ones</li>
+<li>Warning is displayed showing which version is used/ignored</li>
+</ul>
 </li>
 </ol>
 <p>Example conflict warning:
@@ -1977,74 +2079,94 @@ WARNING: Duplicate plugin found for &#39;ethopy.behaviors.custom&#39;:
 <h3 id="plugin-development">Plugin Development<a class="headerlink" href="#plugin-development" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p><strong>Namespace Awareness</strong>:
-        - Avoid using names that conflict with core Ethopy modules
-        - Use descriptive, unique names for your plugins
-        - Follow Python naming conventions</p>
+<p><strong>Namespace Awareness</strong>:</p>
+<ul>
+<li>Avoid using names that conflict with core Ethopy modules</li>
+<li>Use descriptive, unique names for your plugins</li>
+<li>Follow Python naming conventions</li>
+</ul>
 </li>
 <li>
-<p><strong>Structure and Organization</strong>:
-        - Place plugins in the correct category directory
-        - Use appropriate base classes for each plugin type
-        - Keep plugin files focused and single-purpose</p>
+<p><strong>Structure and Organization</strong>:</p>
+<ul>
+<li>Place plugins in the correct category directory</li>
+<li>Use appropriate base classes for each plugin type</li>
+<li>Keep plugin files focused and single-purpose</li>
+</ul>
 </li>
 <li>
-<p><strong>Documentation</strong>:
-        - Add docstrings to your plugin classes and methods
-        - Include usage examples in the documentation
-        - Document any special requirements or dependencies</p>
+<p><strong>Documentation</strong>:</p>
+<ul>
+<li>Add docstrings to your plugin classes and methods</li>
+<li>Include usage examples in the documentation</li>
+<li>Document any special requirements or dependencies</li>
+</ul>
 </li>
 <li>
-<p><strong>Error Handling</strong>:
-        - Implement proper error handling in your plugins
-        - Provide meaningful error messages
-        - Handle resource cleanup properly</p>
+<p><strong>Error Handling</strong>:</p>
+<ul>
+<li>Implement proper error handling in your plugins</li>
+<li>Provide meaningful error messages</li>
+<li>Handle resource cleanup properly</li>
+</ul>
 </li>
 </ol>
 <h3 id="plugin-distribution">Plugin Distribution<a class="headerlink" href="#plugin-distribution" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p><strong>Dependencies</strong>:
-        - Clearly specify any additional dependencies
-        - Use standard Python package management
-        - Test with different Python versions</p>
+<p><strong>Dependencies</strong>:</p>
+<ul>
+<li>Clearly specify any additional dependencies</li>
+<li>Use standard Python package management</li>
+<li>Test with different Python versions</li>
+</ul>
 </li>
 <li>
-<p><strong>Version Control</strong>:
-        - Use version control for your plugins
-        - Tag releases with version numbers
-        - Maintain a changelog</p>
+<p><strong>Version Control</strong>:</p>
+<ul>
+<li>Use version control for your plugins</li>
+<li>Tag releases with version numbers</li>
+<li>Maintain a changelog</li>
+</ul>
 </li>
 <li>
-<p><strong>Testing</strong>:
-        - Write tests for your plugins
-        - Test integration with Ethopy
-        - Verify behavior with different configurations</p>
+<p><strong>Testing</strong>:</p>
+<ul>
+<li>Write tests for your plugins</li>
+<li>Test integration with Ethopy</li>
+<li>Verify behavior with different configurations</li>
+</ul>
 </li>
 </ol>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p><strong>Plugin Not Found</strong>:
-        - Verify plugin directory location
-        - Check file permissions
-        - Ensure correct Python path
-        - Validate plugin file naming</p>
+<p><strong>Plugin Not Found</strong>:</p>
+<ul>
+<li>Verify plugin directory location</li>
+<li>Check file permissions</li>
+<li>Ensure correct Python path</li>
+<li>Validate plugin file naming</li>
+</ul>
 </li>
 <li>
-<p><strong>Import Errors</strong>:
-        - Check for missing dependencies
-        - Verify Python version compatibility
-        - Look for syntax errors in plugin code
-        - Check for circular imports</p>
+<p><strong>Import Errors</strong>:</p>
+<ul>
+<li>Check for missing dependencies</li>
+<li>Verify Python version compatibility</li>
+<li>Look for syntax errors in plugin code</li>
+<li>Check for circular imports</li>
+</ul>
 </li>
 <li>
-<p><strong>Plugin Conflicts</strong>:
-        - Review plugin naming for conflicts
-        - Check plugin path order
-        - Examine duplicate warnings
-        - Verify core module conflicts</p>
+<p><strong>Plugin Conflicts</strong>:</p>
+<ul>
+<li>Review plugin naming for conflicts</li>
+<li>Check plugin path order</li>
+<li>Examine duplicate warnings</li>
+<li>Verify core module conflicts</li>
+</ul>
 </li>
 </ol>
 <h3 id="debugging-tips">Debugging Tips<a class="headerlink" href="#debugging-tips" title="Permanent link">&para;</a></h3>
@@ -2094,15 +2216,19 @@ WARNING: Duplicate plugin found for &#39;ethopy.behaviors.custom&#39;:
 <h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p><strong>Documentation</strong>:
-        - <a href="https://ef-lab.github.io/ethopy_package/">Ethopy Core Documentation</a>
-        - <a href="https://docs.datajoint.org/">DataJoint Documentation</a>
-        - <a href="https://packaging.python.org/guides/distributing-packages-using-setuptools/">Python Packaging Guide</a></p>
+<p><strong>Documentation</strong>:</p>
+<ul>
+<li><a href="https://ef-lab.github.io/ethopy_package/">Ethopy Core Documentation</a></li>
+<li><a href="https://docs.datajoint.org/">DataJoint Documentation</a></li>
+<li><a href="https://packaging.python.org/guides/distributing-packages-using-setuptools/">Python Packaging Guide</a></li>
+</ul>
 </li>
 <li>
-<p><strong>Community</strong>:
-        - <a href="https://github.com/ef-lab/ethopy_package/issues">GitHub Issues</a>
-        - <a href="https://github.com/ef-lab/ethopy_package/blob/main/CONTRIBUTING.md">Contributing Guidelines</a></p>
+<p><strong>Community</strong>:</p>
+<ul>
+<li><a href="https://github.com/ef-lab/ethopy_package/issues">GitHub Issues</a></li>
+<li><a href="https://github.com/ef-lab/ethopy_package/blob/main/CONTRIBUTING.md">Contributing Guidelines</a></li>
+</ul>
 </li>
 </ol>
 
@@ -2162,10 +2288,10 @@ WARNING: Duplicate plugin found for &#39;ethopy.behaviors.custom&#39;:
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
       
     
   </body>

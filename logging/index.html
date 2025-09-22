@@ -18,11 +18,11 @@
         <link rel="prev" href="../control/">
       
       
-        <link rel="next" href="../setup_configuration_idx/">
+        <link rel="next" href="../database_setup/">
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -315,6 +315,25 @@
     
   
   Report Issues
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
 
       </a>
     </li>
@@ -751,6 +770,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../setup_configuration_idx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setup Configuration Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../control/" class="md-nav__link">
         
   
@@ -824,11 +866,77 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#how-to-use-logging" class="md-nav__link">
     <span class="md-ellipsis">
-      Features
+      How to Use Logging
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="How to Use Logging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-line-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Line Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-your-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      In Your Module
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-logginggetlogger__name__-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How logging.getLogger(__name__) Works
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-output-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log Output Formats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Log Output Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#console-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Console Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -843,135 +951,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#default-settings" class="md-nav__link">
+  <a href="#automatic-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Default Settings
+      Automatic Setup
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#local-conf-setting-based-on-the-local_confjson" class="md-nav__link">
+  <a href="#log-files" class="md-nav__link">
     <span class="md-ellipsis">
-      Local conf setting based on the local_conf.json
+      Log Files
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#command-line-options" class="md-nav__link">
+  <a href="#log-levels" class="md-nav__link">
     <span class="md-ellipsis">
-      Command Line Options
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#log-formats" class="md-nav__link">
-    <span class="md-ellipsis">
-      Log Formats
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Log Formats">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#file-logs" class="md-nav__link">
-    <span class="md-ellipsis">
-      File Logs
+      Log Levels
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#console-logs" class="md-nav__link">
+  <a href="#configure-settings-with-the-local_confjson" class="md-nav__link">
     <span class="md-ellipsis">
-      Console Logs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#color-coding" class="md-nav__link">
-    <span class="md-ellipsis">
-      Color Coding
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#log-file-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      Log File Management
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Log File Management">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#rotation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rotation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#directory-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      Directory Structure
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Usage Examples
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Usage Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-logging" class="md-nav__link">
-    <span class="md-ellipsis">
-      Basic Logging
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-logger" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom Logger
+      Configure settings with the local_conf.json
     </span>
   </a>
   
@@ -992,42 +1001,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-details" class="md-nav__link">
+  <a href="#technical-details" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation Details
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Details">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#loggingmanager-class" class="md-nav__link">
-    <span class="md-ellipsis">
-      LoggingManager Class
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-formatter" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom Formatter
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
+      Technical Details
     </span>
   </a>
   
@@ -1048,22 +1024,40 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../setup_configuration_idx/" class="md-nav__link">
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
-    Setup Configuration Index
+    Database
     
   </span>
   
 
-      </a>
-    </li>
-  
-
-              
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Database
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -1095,17 +1089,25 @@
   
   
     <li class="md-nav__item">
-      <a href="../nwb_docs/" class="md-nav__link">
+      <a href="../database_schemas/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Export to NWB
+    Database Organization
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1118,12 +1120,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../nwb_docs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Troubleshooting
+    Export to NWB
     
   </span>
   
@@ -1348,6 +1350,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1375,11 +1399,77 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#how-to-use-logging" class="md-nav__link">
     <span class="md-ellipsis">
-      Features
+      How to Use Logging
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="How to Use Logging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-line-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Line Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-your-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      In Your Module
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-logginggetlogger__name__-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How logging.getLogger(__name__) Works
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-output-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log Output Formats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Log Output Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#console-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Console Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1394,135 +1484,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#default-settings" class="md-nav__link">
+  <a href="#automatic-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Default Settings
+      Automatic Setup
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#local-conf-setting-based-on-the-local_confjson" class="md-nav__link">
+  <a href="#log-files" class="md-nav__link">
     <span class="md-ellipsis">
-      Local conf setting based on the local_conf.json
+      Log Files
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#command-line-options" class="md-nav__link">
+  <a href="#log-levels" class="md-nav__link">
     <span class="md-ellipsis">
-      Command Line Options
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#log-formats" class="md-nav__link">
-    <span class="md-ellipsis">
-      Log Formats
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Log Formats">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#file-logs" class="md-nav__link">
-    <span class="md-ellipsis">
-      File Logs
+      Log Levels
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#console-logs" class="md-nav__link">
+  <a href="#configure-settings-with-the-local_confjson" class="md-nav__link">
     <span class="md-ellipsis">
-      Console Logs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#color-coding" class="md-nav__link">
-    <span class="md-ellipsis">
-      Color Coding
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#log-file-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      Log File Management
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Log File Management">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#rotation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rotation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#directory-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      Directory Structure
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Usage Examples
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Usage Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-logging" class="md-nav__link">
-    <span class="md-ellipsis">
-      Basic Logging
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-logger" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom Logger
+      Configure settings with the local_conf.json
     </span>
   </a>
   
@@ -1543,42 +1534,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-details" class="md-nav__link">
+  <a href="#technical-details" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation Details
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Details">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#loggingmanager-class" class="md-nav__link">
-    <span class="md-ellipsis">
-      LoggingManager Class
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-formatter" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom Formatter
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
+      Technical Details
     </span>
   </a>
   
@@ -1607,38 +1565,8 @@
 
 
 <h1 id="logging-in-ethopy">Logging in EthoPy<a class="headerlink" href="#logging-in-ethopy" title="Permanent link">&para;</a></h1>
-<p>EthoPy provides a comprehensive logging system that handles both file and console output with configurable formats and levels. The logging system is centrally managed and provides consistent logging across all modules of the package.</p>
-<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Rotating file logs with size limits</li>
-<li>Colored console output</li>
-<li>Different formats for different log levels</li>
-<li>Centralized configuration</li>
-<li>Automatic log directory creation</li>
-<li>Multiple backup log files</li>
-</ul>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<h3 id="default-settings">Default Settings<a class="headerlink" href="#default-settings" title="Permanent link">&para;</a></h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">DEFAULT_LOG_DIR</span> <span class="o">=</span> <span class="s2">&quot;logs&quot;</span>
-<span class="n">DEFAULT_LOG_FILE</span> <span class="o">=</span> <span class="s2">&quot;ethopy.log&quot;</span>
-<span class="n">MAX_LOG_SIZE</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1"># 30 MB</span>
-<span class="n">LOG_BACKUP_COUNT</span> <span class="o">=</span> <span class="mi">5</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="local-conf-setting-based-on-the-local_confjson">Local conf setting based on the local_conf.json<a class="headerlink" href="#local-conf-setting-based-on-the-local_confjson" title="Permanent link">&para;</a></h3>
-<p>Logging is set up based on the parameters defined in the local_conf.json
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;directory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~/.ethopy/&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ethopy.log&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-</code></pre></div></td></tr></table></div></p>
+<p>EthoPy uses Python's standard logging system with centralized configuration. All modules automatically get properly formatted logging with the option for both file and console output.</p>
+<h2 id="how-to-use-logging">How to Use Logging<a class="headerlink" href="#how-to-use-logging" title="Permanent link">&para;</a></h2>
 <h3 id="command-line-options">Command Line Options<a class="headerlink" href="#command-line-options" title="Permanent link">&para;</a></h3>
 <p>When running EthoPy from the command line, you can configure logging using these options:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1649,118 +1577,7 @@ Options:
 <span class="w">  </span>--log-console<span class="w">        </span>Enable<span class="w"> </span>console<span class="w"> </span>logging
 <span class="w">  </span>--log-level<span class="w"> </span>TEXT<span class="w">     </span>Logging<span class="w"> </span>level<span class="w"> </span><span class="o">(</span>DEBUG,<span class="w"> </span>INFO,<span class="w"> </span>WARNING,<span class="w"> </span>ERROR,<span class="w"> </span>CRITICAL<span class="o">)</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="log-formats">Log Formats<a class="headerlink" href="#log-formats" title="Permanent link">&para;</a></h2>
-<h3 id="file-logs">File Logs<a class="headerlink" href="#file-logs" title="Permanent link">&para;</a></h3>
-<p>All file logs use the detailed format:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)
-</code></pre></div></td></tr></table></div></p>
-<p>Example:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>2024-01-20 10:15:30 - ethopy - INFO - Experiment started (experiment.py:145)
-</code></pre></div></td></tr></table></div></p>
-<h3 id="console-logs">Console Logs<a class="headerlink" href="#console-logs" title="Permanent link">&para;</a></h3>
-<p>Console logs use two different formats based on the log level:</p>
-<ol>
-<li>
-<p><strong>Simple Format</strong> (for INFO and DEBUG):
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>%(asctime)s - %(levelname)s - %(message)s
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p><strong>Detailed Format</strong> (for WARNING and above):
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)
-</code></pre></div></td></tr></table></div></p>
-</li>
-</ol>
-<h3 id="color-coding">Color Coding<a class="headerlink" href="#color-coding" title="Permanent link">&para;</a></h3>
-<p>Console output is color-coded by log level:</p>
-<ul>
-<li>DEBUG: Grey</li>
-<li>INFO: Grey</li>
-<li>WARNING: Yellow</li>
-<li>ERROR: Red</li>
-<li>CRITICAL: Bold Red</li>
-</ul>
-<h2 id="log-file-management">Log File Management<a class="headerlink" href="#log-file-management" title="Permanent link">&para;</a></h2>
-<h3 id="rotation">Rotation<a class="headerlink" href="#rotation" title="Permanent link">&para;</a></h3>
-<p>Log files are automatically rotated when they reach the maximum size:</p>
-<ul>
-<li>Maximum file size: 30 MB</li>
-<li>Number of backup files: 5</li>
-<li>Naming convention: ethopy.log, ethopy.log.1, ethopy.log.2, etc.</li>
-</ul>
-<h3 id="directory-structure">Directory Structure<a class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>logs/
-├── ethopy.log          # Current log file
-├── ethopy.log.1        # Most recent backup
-├── ethopy.log.2        # Second most recent backup
-└── ...
-</code></pre></div></td></tr></table></div>
-<h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
-<h3 id="basic-logging">Basic Logging<a class="headerlink" href="#basic-logging" title="Permanent link">&para;</a></h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-
-<span class="c1"># Log messages at different levels</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Detailed debug information&quot;</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;General information&quot;</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Warning message&quot;</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error message&quot;</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Critical error&quot;</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="custom-logger">Custom Logger<a class="headerlink" href="#custom-logger" title="Permanent link">&para;</a></h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-
-<span class="c1"># Create a logger for your module</span>
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-
-<span class="c1"># Use the logger</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Module specific information&quot;</span><span class="p">)</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Module specific error&quot;</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p><strong>Log Level Selection</strong>
-            - Use DEBUG for detailed debugging information
-            - Use INFO for general operational messages
-            - Use WARNING for unexpected but handled situations
-            - Use ERROR for errors that affect functionality
-            - Use CRITICAL for errors that require immediate attention</p>
-</li>
-<li>
-<p><strong>Message Content</strong>
-            - Include relevant context in log messages
-            - Be specific about what happened
-            - Include important variable values
-            - Avoid logging sensitive information</p>
-</li>
-<li>
-<p><strong>Performance Considerations</strong>
-            - Avoid logging in tight loops
-            - Use appropriate log levels to control output volume
-            - Consider log rotation settings for long-running applications</p>
-</li>
-</ol>
-<h2 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
-<h3 id="loggingmanager-class">LoggingManager Class<a class="headerlink" href="#loggingmanager-class" title="Permanent link">&para;</a></h3>
-<p>The <code>LoggingManager</code> class handles all logging configuration:</p>
+<h3 id="in-your-module">In Your Module<a class="headerlink" href="#in-your-module" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1770,50 +1587,99 @@ Options:
 <span class="normal"> 7</span>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.utils.ethopy_logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoggingManager</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-<span class="c1"># Create a manager instance</span>
-<span class="n">manager</span> <span class="o">=</span> <span class="n">LoggingManager</span><span class="p">(</span><span class="s2">&quot;your_module_name&quot;</span><span class="p">)</span>
+<span class="c1"># Create a logger for your module</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="c1"># Configure logging</span>
-<span class="n">manager</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
-    <span class="n">log_dir</span><span class="o">=</span><span class="s2">&quot;logs&quot;</span><span class="p">,</span>
-    <span class="n">console</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
-    <span class="n">log_file</span><span class="o">=</span><span class="s2">&quot;app.log&quot;</span>
-<span class="p">)</span>
+<span class="c1"># Use the logger</span>
+<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Module operation completed&quot;</span><span class="p">)</span>
+<span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Potential issue detected&quot;</span><span class="p">)</span>
+<span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Operation failed&quot;</span><span class="p">)</span>
+<span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Detailed debugging info&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="custom-formatter">Custom Formatter<a class="headerlink" href="#custom-formatter" title="Permanent link">&para;</a></h3>
-<p>The logging system includes a custom formatter that provides:</p>
+<h3 id="how-logginggetlogger__name__-works">How <code>logging.getLogger(__name__)</code> Works<a class="headerlink" href="#how-logginggetlogger__name__-works" title="Permanent link">&para;</a></h3>
+<p>Each module gets its own named logger based on the module path:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># In src/ethopy/core/experiment.py</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="c1"># Creates logger: &quot;ethopy.core.experiment&quot;</span>
+
+<span class="c1"># In src/ethopy/interfaces/Arduino.py</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="c1"># Creates logger: &quot;ethopy.interfaces.Arduino&quot;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>Benefits:</strong></p>
 <ul>
-<li>Color-coded output for different log levels</li>
-<li>Dynamic format selection based on log level</li>
-<li>Timestamp formatting</li>
-<li>File and line number information for warnings and errors</li>
+<li><strong>Module identification</strong>: Log messages show which module they came from</li>
+<li><strong>Automatic configuration</strong>: All loggers inherit the same formatting and handlers</li>
+<li><strong>Hierarchical structure</strong>: Organized by module structure</li>
 </ul>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h2 id="log-output-formats">Log Output Formats<a class="headerlink" href="#log-output-formats" title="Permanent link">&para;</a></h2>
+<h3 id="console-output">Console Output<a class="headerlink" href="#console-output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>INFO/DEBUG</strong>: <code>2024-01-20 10:15:30 - INFO - Session started</code></li>
+<li><strong>WARNING+</strong>: <code>2024-01-20 10:15:30 - ethopy.core.experiment - WARNING - Task not found (experiment.py:145)</code></li>
+<li><strong>Colors</strong>: Grey (INFO/DEBUG), Yellow (WARNING), Red (ERROR), Bold Red (CRITICAL)</li>
+</ul>
+<h3 id="file-output">File Output<a class="headerlink" href="#file-output" title="Permanent link">&para;</a></h3>
+<p>All levels use detailed format:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>2024-01-20 10:15:30 - ethopy.interfaces.Arduino - INFO - Connection established (Arduino.py:67)
+</code></pre></div></td></tr></table></div></p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<h3 id="automatic-setup">Automatic Setup<a class="headerlink" href="#automatic-setup" title="Permanent link">&para;</a></h3>
+<p>Logging is automatically configured when EthoPy starts. No manual setup needed in your modules.</p>
+<h3 id="log-files">Log Files<a class="headerlink" href="#log-files" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Location</strong>: <code>logs/ethopy.log</code></li>
+<li><strong>Rotation</strong>: 30MB max size, 5 backup files</li>
+<li><strong>Files</strong>: <code>ethopy.log</code>, <code>ethopy.log.1</code>, <code>ethopy.log.2</code>, etc.</li>
+</ul>
+<h3 id="log-levels">Log Levels<a class="headerlink" href="#log-levels" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>DEBUG</strong>: Detailed debugging information</li>
+<li><strong>INFO</strong>: General operational messages</li>
+<li><strong>WARNING</strong>: Unexpected but handled situations</li>
+<li><strong>ERROR</strong>: Errors that affect functionality</li>
+<li><strong>CRITICAL</strong>: Errors requiring immediate attention</li>
+</ul>
+<h3 id="configure-settings-with-the-local_confjson">Configure settings with the local_conf.json<a class="headerlink" href="#configure-settings-with-the-local_confjson" title="Permanent link">&para;</a></h3>
+<p>Logging is set up based on the parameters defined in the local_conf.json
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;directory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~/.ethopy/&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ethopy.log&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;max_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">31457280</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;backup_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div></td></tr></table></div></p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
-<li>
-<p><strong>Missing Logs</strong>
-            - Check write permissions for log directory
-            - Verify log level configuration
-            - Ensure log directory exists</p>
-</li>
-<li>
-<p><strong>Console Output Issues</strong>
-            - Verify console logging is enabled
-            - Check terminal color support
-            - Confirm log level settings</p>
-</li>
-<li>
-<p><strong>Performance Issues</strong>
-            - Review log rotation settings
-            - Check logging frequency
-            - Consider adjusting log levels</p>
-</li>
+<li><strong>Always use</strong> <code>log = logging.getLogger(__name__)</code> in each module</li>
+<li><strong>Include context</strong> in log messages (variable values, state info)</li>
+<li><strong>Use appropriate levels</strong> - INFO for normal operations, WARNING for issues, ERROR for failures</li>
+<li><strong>Don't log sensitive information</strong> (passwords, keys, personal data)</li>
 </ol>
+<h2 id="technical-details">Technical Details<a class="headerlink" href="#technical-details" title="Permanent link">&para;</a></h2>
+<p>The logging system uses:</p>
+<ul>
+<li><strong>LoggingManager</strong> class in <code>src/ethopy/utils/ethopy_logging.py</code></li>
+<li><strong>Root logger configuration</strong> that all module loggers inherit from</li>
+<li><strong>RotatingFileHandler</strong> for automatic log file management</li>
+<li><strong>CustomFormatter</strong> for dynamic console formatting and colors</li>
+</ul>
+<p>All configuration is handled automatically - just use <code>logging.getLogger(__name__)</code> in your modules.</p>
 
 
 
@@ -1871,10 +1737,10 @@ Options:
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
       
     
   </body>

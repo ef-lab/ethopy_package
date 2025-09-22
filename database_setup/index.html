@@ -15,14 +15,14 @@
         <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/database_setup/">
       
       
-        <link rel="prev" href="../setup_configuration_idx/">
+        <link rel="prev" href="../logging/">
       
       
-        <link rel="next" href="../nwb_docs/">
+        <link rel="next" href="../database_schemas/">
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -315,6 +315,25 @@
     
   
   Report Issues
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
 
       </a>
     </li>
@@ -751,6 +770,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../setup_configuration_idx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setup Configuration Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../control/" class="md-nav__link">
         
   
@@ -794,24 +836,44 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../setup_configuration_idx/" class="md-nav__link">
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
-    Setup Configuration Index
+    Database
     
   </span>
   
 
-      </a>
-    </li>
-  
-
-              
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Database
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -1029,17 +1091,25 @@
   
   
     <li class="md-nav__item">
-      <a href="../nwb_docs/" class="md-nav__link">
+      <a href="../database_schemas/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Export to NWB
+    Database Organization
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1052,12 +1122,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../nwb_docs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Troubleshooting
+    Export to NWB
     
   </span>
   
@@ -1282,6 +1352,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1487,12 +1579,14 @@
 <p>The easiest way to set up the database is using the provided command:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-setup-djdocker
 </code></pre></div></td></tr></table></div>
-<p>This command will:
-1. Check if Docker is running
-2. Create a MySQL container named <code>ethopy_sql_db</code>
-3. Set up the necessary volumes and configurations
-4. Prompt for a root password
-5. Start the container</p>
+<p>This command will:</p>
+<ol>
+<li>Check if Docker is running</li>
+<li>Create a MySQL container named <code>ethopy_sql_db</code></li>
+<li>Set up the necessary volumes and configurations</li>
+<li>Prompt for a root password</li>
+<li>Start the container</li>
+</ol>
 <p>The Docker container uses:
 - Image: <code>datajoint/mysql:5.7</code> (https://github.com/datajoint/mysql-docker)
 - Port: 3306 (standard MySQL port)
@@ -1647,32 +1741,40 @@ ethopy-db-connection
 <span class="c1"># Create schemas</span>
 ethopy-setup-schema
 </code></pre></div></td></tr></table></div>
-<p>This will create the following schemas:
-- <code>lab_experiments</code>
-- <code>lab_behavior</code>
-- <code>lab_stimuli</code></p>
+<p>This will create the following schemas:</p>
+<ul>
+<li><code>lab_experiments</code></li>
+<li><code>lab_behavior</code></li>
+<li><code>lab_stimuli</code></li>
+<li><code>lab_interface</code></li>
+<li><code>lab_recordings</code></li>
+</ul>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Connection Refused</strong></li>
+<li>
+<p><strong>Connection Refused</strong></p>
+<ul>
 <li>Check if MySQL service is running</li>
 <li>Verify port 3306 is not blocked by firewall</li>
-<li>
-<p>Ensure correct host/IP in configuration</p>
+<li>Ensure correct host/IP in configuration</li>
+</ul>
 </li>
 <li>
 <p><strong>Authentication Failed</strong></p>
-</li>
+<ul>
 <li>Verify username and password in <code>local_conf.json</code></li>
-<li>
-<p>Check user privileges in MySQL</p>
+<li>Check user privileges in MySQL</li>
+</ul>
 </li>
 <li>
 <p><strong>Docker Container Issues</strong></p>
-</li>
+<ul>
 <li>Check Docker logs: <code>docker logs ethopy_sql_db</code></li>
 <li>Verify Docker daemon is running</li>
 <li>Check available disk space for volume</li>
+</ul>
+</li>
 </ol>
 <h3 id="useful-commands">Useful Commands<a class="headerlink" href="#useful-commands" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1767,10 +1869,10 @@ mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </sp
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
       
     
   </body>

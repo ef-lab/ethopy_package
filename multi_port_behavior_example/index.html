@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -315,6 +315,25 @@
     
   
   Report Issues
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
 
       </a>
     </li>
@@ -900,6 +919,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../setup_configuration_idx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setup Configuration Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../control/" class="md-nav__link">
         
   
@@ -945,22 +987,40 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../setup_configuration_idx/" class="md-nav__link">
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
-    Setup Configuration Index
+    Database
     
   </span>
   
 
-      </a>
-    </li>
-  
-
-              
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Database
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -992,17 +1052,25 @@
   
   
     <li class="md-nav__item">
-      <a href="../nwb_docs/" class="md-nav__link">
+      <a href="../database_schemas/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Export to NWB
+    Database Organization
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1015,12 +1083,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../nwb_docs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Troubleshooting
+    Export to NWB
     
   </span>
   
@@ -1245,6 +1313,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1408,11 +1498,13 @@
 <li>Managing reward delivery at specific ports</li>
 <li>Logging behavioral data throughout the experiment</li>
 </ul>
-<p>This behavior is particularly useful for:
-- Two-alternative forced choice (2AFC) tasks
-- Multiple-choice experiments
-- Complex reward contingency studies
-- Tasks requiring specific response sequences</p>
+<p>This behavior is particularly useful for:</p>
+<ul>
+<li>Two-alternative forced choice (2AFC) tasks</li>
+<li>Multiple-choice experiments</li>
+<li>Complex reward contingency studies</li>
+<li>Tasks requiring specific response sequences</li>
+</ul>
 <h2 id="defining-the-behavior-database-tables">Defining the Behavior Database Tables<a class="headerlink" href="#defining-the-behavior-database-tables" title="Permanent link">&para;</a></h2>
 <p>The MultiPort behavior uses multiple tables to define its parameters:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1463,24 +1555,28 @@
 </code></pre></div></td></tr></table></div>
 <p>This database definition consists of:</p>
 <ol>
-<li><strong>Main MultiPort table</strong>:</li>
+<li>
+<p><strong>Main MultiPort table</strong>:</p>
+<ul>
 <li>Inherits from both the <code>Behavior</code> base class and <code>dj.Manual</code> (DataJoint)</li>
-<li>
-<p>Links to the parent <code>behavior.BehCondition</code> table with a foreign key</p>
+<li>Links to the parent <code>behavior.BehCondition</code> table with a foreign key</li>
+</ul>
 </li>
 <li>
-<p><strong>Response part table</strong>: </p>
-</li>
+<p><strong>Response part table</strong>:</p>
+<ul>
 <li>Defines which ports can be used for responses</li>
-<li>
-<p>Contains the <code>response_port</code> field that identifies valid response ports</p>
+<li>Contains the <code>response_port</code> field that identifies valid response ports</li>
+</ul>
 </li>
 <li>
 <p><strong>Reward part table</strong>:</p>
-</li>
+<ul>
 <li>Specifies which ports can deliver rewards</li>
 <li>Defines the reward amount and type for each port</li>
 <li>Links back to the parent MultiPort table</li>
+</ul>
+</li>
 </ol>
 <h2 id="implementing-the-behavior-class">Implementing the Behavior Class<a class="headerlink" href="#implementing-the-behavior-class" title="Permanent link">&para;</a></h2>
 <p>The MultiPort class implements several key methods that manage the animal's interaction with the experimental apparatus:</p>
@@ -1533,11 +1629,15 @@
 <p>This method determines if the animal is properly positioned and ready for the experiment:</p>
 <ol>
 <li>Gets position information from the interface</li>
-<li>Handles different timing scenarios:</li>
+<li>
+<p>Handles different timing scenarios:</p>
+<ul>
 <li>If duration is 0, animal is always considered ready</li>
 <li>If no position is detected or the position is not ready, returns False</li>
 <li>Checks if the animal has been in position for the required duration</li>
 <li>If a 'since' timestamp is provided, calculates readiness relative to that time</li>
+</ul>
+</li>
 </ol>
 <h3 id="3-is_correct-method">3. <code>is_correct()</code> method<a class="headerlink" href="#3-is_correct-method" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1566,10 +1666,12 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;response_port&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> \
         <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;response_port&#39;</span><span class="p">]))</span>
 </code></pre></div></td></tr></table></div>
-<p>This method validates if the animal's response was correct:
-- If the condition's response_port is -1, any response is considered correct
-- Otherwise, checks if the animal's response port matches the expected port in the current condition
-- Uses numpy's array comparison to support multiple correct ports</p>
+<p>This method validates if the animal's response was correct:</p>
+<ul>
+<li>If the condition's response_port is -1, any response is considered correct</li>
+<li>Otherwise, checks if the animal's response port matches the expected port in the current condition</li>
+<li>Uses numpy's array comparison to support multiple correct ports</li>
+</ul>
 <h3 id="4-reward-method">4. <code>reward()</code> method<a class="headerlink" href="#4-reward-method" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -1616,12 +1718,16 @@
 <p>This method handles reward delivery:</p>
 <ol>
 <li>Gets the port the animal is licking (since a specified time)</li>
-<li>If the licked port matches the reward port in the current condition:</li>
+<li>
+<p>If the licked port matches the reward port in the current condition:</p>
+<ul>
 <li>Triggers the hardware to deliver liquid reward through the interface</li>
 <li>Logs the reward amount</li>
 <li>Updates the history with the response port and reward amount</li>
 <li>Returns True (reward was given)</li>
 <li>Returns False if no reward was given</li>
+</ul>
+</li>
 </ol>
 <h3 id="5-punish-method">5. <code>punish()</code> method<a class="headerlink" href="#5-punish-method" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1630,9 +1736,11 @@
     <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">port</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">port</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">update_history</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">punish</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<p>This method handles punishment for incorrect responses:
-- Gets the response port (or NaN if no response)
-- Updates the history to record the punishment event</p>
+<p>This method handles punishment for incorrect responses:</p>
+<ul>
+<li>Gets the response port (or NaN if no response)</li>
+<li>Updates the history to record the punishment event</li>
+</ul>
 <h3 id="6-exit-method">6. <code>exit()</code> method<a class="headerlink" href="#6-exit-method" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1640,44 +1748,54 @@
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
-<p>This method cleans up when the behavior handler is no longer needed:
-- Calls the parent class's exit method
-- Tells the interface to perform cleanup operations (e.g., closing ports, stopping pumps)</p>
+<p>This method cleans up when the behavior handler is no longer needed:</p>
+<ul>
+<li>Calls the parent class's exit method</li>
+<li>Tells the interface to perform cleanup operations (e.g., closing ports, stopping pumps)</li>
+</ul>
 <h2 id="behavior-handler-lifecycle">Behavior Handler Lifecycle<a class="headerlink" href="#behavior-handler-lifecycle" title="Permanent link">&para;</a></h2>
 <p>The MultiPort behavior handler follows this lifecycle:</p>
 <ol>
 <li><strong>Initialization</strong>: Set up parameters, define required fields, set defaults</li>
 <li><strong>Setup</strong>: Connect to experiment, logger, and interface components</li>
-<li><strong>Operation</strong>: During the experiment, it:</li>
+<li>
+<p><strong>Operation</strong>: During the experiment, it:</p>
+<ul>
 <li>Checks if the animal is ready</li>
 <li>Validates responses</li>
 <li>Delivers rewards for correct responses</li>
 <li>Records punishments for incorrect responses</li>
 <li><strong>Cleanup</strong>: Release resources when the experiment ends</li>
+</ul>
+</li>
 </ol>
 <h2 id="how-to-create-your-own-behavior-handler">How to Create Your Own Behavior Handler<a class="headerlink" href="#how-to-create-your-own-behavior-handler" title="Permanent link">&para;</a></h2>
 <p>To create your own behavior handler:</p>
 <ol>
-<li><strong>Define database tables</strong> appropriate for your experimental paradigm</li>
-<li>Consider what behavioral parameters need to be configured</li>
 <li>
-<p>Create part tables for related groups of parameters</p>
+<p><strong>Define database tables</strong> appropriate for your experimental paradigm</p>
+<ul>
+<li>Consider what behavioral parameters need to be configured</li>
+<li>Create part tables for related groups of parameters</li>
+</ul>
 </li>
 <li>
 <p><strong>Create a behavior class</strong> that inherits from the base <code>Behavior</code> class</p>
-</li>
+<ul>
 <li>Specify required fields and defaults in <code>__init__</code></li>
-<li>
-<p>Implement core behavior methods based on your experiment's needs</p>
+<li>Implement core behavior methods based on your experiment's needs</li>
+</ul>
 </li>
 <li>
 <p><strong>Implement these essential methods</strong>:</p>
-</li>
+<ul>
 <li><code>is_ready()</code>: Determine if the animal is positioned and ready</li>
 <li><code>is_correct()</code>: Validate if the animal's response was correct</li>
 <li><code>reward()</code>: Handle reward delivery for correct responses</li>
 <li><code>punish()</code>: Handle consequences for incorrect responses</li>
 <li><code>exit()</code>: Clean up resources when done</li>
+</ul>
+</li>
 </ol>
 <p>By following this pattern, you can create behavior handlers for diverse experimental paradigms, from simple single-port setups to complex multi-stage behavioral tasks.</p>
 
@@ -1737,10 +1855,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
       
     
   </body>

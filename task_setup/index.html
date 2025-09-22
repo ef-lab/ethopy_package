@@ -18,11 +18,11 @@
         <link rel="prev" href="../plugin/">
       
       
-        <link rel="next" href="../control/">
+        <link rel="next" href="../setup_configuration_idx/">
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -315,6 +315,25 @@
     
   
   Report Issues
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
 
       </a>
     </li>
@@ -1039,6 +1058,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../setup_configuration_idx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setup Configuration Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../control/" class="md-nav__link">
         
   
@@ -1084,22 +1126,40 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../setup_configuration_idx/" class="md-nav__link">
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
-    Setup Configuration Index
+    Database
     
   </span>
   
 
-      </a>
-    </li>
-  
-
-              
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Database
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -1131,17 +1191,25 @@
   
   
     <li class="md-nav__item">
-      <a href="../nwb_docs/" class="md-nav__link">
+      <a href="../database_schemas/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Export to NWB
+    Database Organization
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1154,12 +1222,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../nwb_docs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Troubleshooting
+    Export to NWB
     
   </span>
   
@@ -1375,6 +1443,28 @@
   
   <span class="md-ellipsis">
     Report Issues
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
     
   </span>
   
@@ -1743,46 +1833,50 @@
 <h4 id="template-generation-process">Template Generation Process<a class="headerlink" href="#template-generation-process" title="Permanent link">&para;</a></h4>
 <p>The script follows these steps:</p>
 <ol>
-<li><strong>Prompt for Module Paths and Class Names</strong></li>
+<li>
+<p><strong>Prompt for Module Paths and Class Names</strong></p>
+<ul>
 <li>Enter the paths relative to <code>ethopy</code> for:<ul>
 <li>Experiment module (e.g., <code>experiments.match_port</code>)</li>
 <li>Behavior module (e.g., <code>behaviors.multi_port</code>)</li>
 <li>Stimulus module (e.g., <code>stimuli.grating</code>)</li>
 </ul>
 </li>
-<li>
-<p>Enter corresponding class names for each module.</p>
+<li>Enter corresponding class names for each module.</li>
+</ul>
 </li>
 <li>
 <p><strong>Validate Imports</strong></p>
-</li>
+<ul>
 <li>The script attempts to import the specified modules and classes.</li>
-<li>
-<p>If an import fails, an error message is displayed.</p>
+<li>If an import fails, an error message is displayed.</li>
+</ul>
 </li>
 <li>
 <p><strong>Extract Default Parameters</strong></p>
-</li>
-<li>
-<p>The script retrieves the parameters from the experiment, behavior, and stimulus classes.</p>
+<ul>
+<li>The script retrieves the parameters from the experiment, behavior, and stimulus classes.</li>
+</ul>
 </li>
 <li>
 <p><strong>Generate a Template File</strong></p>
-</li>
-<li>
-<p>A Python file is created with structured sections:</p>
 <ul>
+<li>A Python file is created with structured sections:<ul>
 <li><strong>Session Parameters</strong>: General experiment settings</li>
 <li><strong>Experiment Setup</strong>: Instantiating the experiment</li>
 <li><strong>Trial Conditions</strong>: Configuration for experiments, behaviors, and stimuli</li>
+</ul>
+</li>
 <li><strong>Condition Merging</strong>: Combining all conditions for trial generation</li>
 <li><strong>Execution</strong>: Running the experiment</li>
 </ul>
 </li>
 <li>
 <p><strong>Save the File</strong></p>
-</li>
+<ul>
 <li>The template is saved with a default filename (<code>task_&lt;stimulus&gt;_&lt;date&gt;.py</code>) or a user-specified name.</li>
+</ul>
+</li>
 </ol>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <p>After generating the template:</p>
@@ -1798,22 +1892,26 @@
 <p>Ethopy uses a <code>task_idx</code> (task index) system to uniquely identify and manage experiment configurations. This index serves as the primary key linking tasks across the Control and Task database tables.</p>
 <h4 id="how-task_idx-works">How <code>task_idx</code> Works<a class="headerlink" href="#how-task_idx-works" title="Permanent link">&para;</a></h4>
 <ol>
-<li><strong>Task Table Storage</strong>:</li>
-<li>Each experimental configuration is stored in the <code>Task</code> table with a unique <code>task_idx</code></li>
 <li>
-<p>The <code>Task</code> table contains:</p>
+<p><strong>Task Table Storage</strong>:</p>
 <ul>
+<li>Each experimental configuration is stored in the <code>Task</code> table with a unique <code>task_idx</code></li>
+<li>The <code>Task</code> table contains:<ul>
 <li><code>task_idx</code> (primary key): Unique identifier for the task</li>
 <li><code>path</code>: The actual task file</li>
 <li><code>description</code>: Human-readable description of the task</li>
 <li><code>timestamp</code>: The timestamp of the task creation</li>
 </ul>
 </li>
+</ul>
+</li>
 <li>
 <p><strong>Control Table Usage</strong>:</p>
-</li>
+<ul>
 <li>The <code>Control</code> table uses <code>task_idx</code> to specify which experiment configuration to run</li>
 <li>When you set <code>task_idx</code> in the Control table, the system loads the corresponding task configuration file</li>
+</ul>
+</li>
 </ol>
 <h2 id="creating-tasks">Creating Tasks<a class="headerlink" href="#creating-tasks" title="Permanent link">&para;</a></h2>
 <h3 id="1-session-parameters">1. Session Parameters<a class="headerlink" href="#1-session-parameters" title="Permanent link">&para;</a></h3>
@@ -2000,54 +2098,71 @@
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p><strong>Parameter Organization</strong>:
-        - Group related parameters together
-        - Use descriptive variable names
-        - Document units in comments</p>
+<p><strong>Parameter Organization</strong>:</p>
+<ul>
+<li>Group related parameters together</li>
+<li>Use descriptive variable names</li>
+<li>Document units in comments</li>
+</ul>
 </li>
 <li>
-<p><strong>Error Handling</strong>:
-        - Validate parameters before running
-        - Use helper functions to get required parameters
-        - Check for missing or invalid values</p>
+<p><strong>Error Handling</strong>:</p>
+<ul>
+<li>Validate parameters before running</li>
+<li>Use helper functions to get required parameters</li>
+<li>Check for missing or invalid values</li>
+</ul>
 </li>
 <li>
-<p><strong>Documentation</strong>:
-        - Comment complex parameter combinations
-        - Document dependencies
-        - Include example usage</p>
+<p><strong>Documentation</strong>:</p>
+<ul>
+<li>Comment complex parameter combinations</li>
+<li>Document dependencies</li>
+<li>Include example usage</li>
+</ul>
 </li>
 <li>
-<p><strong>Testing</strong>:
-        - Test with different parameter combinations
-        - Verify stimulus timing
-        - Check reward delivery</p>
+<p><strong>Testing</strong>:</p>
+<ul>
+<li>Test with different parameter combinations</li>
+<li>Verify stimulus timing</li>
+<li>Check reward delivery</li>
+</ul>
 </li>
 </ol>
 <h2 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p><strong>Parameter Errors</strong>:
-        - Missing required parameters
-        - Incorrect parameter types
-        - Invalid parameter combinations</p>
+<p><strong>Parameter Errors</strong>:</p>
+<ul>
+<li>Missing required parameters</li>
+<li>Incorrect parameter types</li>
+<li>Invalid parameter combinations</li>
+</ul>
 </li>
 <li>
-<p><strong>Timing Issues</strong>:
-        - Incorrect duration values
-        - Mismatched trial/stimulus timing
-        - Intertrial interval problems</p>
+<p><strong>Timing Issues</strong>:</p>
+<ul>
+<li>Incorrect duration values</li>
+<li>Mismatched trial/stimulus timing</li>
+<li>Intertrial interval problems</li>
+</ul>
 </li>
 <li>
-<p><strong>Hardware Configuration</strong>:
-        - Wrong setup_conf_idx
-        - Uncalibrated rewad ports
-        - Missing hardware components</p>
+<p><strong>Hardware Configuration</strong>:</p>
+<ul>
+<li>Wrong setup_conf_idx</li>
+<li>Uncalibrated rewad ports</li>
+<li>Missing hardware components</li>
+</ul>
 </li>
 </ol>
+<hr />
+<p><strong>Note</strong>: In your tasks, the <code>setup_conf_idx</code> parameter defines which hardware configuration your experiment will use. Learn more about configuring different hardware setups in the <a href="../setup_configuration_idx/">Setup Configuration Index</a> guide.</p>
 <h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://github.com/ef-lab/ethopy_package/tree/main/src/ethopy/task">Example Tasks</a></li>
+<li><a href="https://github.com/ef-lab/ethopy_plugins/">Plugins</a></li>
 </ul>
 
 
@@ -2106,10 +2221,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
       
     
   </body>

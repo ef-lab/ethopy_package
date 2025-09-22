@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -315,6 +315,25 @@
     
   
   Report Issues
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
 
       </a>
     </li>
@@ -933,6 +952,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../setup_configuration_idx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setup Configuration Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../control/" class="md-nav__link">
         
   
@@ -978,22 +1020,40 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../setup_configuration_idx/" class="md-nav__link">
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
-    Setup Configuration Index
+    Database
     
   </span>
   
 
-      </a>
-    </li>
-  
-
-              
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Database
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -1025,17 +1085,25 @@
   
   
     <li class="md-nav__item">
-      <a href="../nwb_docs/" class="md-nav__link">
+      <a href="../database_schemas/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Export to NWB
+    Database Organization
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1048,12 +1116,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../nwb_docs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Troubleshooting
+    Export to NWB
     
   </span>
   
@@ -1269,6 +1337,28 @@
   
   <span class="md-ellipsis">
     Report Issues
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
     
   </span>
   
@@ -1496,11 +1586,13 @@
 <p>The StateMachine in Ethopy automatically finds all state classes that inherit from the base experiment class and handles the flow between them based on their <code>next()</code> method returns.</p>
 <h2 id="overview-of-the-match-port-experiment">Overview of the Match Port Experiment<a class="headerlink" href="#overview-of-the-match-port-experiment" title="Permanent link">&para;</a></h2>
 <p>The Match Port experiment requires animals to correctly choose between ports based on stimuli. </p>
-<p>It implements:
-- Adaptive difficulty using staircase methods
-- Reward and punishment handling
-- Sleep/wake cycle management
-- State machine architecture for task flow</p>
+<p>It implements:</p>
+<ul>
+<li>Adaptive difficulty using staircase methods</li>
+<li>Reward and punishment handling</li>
+<li>Sleep/wake cycle management</li>
+<li>State machine architecture for task flow</li>
+</ul>
 <h2 id="defining-database-tables-with-datajoint">Defining Database Tables with DataJoint<a class="headerlink" href="#defining-database-tables-with-datajoint" title="Permanent link">&para;</a></h2>
 <p>Each experiment requires defining conditions tables that store parameters. Here's how the Match Port experiment defines its table:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1567,11 +1659,13 @@
 <span class="s2">        abort_duration              : int</span>
 <span class="s2">        &quot;&quot;&quot;</span>
 </code></pre></div></td></tr></table></div>
-<p>This table definition:
-- Uses the <code>@experiment.schema</code> decorator to associate with the experiment database
-- Creates a part table <code>MatchPort</code> under the parent <code>Condition</code> table (all parameters of the experiements are part table of the <code>Condition</code> table)
-- Defines fields with default values and data types
-- Documents the purpose with a comment at the top</p>
+<p>This table definition:</p>
+<ul>
+<li>Uses the <code>@experiment.schema</code> decorator to associate with the experiment database</li>
+<li>Creates a part table <code>MatchPort</code> under the parent <code>Condition</code> table (all parameters of the experiements are part table of the <code>Condition</code> table)</li>
+<li>Defines fields with default values and data types</li>
+<li>Documents the purpose with a comment at the top</li>
+</ul>
 <p>for more details check <a href="https://datajoint.com/docs/core/datajoint-python/latest/">datajoint documentation</a></p>
 <h2 id="creating-the-base-experiment-class">Creating the Base Experiment Class<a class="headerlink" href="#creating-the-base-experiment-class" title="Permanent link">&para;</a></h2>
 <p>The main experiment class sets up the foundation for all states and defines required parameters:</p>
@@ -1625,12 +1719,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state_timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
-<p>Key components:
-- <code>cond_tables</code>: Lists the condition tables this experiment uses and define/store the parameters of the experiment.
-- <code>required_fields</code>: Specifies which fields must be provided in the task file
-- <code>default_key</code>: Sets default values for parameters
-required_fields + default_key must have all the parameters from the Condition.MatchPort table 
-- <code>entry()</code>: Common initialization for all states. The entry function initializes the state by logging the state transition in the Trial.StateOnset in the experiment schema, resetting the response readiness flag, and starting a timer to track the duration of the state.</p>
+<p>Key components:</p>
+<ul>
+<li><code>cond_tables</code>: Lists the condition tables this experiment uses and define/store the parameters of the experiment.</li>
+<li><code>required_fields</code>: Specifies which fields must be provided in the task file</li>
+<li><code>default_key</code>: Sets default values for parameters
+required_fields + default_key must have all the parameters from the Condition.MatchPort table </li>
+<li><code>entry()</code>: Common initialization for all states. The entry function initializes the state by logging the state transition in the Trial.StateOnset in the experiment schema, resetting the response readiness flag, and starting a timer to track the duration of the state.</li>
+</ul>
 <h2 id="creating-individual-state-classes">Creating Individual State Classes<a class="headerlink" href="#creating-individual-state-classes" title="Permanent link">&para;</a></h2>
 <p>Each state is implemented as a class inheriting from the base <code>Experiment</code> class. Let's analyze in detail the <code>Trial</code> state, which manages stimulus presentation and response detection:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1708,12 +1804,18 @@ required_fields + default_key must have all the parameters from the Condition.Ma
     <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li><code>super().entry()</code>: Calls the parent class's entry method which:</li>
+<li>
+<p><code>super().entry()</code>: Calls the parent class's entry method which:</p>
+<ul>
 <li>Records the current state in the logger</li>
 <li>Logs a state transition event with timestamp</li>
 <li>Starts the state timer</li>
 <li>Resets the response readiness flag at the beginning of each Trial</li>
-<li><code>self.stim.start()</code>: Initializes the stimulus for the current trial, activating any hardware or software components needed</li>
+</ul>
+</li>
+<li>
+<p><code>self.stim.start()</code>: Initializes the stimulus for the current trial, activating any hardware or software components needed</p>
+</li>
 </ul>
 <h3 id="2-run-method">2. <code>run()</code> method<a class="headerlink" href="#2-run-method" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1736,25 +1838,27 @@ required_fields + default_key must have all the parameters from the Condition.Ma
 </code></pre></div></td></tr></table></div>
 <p>This method is called repeatedly while in the Trial state:</p>
 <ul>
-<li><code>self.stim.present()</code>: Updates the stimulus presentation on each iteration, which might involve:</li>
+<li>
+<p><code>self.stim.present()</code>: Updates the stimulus presentation on each iteration, which might involve:</p>
+<ul>
 <li>Moving visual elements</li>
 <li>Updating sound playback</li>
-<li>
-<p>Refreshing displays</p>
+<li>Refreshing displays</li>
+</ul>
 </li>
 <li>
 <p><code>self.beh.get_response(self.start_time)</code>: Checks if the animal has made a response since the trial started</p>
-</li>
+<ul>
 <li>Returns a boolean value indicating response status</li>
-<li>
-<p>The <code>start_time</code> parameter allows measuring response time relative to trial start</p>
+<li>The <code>start_time</code> parameter allows measuring response time relative to trial start</li>
+</ul>
 </li>
 <li>
 <p>Response readiness check:</p>
-</li>
+<ul>
 <li><code>self.beh.is_ready(...)</code>: Determines if the animal is in position and ready for the stimulus</li>
 <li>Uses <code>trial_ready</code> parameter from current condition to check timing requirements</li>
-<li>If the animal is ready AND we haven't yet marked the trial as ready:<ul>
+<li>If the animal is ready AND we haven't yet marked the trial as ready:</li>
 <li>Sets <code>self.resp_ready = True</code> to indicate the animal is in position</li>
 <li>Calls <code>self.stim.ready_stim()</code> to potentially modify the stimulus (e.g., changing color, activating a cue)</li>
 </ul>
@@ -1793,43 +1897,47 @@ required_fields + default_key must have all the parameters from the Condition.Ma
 </code></pre></div></td></tr></table></div>
 <p>This method determines the next state based on the animal's behavior and timing:</p>
 <ul>
-<li><strong>Early Withdrawal Check</strong>: </li>
-<li><code>if not self.resp_ready and self.beh.is_off_proximity()</code>: Checks if the animal left before being ready</li>
 <li>
-<p>If true → transition to "Abort" state</p>
+<p><strong>Early Withdrawal Check</strong>: </p>
+<ul>
+<li><code>if not self.resp_ready and self.beh.is_off_proximity()</code>: Checks if the animal left before being ready</li>
+<li>If true → transition to "Abort" state</li>
+</ul>
 </li>
 <li>
 <p><strong>Incorrect Response Check</strong>: </p>
-</li>
+<ul>
 <li><code>elif self.has_responded and not self.beh.is_correct()</code>: Animal responded but to the wrong port</li>
-<li>
-<p>If true → transition to "Punish" state</p>
+<li>If true → transition to "Punish" state</li>
+</ul>
 </li>
 <li>
 <p><strong>Correct Response Check</strong>:</p>
-</li>
+<ul>
 <li><code>elif self.has_responded and self.beh.is_correct()</code>: Animal responded correctly</li>
-<li>
-<p>If true → transition to "Reward" state</p>
+<li>If true → transition to "Reward" state</li>
+</ul>
 </li>
 <li>
 <p><strong>Timeout Check</strong>:</p>
-</li>
+<ul>
 <li><code>elif self.state_timer.elapsed_time() &gt; self.stim.curr_cond["trial_duration"]</code>: Trial ran too long</li>
-<li>
-<p>If true → transition to "Abort" state</p>
+<li>If true → transition to "Abort" state</li>
+</ul>
 </li>
 <li>
 <p><strong>Experiment Stop Check</strong>:</p>
-</li>
+<ul>
 <li><code>elif self.is_stopped()</code>: Checks if experiment has been externally requested to stop</li>
-<li>
-<p>If true → transition to "Exit" state</p>
+<li>If true → transition to "Exit" state</li>
+</ul>
 </li>
 <li>
 <p><strong>Default Case</strong>:</p>
-</li>
+<ul>
 <li><code>else: return "Trial"</code>: If none of the above conditions are met, stay in the Trial state</li>
+</ul>
+</li>
 </ul>
 <h3 id="4-exit-method">4. <code>exit()</code> method<a class="headerlink" href="#4-exit-method" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1922,10 +2030,10 @@ required_fields + default_key must have all the parameters from the Condition.Ma
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
       
     
   </body>

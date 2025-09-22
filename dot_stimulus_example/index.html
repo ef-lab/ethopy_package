@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -315,6 +315,25 @@
     
   
   Report Issues
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
 
       </a>
     </li>
@@ -891,6 +910,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../setup_configuration_idx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setup Configuration Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../control/" class="md-nav__link">
         
   
@@ -936,22 +978,40 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../setup_configuration_idx/" class="md-nav__link">
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
-    Setup Configuration Index
+    Database
     
   </span>
   
 
-      </a>
-    </li>
-  
-
-              
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Database
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -983,17 +1043,25 @@
   
   
     <li class="md-nav__item">
-      <a href="../nwb_docs/" class="md-nav__link">
+      <a href="../database_schemas/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Export to NWB
+    Database Organization
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1006,12 +1074,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../nwb_docs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Troubleshooting
+    Export to NWB
     
   </span>
   
@@ -1236,6 +1304,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1422,16 +1512,20 @@
 <span class="s2">    dot_time              : float # (sec) time of each dot persists</span>
 <span class="s2">    &quot;&quot;&quot;</span>
 </code></pre></div></td></tr></table></div>
-<p>This table definition:
-- Uses the <code>@stimulus.schema</code> decorator to associate with the database
-- Inherits from both <code>Stimulus</code> (base class) and <code>dj.Manual</code> (DataJoint table class)
-- Defines a foreign key relationship with <code>stimulus.StimCondition</code> (parent table)
-- Specifies parameters for the dot's appearance:
-  - Background and dot colors
-  - Position (x, y coordinates as fractions of screen width)
-  - Size (width and height as fractions of screen width)
-  - Shape (rectangular or oval)
-  - Duration (how long the dot persists)</p>
+<p>This table definition:</p>
+<ul>
+<li>Uses the <code>@stimulus.schema</code> decorator to associate with the database</li>
+<li>Inherits from both <code>Stimulus</code> (base class) and <code>dj.Manual</code> (DataJoint table class)</li>
+<li>Defines a foreign key relationship with <code>stimulus.StimCondition</code> (parent table)</li>
+<li>Specifies parameters for the dot's appearance:<ul>
+<li>Background and dot colors</li>
+<li>Position (x, y coordinates as fractions of screen width)</li>
+<li>Size (width and height as fractions of screen width)</li>
+<li>Shape (rectangular or oval)</li>
+<li>Duration (how long the dot persists)</li>
+</ul>
+</li>
+</ul>
 <h2 id="implementing-the-stimulus-class">Implementing the Stimulus Class<a class="headerlink" href="#implementing-the-stimulus-class" title="Permanent link">&para;</a></h2>
 <p>The Dot class implements several key methods to control the stimulus lifecycle:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1480,13 +1574,17 @@
                  <span class="n">x_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;dot_xsize&#39;</span><span class="p">],</span>
                  <span class="n">y_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;dot_ysize&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">width</span><span class="o">/</span><span class="n">height</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<p>This method:
-1. Sets the background color
-2. Calculates the dot's position and size based on:
-   - Monitor resolution (to maintain aspect ratio)
-   - Condition parameters for position and size
-   - Conversion from normalized coordinates to actual screen coordinates
-3. Creates a rectangle tuple (left, top, right, bottom) for drawing</p>
+<p>This method:</p>
+<ol>
+<li>Sets the background color</li>
+<li>Calculates the dot's position and size based on:<ul>
+<li>Monitor resolution (to maintain aspect ratio)</li>
+<li>Condition parameters for position and size</li>
+<li>Conversion from normalized coordinates to actual screen coordinates</li>
+</ul>
+</li>
+<li>Creates a rectangle tuple (left, top, right, bottom) for drawing</li>
+</ol>
 <h3 id="3-start-method">3. <code>start()</code> method<a class="headerlink" href="#3-start-method" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1494,9 +1592,11 @@
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">draw_rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;dot_level&#39;</span><span class="p">])</span>
 </code></pre></div></td></tr></table></div>
-<p>This method:
-1. Calls the parent class's start method (which initializes timing)
-2. Draws the rectangle using the precalculated coordinates and the specified color</p>
+<p>This method:</p>
+<ol>
+<li>Calls the parent class's start method (which initializes timing)</li>
+<li>Draws the rectangle using the precalculated coordinates and the specified color</li>
+</ol>
 <h3 id="4-present-method">4. <code>present()</code> method<a class="headerlink" href="#4-present-method" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1506,11 +1606,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<p>This method:
-1. Checks if the dot's display time has elapsed (converting seconds to milliseconds)
-2. If the time has elapsed:
-   - Marks the stimulus as no longer in operation
-   - Fills the screen with the background color (removing the dot)</p>
+<p>This method:</p>
+<ol>
+<li>Checks if the dot's display time has elapsed (converting seconds to milliseconds)</li>
+<li>If the time has elapsed:<ul>
+<li>Marks the stimulus as no longer in operation</li>
+<li>Fills the screen with the background color (removing the dot)</li>
+</ul>
+</li>
+</ol>
 <h3 id="5-stop-and-exit-methods">5. <code>stop()</code> and <code>exit()</code> methods<a class="headerlink" href="#5-stop-and-exit-methods" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1530,13 +1634,15 @@
 </code></pre></div></td></tr></table></div>
 <p>These methods handle cleanup:
 - <code>stop()</code>: Called when the stimulus needs to be stopped during operation
-  - Logs the stop event
-  - Clears the screen
-  - Marks the stimulus as no longer in operation</p>
+    - Logs the stop event
+    - Clears the screen
+    - Marks the stimulus as no longer in operation</p>
 <ul>
-<li><code>exit()</code>: Called when the experiment is ending</li>
+<li><code>exit()</code>: Called when the experiment is ending<ul>
 <li>Clears the screen</li>
 <li>Calls the parent class's exit method for additional cleanup</li>
+</ul>
+</li>
 </ul>
 <h2 id="stimulus-lifecycle">Stimulus Lifecycle<a class="headerlink" href="#stimulus-lifecycle" title="Permanent link">&para;</a></h2>
 <p>The dot stimulus follows this lifecycle:</p>
@@ -1622,10 +1728,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
       
     
   </body>

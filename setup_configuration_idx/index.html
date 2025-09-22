@@ -15,14 +15,14 @@
         <link rel="canonical" href="https://ef-lab.github.io/ethopy_package/setup_configuration_idx/">
       
       
-        <link rel="prev" href="../logging/">
+        <link rel="prev" href="../task_setup/">
       
       
-        <link rel="next" href="../database_setup/">
+        <link rel="next" href="../control/">
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -315,6 +315,25 @@
     
   
   Report Issues
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
 
       </a>
     </li>
@@ -748,52 +767,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../control/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Control Experiment
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../logging/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Logging
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -847,19 +820,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#setup-configuration-index-setup_conf_idx" class="md-nav__link">
+  <a href="#what-is-setup_conf_idx" class="md-nav__link">
     <span class="md-ellipsis">
-      Setup Configuration Index (setup_conf_idx)
+      What is setup_conf_idx?
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Setup Configuration Index (setup_conf_idx)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-use-different-setup-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Use Different Setup Configurations?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-setup_conf_idx-define" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Does setup_conf_idx Define?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What Does setup_conf_idx Define?">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#main-configuration-table" class="md-nav__link">
+  <a href="#1-main-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Main Configuration Table
+      1. Main Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-port-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Port Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-screen-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Screen Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-camera-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Camera Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-other-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Other Components
     </span>
   </a>
   
@@ -871,70 +898,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#component-configuration-tables" class="md-nav__link">
+  <a href="#how-to-create-a-new-setup-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Component Configuration Tables
+      How to Create a New Setup Configuration
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Component Configuration Tables">
+    <nav class="md-nav" aria-label="How to Create a New Setup Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-port-configuration-setupconfigurationport" class="md-nav__link">
+  <a href="#step-1-choose-your-setup_conf_idx-number" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Port Configuration (SetupConfiguration.Port)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Port Configuration (SetupConfiguration.Port)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#port-types-and-flags" class="md-nav__link">
-    <span class="md-ellipsis">
-      Port Types and Flags
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-screen-configuration-setupconfigurationscreen" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Screen Configuration (SetupConfiguration.Screen)
+      Step 1: Choose Your setup_conf_idx Number
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-ball-configuration-setupconfigurationball" class="md-nav__link">
+  <a href="#step-2-add-main-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Ball Configuration (SetupConfiguration.Ball)
+      Step 2: Add Main Configuration
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-speaker-configuration-setupconfigurationspeaker" class="md-nav__link">
+  <a href="#step-3-add-port-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Speaker Configuration (SetupConfiguration.Speaker)
+      Step 3: Add Port Configuration
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-camera-configuration-setupconfigurationcamera" class="md-nav__link">
+  <a href="#step-4-add-screen-configuration-if-needed" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Camera Configuration (SetupConfiguration.Camera)
+      Step 4: Add Screen Configuration (If Needed)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-add-camera-configuration-if-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Add Camera Configuration (If Needed)
     </span>
   </a>
   
@@ -946,20 +958,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-a-new-setup-configuration" class="md-nav__link">
+  <a href="#using-your-new-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating a New Setup Configuration
+      Using Your New Configuration
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage-example" class="md-nav__link">
+  <a href="#pre-built-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage Example
+      Pre-built Configuration
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Pre-built Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-simulation-setup_conf_idx-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Simulation (setup_conf_idx = 0)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -970,12 +997,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#default-configuration" class="md-nav__link">
+  <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      Default Configuration
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-note-configuration-history-and-data-integrity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Note: Configuration History and Data Integrity
     </span>
   </a>
   
@@ -989,6 +1049,93 @@
   
 
               
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control Experiment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Database
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Database
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -1020,17 +1167,25 @@
   
   
     <li class="md-nav__item">
-      <a href="../nwb_docs/" class="md-nav__link">
+      <a href="../database_schemas/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Export to NWB
+    Database Organization
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1043,12 +1198,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../nwb_docs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Troubleshooting
+    Export to NWB
     
   </span>
   
@@ -1273,6 +1428,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1300,19 +1477,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#setup-configuration-index-setup_conf_idx" class="md-nav__link">
+  <a href="#what-is-setup_conf_idx" class="md-nav__link">
     <span class="md-ellipsis">
-      Setup Configuration Index (setup_conf_idx)
+      What is setup_conf_idx?
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Setup Configuration Index (setup_conf_idx)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-use-different-setup-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Use Different Setup Configurations?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-setup_conf_idx-define" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Does setup_conf_idx Define?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What Does setup_conf_idx Define?">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#main-configuration-table" class="md-nav__link">
+  <a href="#1-main-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Main Configuration Table
+      1. Main Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-port-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Port Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-screen-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Screen Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-camera-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Camera Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-other-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Other Components
     </span>
   </a>
   
@@ -1324,70 +1555,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#component-configuration-tables" class="md-nav__link">
+  <a href="#how-to-create-a-new-setup-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Component Configuration Tables
+      How to Create a New Setup Configuration
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Component Configuration Tables">
+    <nav class="md-nav" aria-label="How to Create a New Setup Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-port-configuration-setupconfigurationport" class="md-nav__link">
+  <a href="#step-1-choose-your-setup_conf_idx-number" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Port Configuration (SetupConfiguration.Port)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Port Configuration (SetupConfiguration.Port)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#port-types-and-flags" class="md-nav__link">
-    <span class="md-ellipsis">
-      Port Types and Flags
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-screen-configuration-setupconfigurationscreen" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Screen Configuration (SetupConfiguration.Screen)
+      Step 1: Choose Your setup_conf_idx Number
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-ball-configuration-setupconfigurationball" class="md-nav__link">
+  <a href="#step-2-add-main-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Ball Configuration (SetupConfiguration.Ball)
+      Step 2: Add Main Configuration
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-speaker-configuration-setupconfigurationspeaker" class="md-nav__link">
+  <a href="#step-3-add-port-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Speaker Configuration (SetupConfiguration.Speaker)
+      Step 3: Add Port Configuration
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-camera-configuration-setupconfigurationcamera" class="md-nav__link">
+  <a href="#step-4-add-screen-configuration-if-needed" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Camera Configuration (SetupConfiguration.Camera)
+      Step 4: Add Screen Configuration (If Needed)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-add-camera-configuration-if-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Add Camera Configuration (If Needed)
     </span>
   </a>
   
@@ -1399,20 +1615,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-a-new-setup-configuration" class="md-nav__link">
+  <a href="#using-your-new-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating a New Setup Configuration
+      Using Your New Configuration
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage-example" class="md-nav__link">
+  <a href="#pre-built-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage Example
+      Pre-built Configuration
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Pre-built Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-simulation-setup_conf_idx-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Simulation (setup_conf_idx = 0)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1423,12 +1654,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#default-configuration" class="md-nav__link">
+  <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      Default Configuration
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-note-configuration-history-and-data-integrity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Note: Configuration History and Data Integrity
     </span>
   </a>
   
@@ -1457,23 +1721,45 @@
 
 
 <h1 id="setup-configuration-in-ethopy">Setup Configuration in EthoPy<a class="headerlink" href="#setup-configuration-in-ethopy" title="Permanent link">&para;</a></h1>
-<p>The setup configuration system in EthoPy is managed through the <code>setup_conf_idx</code> (Setup Configuration Index) and associated tables. This system allows users to define and manage different hardware configurations for experimental setups.</p>
-<h2 id="setup-configuration-index-setup_conf_idx">Setup Configuration Index (<code>setup_conf_idx</code>)<a class="headerlink" href="#setup-configuration-index-setup_conf_idx" title="Permanent link">&para;</a></h2>
-<p>The <code>setup_conf_idx</code> is a unique identifier that links together all components of a particular setup configuration. It's defined in the main <code>SetupConfiguration</code> table and referenced by all related configuration tables.</p>
-<h3 id="main-configuration-table">Main Configuration Table<a class="headerlink" href="#main-configuration-table" title="Permanent link">&para;</a></h3>
+<h2 id="what-is-setup_conf_idx">What is setup_conf_idx?<a class="headerlink" href="#what-is-setup_conf_idx" title="Permanent link">&para;</a></h2>
+<p>The <code>setup_conf_idx</code> (Setup Configuration Index) is a <strong>unique number</strong> that defines a complete hardware setup for your experiments. Think of it as a "recipe" that tells EthoPy:</p>
+<ul>
+<li>What type of hardware interface to use (simulation, Raspberry Pi, PC ports, etc.)</li>
+<li>How many ports you have and what they do (lick detection, reward delivery, etc.)</li>
+<li>Screen settings for visual stimuli</li>
+<li>Camera settings for recording</li>
+<li>Audio settings for sound stimuli</li>
+</ul>
+<p><strong>Key concept</strong>: Each <code>setup_conf_idx</code> represents one complete hardware configuration. You can have multiple configurations (idx 0, 1, 2, etc.) for different experimental setups.</p>
+<h2 id="why-use-different-setup-configurations">Why Use Different Setup Configurations?<a class="headerlink" href="#why-use-different-setup-configurations" title="Permanent link">&para;</a></h2>
+<p>Different experiments may need different hardware:</p>
+<ul>
+<li><strong>setup_conf_idx = 0</strong>: Simulation mode (no real hardware, keyboard input)</li>
+<li><strong>setup_conf_idx = 1</strong>: Basic Raspberry Pi setup with 2 lick ports and 1 reward valve</li>
+<li><strong>setup_conf_idx = 2</strong>: Advanced setup with multiple cameras, speakers, and VR ball</li>
+<li><strong>setup_conf_idx = 3</strong>: Simple PC setup for visual-only experiments</li>
+</ul>
+<h2 id="what-does-setup_conf_idx-define">What Does setup_conf_idx Define?<a class="headerlink" href="#what-does-setup_conf_idx-define" title="Permanent link">&para;</a></h2>
+<h3 id="1-main-configuration">1. Main Configuration<a class="headerlink" href="#1-main-configuration" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">#</span><span class="w"> </span><span class="n">SetupConfiguration</span>
-<span class="n">setup_conf_idx</span><span class="w">      </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">      </span><span class="o">#</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="k">version</span>
+<span class="n">setup_conf_idx</span><span class="w">      </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">      </span><span class="o">#</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="nb">number</span>
 <span class="c1">---</span>
 <span class="n">interface</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">&#39;DummyPorts&#39;</span><span class="p">,</span><span class="s1">&#39;RPPorts&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;PCPorts&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;RPVR&#39;</span><span class="p">)</span>
-<span class="n">discription</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">description</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="component-configuration-tables">Component Configuration Tables<a class="headerlink" href="#component-configuration-tables" title="Permanent link">&para;</a></h2>
-<h3 id="1-port-configuration-setupconfigurationport">1. Port Configuration (<code>SetupConfiguration.Port</code>)<a class="headerlink" href="#1-port-configuration-setupconfigurationport" title="Permanent link">&para;</a></h3>
-<p>Defines the configuration for input/output ports.</p>
+<p><strong>Interface types:</strong></p>
+<ul>
+<li><strong><code>DummyPorts</code></strong>: Simulation mode (keyboard input, no real hardware)</li>
+<li><strong><code>RPPorts</code></strong>: Raspberry Pi with GPIO pins</li>
+<li><strong><code>PCPorts</code></strong>: PC with serial/USB connections</li>
+<li><strong><code>RPVR</code></strong>: Raspberry Pi with virtual reality ball</li>
+</ul>
+<h3 id="2-port-configuration">2. Port Configuration<a class="headerlink" href="#2-port-configuration" title="Permanent link">&para;</a></h3>
+<p>Defines your behavioral ports (lick detectors, reward valves, etc.):</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -1482,33 +1768,29 @@
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">port</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">                  </span><span class="o">#</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="n">id</span>
-<span class="k">type</span><span class="o">=</span><span class="ss">&quot;Lick&quot;</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">&#39;Lick&#39;</span><span class="p">,</span><span class="s1">&#39;Proximity&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="k">type</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">port</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">                  </span><span class="o">#</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="nb">number</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">...)</span>
+<span class="k">type</span><span class="o">=</span><span class="ss">&quot;Lick&quot;</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">&#39;Lick&#39;</span><span class="p">,</span><span class="s1">&#39;Proximity&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="n">does</span>
 <span class="o">-&gt;</span><span class="w"> </span><span class="n">SetupConfiguration</span>
 <span class="c1">---</span>
-<span class="n">ready</span><span class="o">=</span><span class="mi">0</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">ready</span><span class="w"> </span><span class="n">flag</span>
-<span class="n">response</span><span class="o">=</span><span class="mi">0</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="n">flag</span>
-<span class="n">reward</span><span class="o">=</span><span class="mi">0</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">reward</span><span class="w"> </span><span class="n">flag</span>
-<span class="n">invert</span><span class="o">=</span><span class="mi">0</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">invert</span><span class="w"> </span><span class="n">flag</span>
-<span class="n">discription</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">ready</span><span class="o">=</span><span class="mi">0</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">detect</span><span class="w"> </span><span class="ss">&quot;ready&quot;</span><span class="w"> </span><span class="k">state</span>
+<span class="n">response</span><span class="o">=</span><span class="mi">0</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">detect</span><span class="w"> </span><span class="n">responses</span>
+<span class="n">reward</span><span class="o">=</span><span class="mi">0</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">deliver</span><span class="w"> </span><span class="n">rewards</span>
+<span class="n">invert</span><span class="o">=</span><span class="mi">0</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">invert</span><span class="w"> </span><span class="n">signal</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="o">=</span><span class="n">normal</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="n">inverted</span><span class="p">)</span>
+<span class="n">description</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<h4 id="port-types-and-flags">Port Types and Flags<a class="headerlink" href="#port-types-and-flags" title="Permanent link">&para;</a></h4>
+<p><strong>Port types:</strong></p>
 <ul>
-<li><strong>Types</strong>: <ul>
-<li><code>Lick</code>: For lick detection</li>
-<li><code>Proximity</code>: For proximity detection</li>
+<li><strong><code>Lick</code></strong>: Detects when animal licks (infrared sensor, capacitive sensor, etc.)</li>
+<li><strong><code>Proximity</code></strong>: Detects when animal is in position (motion sensor, etc.)</li>
 </ul>
-</li>
-<li><strong>Flags</strong>:<ul>
-<li><code>ready</code>: Port can be used for is_ready function which indicate that the port is being activate for specific duration</li>
-<li><code>response</code>: Port can register responses</li>
-<li><code>reward</code>: Port can deliver rewards</li>
-<li><code>invert</code>: Invert port signal</li>
+<p><strong>Port flags (what each port can do):</strong></p>
+<ul>
+<li><strong><code>ready=1</code></strong>: Port can detect when animal is in "ready" position for a trial</li>
+<li><strong><code>response=1</code></strong>: Port can register behavioral responses (licks, touches, etc.)</li>
+<li><strong><code>reward=1</code></strong>: Port can deliver rewards (water, food, etc.)</li>
+<li><strong><code>invert=1</code></strong>: Flip the signal (useful if your sensor gives opposite readings)</li>
 </ul>
-</li>
-</ul>
-<h3 id="2-screen-configuration-setupconfigurationscreen">2. Screen Configuration (<code>SetupConfiguration.Screen</code>)<a class="headerlink" href="#2-screen-configuration-setupconfigurationscreen" title="Permanent link">&para;</a></h3>
-<p>Defines display settings for visual stimuli.</p>
+<h3 id="3-screen-configuration">3. Screen Configuration<a class="headerlink" href="#3-screen-configuration" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1520,127 +1802,75 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">screen_idx</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">screen_idx</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">      </span><span class="o">#</span><span class="w"> </span><span class="n">screen</span><span class="w"> </span><span class="nb">number</span>
 <span class="o">-&gt;</span><span class="w"> </span><span class="n">SetupConfiguration</span>
 <span class="c1">---</span>
-<span class="n">intensity</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w"> </span><span class="n">UNSIGNED</span>
-<span class="n">distance</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nb">float</span>
-<span class="n">center_x</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nb">float</span>
-<span class="n">center_y</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nb">float</span>
-<span class="n">aspect</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="nb">float</span>
-<span class="k">size</span><span class="w">                  </span><span class="p">:</span><span class="w"> </span><span class="nb">float</span>
-<span class="n">fps</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w"> </span><span class="n">UNSIGNED</span>
-<span class="n">resolution_x</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nb">smallint</span>
-<span class="n">resolution_y</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nb">smallint</span>
+<span class="n">intensity</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w"> </span><span class="n">UNSIGNED</span><span class="w">    </span><span class="o">#</span><span class="w"> </span><span class="n">brightness</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="o">-</span><span class="mi">255</span><span class="p">)</span>
+<span class="n">distance</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nb">float</span><span class="w">               </span><span class="o">#</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">animal</span><span class="w"> </span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+<span class="n">center_x</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nb">float</span><span class="w">               </span><span class="o">#</span><span class="w"> </span><span class="n">screen</span><span class="w"> </span><span class="n">center</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="k">position</span>
+<span class="n">center_y</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nb">float</span><span class="w">               </span><span class="o">#</span><span class="w"> </span><span class="n">screen</span><span class="w"> </span><span class="n">center</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="k">position</span>
+<span class="n">resolution_x</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nb">smallint</span><span class="w">            </span><span class="o">#</span><span class="w"> </span><span class="n">screen</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="p">(</span><span class="n">pixels</span><span class="p">)</span>
+<span class="n">resolution_y</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nb">smallint</span><span class="w">            </span><span class="o">#</span><span class="w"> </span><span class="n">screen</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="p">(</span><span class="n">pixels</span><span class="p">)</span>
+<span class="n">fps</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w"> </span><span class="n">UNSIGNED</span><span class="w">    </span><span class="o">#</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="n">rate</span>
+<span class="n">fullscreen</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">             </span><span class="o">#</span><span class="w"> </span><span class="mi">0</span><span class="o">=</span><span class="n">windowed</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="n">fullscreen</span>
 <span class="n">description</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
-<span class="n">fullscreen</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="3-ball-configuration-setupconfigurationball">3. Ball Configuration (<code>SetupConfiguration.Ball</code>)<a class="headerlink" href="#3-ball-configuration-setupconfigurationball" title="Permanent link">&para;</a></h3>
-<p>Defines settings for ball-based interfaces (e.g., virtual reality).</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="n">SetupConfiguration</span>
-<span class="c1">---</span>
-<span class="n">ball_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">.</span><span class="mi">125</span><span class="w">     </span><span class="p">:</span><span class="w"> </span><span class="nb">float</span><span class="w">                   </span><span class="o">#</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">meters</span>
-<span class="n">material</span><span class="o">=</span><span class="ss">&quot;styrofoam&quot;</span><span class="w">  </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span><span class="w">             </span><span class="o">#</span><span class="w"> </span><span class="n">ball</span><span class="w"> </span><span class="n">material</span>
-<span class="n">coupling</span><span class="o">=</span><span class="ss">&quot;bearings&quot;</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">&#39;bearings&#39;</span><span class="p">,</span><span class="s1">&#39;air&#39;</span><span class="p">)</span><span class="w">  </span><span class="o">#</span><span class="w"> </span><span class="n">mechanical</span><span class="w"> </span><span class="n">coupling</span>
-<span class="n">discription</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="4-speaker-configuration-setupconfigurationspeaker">4. Speaker Configuration (<code>SetupConfiguration.Speaker</code>)<a class="headerlink" href="#4-speaker-configuration-setupconfigurationspeaker" title="Permanent link">&para;</a></h3>
-<p>Defines audio output settings.</p>
+<h3 id="4-camera-configuration">4. Camera Configuration<a class="headerlink" href="#4-camera-configuration" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">speaker_idx</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">camera_idx</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">      </span><span class="o">#</span><span class="w"> </span><span class="n">camera</span><span class="w"> </span><span class="nb">number</span>
 <span class="o">-&gt;</span><span class="w"> </span><span class="n">SetupConfiguration</span>
 <span class="c1">---</span>
-<span class="n">sound_freq</span><span class="o">=</span><span class="mi">10000</span><span class="w">     </span><span class="p">:</span><span class="w"> </span><span class="nb">int</span><span class="w">           </span><span class="o">#</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">Hz</span>
-<span class="n">duration</span><span class="o">=</span><span class="mi">500</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="nb">int</span><span class="w">           </span><span class="o">#</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">ms</span>
-<span class="n">volume</span><span class="o">=</span><span class="mi">50</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="mi">0</span><span class="o">-</span><span class="mi">100</span><span class="w"> </span><span class="n">percentage</span>
-<span class="n">discription</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">fps</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w"> </span><span class="n">UNSIGNED</span><span class="w">    </span><span class="o">#</span><span class="w"> </span><span class="n">recording</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="n">rate</span>
+<span class="n">resolution_x</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nb">smallint</span><span class="w">            </span><span class="o">#</span><span class="w"> </span><span class="n">video</span><span class="w"> </span><span class="n">width</span>
+<span class="n">resolution_y</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nb">smallint</span><span class="w">            </span><span class="o">#</span><span class="w"> </span><span class="n">video</span><span class="w"> </span><span class="n">height</span>
+<span class="n">video_aim</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">&#39;eye&#39;</span><span class="p">,</span><span class="s1">&#39;body&#39;</span><span class="p">,</span><span class="s1">&#39;openfield&#39;</span><span class="p">)</span><span class="w">  </span><span class="o">#</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">record</span>
+<span class="n">description</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="5-camera-configuration-setupconfigurationcamera">5. Camera Configuration (<code>SetupConfiguration.Camera</code>)<a class="headerlink" href="#5-camera-configuration-setupconfigurationcamera" title="Permanent link">&para;</a></h3>
-<p>Defines camera settings for behavioral recording.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">camera_idx</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span>
-<span class="o">-&gt;</span><span class="w"> </span><span class="n">SetupConfiguration</span>
-<span class="c1">---</span>
-<span class="n">fps</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w"> </span><span class="n">UNSIGNED</span>
-<span class="n">resolution_x</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nb">smallint</span>
-<span class="n">resolution_y</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nb">smallint</span>
-<span class="n">shutter_speed</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="nb">smallint</span>
-<span class="n">iso</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="nb">smallint</span>
-<span class="n">file_format</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
-<span class="n">video_aim</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">&#39;eye&#39;</span><span class="p">,</span><span class="s1">&#39;body&#39;</span><span class="p">,</span><span class="s1">&#39;openfield&#39;</span><span class="p">)</span>
-<span class="n">discription</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="creating-a-new-setup-configuration">Creating a New Setup Configuration<a class="headerlink" href="#creating-a-new-setup-configuration" title="Permanent link">&para;</a></h2>
-<p>To create a new setup configuration:</p>
-<ol>
-<li>
-<p><strong>Add Main Configuration Entry</strong>
+<h3 id="5-other-components">5. Other Components<a class="headerlink" href="#5-other-components" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Ball</strong>: For virtual reality experiments</li>
+<li><strong>Speaker</strong>: For audio stimuli</li>
+</ul>
+<h2 id="how-to-create-a-new-setup-configuration">How to Create a New Setup Configuration<a class="headerlink" href="#how-to-create-a-new-setup-configuration" title="Permanent link">&para;</a></h2>
+<p><strong>Alternative Method</strong>: Instead of using Python code, you can use <a href="https://dbeaver.io/">DBBeaver</a> (a free database management tool) to create and modify setup configurations through a user-friendly graphical interface. This can be easier for users who prefer visual database editing over writing code.</p>
+<hr />
+<h3 id="step-1-choose-your-setup_conf_idx-number">Step 1: Choose Your setup_conf_idx Number<a class="headerlink" href="#step-1-choose-your-setup_conf_idx-number" title="Permanent link">&para;</a></h3>
+<p>Pick an unused number (check existing configurations first):
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Add to SetupConfiguration.contents</span>
-<span class="p">[</span>
-    <span class="n">setup_conf_idx</span><span class="p">,</span>    <span class="c1"># Unique identifier</span>
-    <span class="n">interface_type</span><span class="p">,</span>    <span class="c1"># e.g., &quot;RPPorts&quot;</span>
-    <span class="n">description</span>        <span class="c1"># Setup description</span>
-<span class="p">]</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Check what setup_conf_idx numbers are already used</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ethopy</span><span class="w"> </span><span class="kn">import</span> <span class="n">interface</span>
+<span class="n">existing</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="p">()</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Existing configurations:&quot;</span><span class="p">,</span> <span class="n">existing</span><span class="p">)</span>
+
+<span class="c1"># Pick next available number</span>
+<span class="n">new_idx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">existing</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># e.g., if you have 0,1,2 then use 3</span>
 </code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p><strong>Add Component Configurations</strong>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Example: Adding port configuration</span>
-<span class="n">SetupConfiguration</span><span class="o">.</span><span class="n">Port</span><span class="o">.</span><span class="n">insert1</span><span class="p">({</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="n">your_idx</span><span class="p">,</span>
-    <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="n">port_number</span><span class="p">,</span>
-    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Lick&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;ready&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;invert&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="s1">&#39;discription&#39;</span><span class="p">:</span> <span class="s1">&#39;Reward port&#39;</span>
+<h3 id="step-2-add-main-configuration">Step 2: Add Main Configuration<a class="headerlink" href="#step-2-add-main-configuration" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Add your main setup configuration</span>
+<span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="o">.</span><span class="n">insert1</span><span class="p">({</span>
+    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s1">&#39;interface&#39;</span><span class="p">:</span> <span class="s1">&#39;RPPorts&#39;</span><span class="p">,</span>  <span class="c1"># or &#39;DummyPorts&#39;, &#39;PCPorts&#39;, &#39;RPVR&#39;</span>
+    <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;My new Raspberry Pi setup&#39;</span>
 <span class="p">})</span>
-</code></pre></div></td></tr></table></div></p>
-</li>
-<li>
-<p><strong>Add Required Components</strong></p>
-</li>
-<li>Add entries to relevant component tables (Screen, Camera, etc.)</li>
-<li>Each component must reference the same <code>setup_conf_idx</code></li>
-</ol>
-<h2 id="usage-example">Usage Example<a class="headerlink" href="#usage-example" title="Permanent link">&para;</a></h2>
+</code></pre></div></td></tr></table></div>
+<h3 id="step-3-add-port-configuration">Step 3: Add Port Configuration<a class="headerlink" href="#step-3-add-port-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>Important</strong>: You MUST add at least one port configuration.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1666,43 +1896,54 @@
 <span class="normal">23</span>
 <span class="normal">24</span>
 <span class="normal">25</span>
-<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Example of a complete setup configuration</span>
-<span class="n">setup_config</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;interface&#39;</span><span class="p">:</span> <span class="s1">&#39;RPPorts&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;discription&#39;</span><span class="p">:</span> <span class="s1">&#39;Raspberry Pi Setup&#39;</span>
-<span class="p">}</span>
-
-<span class="n">port_config</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Lick&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;ready&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;discription&#39;</span><span class="p">:</span> <span class="s1">&#39;Main reward port&#39;</span>
-<span class="p">}</span>
-
-<span class="n">screen_config</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;screen_idx&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;intensity&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-    <span class="s1">&#39;distance&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
-    <span class="s1">&#39;resolution_x&#39;</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span>
-    <span class="s1">&#39;resolution_y&#39;</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
-    <span class="s1">&#39;fullscreen&#39;</span><span class="p">:</span> <span class="mi">1</span>
-<span class="p">}</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Example: 2 lick ports + 1 proximity sensor</span>
+<span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="o">.</span><span class="n">Port</span><span class="o">.</span><span class="n">insert</span><span class="p">([</span>
+    <span class="c1"># Port 1: Left lick port with reward</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Lick&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ready&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>    <span class="c1"># Can detect licks</span>
+        <span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># Can give rewards</span>
+        <span class="s1">&#39;invert&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Left reward port&#39;</span>
+    <span class="p">},</span>
+    <span class="c1"># Port 2: Right lick port with reward</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Lick&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ready&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>    <span class="c1"># Can detect licks</span>
+        <span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># Can give rewards</span>
+        <span class="s1">&#39;invert&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Right reward port&#39;</span>
+    <span class="p">},</span>
+    <span class="c1"># Port 3: Proximity sensor</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Proximity&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ready&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>       <span class="c1"># Indicates animal is ready for trial</span>
+        <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;invert&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Animal proximity sensor&#39;</span>
+    <span class="p">}</span>
+<span class="p">])</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Component Initialization Failures</strong><ul>
-<li>Check <code>setup_conf_idx</code> references</li>
-<li>Verify hardware connections</li>
-</ul>
-</li>
-</ul>
-<h2 id="default-configuration">Default Configuration<a class="headerlink" href="#default-configuration" title="Permanent link">&para;</a></h2>
-<p>EthoPy includes a default simulation configuration:
+<h3 id="step-4-add-screen-configuration-if-needed">Step 4: Add Screen Configuration (If Needed)<a class="headerlink" href="#step-4-add-screen-configuration-if-needed" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1716,25 +1957,97 @@
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Default setup (setup_conf_idx = 0)</span>
-<span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;DummyPorts&quot;</span><span class="p">,</span> <span class="s2">&quot;Simulation&quot;</span><span class="p">]</span>
-<span class="p">]</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Only needed if your experiment shows visual stimuli</span>
+<span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="o">.</span><span class="n">Screen</span><span class="o">.</span><span class="n">insert1</span><span class="p">({</span>
+    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s1">&#39;screen_idx&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;intensity&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>        <span class="c1"># Screen brightness</span>
+    <span class="s1">&#39;distance&#39;</span><span class="p">:</span> <span class="mf">15.0</span><span class="p">,</span>        <span class="c1"># 15 cm from animal</span>
+    <span class="s1">&#39;center_x&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>           <span class="c1"># Centered horizontally</span>
+    <span class="s1">&#39;center_y&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>           <span class="c1"># Centered vertically</span>
+    <span class="s1">&#39;resolution_x&#39;</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span>    <span class="c1"># HD resolution</span>
+    <span class="s1">&#39;resolution_y&#39;</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
+    <span class="s1">&#39;fps&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>               <span class="c1"># 60 FPS</span>
+    <span class="s1">&#39;fullscreen&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>         <span class="c1"># Fullscreen mode</span>
+    <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Main stimulus screen&#39;</span>
+<span class="p">})</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="step-5-add-camera-configuration-if-needed">Step 5: Add Camera Configuration (If Needed)<a class="headerlink" href="#step-5-add-camera-configuration-if-needed" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Only needed if you want to record behavior</span>
+<span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="o">.</span><span class="n">Camera</span><span class="o">.</span><span class="n">insert1</span><span class="p">({</span>
+    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s1">&#39;camera_idx&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;fps&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>               <span class="c1"># 30 FPS recording</span>
+    <span class="s1">&#39;resolution_x&#39;</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span>
+    <span class="s1">&#39;resolution_y&#39;</span><span class="p">:</span> <span class="mi">480</span><span class="p">,</span>
+    <span class="s1">&#39;video_aim&#39;</span><span class="p">:</span> <span class="s1">&#39;body&#39;</span><span class="p">,</span>     <span class="c1"># Record body movements</span>
+    <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Behavior recording camera&#39;</span>
+<span class="p">})</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="using-your-new-configuration">Using Your New Configuration<a class="headerlink" href="#using-your-new-configuration" title="Permanent link">&para;</a></h2>
+<p>Once created, use your new setup in tasks:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># In your task file</span>
+<span class="n">setup_conf_idx</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Use your new configuration</span>
 
-<span class="c1"># Default ports</span>
-<span class="n">Port</span><span class="o">.</span><span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Lick&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;probe&quot;</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Lick&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;probe&quot;</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Proximity&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;probe&quot;</span><span class="p">]</span>
-<span class="p">]</span>
-
-<span class="c1"># Default screen</span>
-<span class="n">Screen</span><span class="o">.</span><span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.66</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="s2">&quot;Simulation&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="p">]</span>
-</code></pre></div></td></tr></table></div></p>
+<span class="c1"># Now your task will use the hardware defined in setup_conf_idx 3</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="pre-built-configuration">Pre-built Configuration<a class="headerlink" href="#pre-built-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="default-simulation-setup_conf_idx-0">Default Simulation (setup_conf_idx = 0)<a class="headerlink" href="#default-simulation-setup_conf_idx-0" title="Permanent link">&para;</a></h3>
+<p>Perfect for testing tasks without hardware:
+- <strong>Interface</strong>: DummyPorts (keyboard simulation)
+- <strong>Ports</strong>: 2 lick ports + 1 proximity (controlled by arrow keys and spacebar)
+- <strong>Screen</strong>: Basic simulation screen</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>"Configuration not found" error</strong></li>
+<li>Check if your <code>setup_conf_idx</code> exists in the database</li>
+<li>
+<p>Verify you inserted the main configuration correctly</p>
+</li>
+<li>
+<p><strong>Hardware not responding</strong></p>
+</li>
+<li>Verify your <code>interface</code> type matches your actual hardware</li>
+<li>For RPPorts: Check GPIO pin connections in <code>local_conf.json</code></li>
+<li>For simulation: Use DummyPorts interface</li>
+</ol>
+<h3 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Check existing configurations</strong>: Look at working setups (especially setup_conf_idx = 0)</li>
+<li><strong>Start simple</strong>: Begin with simulation mode, then add real hardware</li>
+<li><strong>Ask for help</strong>: Contact your lab's technical support for hardware-specific issues</li>
+</ul>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>The <code>setup_conf_idx</code> system lets you:</p>
+<ol>
+<li><strong>Define different hardware setups</strong> for different experiments</li>
+<li><strong>Switch between configurations</strong> easily (simulation vs real hardware)</li>
+<li><strong>Share configurations</strong> across different experimental computers</li>
+<li><strong>Maintain consistency</strong> in hardware setup across experiments</li>
+</ol>
+<p>Each setup_conf_idx is completely independent - changing one doesn't affect others. This makes it safe to experiment with new configurations while keeping working setups intact.</p>
+<h2 id="important-note-configuration-history-and-data-integrity">Important Note: Configuration History and Data Integrity<a class="headerlink" href="#important-note-configuration-history-and-data-integrity" title="Permanent link">&para;</a></h2>
+<p><strong>Configuration parameters are automatically saved for each experimental session.</strong> When you start a session, EthoPy copies all configuration parameters from the setup tables into the <code>lab_interface</code> schema tables connected to that specific session. This means:</p>
+<ul>
+<li><strong>Data integrity</strong>: Even if you modify a setup configuration later, your historical data remains linked to the exact parameters that were used during each session</li>
+<li><strong>Reproducibility</strong>: You can always see exactly what hardware settings were used for any past experiment</li>
+<li><strong>Safe updates</strong>: You can safely update setup configurations without affecting the analysis of previous experiments</li>
+<li><strong>Audit trail</strong>: All configuration changes are preserved, preventing data drift issues</li>
+</ul>
+<p>This automatic parameter logging ensures that your experimental data always maintains a complete record of the hardware setup used, making your research more reproducible and reliable.</p>
 
 
 
@@ -1792,10 +2105,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
       
     
   </body>
