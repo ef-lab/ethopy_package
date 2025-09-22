@@ -1795,48 +1795,51 @@
 </code></pre></div></td></tr></table></div>
 <p><strong>Settings explanation:</strong></p>
 <ul>
-<li><strong><code>database.host</code></strong>: Database server IP address or hostname</li>
-<li><strong>Default</strong>: <code>"127.0.0.1"</code> (localhost - your computer)</li>
 <li>
-<p><strong>Examples</strong>: <code>"192.168.1.100"</code>, <code>"lab-database.university.edu"</code></p>
+<p><strong><code>database.host</code></strong>: Database server IP address or hostname</p>
+<ul>
+<li><strong>Default</strong>: <code>"127.0.0.1"</code> (localhost - your computer)</li>
+<li><strong>Examples</strong>: <code>"192.168.1.100"</code>, <code>"lab-database.university.edu"</code></li>
+</ul>
 </li>
 <li>
 <p><strong><code>database.user</code></strong>: MySQL username for database connection</p>
-</li>
-<li>
-<p><strong>Default</strong>: <code>"root"</code></p>
+<ul>
+<li><strong>Default</strong>: <code>"root"</code></li>
+</ul>
 </li>
 <li>
 <p><strong><code>database.password</code></strong>: MySQL password for the specified user</p>
-</li>
+<ul>
 <li><strong>Default</strong>: <code>""</code> (empty string)</li>
-<li>
-<p><strong>Important</strong>: Must match your MySQL user's password</p>
+</ul>
 </li>
 <li>
 <p><strong><code>database.port</code></strong>: MySQL server port number</p>
-</li>
+<ul>
 <li><strong>Default</strong>: <code>3306</code> (standard MySQL port)</li>
-<li>
-<p><strong>Note</strong>: Only change if your MySQL uses a different port</p>
+<li><strong>Note</strong>: Only change if your MySQL uses a different port</li>
+</ul>
 </li>
 <li>
 <p><strong><code>database.reconnect</code></strong>: Automatically reconnect if connection is lost</p>
-</li>
-<li>
-<p><strong>Default</strong>: <code>true</code></p>
+<ul>
+<li><strong>Default</strong>: <code>true</code></li>
+</ul>
 </li>
 <li>
 <p><strong><code>database.use_tls</code></strong>: Use encrypted TLS connection to database, more details <a href="https://docs.datajoint.com/core/datajoint-python/latest/client/settings/#tls-configuration">here</a></p>
-</li>
-<li>
-<p><strong>Default</strong>: <code>false</code></p>
+<ul>
+<li><strong>Default</strong>: <code>false</code></li>
+</ul>
 </li>
 <li>
 <p><strong><code>datajoint.loglevel</code></strong>: DataJoint library logging verbosity</p>
-</li>
+<ul>
 <li><strong>Default</strong>: <code>"WARNING"</code></li>
 <li><strong>Options</strong>: <code>"DEBUG"</code>, <code>"INFO"</code>, <code>"WARNING"</code>, <code>"ERROR"</code>, <code>"CRITICAL"</code></li>
+</ul>
+</li>
 </ul>
 <h3 id="2-file-paths-required">2. File Paths (Required)<a class="headerlink" href="#2-file-paths-required" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1849,18 +1852,22 @@
 </code></pre></div></td></tr></table></div>
 <p><strong>Settings explanation:</strong></p>
 <ul>
-<li><strong><code>source_path</code></strong>: Local directory where experimental data files are saved</li>
+<li>
+<p><strong><code>source_path</code></strong>: Local directory where experimental data files are saved</p>
+<ul>
 <li><strong>Default</strong>: <code>"~/EthoPy_Files"</code> (EthoPy_Files folder in your home directory)</li>
 <li><strong>Purpose</strong>: All recorded data (videos, sensor data, etc.) is stored here during experiments</li>
-<li>
-<p><strong>Examples</strong>: <code>"/Users/yourname/experiment_data"</code>, <code>"/home/pi/data"</code></p>
+<li><strong>Examples</strong>: <code>"/Users/yourname/experiment_data"</code>, <code>"/home/pi/data"</code></li>
+</ul>
 </li>
 <li>
 <p><strong><code>target_path</code></strong>: Directory where backup copies of data should be moved after experiments</p>
-</li>
+<ul>
 <li><strong>Default</strong>: <code>"/"</code> (root directory - usually needs to be changed)</li>
 <li><strong>Purpose</strong>: Automatic backup/archival location for completed experiments</li>
 <li><strong>Examples</strong>: <code>"/mnt/lab_storage"</code></li>
+</ul>
+</li>
 </ul>
 <p><strong>Important</strong>: Always use full paths starting from your drive root.</p>
 <h3 id="3-logging-settings-optional">3. Logging Settings (Optional)<a class="headerlink" href="#3-logging-settings-optional" title="Permanent link">&para;</a></h3>
@@ -1884,38 +1891,42 @@
 </code></pre></div></td></tr></table></div>
 <p><strong>Settings explanation:</strong></p>
 <ul>
-<li><strong><code>level</code></strong>: Minimum log level to record</li>
+<li>
+<p><strong><code>level</code></strong>: Minimum log level to record</p>
+<ul>
 <li><strong>Default</strong>: <code>"INFO"</code></li>
 <li><strong>Options</strong>: <code>"DEBUG"</code> (most verbose), <code>"INFO"</code>, <code>"WARNING"</code>, <code>"ERROR"</code>, <code>"CRITICAL"</code> (least verbose)</li>
-<li>
-<p><strong>Purpose</strong>: Controls how much detail is logged</p>
+<li><strong>Purpose</strong>: Controls how much detail is logged</li>
+</ul>
 </li>
 <li>
 <p><strong><code>directory</code></strong>: Directory where log files are stored</p>
-</li>
+<ul>
 <li><strong>Default</strong>: <code>"~/.ethopy/"</code> (hidden .ethopy folder in your home directory)</li>
-<li>
-<p><strong>Examples</strong>: <code>"/var/log/ethopy"</code>, <code>"/Users/yourname/logs"</code></p>
+<li><strong>Examples</strong>: <code>"/var/log/ethopy"</code>, <code>"/Users/yourname/logs"</code></li>
+</ul>
 </li>
 <li>
 <p><strong><code>filename</code></strong>: Name of the main log file</p>
-</li>
+<ul>
 <li><strong>Default</strong>: <code>"ethopy.log"</code></li>
-<li>
-<p><strong>Note</strong>: Backup files will be named <code>ethopy.log.1</code>, <code>ethopy.log.2</code>, etc.</p>
+<li><strong>Note</strong>: Backup files will be named <code>ethopy.log.1</code>, <code>ethopy.log.2</code>, etc.</li>
+</ul>
 </li>
 <li>
 <p><strong><code>max_size</code></strong>: Maximum size of log file before rotation (in bytes)</p>
-</li>
+<ul>
 <li><strong>Default</strong>: <code>31457280</code> (30 MB)</li>
-<li>
-<p><strong>Purpose</strong>: Prevents log files from growing too large</p>
+<li><strong>Purpose</strong>: Prevents log files from growing too large</li>
+</ul>
 </li>
 <li>
 <p><strong><code>backup_count</code></strong>: Number of old log files to keep</p>
-</li>
+<ul>
 <li><strong>Default</strong>: <code>5</code></li>
 <li><strong>Purpose</strong>: Maintains history while preventing unlimited disk usage</li>
+</ul>
+</li>
 </ul>
 <h3 id="4-hardware-setup-optional-raspberry-pi-only">4. Hardware Setup (Optional - Raspberry Pi only)<a class="headerlink" href="#4-hardware-setup-optional-raspberry-pi-only" title="Permanent link">&para;</a></h3>
 <p>If you're using physical hardware (valves, sensors, LEDs), specify GPIO pin connections:</p>
@@ -1935,32 +1946,40 @@
 </code></pre></div></td></tr></table></div>
 <p><strong>Settings explanation:</strong></p>
 <ul>
-<li><strong><code>channels</code></strong>: Maps hardware types to GPIO pin assignments</li>
+<li><strong><code>channels</code></strong>: Maps hardware types to GPIO pin assignments<ul>
 <li><strong>Default</strong>: Not set (no hardware channels configured)</li>
 <li><strong>Purpose</strong>: Tells EthoPy which GPIO pins control which hardware devices</li>
 </ul>
+</li>
+</ul>
 <p><strong>Hardware types:</strong></p>
 <ul>
-<li><strong><code>Liquid</code></strong>: Water delivery pumps/valves for reward delivery</li>
-<li><strong>Format</strong>: <code>{"port_number": gpio_pin_number}</code></li>
 <li>
-<p><strong>Example</strong>: <code>{"1": 22, "2": 23}</code> means port 1 uses GPIO pin 22, port 2 uses GPIO pin 23</p>
+<p><strong><code>Liquid</code></strong>: Water delivery pumps/valves for reward delivery</p>
+<ul>
+<li><strong>Format</strong>: <code>{"port_number": gpio_pin_number}</code></li>
+<li><strong>Example</strong>: <code>{"1": 22, "2": 23}</code> means port 1 uses GPIO pin 22, port 2 uses GPIO pin 23</li>
+</ul>
 </li>
 <li>
 <p><strong><code>Lick</code></strong>: Lick detection sensors for behavioral monitoring</p>
-</li>
+<ul>
 <li><strong>Format</strong>: <code>{"sensor_number": gpio_pin_number}</code></li>
-<li>
-<p><strong>Example</strong>: <code>{"1": 17, "2": 27}</code> means lick sensor 1 on GPIO pin 17, sensor 2 on GPIO pin 27</p>
+<li><strong>Example</strong>: <code>{"1": 17, "2": 27}</code> means lick sensor 1 on GPIO pin 17, sensor 2 on GPIO pin 27</li>
+</ul>
 </li>
 <li>
 <p><strong><code>Odor</code></strong>: Odor delivery valves for olfactory experiments</p>
-</li>
+<ul>
 <li><strong>Format</strong>: <code>{"valve_number": gpio_pin_number}</code></li>
 <li><strong>Example</strong>: <code>{"1": 24, "2": 25}</code> means valve 1 on GPIO pin 24, valve 2 on GPIO pin 25</li>
 </ul>
-<p><strong>Important notes:</strong>
-- Each GPIO pin number can only be used once across all hardware types</p>
+</li>
+</ul>
+<p><strong>Important notes:</strong></p>
+<ul>
+<li>Each GPIO pin number can only be used once across all hardware types</li>
+</ul>
 <h3 id="5-custom-schema-names-optional">5. Custom Schema Names (Optional)<a class="headerlink" href="#5-custom-schema-names-optional" title="Permanent link">&para;</a></h3>
 <p>If your database uses custom schema names:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1983,42 +2002,48 @@
 </code></pre></div></td></tr></table></div>
 <p><strong>Settings explanation:</strong></p>
 <ul>
-<li><strong><code>SCHEMATA</code></strong>: Maps EthoPy data types to your custom database schema names</li>
+<li><strong><code>SCHEMATA</code></strong>: Maps EthoPy data types to your custom database schema names<ul>
 <li><strong>Purpose</strong>: Allows EthoPy to work with existing databases that use different naming conventions</li>
+</ul>
+</li>
 </ul>
 <p><strong>Schema types and defaults:</strong></p>
 <ul>
-<li><strong><code>experiment</code></strong>: Main experimental session data</li>
-<li><strong>Default</strong>: <code>"lab_experiments"</code></li>
 <li>
-<p><strong>Contains</strong>: Session info, trial data, animal information</p>
+<p><strong><code>experiment</code></strong>: Main experimental session data</p>
+<ul>
+<li><strong>Default</strong>: <code>"lab_experiments"</code></li>
+<li><strong>Contains</strong>: Session info, trial data, animal information</li>
+</ul>
 </li>
 <li>
 <p><strong><code>behavior</code></strong>: Behavioral measurement data</p>
-</li>
+<ul>
 <li><strong>Default</strong>: <code>"lab_behavior"</code></li>
-<li>
-<p><strong>Contains</strong>: Lick detection, movement tracking, response data</p>
+<li><strong>Contains</strong>: Lick detection, movement tracking, response data</li>
+</ul>
 </li>
 <li>
 <p><strong><code>stimulus</code></strong>: Stimulus presentation information</p>
-</li>
+<ul>
 <li><strong>Default</strong>: <code>"lab_stimuli"</code></li>
-<li>
-<p><strong>Contains</strong>: Visual/auditory stimuli parameters, timing</p>
+<li><strong>Contains</strong>: Visual/auditory stimuli parameters, timing</li>
+</ul>
 </li>
 <li>
 <p><strong><code>interface</code></strong>: Hardware interface configurations</p>
-</li>
+<ul>
 <li><strong>Default</strong>: <code>"lab_interface"</code></li>
-<li>
-<p><strong>Contains</strong>: Hardware setup parameters, calibration data</p>
+<li><strong>Contains</strong>: Hardware setup parameters, calibration data</li>
+</ul>
 </li>
 <li>
 <p><strong><code>recording</code></strong>: Data recording metadata</p>
-</li>
+<ul>
 <li><strong>Default</strong>: <code>"lab_recordings"</code></li>
 <li><strong>Contains</strong>: File paths, recording parameters, data format info</li>
+</ul>
+</li>
 </ul>
 <p><strong>Note</strong>: Most users can skip this section - EthoPy will use the default schema names.</p>
 <h3 id="6-plugin-path-optional">6. Plugin Path (Optional)<a class="headerlink" href="#6-plugin-path-optional" title="Permanent link">&para;</a></h3>
@@ -2030,10 +2055,12 @@
 </code></pre></div></td></tr></table></div>
 <p><strong>Settings explanation:</strong></p>
 <ul>
-<li><strong><code>plugin_path</code></strong>: Directory where EthoPy plugins are stored</li>
+<li><strong><code>plugin_path</code></strong>: Directory where EthoPy plugins are stored<ul>
 <li><strong>Default</strong>: <code>"~/.ethopy/ethopy_plugins"</code> (plugins folder in your .ethopy directory)</li>
 <li><strong>Purpose</strong>: Location for custom EthoPy extensions and plugins</li>
 <li><strong>Examples</strong>: <code>"/Users/yourname/my_plugins"</code>, <code>"/opt/ethopy_plugins"</code></li>
+</ul>
+</li>
 </ul>
 <p><strong>Note</strong>: Only needed if you're using custom plugins or want to store them in a different location.</p>
 <h2 id="common-setup-scenarios">Common Setup Scenarios<a class="headerlink" href="#common-setup-scenarios" title="Permanent link">&para;</a></h2>
@@ -2117,13 +2144,13 @@
 </li>
 <li>
 <p><strong>Advanced troubleshooting</strong>: For remote databases or lab setups, contact your system administrator or IT support to verify database server status, network connectivity, and firewall settings. <strong>Check if MySQL is running</strong></p>
-</li>
+<ul>
 <li>If <code>database.host</code> is <code>127.0.0.1</code> or <code>localhost</code>: Run <code>mysql -u root -p</code> on the same machine as EthoPy</li>
 <li>If <code>database.host</code> is a remote IP (like <code>192.168.1.100</code>): Run the command on that remote database server</li>
 <li>The command should ask for your password and connect successfully</li>
 <li>If you get "command not found", MySQL client is not installed</li>
-<li>
-<p>If you get "connection refused", MySQL server is not running</p>
+<li>If you get "connection refused", MySQL server is not running</li>
+</ul>
 </li>
 <li>
 <p><strong>Check the database address</strong> - For <code>127.0.0.1</code>, MySQL must be on your computer</p>
@@ -2185,18 +2212,22 @@
 <li><strong>Use full paths</strong> - Avoid relative paths that might break</li>
 </ul>
 <h2 id="local-vs-database-settings">Local vs Database Settings<a class="headerlink" href="#local-vs-database-settings" title="Permanent link">&para;</a></h2>
-<p><strong>Store in local_conf.json:</strong>
-- Database connection details
-- File paths specific to this machine
-- Hardware GPIO pin assignments
-- Logging preferences
-- Machine-specific settings</p>
-<p><strong>Store in database:</strong>
-- Experimental parameters
-- Trial configurations
-- Animal information
-- Session data
-- Results and measurements</p>
+<p><strong>Store in local_conf.json:</strong></p>
+<ul>
+<li>Database connection details</li>
+<li>File paths specific to this machine</li>
+<li>Hardware GPIO pin assignments</li>
+<li>Logging preferences</li>
+<li>Machine-specific settings</li>
+</ul>
+<p><strong>Store in database:</strong></p>
+<ul>
+<li>Experimental parameters</li>
+<li>Trial configurations</li>
+<li>Animal information</li>
+<li>Session data</li>
+<li>Results and measurements</li>
+</ul>
 <p>This separation keeps your experiments portable while maintaining machine-specific configurations.</p>
 
 
