@@ -8,7 +8,7 @@ Before starting, ensure you have:
 
 - Python 3.8 or higher (but less than 3.12) installed
 - MariaDB database
-!!! note  Database setup
+!!! tip  Database setup
     We recommend using [Docker](https://www.docker.com/blog/getting-started-with-docker-desktop/) for setting up a new database.
 
 ## Step 1: Installation
@@ -109,7 +109,7 @@ This command adds your user to the docker group, so you can run Docker commands 
 
 === "Windows"
     `%USERPROFILE%\.ethopy\local_conf.json`
-   dj_local_conf includes the parameters relevant to the [datajoint configuration](https://datajoint.com/docs/elements/element-miniscope/0.2/tutorials/01-Configure/):
+   dj_local_conf includes the parameters relevant to the [datajoint configuration](https://datajoint.com/docs/elements/element-miniscope/0.2/tutorials/01-Configure/), more details about the local_conf.json can be found [here](local_conf.md):
    ```json
    {
        "dj_local_conf": {
@@ -151,7 +151,7 @@ ethopy --task-path grating_test.py --log-console
 The option --task-path is for defining the path of the task. The [example tasks](https://github.com/ef-lab/ethopy_package/tree/main/src/ethopy/task) can run by the file name, for any other experiment you must define the full path.
 Option --log-console is to enable the logging in terminal.
 
-**Simulation Interface (setup_conf_idx 0):** in this task, EthoPy runs with setup_conf_idx 0, which uses the DummyPorts interface for simulation. This allows you to test tasks on your computer without requiring actual hardware. The interface maps keyboard inputs to behavioral ports: **left arrow** activates the left port, **right arrow** activates the right port, and **spacebar** controls proximity detection (press to indicate animal in position, release for off position). This simulation mode enables fast prototyping and testing of behavioral tasks.
+**Simulation Interface (setup_conf_idx 0):** in this task, EthoPy runs with setup_conf_idx 0, which uses the DummyPorts interface for simulation. This allows you to test tasks on your computer without requiring actual hardware. The interface maps keyboard inputs to behavioral port IDs: **left arrow** activates lick port ID 1, **right arrow** activates lick port ID 2, and **spacebar** controls the proximity port ID 1 (press to indicate animal in position, release for off position). This simulation mode enables fast prototyping and testing of behavioral tasks.
 
 You can check all the options of ethopy by:
 ```bash
@@ -160,7 +160,7 @@ ethopy --help
 
 ## Example Tasks
 
-Explore these sample tasks in the `ethopy/task/` directory:
+Explore these sample tasks in the [`ethopy/task/`](https://github.com/ef-lab/ethopy_package/tree/main/src/ethopy/task) directory:
 
 1. **grating_test.py** - Grating stimulus presentation
 2. **bar_test.py** - Moving bar stimulus
@@ -180,11 +180,19 @@ For specific questions, check the:
 
 Now that you have a basic understanding of EthoPy:
 
+### Core Documentation
 1. [Creating Custom Components](creating_custom_components.md)
 2. How to [create a Task ](https://ef-lab.github.io/ethopy_package/task_setup/)
 3. Explore the [Plugin System](plugin.md) to extend functionality
 4. Dive deeper into [Local Configuration](local_conf.md) for advanced settings
 5. Understand [setup configuration index](setup_configuration_idx.md)
-6. Learn more about [Database Setup](database.md)
+6. Learn more about [Database Setup](database_setup.md)
 7. Study the [API Reference](API/logger.md) for detailed documentation
 8. Check [Contributing](contributing.md) if you want to help improve EthoPy
+
+### Related Packages
+Expand your EthoPy workflow with these companion packages:
+
+- **[EthoPy Analysis](https://github.com/ef-lab/ethopy_analysis)** - Data analysis tools and plots for EthoPy experiments
+- **[EthoPy Plugins](https://github.com/ef-lab/ethopy_plugins)** - Additional plugins and extensions for EthoPy functionality
+- **[EthoPy Control](https://github.com/ef-lab/ethopy_control)** - Web-based control interface for remote experiment management
