@@ -1,228 +1,236 @@
 # Troubleshooting Guide
 
-This guide addresses common issues you might encounter when using EthoPy and provides solutions to help you resolve them quickly.
+This guide helps you solve common problems when using EthoPy. Start with the problem that matches what you're seeing.
 
-## Installation Issues
+## Installation Problems
 
-### Package Installation Failures
+### "pip install ethopy" doesn't work
 
-**Problem**: Installation fails with dependency conflicts.
+**What you see**: Error messages during installation
 
-**Solution**: 
-1. Try creating a fresh virtual environment:
+**Try these steps**:
+
+1. **Update pip first**:
+   ```bash
+   pip install --upgrade pip
+   ```
+
+2. **Try installing in a clean environment**:
    ```bash
    python -m venv ethopy_env
    source ethopy_env/bin/activate  # On Windows: ethopy_env\Scripts\activate
    pip install ethopy
    ```
 
-2. If specific dependencies are failing, try installing them manually first:
-   ```bash
-   pip install panda3d numpy pygame
-   pip install ethopy
-   ```
+3. **If you still get errors**, ask your lab's technical support for help.
 
-### ImportError After Installation
+### "No module named 'ethopy'" after installation
 
-**Problem**: You get `ImportError: No module named 'ethopy'` after installation.
+**What you see**: `ImportError: No module named 'ethopy'` when trying to use EthoPy
 
-**Solution**:
-1. Verify the package is installed:
+**Try these steps**:
+
+1. **Check if EthoPy is installed**:
    ```bash
    pip list | grep ethopy
    ```
+   If you don't see ethopy in the list, reinstall it.
 
-2. Make sure you're using the same Python environment where you installed the package.
-3. If installed in development mode, check that your working directory is properly set.
+2. **Make sure you're in the right environment** where you installed EthoPy.
 
-## Database Connection Issues
+## Database Connection Problems
 
-### Cannot Connect to Database
+### "Cannot connect to database"
 
-**Problem**: Error when connecting to MySQL database.
+**What you see**: Error messages about database connection failing
 
-**Solution**:
-1. Verify your connection information in `local_conf.json`:
+**Try these steps**:
+
+1. **Check your password** - Make sure the password in your `local_conf.json` file is correct
+
+2. **Check your configuration file** (see [Local Configuration Guide](local_conf.md)):
    ```json
    {
-    "dj_local_conf": {
-        "database.host": "127.0.0.1",
-        "database.user": "your_username",
-        "database.password": "your_password",
-        "database.port": 3306,
-        "database.reconnect": true,
-        "database.use_tls": false,
-        "datajoint.loglevel": "WARNING"
-    },
+       "dj_local_conf": {
+           "database.host": "127.0.0.1",
+           "database.user": "root",
+           "database.password": "your_actual_password",
+           "database.port": 3306
+       }
    }
    ```
 
-2. check if Database is running (advanced):
+3. **For local database**: Try running `mysql -u root -p` in your terminal
+   - If this doesn't work, MySQL isn't running on your computer
+   - Ask your technical support to help start MySQL
 
-Make sure MySQL is running in the database server:
+4. **For remote database**: Contact your lab's database administrator
+
+## Experiment Won't Start
+
+### "Experiment fails to start"
+
+**What you see**: Errors when running `ethopy --task-path your_task.py`
+
+**Try these steps**:
+
+1. **Test with a simple example first**:
    ```bash
-   # For Linux/Mac
-   sudo service mysql status
-   # or
-   sudo systemctl status mysql
-   
-   # For Windows (check in services)
+   ethopy --task-path grating_test.py --log-console
    ```
 
-Test connection with MySQL client:
+2. **If the example works but your task doesn't**, check your task file for errors
+
+3. **Get more information** by adding debug logging:
    ```bash
-   mysql -u your_username -p
+   ethopy --task-path your_task.py --log-console --log-level DEBUG
    ```
 
-### Schema Creation Errors
+4. **Look at the error messages** - they usually tell you what's wrong
 
-**Problem**: Errors when creating the database schema.
+### "Setup configuration not found"
 
-**Solution**:
-1. Make sure the user has privileges to create databases and tables:
-   ```sql
-   GRANT ALL PRIVILEGES ON *.* TO 'your_username'@'localhost';
-   FLUSH PRIVILEGES;
+**What you see**: Error about missing setup_conf_idx
+
+**Try these steps**:
+
+1. **Use simulation mode** (setup_conf_idx = 0) for testing:
+   ```python
+   # In your task file
+   setup_conf_idx = 0  # Use simulation mode
    ```
 
-2. Try manually running the schema setup:
+2. **Create your hardware configuration** - see [Setup Configuration Guide](setup_configuration_idx.md)
+
+## Hardware Not Working
+
+### "Hardware not responding" (Raspberry Pi/Arduino)
+
+**What you see**: Sensors or valves not working
+
+**Try these steps**:
+
+1. **Start with simulation mode** (setup_conf_idx = 0) to test your experiment logic
+
+2. **Check hardware connections** - make sure all cables are properly connected
+
+3. **Verify GPIO pin configuration** in your `local_conf.json` file
+
+4. **Contact your hardware setup person** - they know your specific hardware best
+
+### "Reward delivery not working"
+
+**What you see**: No water/reward coming out during experiments
+
+**Try these steps**:
+
+1. **Check if water reservoir is full**
+
+2. **Test ports manually** if you have calibration software
+
+3. **Verify port configuration** matches your hardware setup
+
+4. **Contact your lab technician** for hardware issues
+
+## File and Data Problems
+
+### "Cannot find data path"
+
+**What you see**: Errors about missing data directories
+
+**Try these steps**:
+
+1. **Check if the folders exist** - go to your file manager and look for the paths in your config
+
+2. **Create missing folders**:
    ```bash
-      python3 -c 'from ethopy.core.experiment import *'
-      python3 -c 'from ethopy.core.stimulus import *'
-      python3 -c 'from ethopy.core.sehavior import *'
-      python3 -c 'from ethopy.stimuli import *'
-      python3 -c 'from ethopy.behaviors import *'
-      python3 -c 'from ethopy.experiments import *'
+   mkdir -p /path/to/your/data
+   mkdir -p /path/to/your/backup
    ```
 
-3. Check for database encoding issues. EthoPy requires UTF-8 encoding.
+3. **Use full paths** in your `local_conf.json` (like `/Users/yourname/data` not just `data`)
 
-## Hardware Interface Issues
+### "Permission denied" errors
 
-### Port Communication Problems
+**What you see**: Can't write to files or folders
 
-**Problem**: Cannot communicate with hardware ports.
+**Try these steps**:
 
-Solutions:
-ToDo
+1. **Choose a folder in your home directory** for data storage
 
-<!-- **Solution**:
-1. Check permissions for USB devices (Linux/Mac):
+2. **On Mac/Linux**, make sure you can write to the folder:
    ```bash
-   sudo chmod a+rw /dev/ttyUSB0  # Replace with your port
+   ls -la /path/to/your/folder
    ```
 
-2. Verify port configuration in your setup:
-   ```bash
-   ethopy --list-ports
-   ```
-
-3. For Arduino interfaces, make sure the correct firmware is uploaded. -->
-
-### Raspberry Pi Specific Issues
-
-**Problem**: Issues when running on Raspberry Pi.
-
-<!-- **Solution**:
-1. Make sure you have the latest Raspberry Pi OS.
-2. Enable I2C and SPI interfaces:
-   ```bash
-   sudo raspi-config
-   # Navigate to Interface Options > I2C/SPI and enable
-   ```
-3. Check GPIO permissions:
-   ```bash
-   sudo usermod -a -G gpio your_username
-   ``` -->
-
-## Experiment Execution Issues
-
-### Experiment Fails to Start
-
-**Problem**: `ethopy -p your_task.py` fails to start the experiment.
-
-**Solution**:
-1. Check for syntax errors in your task file.
-2. Verify that experiment, behavior, and stimulus classes are correctly imported and assigned.
-3. Run with debug logging:
-   ```bash
-   ethopy -p your_task.py --log-console --log-level DEBUG
-   ```
-
-### Reward Delivery Failures
-
-**Problem**: Water rewards are not being delivered correctly.
-
-**Solution**:
-1. Run a calibration task to test the ports:
-   ```bash
-   ethopy -p calibrate_ports.py
-   ```
-2. Check solenoid connections and power supply.
-3. Verify port configuration in your setup.
-
-## Data Logging Issues
-
-### Missing Trial Data
-
-**Problem**: Some trial data is not being logged to the database.
-
-**Solution**:
-1. Check database connection during experiment execution.
-2. Verify that your experiment states are correctly called.
+3. **Ask your system administrator** if you can't access the folders you need
 
 ## Common Error Messages
 
-### "No task found with idx X"
+### "Task not found"
 
-**Problem**: `ethopy --task-idx X` returns "No task found with idx X".
+**What you see**: Can't find your task file
 
-**TODO: Solution**:
-1. Verify the task exists in the database:
-   ```bash
-   ethopy --list-tasks
-   ```
-2. If missing, add your task to the database:
-   ```bash
-   ethopy --add-task your_task.py
-   ```
+**Solution**: Use the full path to your task file:
+```bash
+ethopy --task-path /full/path/to/your_task.py --log-console
+```
 
-### "Multiple instances detected"
+### "Already running"
 
-**Problem**: Attempt to run EthoPy when an instance is already running.
+**What you see**: EthoPy says it's already running
 
 **Solution**:
-1. Find and close the existing EthoPy process:
-   ```bash
-   # Linux/Mac
-   ps aux | grep ethopy
-   kill <pid>
-   
-   # Windows
-   tasklist | findstr ethopy
-   taskkill /F /PID <pid>
-   ```
+1. **Close any other EthoPy windows** that might be open
+2. **Restart your computer** if you're not sure
+3. **Wait a minute** and try again
 
 ## Getting Help
 
-If you're still experiencing issues:
+### When to ask for help
 
-1. **Check the documentation**: Review related sections in the documentation for guidance.
+Ask your lab's technical support when you see:
+- Database connection errors (after checking your password)
+- Hardware not responding
+- Permission/access errors
+- Installation problems that persist
 
-2. **Search GitHub Issues**: Check if your issue has been reported and addressed:
-   [EthoPy GitHub Issues](https://github.com/ef-lab/ethopy_package/issues)
+### How to ask for help effectively
 
-3. **Submit an Issue**: If your problem persists, submit a detailed issue on GitHub with:
-   - EthoPy version (`ethopy --version`)
-   - Python version (`python --version`)
-   - Operating system details
-   - Complete error message and traceback
-   - Steps to reproduce the problem
+When asking for help, include:
 
-4. **Contact Maintainers**: For urgent issues, contact the package maintainers directly.
+1. **What you were trying to do**: "I was trying to run my task file..."
+2. **What happened**: "I got this error message: [copy the exact error]"
+3. **What you already tried**: "I checked my password and restarted EthoPy"
 
-## Appendix: Log Files
+### Information that helps
 
-EthoPy creates log files that can be valuable for troubleshooting.
+- **EthoPy version**: Run `python -c "import ethopy; print(ethopy.__version__)"`
+- **Your operating system**: Windows, Mac, or Linux
+- **The exact error message**: Copy and paste the whole error
 
-Reviewing these logs can provide insights into issues not apparent from console output.
+### Where to get help
+
+1. **Your lab's technical support** - they know your specific setup
+2. **EthoPy documentation** - check related guides for your issue
+3. **GitHub Issues**: [Report bugs here](https://github.com/ef-lab/ethopy_package/issues)
+
+## Quick Fixes
+
+### Before asking for help, try these:
+
+1. **Restart EthoPy** - close it completely and start again
+2. **Check your internet connection** - needed for some database connections
+3. **Try simulation mode** - use `setup_conf_idx = 0` to test without hardware
+4. **Use example tasks** - make sure EthoPy works with provided examples first
+5. **Check log files** - look in `~/.ethopy/ethopy.log` for error details
+
+### Most problems are caused by:
+
+- **Wrong passwords** in configuration files
+- **Missing folders** for data storage
+- **Hardware not properly connected**
+- **Typos in file paths**
+- **Using the wrong setup_conf_idx** for your hardware
+
+Remember: It's better to ask for help early than to spend hours stuck on a problem!
