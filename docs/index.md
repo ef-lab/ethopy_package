@@ -1,147 +1,93 @@
-# Ethopy
+# <img src="assets/EthoPy_logo.png" alt="EthoPy Logo" width="200" style="vertical-align: middle;">
 
 [![PyPI Version](https://img.shields.io/pypi/v/ethopy.svg)](https://pypi.python.org/pypi/ethopy)
 [![Python Versions](https://img.shields.io/pypi/pyversions/ethopy.svg)](https://pypi.org/project/ethopy/)
 [![Documentation](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://ef-lab.github.io/ethopy_package/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Ethopy is a state control system for automated, high-throughput behavioral training based on Python. It provides a flexible framework for designing and running behavioral experiments with:
+**A Python framework for automated behavioral experiments with database integration.**
 
-- Tight integration with database storage & control using [Datajoint](https://docs.datajoint.org/python/)
-- Cross-platform support (Linux, macOS, Windows)
-- Optimized for Raspberry Pi boards
-- Modular architecture with overridable components
-- Built-in support for various experiment types, stimuli, and behavioral interfaces
+EthoPy provides a flexible, state-based system for designing and running behavioral experiments. Built for neuroscience research, it offers tight integration with database storage, cross-platform support, and modular architecture for easy customization.
 
-## Features
-
-- **Modular Design**: Comprised of several overridable modules that define the structure of experiments, stimuli, and behavioral control
-- **Database Integration**: Automatic storage and management of experimental data using Datajoint
-- **Multiple Experiment Types**: Support for various experiment paradigms (Go-NoGo, 2AFC, open field, etc.)
-- **Hardware Integration**: Interfaces with multiple hardwares (raspberry, arduino, desktop computer, screen, camera etc.)
-- **Stimulus Control**: Various stimulus types supported (Gratings, Movies, Olfactory, 3D Objects)
-- **Real-time Control**: State-based experiment control with precise timing
-- **Extensible**: Easy to add new experiment types, stimuli, or behavioral interfaces
-
-## System Architecture
-
-The following diagram illustrates the relationship between the core modules:
-
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/modules.iuml">
-
-[Datajoint]: https://github.com/datajoint/datajoint-python
-
---- 
-## Installation & Setup
-
-For a step-by-step guide of installation procedure see [here](getting_started.md)
+## Getting Started
 
 ### Requirements
 
 - Python 3.8 or higher
-- Maria DB Database (instructions for [database setup](database_setup.md))
+- Maria DB Database
+    - EthoPy requires database setup before running experiments. Follow our step-by-step guide **[Getting Started](https://ef-lab.github.io/ethopy_package/getting_started/)** for a complete setup from installation to first experiment
 
-
-### Basic Installation
-
+### Installation
 ```bash
 pip install ethopy
 ```
-For more detailed instructions follow the [Installation](installation.md)
 
-### Running Experiments
-
-1. **Service Mode**: Controlled by the Control table in the database
-2. **Direct Mode**: Run a specific task directly
-
-Example of running a task:
+### Run Your First Experiment
 ```bash
-# Run a grating test experiment
-ethopy -p grating_test.py
+# Test with simulation mode (no hardware required)
+ethopy --task-path grating_test.py --log-console
 
-# Run a specific task by ID
-ethopy --task-idx 1
+# The simulation uses keyboard controls:
+# ← → arrow keys: activate lick ports 1 & 2
+# spacebar: proximity detection
 ```
 
----
+## Key Features
 
-## Core Architecture
+- **State-based Experiments**: Flexible state machine design for complex behavioral paradigms
+- **Database Integration**: Automatic data storage with [DataJoint](https://datajoint.org/)
+- **Hardware Agnostic**: Supports Raspberry Pi, Arduino, PC interfaces, or simulation mode
+- **Multiple Experiment Types**: 2AFC, match-to-sample, passive presentation, calibration
+- **Rich Stimuli**: Visual (gratings, moving bars, dots), olfactory, and custom stimuli
+- **Cross-platform**: Linux, macOS, Windows compatibility
+
+## Architecture Overview
 
 Understanding Ethopy's core architecture is essential for both using the system effectively and extending it for your needs. Ethopy is built around five core modules that work together to provide a flexible and extensible experimental framework. Each module handles a specific aspect of the experiment, from controlling the overall flow to managing stimuli and recording behavior.
 
-### 1. Experiment Module
+<div align="center">
+  <img src="images/ethopy_overview.png" alt="EthoPy Architecture" width="400">
+</div>
 
-The base experiment module defines the state control system. Each experiment is composed of multiple states, with Entry and Exit states being mandatory.
+- **Experiment**: Defines the state control system with multiple experimental states (PreTrial, Trial, Reward, Punishment, etc.). Each state has four overridable functions that control its behavior and transitions.
+- **Behavior**: Handles animal responses and actions (port selection, licking activity, proximity detection)
+- **Stimulus**: Creates and manages presented stimuli (visual, olfactory, auditory)
+- **Interface**: Hardware communication layer (Raspberry Pi, Arduino, PC interfaces, simulation)
+- **Logger**: Data storage and management using DataJoint for seamless database integration
 
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/states.iuml">
+<div align="center">
+  <img src="images/experiment_overview.png" alt="Experiment Overview" width="600">
+</div>
 
-Each state has four overridable functions that control its behavior:
+## Ecosystem
 
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/state_functions.iuml">
+Extend EthoPy with additional tools:
 
-#### Available Experiment Types
+- **[EthoPy Analysis](https://github.com/ef-lab/ethopy_analysis)** - Data analysis pipelines
+- **[EthoPy Plugins](https://github.com/ef-lab/ethopy_plugins)** - Community extensions
+- **[EthoPy Control](https://github.com/ef-lab/ethopy_control)** - Web-based remote control
 
-- **MatchPort**: Stimulus-port matching experiments
-- **Passive**: Passive stimulus presentation
-- **FreeWater**: Water delivery experiments
-- **Calibrate**: Port calibration for water delivery
+**Essential Guides:**
 
-Experiment parameters are defined in Python configuration files and stored in the `Task` table within the `lab_experiments` schema.
+- **[Getting Started](https://ef-lab.github.io/ethopy_package/getting_started/)** - Run your first experiment
+- **[Installation Guide](https://ef-lab.github.io/ethopy_package/installation/)** - Complete setup instructions
+- **[Configuration](https://ef-lab.github.io/ethopy_package/local_conf/)** - Database and hardware setup
+- **[Task Creation](https://ef-lab.github.io/ethopy_package/task_setup/)** - How to design your custom experiments
+- **[Troubleshooting](https://ef-lab.github.io/ethopy_package/troubleshooting/)** - Common issues and solutions
 
-### 2. Behavior Module
+## Contributing
 
-Handles animal behavior tracking and response processing.
+We welcome contributions! See our [Contributing Guide](https://ef-lab.github.io/ethopy_package/contributing/) for:
 
-#### Available Behavior Types
-
-- **MultiPort**: Standard setup with lick detection, liquid delivery, and proximity sensing
-- **HeadFixed**: Passive head fixed setup
-> **Important**: Regular liquid calibration is essential for accurate reward delivery. We recommend calibrating at least once per week to ensure consistent reward volumes and reliable experimental results.
-
-### 3. Stimulus Module
-
-Controls stimulus presentation and management.
-
-#### Available Stimulus Types
-
-- **Visual**
-  - Grating: Orientation gratings
-  - Bar: Moving bars for retinotopic mapping
-  - Dot: Moving dots
-
-### 4. Interface Module (Non-overridable)
-Manages hardware communication and control.
-
-#### Configuration
-
-Experiments require setup configuration through:
-- `SetupConfiguration`
-- `SetupConfiguration.Port`
-- `SetupConfiguration.Screen`
-Configuration files are stored within the `lab_interface` schema.
-
-### 5. Logger Module (Non-overridable)
-Manages all database interactions across modules. Data is stored in three schemas:
-
-**lab_experiments**:  
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/experiments.iuml">
-
-**lab_behavior**:  
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/behavior.iuml">
-
-**lab_stimuli**:  
-<img src="http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ef-lab/EthoPy/master/utils/plantuml/stimuli.iuml">
-
-
-## Development & Contributing
-Contributions are welcome, and they are greatly appreciated! Every little bit helps, and credit will always be given. Please follow thse [instructions] (https://github.com/ef-lab/ethopy_package/blob/main/docs/contributing.md) for contributions.
+- Development setup
+- Code standards
+- Documentation updates
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/ef-lab/ethopy_package/blob/master/LICENSE) file for details.
+MIT License - see [LICENSE](https://github.com/ef-lab/ethopy_package/blob/master/LICENSE) for details.
 
 ## Support
 
-For questions and support:
-
-- Open an issue on [GitHub](https://github.com/ef-lab/ethopy_package/issues)
+- [Documentation](https://ef-lab.github.io/ethopy_package/)
+- [Report Issues](https://github.com/ef-lab/ethopy_package/issues)
