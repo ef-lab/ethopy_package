@@ -48,6 +48,7 @@ ethopy_plugins/
 ### Plugin Naming
 
 Plugins are imported using the `ethopy` namespace. For example:
+
     - Standalone module: `ethopy.mymodule`
     - Categorized plugin: `ethopy.behaviors.custom_behavior`
 
@@ -68,7 +69,7 @@ class MyModule:
 ```
 
 ### Categorized Modules
-Examples of the behavior, experiment and stimulus plugin content can be found [here](creating_costum_components.md).
+Examples of the behavior, experiment and stimulus plugin content can be found [here](creating_custom_components.md).
 
 #### Behavior Plugins
 
@@ -129,6 +130,7 @@ class CustomStimulus(Stimulus):
 ### Plugin Registration
 
 Plugins are automatically discovered and registered when:
+
 1. They are placed in a recognized plugin directory
 2. The file name doesn't start with an underscore
 3. The file has a `.py` extension
@@ -170,10 +172,11 @@ stimulus = CustomStimulus()
 ### Plugin Management
 
 The plugin system is managed by the `PluginManager` class, which handles:
-    - Plugin discovery and registration
-    - Import path management
-    - Conflict resolution
-    - Plugin information tracking
+
+- Plugin discovery and registration
+- Import path management
+- Conflict resolution
+- Plugin information tracking
 
 ```python
 from ethopy.plugin_manager import PluginManager
@@ -214,6 +217,7 @@ if info:
 ### Load Order
 
 Plugins are loaded in the following order:
+
 1. Core Ethopy modules (from main package)
 2. Default plugin directories
 3. Custom plugin paths from environment variable
@@ -223,12 +227,14 @@ Plugins are loaded in the following order:
 The plugin system uses the following precedence rules:
 
 1. **Core vs Plugin Conflicts**:
-        - Core Ethopy modules always take precedence over plugins
-        - Warning is issued when a plugin conflicts with a core module
+
+    - Core Ethopy modules always take precedence over plugins
+    - Warning is issued when a plugin conflicts with a core module
 
 2. **Plugin vs Plugin Conflicts**:
-        - Later added paths take precedence over earlier ones
-        - Warning is displayed showing which version is used/ignored
+
+    - Later added paths take precedence over earlier ones
+    - Warning is displayed showing which version is used/ignored
 
 Example conflict warning:
 ```
@@ -244,63 +250,73 @@ WARNING: Duplicate plugin found for 'ethopy.behaviors.custom':
 ### Plugin Development
 
 1. **Namespace Awareness**:
-        - Avoid using names that conflict with core Ethopy modules
-        - Use descriptive, unique names for your plugins
-        - Follow Python naming conventions
+
+    - Avoid using names that conflict with core Ethopy modules
+    - Use descriptive, unique names for your plugins
+    - Follow Python naming conventions
 
 2. **Structure and Organization**:
-        - Place plugins in the correct category directory
-        - Use appropriate base classes for each plugin type
-        - Keep plugin files focused and single-purpose
+
+    - Place plugins in the correct category directory
+    - Use appropriate base classes for each plugin type
+    - Keep plugin files focused and single-purpose
 
 3. **Documentation**:
-        - Add docstrings to your plugin classes and methods
-        - Include usage examples in the documentation
-        - Document any special requirements or dependencies
+
+    - Add docstrings to your plugin classes and methods
+    - Include usage examples in the documentation
+    - Document any special requirements or dependencies
 
 4. **Error Handling**:
-        - Implement proper error handling in your plugins
-        - Provide meaningful error messages
-        - Handle resource cleanup properly
+
+    - Implement proper error handling in your plugins
+    - Provide meaningful error messages
+    - Handle resource cleanup properly
 
 ### Plugin Distribution
 
 1. **Dependencies**:
-        - Clearly specify any additional dependencies
-        - Use standard Python package management
-        - Test with different Python versions
+
+    - Clearly specify any additional dependencies
+    - Use standard Python package management
+    - Test with different Python versions
 
 2. **Version Control**:
-        - Use version control for your plugins
-        - Tag releases with version numbers
-        - Maintain a changelog
+
+    - Use version control for your plugins
+    - Tag releases with version numbers
+    - Maintain a changelog
 
 3. **Testing**:
-        - Write tests for your plugins
-        - Test integration with Ethopy
-        - Verify behavior with different configurations
+
+    - Write tests for your plugins
+    - Test integration with Ethopy
+    - Verify behavior with different configurations
 
 ## Troubleshooting
 
 ### Common Issues
 
 1. **Plugin Not Found**:
-        - Verify plugin directory location
-        - Check file permissions
-        - Ensure correct Python path
-        - Validate plugin file naming
+
+    - Verify plugin directory location
+    - Check file permissions
+    - Ensure correct Python path
+    - Validate plugin file naming
 
 2. **Import Errors**:
-        - Check for missing dependencies
-        - Verify Python version compatibility
-        - Look for syntax errors in plugin code
-        - Check for circular imports
+
+    - Check for missing dependencies
+    - Verify Python version compatibility
+    - Look for syntax errors in plugin code
+    - Check for circular imports
 
 3. **Plugin Conflicts**:
-        - Review plugin naming for conflicts
-        - Check plugin path order
-        - Examine duplicate warnings
-        - Verify core module conflicts
+
+    - Review plugin naming for conflicts
+    - Check plugin path order
+    - Examine duplicate warnings
+    - Verify core module conflicts
 
 ### Debugging Tips
 
@@ -335,10 +351,12 @@ WARNING: Duplicate plugin found for 'ethopy.behaviors.custom':
 ## Additional Resources
 
 1. **Documentation**:
-        - [Ethopy Core Documentation](https://ef-lab.github.io/ethopy_package/)
-        - [DataJoint Documentation](https://docs.datajoint.org/)
-        - [Python Packaging Guide](https://packaging.python.org/guides/distributing-packages-using-setuptools/)
+
+    - [Ethopy Core Documentation](https://ef-lab.github.io/ethopy_package/)
+    - [DataJoint Documentation](https://docs.datajoint.org/)
+    - [Python Packaging Guide](https://packaging.python.org/guides/distributing-packages-using-setuptools/)
 
 2. **Community**:
-        - [GitHub Issues](https://github.com/ef-lab/ethopy_package/issues)
-        - [Contributing Guidelines](https://github.com/ef-lab/ethopy_package/blob/main/CONTRIBUTING.md)
+
+    - [GitHub Issues](https://github.com/ef-lab/ethopy_package/issues)
+    - [Contributing Guidelines](https://github.com/ef-lab/ethopy_package/blob/main/CONTRIBUTING.md)
