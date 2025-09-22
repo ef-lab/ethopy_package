@@ -34,15 +34,16 @@ class Dot(Stimulus, dj.Manual):
 ```
 
 This table definition:
+
 - Uses the `@stimulus.schema` decorator to associate with the database
 - Inherits from both `Stimulus` (base class) and `dj.Manual` (DataJoint table class)
 - Defines a foreign key relationship with `stimulus.StimCondition` (parent table)
 - Specifies parameters for the dot's appearance:
-  - Background and dot colors
-  - Position (x, y coordinates as fractions of screen width)
-  - Size (width and height as fractions of screen width)
-  - Shape (rectangular or oval)
-  - Duration (how long the dot persists)
+    - Background and dot colors
+    - Position (x, y coordinates as fractions of screen width)
+    - Size (width and height as fractions of screen width)
+    - Shape (rectangular or oval)
+    - Duration (how long the dot persists)
 
 ## Implementing the Stimulus Class
 
@@ -84,12 +85,13 @@ def prepare(self, curr_cond):
 ```
 
 This method:
-1. Sets the background color
-2. Calculates the dot's position and size based on:
-   - Monitor resolution (to maintain aspect ratio)
-   - Condition parameters for position and size
-   - Conversion from normalized coordinates to actual screen coordinates
-3. Creates a rectangle tuple (left, top, right, bottom) for drawing
+
+  1. Sets the background color
+  2. Calculates the dot's position and size based on:
+    - Monitor resolution (to maintain aspect ratio)
+    - Condition parameters for position and size
+    - Conversion from normalized coordinates to actual screen coordinates
+  3. Creates a rectangle tuple (left, top, right, bottom) for drawing
 
 ### 3. `start()` method
 
@@ -100,8 +102,9 @@ def start(self):
 ```
 
 This method:
-1. Calls the parent class's start method (which initializes timing)
-2. Draws the rectangle using the precalculated coordinates and the specified color
+
+  1. Calls the parent class's start method (which initializes timing)
+  2. Draws the rectangle using the precalculated coordinates and the specified color
 
 ### 4. `present()` method
 
@@ -113,10 +116,11 @@ def present(self):
 ```
 
 This method:
-1. Checks if the dot's display time has elapsed (converting seconds to milliseconds)
-2. If the time has elapsed:
-   - Marks the stimulus as no longer in operation
-   - Fills the screen with the background color (removing the dot)
+
+  1. Checks if the dot's display time has elapsed (converting seconds to milliseconds)
+  2. If the time has elapsed:
+    - Marks the stimulus as no longer in operation
+    - Fills the screen with the background color (removing the dot)
 
 ### 5. `stop()` and `exit()` methods
 
@@ -133,13 +137,13 @@ def exit(self):
 
 These methods handle cleanup:
 - `stop()`: Called when the stimulus needs to be stopped during operation
-  - Logs the stop event
-  - Clears the screen
-  - Marks the stimulus as no longer in operation
+    - Logs the stop event
+    - Clears the screen
+    - Marks the stimulus as no longer in operation
 
 - `exit()`: Called when the experiment is ending
-  - Clears the screen
-  - Calls the parent class's exit method for additional cleanup
+    - Clears the screen
+    - Calls the parent class's exit method for additional cleanup
 
 ## Stimulus Lifecycle
 
