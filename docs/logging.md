@@ -1,36 +1,8 @@
 # Logging in EthoPy
 
-EthoPy provides a comprehensive logging system that handles both file and console output with configurable formats and levels. The logging system is centrally managed and provides consistent logging across all modules of the package.
+EthoPy uses Python's standard logging system with centralized configuration. All modules automatically get properly formatted logging with the option for both file and console output.
 
-## Features
-
-- Rotating file logs with size limits
-- Colored console output
-- Different formats for different log levels
-- Centralized configuration
-- Automatic log directory creation
-- Multiple backup log files
-
-## Configuration
-
-### Default Settings
-
-```python
-DEFAULT_LOG_DIR = "logs"
-DEFAULT_LOG_FILE = "ethopy.log"
-MAX_LOG_SIZE = 30 * 1024 * 1024  # 30 MB
-LOG_BACKUP_COUNT = 5
-```
-
-### Local conf setting based on the local_conf.json
-Logging is set up based on the parameters defined in the local_conf.json
-```json
-    "logging": {
-        "level": "INFO",
-        "directory": "~/.ethopy/",
-        "filename": "ethopy.log"
-    }
-```
+## How to Use Logging
 
 ### Command Line Options
 
@@ -43,155 +15,99 @@ Options:
   --log-level TEXT     Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
 ```
 
-
-## Log Formats
-
-### File Logs
-All file logs use the detailed format:
-```
-%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)
-```
-
-Example:
-```
-2024-01-20 10:15:30 - ethopy - INFO - Experiment started (experiment.py:145)
-```
-
-### Console Logs
-
-Console logs use two different formats based on the log level:
-
-1. **Simple Format** (for INFO and DEBUG):
-```
-%(asctime)s - %(levelname)s - %(message)s
-```
-
-2. **Detailed Format** (for WARNING and above):
-```
-%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)
-```
-
-### Color Coding
-
-Console output is color-coded by log level:
-
-- DEBUG: Grey
-- INFO: Grey
-- WARNING: Yellow
-- ERROR: Red
-- CRITICAL: Bold Red
-
-## Log File Management
-
-### Rotation
-
-Log files are automatically rotated when they reach the maximum size:
-
-- Maximum file size: 30 MB
-- Number of backup files: 5
-- Naming convention: ethopy.log, ethopy.log.1, ethopy.log.2, etc.
-
-### Directory Structure
-
-```
-logs/
-├── ethopy.log          # Current log file
-├── ethopy.log.1        # Most recent backup
-├── ethopy.log.2        # Second most recent backup
-└── ...
-```
-
-## Usage Examples
-
-### Basic Logging
-
-```python
-import logging
-
-# Log messages at different levels
-logging.debug("Detailed debug information")
-logging.info("General information")
-logging.warning("Warning message")
-logging.error("Error message")
-logging.critical("Critical error")
-```
-
-### Custom Logger
+### In Your Module
 
 ```python
 import logging
 
 # Create a logger for your module
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 # Use the logger
-logger.info("Module specific information")
-logger.error("Module specific error")
+log.info("Module operation completed")
+log.warning("Potential issue detected")
+log.error("Operation failed")
+log.debug("Detailed debugging info")
+```
+
+### How `logging.getLogger(__name__)` Works
+
+Each module gets its own named logger based on the module path:
+
+```python
+# In src/ethopy/core/experiment.py
+log = logging.getLogger(__name__)
+# Creates logger: "ethopy.core.experiment"
+
+# In src/ethopy/interfaces/Arduino.py
+log = logging.getLogger(__name__)
+# Creates logger: "ethopy.interfaces.Arduino"
+```
+
+**Benefits:**
+
+- **Module identification**: Log messages show which module they came from
+- **Automatic configuration**: All loggers inherit the same formatting and handlers
+- **Hierarchical structure**: Organized by module structure
+
+## Log Output Formats
+
+### Console Output
+- **INFO/DEBUG**: `2024-01-20 10:15:30 - INFO - Session started`
+- **WARNING+**: `2024-01-20 10:15:30 - ethopy.core.experiment - WARNING - Task not found (experiment.py:145)`
+- **Colors**: Grey (INFO/DEBUG), Yellow (WARNING), Red (ERROR), Bold Red (CRITICAL)
+
+### File Output
+All levels use detailed format:
+```
+2024-01-20 10:15:30 - ethopy.interfaces.Arduino - INFO - Connection established (Arduino.py:67)
+```
+
+## Configuration
+
+### Automatic Setup
+Logging is automatically configured when EthoPy starts. No manual setup needed in your modules.
+
+### Log Files
+
+- **Location**: `logs/ethopy.log`
+- **Rotation**: 30MB max size, 5 backup files
+- **Files**: `ethopy.log`, `ethopy.log.1`, `ethopy.log.2`, etc.
+
+### Log Levels
+
+- **DEBUG**: Detailed debugging information
+- **INFO**: General operational messages
+- **WARNING**: Unexpected but handled situations
+- **ERROR**: Errors that affect functionality
+- **CRITICAL**: Errors requiring immediate attention
+
+### Configure settings with the local_conf.json
+Logging is set up based on the parameters defined in the local_conf.json
+```json
+    "logging": {
+        "level": "INFO",
+        "directory": "~/.ethopy/",
+        "filename": "ethopy.log",
+        "max_size": 31457280,
+        "backup_count": 5
+    }
 ```
 
 ## Best Practices
 
-1. **Log Level Selection**
-            - Use DEBUG for detailed debugging information
-            - Use INFO for general operational messages
-            - Use WARNING for unexpected but handled situations
-            - Use ERROR for errors that affect functionality
-            - Use CRITICAL for errors that require immediate attention
+1. **Always use** `log = logging.getLogger(__name__)` in each module
+2. **Include context** in log messages (variable values, state info)
+3. **Use appropriate levels** - INFO for normal operations, WARNING for issues, ERROR for failures
+4. **Don't log sensitive information** (passwords, keys, personal data)
 
-2. **Message Content**
-            - Include relevant context in log messages
-            - Be specific about what happened
-            - Include important variable values
-            - Avoid logging sensitive information
+## Technical Details
 
-3. **Performance Considerations**
-            - Avoid logging in tight loops
-            - Use appropriate log levels to control output volume
-            - Consider log rotation settings for long-running applications
+The logging system uses:
 
-## Implementation Details
+- **LoggingManager** class in `src/ethopy/utils/ethopy_logging.py`
+- **Root logger configuration** that all module loggers inherit from
+- **RotatingFileHandler** for automatic log file management
+- **CustomFormatter** for dynamic console formatting and colors
 
-### LoggingManager Class
-
-The `LoggingManager` class handles all logging configuration:
-
-```python
-from ethopy.utils.ethopy_logging import LoggingManager
-
-# Create a manager instance
-manager = LoggingManager("your_module_name")
-
-# Configure logging
-manager.configure(
-    log_dir="logs",
-    console=True,
-    log_level="INFO",
-    log_file="app.log"
-)
-```
-
-### Custom Formatter
-
-The logging system includes a custom formatter that provides:
-
-- Color-coded output for different log levels
-- Dynamic format selection based on log level
-- Timestamp formatting
-- File and line number information for warnings and errors
-
-## Troubleshooting
-
-1. **Missing Logs**
-            - Check write permissions for log directory
-            - Verify log level configuration
-            - Ensure log directory exists
-
-2. **Console Output Issues**
-            - Verify console logging is enabled
-            - Check terminal color support
-            - Confirm log level settings
-
-3. **Performance Issues**
-            - Review log rotation settings
-            - Check logging frequency
-            - Consider adjusting log levels
+All configuration is handled automatically - just use `logging.getLogger(__name__)` in your modules.
