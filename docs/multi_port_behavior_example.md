@@ -12,6 +12,7 @@ The MultiPort behavior manages interactions with multiple response ports in an e
 - Logging behavioral data throughout the experiment
 
 This behavior is particularly useful for:
+
 - Two-alternative forced choice (2AFC) tasks
 - Multiple-choice experiments
 - Complex reward contingency studies
@@ -50,17 +51,20 @@ class MultiPort(Behavior, dj.Manual):
 This database definition consists of:
 
 1. **Main MultiPort table**:
-   - Inherits from both the `Behavior` base class and `dj.Manual` (DataJoint)
-   - Links to the parent `behavior.BehCondition` table with a foreign key
 
-2. **Response part table**: 
-   - Defines which ports can be used for responses
-   - Contains the `response_port` field that identifies valid response ports
+    - Inherits from both the `Behavior` base class and `dj.Manual` (DataJoint)
+    - Links to the parent `behavior.BehCondition` table with a foreign key
+
+2. **Response part table**:
+
+    - Defines which ports can be used for responses
+    - Contains the `response_port` field that identifies valid response ports
 
 3. **Reward part table**:
-   - Specifies which ports can deliver rewards
-   - Defines the reward amount and type for each port
-   - Links back to the parent MultiPort table
+
+    - Specifies which ports can deliver rewards
+    - Defines the reward amount and type for each port
+    - Links back to the parent MultiPort table
 
 ## Implementing the Behavior Class
 
@@ -105,10 +109,11 @@ This method determines if the animal is properly positioned and ready for the ex
 
 1. Gets position information from the interface
 2. Handles different timing scenarios:
-   - If duration is 0, animal is always considered ready
-   - If no position is detected or the position is not ready, returns False
-   - Checks if the animal has been in position for the required duration
-   - If a 'since' timestamp is provided, calculates readiness relative to that time
+
+    - If duration is 0, animal is always considered ready
+    - If no position is detected or the position is not ready, returns False
+    - Checks if the animal has been in position for the required duration
+    - If a 'since' timestamp is provided, calculates readiness relative to that time
 
 ### 3. `is_correct()` method
 
@@ -129,6 +134,7 @@ def is_correct(self):
 ```
 
 This method validates if the animal's response was correct:
+
 - If the condition's response_port is -1, any response is considered correct
 - Otherwise, checks if the animal's response port matches the expected port in the current condition
 - Uses numpy's array comparison to support multiple correct ports
@@ -163,10 +169,11 @@ This method handles reward delivery:
 
 1. Gets the port the animal is licking (since a specified time)
 2. If the licked port matches the reward port in the current condition:
-   - Triggers the hardware to deliver liquid reward through the interface
-   - Logs the reward amount
-   - Updates the history with the response port and reward amount
-   - Returns True (reward was given)
+
+    - Triggers the hardware to deliver liquid reward through the interface
+    - Logs the reward amount
+    - Updates the history with the response port and reward amount
+    - Returns True (reward was given)
 3. Returns False if no reward was given
 
 ### 5. `punish()` method
@@ -178,6 +185,7 @@ def punish(self):
 ```
 
 This method handles punishment for incorrect responses:
+
 - Gets the response port (or NaN if no response)
 - Updates the history to record the punishment event
 
@@ -190,6 +198,7 @@ def exit(self):
 ```
 
 This method cleans up when the behavior handler is no longer needed:
+
 - Calls the parent class's exit method
 - Tells the interface to perform cleanup operations (e.g., closing ports, stopping pumps)
 
@@ -200,10 +209,11 @@ The MultiPort behavior handler follows this lifecycle:
 1. **Initialization**: Set up parameters, define required fields, set defaults
 2. **Setup**: Connect to experiment, logger, and interface components
 3. **Operation**: During the experiment, it:
-   - Checks if the animal is ready
-   - Validates responses
-   - Delivers rewards for correct responses
-   - Records punishments for incorrect responses
+
+    - Checks if the animal is ready
+    - Validates responses
+    - Delivers rewards for correct responses
+    - Records punishments for incorrect responses
 4. **Cleanup**: Release resources when the experiment ends
 
 ## How to Create Your Own Behavior Handler
@@ -211,18 +221,21 @@ The MultiPort behavior handler follows this lifecycle:
 To create your own behavior handler:
 
 1. **Define database tables** appropriate for your experimental paradigm
-   - Consider what behavioral parameters need to be configured
-   - Create part tables for related groups of parameters
+
+    - Consider what behavioral parameters need to be configured
+    - Create part tables for related groups of parameters
 
 2. **Create a behavior class** that inherits from the base `Behavior` class
-   - Specify required fields and defaults in `__init__`
-   - Implement core behavior methods based on your experiment's needs
+
+    - Specify required fields and defaults in `__init__`
+    - Implement core behavior methods based on your experiment's needs
 
 3. **Implement these essential methods**:
-   - `is_ready()`: Determine if the animal is positioned and ready
-   - `is_correct()`: Validate if the animal's response was correct
-   - `reward()`: Handle reward delivery for correct responses
-   - `punish()`: Handle consequences for incorrect responses
-   - `exit()`: Clean up resources when done
+
+    - `is_ready()`: Determine if the animal is positioned and ready
+    - `is_correct()`: Validate if the animal's response was correct
+    - `reward()`: Handle reward delivery for correct responses
+    - `punish()`: Handle consequences for incorrect responses
+    - `exit()`: Clean up resources when done
 
 By following this pattern, you can create behavior handlers for diverse experimental paradigms, from simple single-port setups to complex multi-stage behavioral tasks.

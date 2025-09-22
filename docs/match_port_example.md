@@ -41,6 +41,7 @@ The StateMachine in Ethopy automatically finds all state classes that inherit fr
 The Match Port experiment requires animals to correctly choose between ports based on stimuli. 
 
 It implements:
+
 - Adaptive difficulty using staircase methods
 - Reward and punishment handling
 - Sleep/wake cycle management
@@ -86,6 +87,7 @@ class Condition(dj.Manual):
 ```
 
 This table definition:
+
 - Uses the `@experiment.schema` decorator to associate with the experiment database
 - Creates a part table `MatchPort` under the parent `Condition` table (all parameters of the experiements are part table of the `Condition` table)
 - Defines fields with default values and data types
@@ -126,6 +128,7 @@ class Experiment(State, ExperimentClass):
 ```
 
 Key components:
+
 - `cond_tables`: Lists the condition tables this experiment uses and define/store the parameters of the experiment.
 - `required_fields`: Specifies which fields must be provided in the task file
 - `default_key`: Sets default values for parameters
@@ -183,10 +186,11 @@ def entry(self):
 ```
 
 - `super().entry()`: Calls the parent class's entry method which:
-  - Records the current state in the logger
-  - Logs a state transition event with timestamp
-  - Starts the state timer
-  - Resets the response readiness flag at the beginning of each Trial
+    - Records the current state in the logger
+    - Logs a state transition event with timestamp
+    - Starts the state timer
+    - Resets the response readiness flag at the beginning of each Trial
+
 - `self.stim.start()`: Initializes the stimulus for the current trial, activating any hardware or software components needed
 
 ### 2. `run()` method
@@ -206,18 +210,18 @@ def run(self):
 This method is called repeatedly while in the Trial state:
 
 - `self.stim.present()`: Updates the stimulus presentation on each iteration, which might involve:
-  - Moving visual elements
-  - Updating sound playback
-  - Refreshing displays
+    - Moving visual elements
+    - Updating sound playback
+    - Refreshing displays
   
 - `self.beh.get_response(self.start_time)`: Checks if the animal has made a response since the trial started
-  - Returns a boolean value indicating response status
-  - The `start_time` parameter allows measuring response time relative to trial start
+    - Returns a boolean value indicating response status
+    - The `start_time` parameter allows measuring response time relative to trial start
   
 - Response readiness check:
-  - `self.beh.is_ready(...)`: Determines if the animal is in position and ready for the stimulus
-  - Uses `trial_ready` parameter from current condition to check timing requirements
-  - If the animal is ready AND we haven't yet marked the trial as ready:
+    - `self.beh.is_ready(...)`: Determines if the animal is in position and ready for the stimulus
+    - Uses `trial_ready` parameter from current condition to check timing requirements
+    - If the animal is ready AND we haven't yet marked the trial as ready:
     - Sets `self.resp_ready = True` to indicate the animal is in position
     - Calls `self.stim.ready_stim()` to potentially modify the stimulus (e.g., changing color, activating a cue)
 
@@ -244,27 +248,27 @@ def next(self):
 This method determines the next state based on the animal's behavior and timing:
 
 - **Early Withdrawal Check**: 
-  - `if not self.resp_ready and self.beh.is_off_proximity()`: Checks if the animal left before being ready
-  - If true → transition to "Abort" state
+    - `if not self.resp_ready and self.beh.is_off_proximity()`: Checks if the animal left before being ready
+    - If true → transition to "Abort" state
   
 - **Incorrect Response Check**: 
-  - `elif self.has_responded and not self.beh.is_correct()`: Animal responded but to the wrong port
-  - If true → transition to "Punish" state
-  
+    - `elif self.has_responded and not self.beh.is_correct()`: Animal responded but to the wrong port
+    - If true → transition to "Punish" state
+
 - **Correct Response Check**:
-  - `elif self.has_responded and self.beh.is_correct()`: Animal responded correctly
-  - If true → transition to "Reward" state
+    - `elif self.has_responded and self.beh.is_correct()`: Animal responded correctly
+    - If true → transition to "Reward" state
   
 - **Timeout Check**:
-  - `elif self.state_timer.elapsed_time() > self.stim.curr_cond["trial_duration"]`: Trial ran too long
-  - If true → transition to "Abort" state
+    - `elif self.state_timer.elapsed_time() > self.stim.curr_cond["trial_duration"]`: Trial ran too long
+    - If true → transition to "Abort" state
   
 - **Experiment Stop Check**:
-  - `elif self.is_stopped()`: Checks if experiment has been externally requested to stop
-  - If true → transition to "Exit" state
+    - `elif self.is_stopped()`: Checks if experiment has been externally requested to stop
+    - If true → transition to "Exit" state
   
 - **Default Case**:
-  - `else: return "Trial"`: If none of the above conditions are met, stay in the Trial state
+    - `else: return "Trial"`: If none of the above conditions are met, stay in the Trial state
 
 ### 4. `exit()` method
 
