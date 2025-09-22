@@ -20,6 +20,7 @@ ethopy-setup-djdocker
 ```
 
 This command will:
+
 1. Check if Docker is running
 2. Create a MySQL container named `ethopy_sql_db`
 3. Set up the necessary volumes and configurations
@@ -125,6 +126,7 @@ FLUSH PRIVILEGES;
 ```
 
 ### Windows
+
 1. Download and install [MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
 2. Follow the installation wizard
 3. Use MySQL Workbench or command line to create user and grant privileges
@@ -142,27 +144,33 @@ ethopy-setup-schema
 ```
 
 This will create the following schemas:
+
 - `lab_experiments`
 - `lab_behavior`
 - `lab_stimuli`
+- `lab_interface`
+- `lab_recordings`
 
 ## Troubleshooting
 
 ### Common Issues
 
 1. **Connection Refused**
-   - Check if MySQL service is running
-   - Verify port 3306 is not blocked by firewall
-   - Ensure correct host/IP in configuration
+
+    - Check if MySQL service is running
+    - Verify port 3306 is not blocked by firewall
+    - Ensure correct host/IP in configuration
 
 2. **Authentication Failed**
-   - Verify username and password in `local_conf.json`
-   - Check user privileges in MySQL
+
+    - Verify username and password in `local_conf.json`
+    - Check user privileges in MySQL
 
 3. **Docker Container Issues**
-   - Check Docker logs: `docker logs ethopy_sql_db`
-   - Verify Docker daemon is running
-   - Check available disk space for volume
+
+    - Check Docker logs: `docker logs ethopy_sql_db`
+    - Verify Docker daemon is running
+    - Check available disk space for volume
 
 ### Useful Commands
 
