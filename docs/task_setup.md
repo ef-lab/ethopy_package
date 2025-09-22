@@ -54,29 +54,34 @@ You will be prompted to enter the module paths and class names for the experimen
 The script follows these steps:
 
 1. **Prompt for Module Paths and Class Names**
-   - Enter the paths relative to `ethopy` for:
-     - Experiment module (e.g., `experiments.match_port`)
-     - Behavior module (e.g., `behaviors.multi_port`)
-     - Stimulus module (e.g., `stimuli.grating`)
-   - Enter corresponding class names for each module.
+
+    - Enter the paths relative to `ethopy` for:
+        - Experiment module (e.g., `experiments.match_port`)
+        - Behavior module (e.g., `behaviors.multi_port`)
+        - Stimulus module (e.g., `stimuli.grating`)
+    - Enter corresponding class names for each module.
 
 2. **Validate Imports**
-   - The script attempts to import the specified modules and classes.
-   - If an import fails, an error message is displayed.
+
+    - The script attempts to import the specified modules and classes.
+    - If an import fails, an error message is displayed.
 
 3. **Extract Default Parameters**
-   - The script retrieves the parameters from the experiment, behavior, and stimulus classes.
+
+    - The script retrieves the parameters from the experiment, behavior, and stimulus classes.
 
 4. **Generate a Template File**
-   - A Python file is created with structured sections:
-     - **Session Parameters**: General experiment settings
-     - **Experiment Setup**: Instantiating the experiment
-     - **Trial Conditions**: Configuration for experiments, behaviors, and stimuli
-     - **Condition Merging**: Combining all conditions for trial generation
-     - **Execution**: Running the experiment
+
+    - A Python file is created with structured sections:
+        - **Session Parameters**: General experiment settings
+        - **Experiment Setup**: Instantiating the experiment
+        - **Trial Conditions**: Configuration for experiments, behaviors, and stimuli
+    - **Condition Merging**: Combining all conditions for trial generation
+    - **Execution**: Running the experiment
 
 5. **Save the File**
-   - The template is saved with a default filename (`task_<stimulus>_<date>.py`) or a user-specified name.
+
+    - The template is saved with a default filename (`task_<stimulus>_<date>.py`) or a user-specified name.
 
 ## Next Steps
 After generating the template:
@@ -98,16 +103,18 @@ Ethopy uses a `task_idx` (task index) system to uniquely identify and manage exp
 #### How `task_idx` Works
 
 1. **Task Table Storage**:
-   - Each experimental configuration is stored in the `Task` table with a unique `task_idx`
-   - The `Task` table contains:
-     - `task_idx` (primary key): Unique identifier for the task
-     - `path`: The actual task file
-     - `description`: Human-readable description of the task
-     - `timestamp`: The timestamp of the task creation
+
+    - Each experimental configuration is stored in the `Task` table with a unique `task_idx`
+    - The `Task` table contains:
+        - `task_idx` (primary key): Unique identifier for the task
+        - `path`: The actual task file
+        - `description`: Human-readable description of the task
+        - `timestamp`: The timestamp of the task creation
 
 2. **Control Table Usage**:
-   - The `Control` table uses `task_idx` to specify which experiment configuration to run
-   - When you set `task_idx` in the Control table, the system loads the corresponding task configuration file
+
+    - The `Control` table uses `task_idx` to specify which experiment configuration to run
+    - When you set `task_idx` in the Control table, the system loads the corresponding task configuration file
 
 
 ## Creating Tasks
@@ -240,42 +247,53 @@ exp.start()
 ## Best Practices
 
 1. **Parameter Organization**:
-        - Group related parameters together
-        - Use descriptive variable names
-        - Document units in comments
+
+    - Group related parameters together
+    - Use descriptive variable names
+    - Document units in comments
 
 2. **Error Handling**:
-        - Validate parameters before running
-        - Use helper functions to get required parameters
-        - Check for missing or invalid values
+
+    - Validate parameters before running
+    - Use helper functions to get required parameters
+    - Check for missing or invalid values
 
 3. **Documentation**:
-        - Comment complex parameter combinations
-        - Document dependencies
-        - Include example usage
+
+    - Comment complex parameter combinations
+    - Document dependencies
+    - Include example usage
 
 4. **Testing**:
-        - Test with different parameter combinations
-        - Verify stimulus timing
-        - Check reward delivery
+
+    - Test with different parameter combinations
+    - Verify stimulus timing
+    - Check reward delivery
 
 ## Common Issues
 
 1. **Parameter Errors**:
-        - Missing required parameters
-        - Incorrect parameter types
-        - Invalid parameter combinations
+
+    - Missing required parameters
+    - Incorrect parameter types
+    - Invalid parameter combinations
 
 2. **Timing Issues**:
-        - Incorrect duration values
-        - Mismatched trial/stimulus timing
-        - Intertrial interval problems
+
+    - Incorrect duration values
+    - Mismatched trial/stimulus timing
+    - Intertrial interval problems
 
 3. **Hardware Configuration**:
-        - Wrong setup_conf_idx
-        - Uncalibrated rewad ports
-        - Missing hardware components
+    - Wrong setup_conf_idx
+    - Uncalibrated rewad ports
+    - Missing hardware components
+---
+
+**Note**: In your tasks, the `setup_conf_idx` parameter defines which hardware configuration your experiment will use. Learn more about configuring different hardware setups in the [Setup Configuration Index](setup_configuration_idx.md) guide.
 
 ## Additional Resources
 
 - [Example Tasks](https://github.com/ef-lab/ethopy_package/tree/main/src/ethopy/task)
+- [Plugins](https://github.com/ef-lab/ethopy_plugins/)
+
