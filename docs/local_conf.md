@@ -156,7 +156,7 @@ If you're using physical hardware (valves, sensors, LEDs), specify GPIO pin conn
 
 ```json
 {
-    "channels": {
+    "Channels": {
         "Liquid": {"1": 22, "2": 23},
         "Lick": {"1": 17, "2": 27},
         "Odor": {"1": 24, "2": 25}
@@ -166,7 +166,7 @@ If you're using physical hardware (valves, sensors, LEDs), specify GPIO pin conn
 
 **Settings explanation:**
 
-- **`channels`**: Maps hardware types to GPIO pin assignments
+- **`Channels`**: Maps hardware types to GPIO pin assignments
     - **Default**: Not set (no hardware channels configured)
     - **Purpose**: Tells EthoPy which GPIO pins control which hardware devices
 
@@ -294,7 +294,7 @@ If your database uses custom schema names:
     },
     "source_path": "/home/pi/experiment_data",
     "target_path": "/home/pi/experiment_backup",
-    "channels": {
+    "Channels": {
         "Liquid": {"1": 22, "2": 23},
         "Lick": {"1": 17, "2": 27}
     }
