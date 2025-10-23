@@ -2,37 +2,81 @@
 
 import os
 from typing import Union
+import logging
 
 import pygame
 import pygame_menu
+
+log = logging.getLogger(__name__)
+
+
+def get_resolution_framebuffer():
+    try:
+        with open("/sys/class/graphics/fb0/virtual_size", "r") as f:
+            dimensions = f.read().strip().split(",")
+            return int(dimensions[0]), int(dimensions[1])
+    except Exception as e:
+        log.error(f"Error reading framebuffer resolution: {e}")
+        return None
 
 
 class PyWelcome:
     def __init__(self, logger) -> None:
         self.logger = logger
 
-        self.SCREEN_WIDTH = 800
-        self.SCREEN_HEIGHT = 480
+        # Initialize pygame first
         if not pygame.get_init():
             pygame.init()
 
-        if self.logger.is_pi:
-            self.screen = pygame.display.set_mode(
-                (self.SCREEN_WIDTH, self.SCREEN_HEIGHT), pygame.FULLSCREEN
-            )
-        else:
+        # AUTO-DETECT SCREEN RESOLUTION instead of hardcoding
+        # info = pygame.display.Info()
+        self.SCREEN_WIDTH = 1280
+        self.SCREEN_HEIGHT = 720
+        log.debug(
+            f"Detected screen resolution: {self.SCREEN_WIDTH}x{self.SCREEN_HEIGHT}"
+        )
+
+        # Set display mode - always try fullscreen first on Pi
+        try:
+            if self.logger.is_pi:
+                self.SCREEN_HEIGHT, self.SCREEN_WIDTH = get_resolution_framebuffer()
+                # Try fullscreen mode
+                self.screen = pygame.display.set_mode(
+                    (self.SCREEN_WIDTH, self.SCREEN_HEIGHT),
+                    pygame.FULLSCREEN | pygame.DOUBLEBUF | pygame.HWSURFACE,
+                )
+                log.debug("Fullscreen mode activated")
+            else:
+                # Windowed mode for testing
+                self.screen = pygame.display.set_mode(
+                    (self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
+                )
+                print("Windowed mode activated")
+        except pygame.error as e:
+            print(f"Failed to set fullscreen mode: {e}")
+            # Fallback to windowed mode
             self.screen = pygame.display.set_mode(
                 (self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
             )
+            print("Fallback to windowed mode")
 
-        # Configure self.theme
+        # pygame.display.set_caption("EthoPy")
+
+        # Hide mouse cursor using multiple methods
+        # self.hide_cursor_comprehensive()
+
+        # Configure self.theme - adjust font sizes based on screen size
         self.theme = pygame_menu.themes.THEME_DARK.copy()
         self.theme.background_color = (0, 0, 0)
         self.theme.title_background_color = (43, 43, 43)
-        self.theme.title_font_size = 35
+
+        # Scale font sizes based on screen resolution
+        font_scale = min(self.SCREEN_WIDTH / 800, self.SCREEN_HEIGHT / 480)
+        self.theme.title_font_size = int(35 * font_scale)
+        self.theme.widget_font_size = int(30 * font_scale)
+
         self.theme.widget_alignment = pygame_menu.locals.ALIGN_CENTER
         self.theme.widget_font_color = (255, 255, 255)
-        self.theme.widget_font_size = 30
         self.theme.widget_padding = 0
 
         # variables
@@ -51,6 +95,8 @@ class PyWelcome:
 
     def mainloop(self) -> None:
         """App mainloop."""
+        clock = pygame.time.Clock()  # Add clock for better performance
+
         while (
             self.logger.setup_status != "running" and self.logger.setup_status != "exit"
         ):
@@ -58,18 +104,26 @@ class PyWelcome:
             for event in events:
                 if event.type == pygame.QUIT:
                     break
+                # Add escape key to exit fullscreen
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        self.logger.update_setup_info({"status": "exit"})
+                        break
 
             if self.main_menu.is_enabled():
                 self.main_menu.update(events)
+
+                # Clear screen before drawing
+                self.screen.fill((0, 0, 0))
                 self.main_menu.draw(self.screen)
 
-            pygame.display.update()
-            pygame.time.wait(2)
+            pygame.display.flip()  # Use flip() instead of update() for better performance
+            clock.tick(60)  # Limit to 60 FPS
 
         pygame_menu.events.CLOSE
         if pygame.get_init():
             self.main_menu.disable()
-            pygame.mouse.set_visible(1)
+            pygame.mouse.set_visible(True)
             pygame.display.quit()
 
     def create_main(self) -> "pygame_menu.Menu":
@@ -84,11 +138,15 @@ class PyWelcome:
             theme=self.theme,
         )
 
+        # Scale positions based on screen size
+        scale_x = self.SCREEN_WIDTH / 800
+        scale_y = self.SCREEN_HEIGHT / 480
+
         menu.add.label(
             f"ip: {self.logger.get_ip()}, setup: {self.logger.setup}",
-            font_size=15,
+            font_size=int(15 * min(scale_x, scale_y)),
             align=pygame_menu.locals.ALIGN_LEFT,
-        ).translate(5, 10)
+        ).translate(int(5 * scale_x), int(10 * scale_y))
 
         menu.add.button(
             f"Animal id: {self.animal_id}",
@@ -97,7 +155,7 @@ class PyWelcome:
             float=True,
             padding=(5, 10, 5, 10),
             background_color=(0, 15, 15),
-        ).translate(300, 40)
+        ).translate(int(300 * scale_x), int(40 * scale_y))
 
         menu.add.button(
             f"Task id: {self.task_id}",
@@ -106,7 +164,7 @@ class PyWelcome:
             float=True,
             padding=(5, 10, 5, 10),
             background_color=(0, 15, 15),
-        ).translate(300, 130)
+        ).translate(int(300 * scale_x), int(130 * scale_y))
 
         menu.add.button(
             "Start experiment",
@@ -115,8 +173,8 @@ class PyWelcome:
             float=True,
             padding=(10, 15, 10, 15),
             background_color=(0, 153, 0),
-            font_size=35,
-        ).translate(250, 260)
+            font_size=int(35 * min(scale_x, scale_y)),
+        ).translate(int(250 * scale_x), int(260 * scale_y))
 
         menu.add.button(
             "Restart",
@@ -125,7 +183,7 @@ class PyWelcome:
             float=True,
             padding=(5, 23, 5, 30),
             background_color=(128, 128, 128),
-        ).translate(630, 290)
+        ).translate(int(630 * scale_x), int(290 * scale_y))
 
         menu.add.button(
             "Power off",
@@ -134,7 +192,7 @@ class PyWelcome:
             float=True,
             background_color=(255, 0, 0),
             padding=(5, 10, 5, 10),
-        ).translate(630, 350)
+        ).translate(int(630 * scale_x), int(350 * scale_y))
 
         return menu
 
@@ -149,7 +207,7 @@ class PyWelcome:
         )
         menu_animal.add.label(
             "Select Animal id: ",
-            font_size=20,
+            font_size=int(20 * min(self.SCREEN_WIDTH / 800, self.SCREEN_HEIGHT / 480)),
         )
         self.curr_animal = ""
         menu_animal.add.vertical_margin(5)
@@ -178,7 +236,7 @@ class PyWelcome:
         )
         menu_task.add.label(
             "Select Task id: ",
-            font_size=20,
+            font_size=int(20 * min(self.SCREEN_WIDTH / 800, self.SCREEN_HEIGHT / 480)),
         )
         self.curr_task = ""
         menu_task.add.vertical_margin(5)
@@ -204,7 +262,7 @@ class PyWelcome:
         self.logger.update_setup_info({"status": "running"})
 
     def close(self):
-        pygame.mouse.set_visible(1)
+        pygame.mouse.set_visible(True)
         pygame.quit()
 
     def add_num_pad(self, menu, log_function, screen) -> "pygame_menu.Menu":
@@ -214,8 +272,13 @@ class PyWelcome:
 
         cursor = pygame_menu.locals.CURSOR_HAND
 
+        # Scale button sizes based on screen resolution
+        button_width = int(74 * min(self.SCREEN_WIDTH / 800, self.SCREEN_HEIGHT / 480))
+        button_height = int(54 * min(self.SCREEN_WIDTH / 800, self.SCREEN_HEIGHT / 480))
+        frame_width = int(299 * (self.SCREEN_WIDTH / 800))
+
         # Add horizontal frames
-        f1 = menu.add.frame_h(299, 54, margin=(5, 0))
+        f1 = menu.add.frame_h(frame_width, button_height, margin=(5, 0))
         b1 = f1.pack(
             menu.add.button("1", lambda: self._press(1, screen), cursor=cursor)
         )
@@ -229,7 +292,7 @@ class PyWelcome:
         )
         menu.add.vertical_margin(5)
 
-        f2 = menu.add.frame_h(299, 54, margin=(5, 0))
+        f2 = menu.add.frame_h(frame_width, button_height, margin=(5, 0))
         b4 = f2.pack(
             menu.add.button("4", lambda: self._press(4, screen), cursor=cursor)
         )
@@ -243,7 +306,7 @@ class PyWelcome:
         )
         menu.add.vertical_margin(5)
 
-        f3 = menu.add.frame_h(299, 54, margin=(5, 0))
+        f3 = menu.add.frame_h(frame_width, button_height, margin=(5, 0))
         b7 = f3.pack(
             menu.add.button("7", lambda: self._press(7, screen), cursor=cursor)
         )
@@ -257,7 +320,7 @@ class PyWelcome:
         )
         menu.add.vertical_margin(5)
 
-        f4 = menu.add.frame_h(299, 54, margin=(5, 0))
+        f4 = menu.add.frame_h(frame_width, button_height, margin=(5, 0))
         delete = f4.pack(
             menu.add.button("<", lambda: self._press("<", screen), cursor=cursor),
             align=pygame_menu.locals.ALIGN_RIGHT,
@@ -272,7 +335,7 @@ class PyWelcome:
         )
         menu.add.vertical_margin(5)
 
-        f5 = menu.add.frame_h(299, 54, margin=(5, 0))
+        f5 = menu.add.frame_h(frame_width, button_height, margin=(5, 0))
         ok = f5.pack(
             menu.add.button(
                 "Ok", lambda: self._press("ok", screen, log_function), cursor=cursor
@@ -280,15 +343,42 @@ class PyWelcome:
             align=pygame_menu.locals.ALIGN_CENTER,
         )
 
-        # Add decorator for each object
+        # Add decorator for each object - scale rectangle sizes
+        rect_width = int(button_width)
+        rect_height = int(button_height)
+
         for widget in (b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, ok, delete, dot):
             w_deco = widget.get_decorator()
             if widget != ok:
-                w_deco.add_rectangle(-37, -27, 74, 54, (15, 15, 15))
-                on_layer = w_deco.add_rectangle(-37, -27, 74, 54, (84, 84, 84))
+                w_deco.add_rectangle(
+                    -rect_width // 2,
+                    -rect_height // 2,
+                    rect_width,
+                    rect_height,
+                    (15, 15, 15),
+                )
+                on_layer = w_deco.add_rectangle(
+                    -rect_width // 2,
+                    -rect_height // 2,
+                    rect_width,
+                    rect_height,
+                    (84, 84, 84),
+                )
             else:
-                w_deco.add_rectangle(-37, -27, 74, 54, (38, 96, 103))
-                on_layer = w_deco.add_rectangle(-37, -27, 74, 54, (40, 171, 187))
+                w_deco.add_rectangle(
+                    -rect_width // 2,
+                    -rect_height // 2,
+                    rect_width,
+                    rect_height,
+                    (38, 96, 103),
+                )
+                on_layer = w_deco.add_rectangle(
+                    -rect_width // 2,
+                    -rect_height // 2,
+                    rect_width,
+                    rect_height,
+                    (40, 171, 187),
+                )
             w_deco.disable(on_layer)
             widget.set_attribute("on_layer", on_layer)
 
