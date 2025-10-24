@@ -86,11 +86,21 @@ class Stimulus:
             os.system(cmd)
             exp.interface.setup_touch_exit()
 
-    def setup(self) -> None:
+    def setup(self, config: Optional[Dict] = None) -> None:
         """Set up stimulus presentation environment.
 
         Initializes the Presenter object with monitor settings and background color.
         Should be called before starting the experiment.
+
+        Args:
+            config: Optional configuration dict for multiprocess mode. If provided,
+                   restores state from main process. If None, uses already-initialized
+                   attributes (single-process mode).
+
+        Note:
+            In multiprocess mode, config is handled by the worker process before
+            calling this method. The worker creates CallbackProxyLogger and
+            CallbackProxyExp, so this method just proceeds with normal setup.
         """
         self.Presenter = Presenter(
             self.logger,
@@ -156,7 +166,7 @@ class Stimulus:
             self.fill(self.fill_colors.start)
 
     def log_start(self) -> None:
-        """Start timer for the log of stimlus condition."""
+        """Start timer for the log of stimulus condition."""
         self.start_time = self.logger.logger_timer.elapsed_time()
         self.exp.interface.sync_out(True)
 
