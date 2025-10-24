@@ -129,11 +129,18 @@ class Presenter():
     def flip(self):
         self.flip_count += 1
         self._encode_photodiode()
-        pygame.display.flip()
+        try:
+            pygame.display.flip()
+        except pygame.error as e:
+            if 'video system not initialized' in str(e).lower():
+                # Window was closed - raise to terminate worker gracefully
+                raise RuntimeError("Display closed by user") from e
+            raise  # Re-raise other pygame errors
         if self.rec_fliptimes:
             self.fliptimes_dataset.append('fliptimes', [self.flip_count, self.logger.logger_timer.elapsed_time()])
         for event in pygame.event.get():
-            if event.type == QUIT: pygame.quit()
+            if event.type == QUIT:
+                pygame.quit()
 
     def make_surface(self, array):
         return pygame.surfarray.make_surface(array)
