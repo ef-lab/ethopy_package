@@ -118,7 +118,7 @@ class Trial(Experiment):
         self.stim.present()  # Start Stimulus
         self.has_responded = self.beh.get_response(self.start_time)
         if (
-            self.beh.is_ready(self.stim.curr_cond["trial_ready"], self.start_time)
+            self.beh.is_ready(self.curr_cond["trial_ready"], self.start_time)
             and not self.resp_ready
         ):
             self.resp_ready = True
@@ -133,7 +133,7 @@ class Trial(Experiment):
             return "Punish"
         elif self.has_responded and self.beh.is_correct():  # response to correct probe
             return "Reward"
-        elif self.state_timer.elapsed_time() > self.stim.curr_cond["trial_duration"]:
+        elif self.state_timer.elapsed_time() > self.curr_cond["trial_duration"]:
             return "Abort"
         elif self.is_stopped():
             return "Exit"
@@ -184,7 +184,7 @@ class Punish(Experiment):
     def entry(self):
         self.beh.punish()
         super().entry()
-        self.punish_period = self.stim.curr_cond["punish_duration"]
+        self.punish_period = self.curr_cond["punish_duration"]
         if self.curr_cond["incremental_punishment"]:
             self.punish_period *= self.beh.get_false_history()
         self.stim.punish_stim()
@@ -218,7 +218,7 @@ class InterTrial(Experiment):
             return "Offtime"
         elif (
             self.state_timer.elapsed_time()
-            >= self.stim.curr_cond["intertrial_duration"]
+            >= self.curr_cond["intertrial_duration"]
         ):
             return "PreTrial"
         else:
