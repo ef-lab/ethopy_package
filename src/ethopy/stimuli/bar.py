@@ -47,19 +47,21 @@ class Bar(Stimulus, dj.Manual):
             "intertrial_duration": 0,
         }
 
-    def setup(self):
+    def setup(self, config=None):
         super().setup()
-        ymonsize = self.monitor.size * 2.54 / np.sqrt(1 + self.monitor.aspect ** 2)  # cm Y monitor size
-        monSize = [ymonsize * self.monitor.aspect, ymonsize]
-        y_res = int(self.exp.curr_cond['max_res'] / self.monitor.aspect)
-        self.monRes = [self.exp.curr_cond['max_res'], int(y_res + np.ceil(y_res % 2))]
-        self.FoV = np.arctan(np.array(monSize) / 2 / self.monitor.distance) * 2 * 180 / np.pi  # in degrees
-        self.FoV[1] = self.FoV[0] / self.monitor.aspect
+
 
     def prepare(self, curr_cond):
         self.curr_cond = curr_cond
         self.in_operation = True
         self.curr_frame = 1
+        
+        ymonsize = self.monitor.size * 2.54 / np.sqrt(1 + self.monitor.aspect ** 2)  # cm Y monitor size
+        monSize = [ymonsize * self.monitor.aspect, ymonsize]
+        y_res = int(self.curr_cond['max_res'] / self.monitor.aspect)
+        self.monRes = [self.curr_cond['max_res'], int(y_res + np.ceil(y_res % 2))]
+        self.FoV = np.arctan(np.array(monSize) / 2 / self.monitor.distance) * 2 * 180 / np.pi  # in degrees
+        self.FoV[1] = self.FoV[0] / self.monitor.aspect
 
         # initialize hor/ver gradients
         caxis = 1 if self.curr_cond['axis'] == 'vertical' else 0
