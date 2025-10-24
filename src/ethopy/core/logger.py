@@ -278,6 +278,22 @@ class Logger:
             queue : Description of parameter `queue`.
 
         """
+        # Check if error is due to data being too long (usually notes field)
+        error_str = str(exception)
+        if 'Data too long for column' in error_str and 'notes' in error_str.lower():
+            # Truncate notes field to fit in database
+            if 'notes' in item.tuple:
+                max_length = 240  # Safe limit for VARCHAR(255) notes column
+                original_notes = item.tuple['notes']
+                if len(original_notes) > max_length:
+                    # Truncate and add marker
+                    item.tuple['notes'] = original_notes[:max_length] + '...[truncated]'
+                    log.warning(
+                        "Truncated notes field from %d to %d characters",
+                        len(original_notes),
+                        len(item.tuple['notes'])
+                    )
+
         log.warning(
             "Failed to insert:\n%s in %s\n With error:%s\nWill retry later",
             item.tuple,
@@ -316,7 +332,7 @@ class Logger:
         If the queue is not empty, it gets an item from the queue, acquires the thread
         lock, and tries to insert the item into it's table.
         If an error occurs during the insertion, it handles the error. After the
-        insertion, it releases the thread lock. If the item was marked to block, it
+       insertion, it releases the thread lock. If the item was marked to block, it
         marks the task as done.
 
         Returns:
