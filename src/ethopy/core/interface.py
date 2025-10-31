@@ -215,7 +215,7 @@ class Interface:
     def release(self) -> None:
         """Release hardware resources, especially camera."""
         if self.camera:
-            log.info("Release camear" * 10)
+            log.info("Releasing camera resources.")
             if self.camera.recording.is_set():
                 self.camera.stop_rec()
 
