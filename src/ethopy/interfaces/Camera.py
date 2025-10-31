@@ -1,6 +1,5 @@
 import base64
 import io
-import json
 import logging
 import multiprocessing as mp
 import os
@@ -13,15 +12,24 @@ from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from multiprocessing import Pool
 from pathlib import Path
-from queue import Queue
+from queue import Full, Queue
 from threading import Condition, Lock, Thread
-from typing import Any, List, Optional, Union
+from typing import Any, List, Optional, Tuple, Union
 
 import numpy as np
 
+from ethopy import local_conf
 from ethopy.utils.timer import Timer
 
 log = logging.getLogger(__name__)
+
+# Libraries that only required in specific classes
+try:
+    from skvideo.io import FFmpegWriter
+
+    IMPORT_SKVIDEO = True
+except ImportError:
+    IMPORT_SKVIDEO = False
 
 try:
     from ethopy.core.logger import Logger
@@ -30,6 +38,12 @@ except ImportError:
 
 try:
     import cv2
+
+    IMPORT_CV2 = True
+except ImportError:
+    IMPORT_CV2 = False
+
+try:
     from picamera2 import MappedArray, Picamera2
     from picamera2.encoders import H264Encoder, MJPEGEncoder
     from picamera2.outputs import FfmpegOutput, FileOutput
@@ -40,7 +54,8 @@ except ImportError:
 
 
 class Camera(ABC):
-    """A class to manage a camera.
+    """
+    A class to manage a camera.
 
     This class provides methods to initialize, start, stop, and record from a camera.
     It also provides methods to manage the recording process, such as setting up a frame
@@ -48,10 +63,9 @@ class Camera(ABC):
 
     Attributes:
         filename (str, optional): The name of the file.
-        initialized (threading.Event): An event indicating camera initialization.
+        initialized (threading.Event): An event to indicate whether the camera is initialized.
         recording (mp.Event): An event to indicate whether the camera is recording.
         stop (mp.Event): An event to indicate whether the camera should stop recording.
-
     """
 
     def __init__(
@@ -62,39 +76,33 @@ class Camera(ABC):
     ):
         self.recording = mp.Event()
         self.recording.clear()
-
-        with open("local_conf.json", "r", encoding="utf-8") as f:
-            conf = json.load(f)
-
-        self.source_path = (
-            self._check_json_config("video_source_path", conf)
-            + f"/Recordings/{filename}/"
-        )
-        self.target_path = (
-            self._check_json_config("video_target_path", conf)
-            + f"/Recordings/{filename}/"
+        self.filename = (
+            filename
+            if filename is not None
+            else datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         )
 
-        try:
-            self.serve_port = conf["server.port"]
-        except KeyError:
-            self.serve_port = 0
+        self.source_path = local_conf.get("video_source_path", "") + f"{self.filename}/"
+        self.target_path = local_conf.get("video_target_path", "") + f"{self.filename}/"
+
+        self.serve_port = local_conf.get("server.port", 0)
         if self.serve_port:
-            self.server_user = self._check_json_config("server.user", conf)
-            self.server_password = self._check_json_config("server.password", conf)
+            self.server_user = local_conf.get("server.user", "")
+            self.server_password = local_conf.get("server.password", "")
         self.httpthread = None
         self.tmst_type = None
         self.dataset = None
 
         self.post_process = mp.Event()
         self.post_process.clear()
-        self.process_queue = mp.Queue()
+
+        self.process_queue = mp.Queue(maxsize=30)
+        self.process_queue.cancel_join_thread()
 
         self.stop = mp.Event()
         self.stop.clear()
 
         self._cam = None
-        self.filename = filename
         self.logger = logger
 
         self.frame_queue = None
@@ -111,13 +119,14 @@ class Camera(ABC):
                     filename=self.filename + ".mp4",
                     source_path=self.source_path,
                     target_path=self.target_path,
-                )
+                ),
+                block=True,
             )
             h5s_filename = (
                 f"animal_id_{logger.trial_key['animal_id']}"
                 f"_session_{logger.trial_key['session']}.h5"
             )
-            self.filename_tmst = "video_tmst_" + h5s_filename
+            self.filename_tmst = "videosssctmst" + h5s_filename
             logger.log_recording(
                 dict(
                     rec_aim="sync",
@@ -126,87 +135,62 @@ class Camera(ABC):
                     filename=self.filename_tmst,
                     source_path=self.source_path,
                     target_path=self.target_path,
-                )
+                ),
+                block=True,
             )
 
         self.camera_process = mp.Process(target=self.start_rec)
         self.camera_process.start()
 
     @property
-    def filename(self) -> str:
-        """Get the filename.
-
-        Returns:
-            str: The filename.
-
-        """
-        return self._filename
-
-    @filename.setter
-    def filename(self, filename: Optional[str]) -> None:
-        """Set filename.
-
-        If filename is None, set it to the current date and time.
-
-        Args:
-            filename (Optional[str]): The filename.
-
-        """
-        self._filename = filename or datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-
-    @property
     def source_path(self) -> str:
-        """Get the source path.
+        """
+        Get the source path.
 
         Returns:
             str: The source path.
-
         """
         return self._source_path
 
     @source_path.setter
-    def source_path(self, source_path: str) -> None:
-        """Set the source path.
-
-        If the path does not exist, create it.
+    def source_path(self, source_path: str):
+        """
+        Set the source path. If the path does not exist, create it.
 
         Args:
             source_path (str): The source path.
-
         """
         self._source_path = self._create_and_set_path(source_path)
 
     @property
     def target_path(self) -> str:
-        """Get the target path.
+        """
+        Get the target path.
 
         Returns:
             str: The target path.
-
         """
         return self._target_path
 
     @target_path.setter
-    def target_path(self, target_path: str) -> None:
-        """Set the target path.
-
-        If the path does not exist, create it.
+    def target_path(self, target_path: str):
+        """
+        Set the target path. If the path does not exist, create it.
 
         Args:
             target_path (str): The target path.
-
         """
         self._target_path = self._create_and_set_path(target_path)
 
     def _create_and_set_path(self, path: str) -> str:
-        """Create the path if it does not exist and return the path.
+        """
+        Create the path if it does not exist and return the path.
 
         Args:
             path (str): The path.
 
         Returns:
             str: The path.
-
         """
         if not self.recording.is_set():
             os.makedirs(path, exist_ok=True)
@@ -217,12 +201,12 @@ class Camera(ABC):
         return path
 
     @staticmethod
-    def copy_file(args) -> None:
-        """Copy a file from the source path to the target path.
+    def copy_file(args):
+        """
+        Copy a file from the source path to the target path.
 
         Args:
-            args (tuple): A tuple containing the source file path and the target
-            directory path.
+            args (tuple): A tuple containing the source file path and the target directory path.
 
         Returns:
             None
@@ -247,7 +231,9 @@ class Camera(ABC):
             log.error(f"Failed to transfer file: {file.name}. Reason: {ex}")
 
     def clear_local_videos(self) -> None:
-        """Move all files from the source path to the target path."""
+        """
+        Move all files from the source path to the target path.
+        """
         source = Path(self.source_path)
         target = Path(self.target_path)
 
@@ -272,15 +258,20 @@ class Camera(ABC):
             log.info(f"Deleted the empty folder: {source}")
 
     def setup(self) -> None:
-        """Set up the frame queue and the capture and write runners."""
+        """
+        Set up the frame queue and the capture and write runners.
+        """
         self.frame_queue = Queue()
+        # self.process_queue.cancel_join_thread()
         self.capture_runner = threading.Thread(target=self.rec)
         self.write_runner = threading.Thread(
             target=self.dequeue, args=(self.frame_queue,)
         )
 
     def start_rec(self) -> None:
-        """Start the capture and write runners with exception handling."""
+        """
+        Start the capture and write runners with exception handling.
+        """
         try:
             self.setup()
             self.capture_runner.start()
@@ -291,11 +282,11 @@ class Camera(ABC):
             raise f"Exception occurred during recording: {cam_error}"
 
     def dequeue(self, frame_queue: Queue) -> None:
-        """Dequeue frames from frame queue and write them until the stop is set.
+        """
+        Dequeue frames from the frame queue and write them until the stop event is set.
 
         Args:
             frame_queue (Queue): The frame queue to dequeue frames from.
-
         """
         while not self.stop.is_set() or not frame_queue.empty():
             if not frame_queue.empty():
@@ -304,41 +295,287 @@ class Camera(ABC):
                 time.sleep(0.01)
 
     def stop_rec(self) -> None:
-        """Set the stop event and join the write runner."""
-        self.stop.set()
-        time.sleep(1)
-        # TODO: use join and close (possible issue due to h5 files)
-        self.camera_process.join()
-
-    @staticmethod
-    def _check_json_config(key: str, conf) -> str:
-        """Check if a key exists in the JSON configuration file.
-
-        Args:
-            key (str): The key to check.
-            conf(dict): dictionary from local conf.
-
         """
-        if not conf.get(key, False):
-            raise ValueError(f"{key} is not provided in the dj_local_conf.json.")
+        Set the stop event and join the write runner.
+        """
+        self.stop.set()
+        time.sleep(3)
+        # TODO: use join and close (possible issue due to h5 files)
+        self.camera_process.join(timeout=30)
+        # check if the process is still alive
+        if self.camera_process.is_alive():
+            self.camera_process.terminate()
         else:
-            return conf[key]
+            self.camera_process.close()
 
     @abstractmethod
     def rec(self) -> None:
-        """Record frames.
-
-        This method should be implemented by subclasses.
+        """
+        Record frames. This method should be implemented by subclasses.
         """
 
     @abstractmethod
     def write_frame(self, item: Any) -> None:
-        """Write a frame. This method should be implemented by subclasses.
+        """
+        Write a frame. This method should be implemented by subclasses.
 
         Args:
             item (Any): The frame to write.
+        """
+
+
+class WebCam(Camera):
+    """
+    A class representing a webcam for capturing video frames.
+
+    Args:
+        Camera (class): The parent class for capturing and recording video frames.
+
+    Attributes:
+        fps (int): Frames per second for recording.
+        recording (bool): Flag indicating whether recording is active.
+        camera (cv2.VideoCapture): OpenCV VideoCapture instance for accessing the webcam.
+
+    Raises:
+        RuntimeError: If there is no available camera.
+
+    """
+
+    def __init__(
+        self,
+        resolution_x: int = 1280,
+        resolution_y: int = 720,
+        fps: int = 30,
+        logger_timer: Optional["Timer"] = None,
+        **kwargs,
+    ):
+        """
+        Initializes a WebCam instance.
+
+        Args:
+            resolution (Tuple[int, int], optional): Resolution of the webcam.
+            Defaults to (640, 480).
+
+        Raises:
+            ImportError: If the cv2 package is not installed.
+            RuntimeError: If there is no available camera.
 
         """
+        self.fps = fps
+        self.video_output = None
+        self.dataset = None
+        self.tmst_output = None
+        self.logger_timer = logger_timer
+        self.resolution_x = resolution_x
+        self.resolution_y = resolution_y
+        self.res_set: bool = True
+
+        # Initialize optional camera parameters
+        self.exposure = kwargs.get("exposure")
+        self.wb_temperature = kwargs.get("wb_temperature")
+        self.saturation = kwargs.get("saturation")
+        self.gain = kwargs.get("gain")
+        self.contrast = kwargs.get("contrast")
+        self.brightness = kwargs.get("brightness")
+
+        if not globals()["IMPORT_CV2"]:
+            raise ImportError(
+                "The cv2 package could not be imported. "
+                "Please install it before using WebCam.\n"
+                "You can install cv2 using pip:\n"
+                'sudo pip3 install opencv-python"'
+            )
+        self.camera = cv2.VideoCapture(0, cv2.CAP_V4L2)
+        if not self.camera.isOpened():
+            raise RuntimeError(
+                "No camera is available. Please check if the camera is connected and functional."
+            )
+        self.camera.release()
+        super().__init__(kwargs["filename"], kwargs["logger"], kwargs["video_aim"])
+
+    def setup(self):
+        """Setup the camera."""
+        out_vid_fn = self.source_path + self.filename + ".mp4"
+        self.video_output = FFmpegWriter(
+            out_vid_fn,
+            inputdict={
+                "-r": str(self.fps),
+            },
+            outputdict={
+                "-vcodec": "libx264",
+                "-pix_fmt": "rgb24",  # Change to rgb24 or another format
+                "-r": str(self.fps),
+                "-preset": "ultrafast",
+                "-s": f"{self.resolution_x}x{self.resolution_y}",
+            },
+        )
+        if self.logger is not None:
+            self.tmst_type = "h5"
+            self.dataset = self.logger.createDataset(
+                dataset_name="frame_tmst",
+                dataset_type=np.dtype([("timestamp", np.double)]),
+                filename=self.filename_tmst,
+                db_log=False,
+            )
+        else:
+            self.tmst_type = "txt"
+            self.tmst_output = io.open(
+                os.path.join(self.source_path, f"tmst_{self.filename}.txt"),
+                "w",
+                encoding="utf-8",
+            )
+        super().setup()
+
+    def set_resolution(self, width, height):
+        """set the resolution of the webcamera if it is possible
+        However, the efficiency of changing the resolution may depend on the camera and
+        the OpenCV backend being used. In some cases, changing the resolution may involve
+        renegotiating the camera settings, and the efficiency could vary across different
+        camera models and platforms.
+
+        It's recommended to test and profile the performance with your specific camera to
+        ensure that changing the resolution meets your performance requirements. If efficiency
+        is a critical factor, you might want to consider using the camera's native resolution
+        whenever possible.
+
+        Args:
+            width (int): width of frame
+            height (int): height of frame
+        """
+
+        self.camera.set(cv2.CAP_PROP_FRAME_WIDTH, 960)
+        self.camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 600)
+        check, image = self.get_frame()
+        log.info(f"image shape set resolution {image.shape}")
+        return (image.shape[1], image.shape[0]) == (533, 300)
+
+    def get_frame(self) -> Tuple[bool, np.ndarray]:
+        """
+        Capture a frame from the webcam.
+
+        Returns:
+            Tuple[bool, np.ndarray]: A tuple indicating success and the captured frame.
+        """
+        check, image = self.camera.read()
+        if check:
+            # If the capture was successful, convert the image to grayscale
+            image = np.squeeze(np.mean(image, axis=2))
+        return check, image
+
+    def write_frame(self, item: Tuple[float, np.ndarray]) -> None:
+        """
+        Write a video frame to the output stream and update the timestamp dataset.
+
+        Args:
+            item (Tuple[float, np.ndarray]): A tuple containing the timestamp and the image frame.
+        """
+        img = item[1].copy()
+        self.video_output.writeFrame(img)
+        # Append the timestamp to the 'frame_tmst' h5 dataset
+        self.dataset.append("frame_tmst", [np.double(item[0])])
+
+    def camera_opened(self, camera):
+        """Check if the camera is opened."""
+        if not camera.isOpened():
+            raise RuntimeError("Camera is not opened. Cannot proceed.")
+        return True
+
+    def recording_init(self):
+        self.camera = cv2.VideoCapture(0, cv2.CAP_V4L2)
+        if not self.camera.isOpened():
+            raise RuntimeError(
+                "No camera is available. Please check if the camera is connected and functional."
+            )
+        self.camera.set(cv2.CAP_PROP_FPS, self.fps)
+        self.res_set = self.set_resolution(self.resolution_x, self.resolution_y)
+        if not self.res_set:
+            logging.warning(
+                f"Camera resolution cannot be set tp {(self.resolution_x, self.resolution_y)}"
+                f",resize of frames will be used!!"
+            )
+        if self.exposure:
+            self.camera.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)  # Disable auto exposure
+            self._set_camera_property(cv2.CAP_PROP_EXPOSURE, self.exposure)
+        if self.wb_temperature:
+            self.camera.set(cv2.CAP_PROP_AUTO_WB, 0.0)  # Disable auto white balance
+            self._set_camera_property(cv2.CAP_PROP_WB_TEMPERATURE, self.wb_temperature)
+        self._set_camera_property(cv2.CAP_PROP_SATURATION, self.saturation)
+        self._set_camera_property(cv2.CAP_PROP_GAIN, self.gain)
+        self._set_camera_property(cv2.CAP_PROP_CONTRAST, self.contrast)
+        self._set_camera_property(cv2.CAP_PROP_BRIGHTNESS, self.brightness)
+
+    def _set_camera_property(self, property_id, value):
+        if value is not None:
+            result = self.camera.set(property_id, value)
+            if result:
+                actual_value = self.camera.get(property_id)
+                if (
+                    abs(actual_value - value) > 1e-6
+                ):  # Compare with small tolerance for floating-point values
+                    logging.warning(
+                        f"Camera property {property_id} was set to "
+                        f"{actual_value}, not the requested {value}"
+                    )
+
+    def rec(self):
+        """
+        Continuously capture video frames, update timestamp, and enqueue frames for processing.
+
+        The method runs in a loop until the 'stop' event is set. It captures a frame from
+        the webcam,records the elapsed time, increments the frame counter, and puts the
+        timestamped frame into the 'frame_queue'. If a separate processing queue
+        ('process_queue') is provided, the frame is also put into that queue, ensuring it
+        doesn't exceed its maximum size. We need for the process_queue(size:2) the latest image
+        so if it is full get a frame and put the latest one.
+        """
+        self.recording_init()
+        self.recording.set()
+        # first_tmst = self.logger_timer.elapsed_time()
+        # cam_tmst_first = self.camera.get(cv2.CAP_PROP_POS_MSEC)
+        while not self.stop.is_set() and self.camera_opened(self.camera):
+            try:
+                check, image = self.get_frame()
+                if not check:
+                    continue
+                # Process the frame here
+            except RuntimeError as error:
+                log.error(f"Failed to read frame from camera. Error: {error}")
+                continue
+            tmst = self.logger_timer.elapsed_time()
+            if not self.res_set:
+                image = cv2.resize(image, (self.resolution_x, self.resolution_y))
+            # tmst = first_tmst + (self.camera.get(cv2.CAP_PROP_POS_MSEC)-cam_tmst_first)
+            self.frame_queue.put((tmst, image))
+            # Check if a separate process queue is provided
+            if self.process_queue is not False:
+                # Ensure the process queue doesn't exceed its maximum size
+                try:
+                    self.process_queue.put_nowait((tmst, image))
+                except Full:
+                    pass
+
+        self.camera.release()
+        self.recording.clear()
+        self.dataset.exit()
+
+    def stop_rec(self):
+        """
+        Stop video recording and release resources.
+
+        If video recording is in progress, the method releases the camera resources,
+        closes the video output stream, clears the recording flag, and performs cleanup
+        by removing local video files.
+        """
+        # TODO: check the stop_rec function and define a function release to be called by the process
+        # if self.recording.is_set():
+        # Release camera resources if recording is in progress
+        # self.camera.release()
+
+        # Call the superclass method to perform additional cleanup
+        super().stop_rec()
+
+        # Remove local video files
+        self.clear_local_videos()
 
 
 class PiCamera(Camera):
@@ -350,9 +587,9 @@ class PiCamera(Camera):
         resolution_y: int = 720,
         fps: int = 15,
         sensor_mode: int = 1,
-        shutter_speed: int = 10000,
+        exposure: int = 10000,
         file_format: str = "rgb",
-        logger_timer: "Timer" = None,
+        logger_timer: Optional["Timer"] = None,
         **kwargs,
     ):
         if not globals()["IMPORT_PICAMERA"]:
@@ -366,7 +603,7 @@ class PiCamera(Camera):
 
         self.sensor_mode = sensor_mode
         self.resolution = (resolution_x, resolution_y)
-        self.shutter_speed = shutter_speed
+        self.exposure = exposure
         self.file_format = file_format
         self.tmst_output = None
 
@@ -394,15 +631,15 @@ class PiCamera(Camera):
         if self.initialized.is_set():
             self.cam.framerate = self._fps
 
-    def setup(self) -> None:
-        """Set up the camera."""
+    def setup(self):
+        """Setup the camera."""
         if self.logger is not None:
             self.tmst_type = "h5"
             self.dataset = self.logger.createDataset(
                 dataset_name="frame_tmst",
                 dataset_type=np.dtype([("txt", np.double)]),
                 filename=self.filename_tmst,
-                log=False,
+                db_log=False,
             )
         else:
             self.tmst_type = "txt"
@@ -414,7 +651,7 @@ class PiCamera(Camera):
         super().setup()
 
     def rec(self) -> None:
-        """Start recording."""
+        """Start recording"""
         try:
             if self.recording.is_set():
                 warnings.warn("Camera is already recording!")
@@ -435,7 +672,7 @@ class PiCamera(Camera):
         self.recording.set()
         self.cam = self.init_cam()
 
-    def init_cam(self) -> "PiCamera2":
+    def init_cam(self) -> "Picamera2":
         """Initialize the camera."""
         picam2 = Picamera2()
         _mode = picam2.sensor_modes[self.sensor_mode]
@@ -451,7 +688,7 @@ class PiCamera(Camera):
             },
             controls={
                 "FrameDurationLimits": (int(1e6 / self.fps), int(1e6 / self.fps)),
-                "ExposureTime": int(self.shutter_speed),
+                "ExposureTime": int(self.exposure),
                 # "AfMode": controls.AfModeEnum.Manual,
                 # "LensPosition": 0.0,
             },
@@ -462,7 +699,7 @@ class PiCamera(Camera):
         )
         picam2.post_callback = lambda request: self.picamera_ouput.annotate_timestamp(
             request
-        )
+        )  # pylint: disable=all
         encoder = H264Encoder(10000000)
         output = FfmpegOutput(str(Path(self.source_path) / f"{self.filename}.mp4"))
         if self.serve_port > 0:
