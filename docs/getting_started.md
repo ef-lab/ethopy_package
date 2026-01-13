@@ -80,31 +80,34 @@ EthoPy relies on a MariaDB database for experiment configuration and data loggin
    ```bash
    ethopy-setup-djdocker
    ```
-   Alteratively follow the instructions from datajoint [here](https://github.com/datajoint/mysql-docker)
 
    The default username is "root".
 
-> **Note:** if ethopy-setup-djdocker does not work try to setup the docker image based on the [datajoint instructions](https://github.com/datajoint/mysql-docker)
+!!! tip "Alternative Setup"
+    If `ethopy-setup-djdocker` does not work properly, you can set up the Docker image manually using the [DataJoint instructions](https://github.com/datajoint/mysql-docker).
 
+!!! note "Docker Permissions"
+    By default, Docker requires sudo because the Docker daemon runs as root.
 
-> **Note:** By default, Docker requires sudo because the Docker daemon runs as root.
-This command adds your user to the docker group, so you can run Docker commands without sudo.
->
->```bash
->sudo usermod -aG docker $USER
->```
->
->restart your session (log out and back in) or run:
->```bash
->newgrp docker
->```
->
+    === "Linux"
+        Add your user to the docker group to run Docker commands without sudo:
+        ```bash
+        sudo usermod -aG docker $USER
+        ```
+
+        Then restart your session (log out and back in) or run:
+        ```bash
+        newgrp docker
+        ```
+
+    === "macOS / Windows"
+        Docker Desktop manages permissions automatically. You don't need to run `usermod` commands.
 
 ## Step 3: Configure ethopy
 
    Create a configuration file at path:
    
-=== "Linux/macOS"
+=== "Linux / macOS"
     `~/.ethopy/local_conf.json`
 
 === "Windows"
