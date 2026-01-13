@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/EthoPy_logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1863,24 +1863,35 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <ol>
 <li><strong>Start the database container:</strong></li>
 </ol>
-<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-setup-djdocker
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy-setup-djdocker
 </code></pre></div></td></tr></table></div>
-   Alteratively follow the instructions from datajoint <a href="https://github.com/datajoint/mysql-docker">here</a></p>
 <p>The default username is "root".</p>
-<blockquote>
-<p><strong>Note:</strong> if ethopy-setup-djdocker does not work try to setup the docker image based on the <a href="https://github.com/datajoint/mysql-docker">datajoint instructions</a></p>
-<p><strong>Note:</strong> By default, Docker requires sudo because the Docker daemon runs as root.
-This command adds your user to the docker group, so you can run Docker commands without sudo.</p>
+<div class="admonition tip">
+<p class="admonition-title">Alternative Setup</p>
+<p>If <code>ethopy-setup-djdocker</code> does not work properly, you can set up the Docker image manually using the <a href="https://github.com/datajoint/mysql-docker">DataJoint instructions</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Docker Permissions</p>
+<p>By default, Docker requires sudo because the Docker daemon runs as root.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Linux</label><label for="__tabbed_3_2">macOS / Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Add your user to the docker group to run Docker commands without sudo:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
-</code></pre></div></td></tr></table></div>
-<p>restart your session (log out and back in) or run:
+</code></pre></div></td></tr></table></div></p>
+<p>Then restart your session (log out and back in) or run:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>newgrp<span class="w"> </span>docker
-</code></pre></div></td></tr></table></div>
-</p>
-</blockquote>
+</code></pre></div></td></tr></table></div></p>
+</div>
+<div class="tabbed-block">
+<p>Docker Desktop manages permissions automatically. You don't need to run <code>usermod</code> commands.</p>
+</div>
+</div>
+</div>
+</div>
 <h2 id="step-3-configure-ethopy">Step 3: Configure ethopy<a class="headerlink" href="#step-3-configure-ethopy" title="Permanent link">&para;</a></h2>
 <p>Create a configuration file at path:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Linux/macOS</label><label for="__tabbed_3_2">Windows</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Linux / macOS</label><label for="__tabbed_4_2">Windows</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><code>~/.ethopy/local_conf.json</code></p>
@@ -2032,10 +2043,10 @@ Option --log-console is to enable the logging in terminal.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "search.highlight", "search.share", "search.suggest", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
