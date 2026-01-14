@@ -66,6 +66,7 @@ Extend EthoPy with additional tools:
 - **[EthoPy Analysis](https://github.com/ef-lab/ethopy_analysis)** - Data analysis pipelines
 - **[EthoPy Plugins](https://github.com/ef-lab/ethopy_plugins)** - Community extensions
 - **[EthoPy Control](https://github.com/ef-lab/ethopy_control)** - Web-based remote control
+- **[EthoPy Hardware](https://github.com/ef-lab/ethopy_hardware)** - Example hardware setups and build specifications 
 
 **Essential Guides:**
 

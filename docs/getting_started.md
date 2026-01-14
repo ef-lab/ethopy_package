@@ -199,3 +199,4 @@ Expand your EthoPy workflow with these companion packages:
 - **[EthoPy Analysis](https://github.com/ef-lab/ethopy_analysis)** - Data analysis tools and plots for EthoPy experiments
 - **[EthoPy Plugins](https://github.com/ef-lab/ethopy_plugins)** - Additional plugins and extensions for EthoPy functionality
 - **[EthoPy Control](https://github.com/ef-lab/ethopy_control)** - Web-based control interface for remote experiment management
+- **[EthoPy Hardware](https://github.com/ef-lab/ethopy_hardware)** - Example hardware setups and build specifications 
