@@ -7,7 +7,9 @@ to NWB (Neurodata Without Borders) format files.
 
 import logging
 import os
-from datetime import datetime
+from datetime import datetime, date
+from dateutil.relativedelta import relativedelta
+
 from typing import Any, Dict, List, Tuple, Union, Optional, NamedTuple
 from uuid import uuid4
 from pathlib import Path
@@ -51,6 +53,53 @@ class TrialData(NamedTuple):
     pretrial_times: List[float]
     intertrial_times: List[float]
     valid_indices: List[int]
+
+
+def age_to_iso8601(current_date, dob):
+    """
+    Convert the difference between two dates to ISO 8601 duration format.
+
+    Parameters
+    ----------
+    current_date : datetime or date
+        The current/reference date
+    dob : datetime, date, or array-like
+        Date of birth (extracts first element if array)
+
+    Returns
+    -------
+    str
+        Age in ISO 8601 duration format (e.g., 'P1Y2M15D')
+    """
+    # Normalize current_date to date
+    if isinstance(current_date, datetime):
+        current_date = current_date.date()
+
+    # Handle numpy array or list input for dob
+    if hasattr(dob, "__iter__") and not isinstance(dob, (str, date, datetime)):
+        dob = dob[0]
+
+    # Normalize dob to date
+    if isinstance(dob, datetime):
+        dob = dob.date()
+
+    # Calculate the difference using relativedelta
+    delta = relativedelta(current_date, dob)
+
+    # Build ISO 8601 duration string
+    parts = []
+    if delta.years:
+        parts.append(f"{delta.years}Y")
+    if delta.months:
+        parts.append(f"{delta.months}M")
+    if delta.days:
+        parts.append(f"{delta.days}D")
+
+    # Handle zero duration
+    if not parts:
+        return "P0D"
+
+    return "P" + "".join(parts)
 
 
 def inhomogeneous_columns(nwbfile: NWBFile) -> List[str]:
@@ -1182,7 +1231,9 @@ def save_nwb_file(nwbfile: NWBFile, filename: str) -> None:
         filename: Output filename
     """
     if os.path.exists(filename):
-        logger.warning(f"Warning: File '{filename}' already exists and cannot be overwritten.")
+        logger.warning(
+            f"Warning: File '{filename}' already exists and cannot be overwritten."
+        )
         return
     with NWBHDF5IO(filename, "w") as io:
         io.write(nwbfile)
