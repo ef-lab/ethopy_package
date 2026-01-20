@@ -67,9 +67,9 @@ class ConfigurationManager:
                 "max_size": 31457280,
                 "backup_count": 5,
             },
-            "source_path": str(Path.home() / "EthoPy_Files"),
+            "source_path": str(Path.home() / "EthoPy_Files/"),
             "target_path": "/",
-            "plugin_path": str(Path.home() / ".ethopy/ethopy_plugins"),
+            "plugin_path": str(Path.home() / ".ethopy/ethopy_plugins/"),
         }
 
         # Update config with defaults for missing values only
