@@ -948,7 +948,7 @@ class Logger:
 
         """
         folder = (
-            f"Recordings/{self.trial_key['animal_id']}_{self.trial_key['session']}/"
+            f"{self.trial_key['animal_id']}_{self.trial_key['session']}/"
         )
         path = self.source_path + folder
         if not os.path.isdir(path):

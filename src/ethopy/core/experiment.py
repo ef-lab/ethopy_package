@@ -162,7 +162,7 @@ class ExperimentClass:
 
     curr_trial = 0  # the current trial number in the session
     cur_block = 0  # the current block number in the session
-    states = {}  # dictionary wiht all states of the experiment
+    states = {}  # dictionary with all states of the experiment
     stims = {}  # dictionary with all stimulus classes
     stim = False  # the current condition stimulus class
     sync = False  # a boolean to make synchronization available
@@ -187,8 +187,18 @@ class ExperimentClass:
     beh = None
     trial_start = 0  # time in ms of the trial start
 
-    def setup(self, logger: Logger, behavior_class, session_params: Dict) -> None:
-        """Set up Experiment."""
+    def setup(
+        self, logger: Logger, behavior_class, session_params: Dict, interface=None
+    ) -> None:
+        """Set up Experiment.
+
+        Args:
+            logger: Logger instance
+            behavior_class: Behavior class to instantiate
+            session_params: Session parameters dict
+            interface: Optional pre-created interface (e.g., InterfaceProxy for remote).
+                      If None, creates interface from setup_conf_idx.
+        """
         self.in_operation = False
         self.conditions = []
         self.iter = []
@@ -199,8 +209,9 @@ class ExperimentClass:
         self.curr_trial = 0
         self.cur_block_sz = 0
 
-        self.session_params = self.setup_session_params(session_params,
-                                                        self.default_key)
+        self.session_params = self.setup_session_params(
+            session_params, self.default_key
+        )
 
         self.setup_conf_idx = self.session_params["setup_conf_idx"]
 
@@ -210,9 +221,21 @@ class ExperimentClass:
         )
 
         self.beh = behavior_class()
-        self.interface = self._interface_setup(
-            self.beh, self.logger, self.setup_conf_idx
-        )
+
+        # Use provided interface or create one from setup config
+        if interface is not None:
+            log.info(f"Using provided interface: {type(interface).__name__}")
+            self.interface = interface
+            # Initialize the interface with experiment context
+            if hasattr(interface, "init_local"):
+                interface.init_local(self, self.beh)
+        else:
+            self.interface = self._interface_setup(
+                self.beh, self.logger, self.setup_conf_idx
+            )
+
+        self.interface.setup_cameras()
+
         self.interface.load_calibration()
         self.beh.setup(self)
 
@@ -236,7 +259,26 @@ class ExperimentClass:
         params.validate()
         return params.to_dict()
 
-    def _interface_setup(self, beh, logger: Logger, setup_conf_idx: int) -> "Interface":  # noqa: F821
+    def _interface_setup(
+        self, beh: "Behavior", logger: Logger, setup_conf_idx: int
+    ) -> "Interface":
+        """Initialize the interface based on setup configuration from database.
+
+        Retrieves the interface module name from the interface.SetupConfiguration table
+        using the setup_conf_idx, then dynamically imports and instantiates the interface.
+
+        Note:
+            The interface field value must match the module name in ethopy.interfaces
+            for dynamic import to work correctly (e.g., 'RPPorts' matches RPPorts.py).
+
+        Args:
+            beh: The behavior object for the experiment
+            logger: Logger instance for database queries
+            setup_conf_idx: Setup configuration index used to query the interface module
+
+        Returns:
+            An initialized Interface instance configured for this setup
+        """
         interface_module = logger.get(
             schema="interface",
             table="SetupConfiguration",
@@ -251,7 +293,11 @@ class ExperimentClass:
         return interface(exp=self, beh=beh)
 
     def start(self) -> None:
-        """Start the StateMachine."""
+        """Start the StateMachine and camera recording."""
+        # Start camera recording
+        self.interface.setup_cameras()
+        # self.interface.start_cameras()
+
         states = dict()
         for state in self.__class__.__subclasses__():  # Initialize states
             states.update({state().__class__.__name__: state(self)})
@@ -260,9 +306,9 @@ class ExperimentClass:
         state_control.run()
 
     def stop(self) -> None:
-        """Stop the epxeriment."""
+        """Stop the experiment."""
         self.stim.exit()
-        self.interface.release()
+        # self.interface.release()  # Handles both local and remote cameras
         self.beh.exit()
         if self.sync:
             while self.interface.is_recording():
@@ -625,7 +671,7 @@ class ExperimentClass:
 
     def _anti_bias(self, choice_h, un_choices):
         choice_h = np.array(
-            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"]:]]
+            [make_hash(c) for c in choice_h[-self.curr_cond["bias_window"] :]]
         )
         if len(choice_h) < self.curr_cond["bias_window"]:
             choice_h = self.choices
@@ -930,6 +976,7 @@ class SessionParameters:
         noresponse_intertrial (bool): Whether to have intertrial period on no response
         bias_window (int): Window size for bias correction
     """
+
     max_reward: float = None
     min_reward: float = None
     hydrate_delay: int = 0
