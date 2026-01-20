@@ -90,6 +90,10 @@ class Interface:
         self.timer_ready = Timer()
         self.response: List[Any] = []
 
+        # Remote camera management
+        self.remote_camera_configs: List[Dict] = []
+        self.remote_cameras: List = []
+
         if exp and hasattr(exp, "session_params"):
             self._initialize_hardware()
 
@@ -115,11 +119,110 @@ class Interface:
         )
         self.rew_ports = np.array([p.port for p in self.ports if p.reward])
 
-        # Initialize camera if configured
-        self._initialize_camera()
+    def register_remote_camera(
+        self,
+        remote_host: str,
+        setup_conf_idx: int,
+        node_id: str = None,
+        command_port: int = None,
+        response_port: int = None,
+        **kwargs
+    ) -> "Interface":
+        """Register a remote camera arguments.
 
-    def _initialize_camera(self) -> None:
-        """Initialize camera if configured in setup."""
+        Args:
+            remote_host: Hostname or IP of remote machine
+            setup_conf_idx: Setup configuration index for remote camera
+            node_id: Unique identifier for this camera node
+            command_port: ZMQ port for commands (auto-assigned if None)
+            response_port: ZMQ port for responses (auto-assigned if None)
+            **kwargs: Additional camera configuration
+
+        Returns:
+            Self for method chaining
+        """
+        camera_config = {
+            "remote_host": remote_host,
+            "setup_conf_idx": setup_conf_idx,
+            "node_id": node_id,
+            "command_port": command_port,
+            "response_port": response_port,
+            **kwargs
+        }
+        self.remote_camera_configs.append(camera_config)
+        log.info(f"Registered remote camera: {node_id or 'unnamed'} at {remote_host}")
+        return self
+
+    def setup_cameras(self) -> None:
+        """Setup all cameras (both local from database and registered remote cameras).
+
+        This method should be called after session metadata is available.
+        It handles:
+        - Local camera from database configuration
+        - All registered remote cameras (InterfaceProxy instances)
+        """
+        # Setup local camera from database
+        self._setup_local_camera()
+
+        # Setup registered remote cameras
+        self._setup_remote_cameras()
+
+    def _setup_remote_cameras(self) -> None:
+        """Setup all registered remote cameras with session metadata.
+
+        Creates InterfaceProxy for each registered remote camera and initializes
+        with correct session metadata. Called after session metadata is available.
+
+        Can be called multiple times for different sessions - clears old cameras first.
+        """
+        if not self.remote_camera_configs:
+            log.debug("No remote cameras registered")
+            return
+
+        # Clear old camera proxies from previous session (if any)
+        # The InterfaceProxy objects stay in memory but are no longer referenced
+        # Their NetworkServers remain alive for reuse
+        if self.remote_cameras:
+            log.info(f"Clearing {len(self.remote_cameras)} camera proxies from previous session")
+            self.remote_cameras.clear()
+
+        log.info(f"Setting up {len(self.remote_camera_configs)} remote cameras...")
+
+        from ethopy.utils.interface_proxy import InterfaceProxy
+
+        for i, cam_config in enumerate(self.remote_camera_configs):
+            # IMPORTANT: Port allocation MUST be consistent across sessions!
+            # Remote nodes store these ports and reconnect to them.
+            # If we change ports between sessions, remote won't find us!
+            #
+            # Start default port at 5561 to avoid conflict with InterfaceProxy
+            # defaults (5557/5558)
+            command_port = cam_config["command_port"] or (5561 + i * 2)
+            response_port = cam_config["response_port"] or (5562 + i * 2)
+            node_id = cam_config["node_id"] or f"remote_camera_{i}"
+
+            log.info(
+                f"Creating camera proxy: {node_id} at {cam_config['remote_host']}:"
+                f"{command_port}/{response_port}"
+            )
+
+            camera_proxy = InterfaceProxy(
+                Interface,
+                remote_host=cam_config["remote_host"],
+                remote_setup_conf_idx=cam_config["setup_conf_idx"],
+                node_id=node_id,
+                command_port=command_port,
+                response_port=response_port,
+            )
+
+            # Initialize with session metadata
+            camera_proxy.init_local(self.exp, self.beh)
+            self.remote_cameras.append(camera_proxy)
+
+            log.info(f"Remote camera {node_id} initialized successfully")
+
+    def _setup_local_camera(self) -> None:
+        """Setup local camera if configured in setup."""
         setup_cameras = self.logger.get(
             schema="interface",
             table="SetupConfiguration.Camera",
@@ -212,12 +315,69 @@ class Interface:
     def cleanup(self) -> None:
         """Clean up interface resources."""
 
-    def release(self) -> None:
-        """Release hardware resources, especially camera."""
+    def stop_cameras(self) -> None:
+        """Stop recording on all cameras (local and remote).
+
+        This should be called when the experiment stops.
+        """
+        log.debug("STOP_CAMERAS CALLED")
+
+        # Stop local camera
         if self.camera:
-            log.info("Releasing camera resources.")
+            log.debug("Stopping LOCAL camera recording")
             if self.camera.recording.is_set():
                 self.camera.stop_rec()
+                log.debug("✅ Local camera stop_rec() complete")
+            else:
+                log.warning("Local camera was not recording")
+        else:
+            log.debug("No local camera configured")
+
+        # Stop remote cameras
+        if hasattr(self, "remote_cameras") and self.remote_cameras:
+            log.debug(f"Stopping {len(self.remote_cameras)} REMOTE cameras")
+            for i, camera_proxy in enumerate(self.remote_cameras):
+                try:
+                    log.debug(f"Remote camera {i+1}/{len(self.remote_cameras)}: "
+                              f"{camera_proxy.node_id}")
+                    log.debug(f"Type: {type(camera_proxy).__name__}")
+
+                    # Release stops the camera recording
+                    log.debug("Calling release() on InterfaceProxy...")
+                    camera_proxy.release()
+                    log.debug(f"Remote camera {camera_proxy.node_id} release()")
+
+                    # Cleanup destroys the interface object, returns remote to idle
+                    log.debug("Calling cleanup() on InterfaceProxy...")
+                    camera_proxy.cleanup()
+                    log.debug(f"Remote camera {camera_proxy.node_id} cleanup()")
+
+                    # IMPORTANT: Shutdown the NetworkServer
+                    # This releases ports 5561/5562 so they can be reused
+                    # in the next session. Remote node will detect disconnection
+                    # and automatically reconnect when we create a new server.
+                    log.debug("Calling shutdown() on InterfaceProxy...")
+                    camera_proxy.shutdown()
+                    log.debug(f"Remote camera {camera_proxy.node_id} server shutdown")
+
+                except Exception as e:
+                    log.error(f"❌ Error stopping remote camera "
+                              f"{camera_proxy.node_id}: {e}")
+                    import traceback
+                    log.error(traceback.format_exc())
+        else:
+            log.debug("No remote cameras configured")
+
+        log.info("STOP_CAMERAS COMPLETE")
+
+    def release(self) -> None:
+        """Release hardware resources (local camera and remote cameras)."""
+        log.debug("INTERFACE.RELEASE() CALLED")
+
+        # Stop and release local camera
+        self.stop_cameras()
+
+        log.info("INTERFACE.RELEASE() COMPLETE")
 
     def load_calibration(self) -> None:
         """Load port calibration data from database.
@@ -264,6 +424,7 @@ class Interface:
             Dictionary mapping ports to actual reward amounts
 
         """
+        log.info(f"calc_pulse_dur called with reward_amount={reward_amount}, rew_ports={self.rew_ports}")
         actual_rew = {}
         for port in self.rew_ports:
             if reward_amount not in self.pulse_rew[port]:
