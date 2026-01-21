@@ -273,18 +273,17 @@ class InterfaceProxy:
                  f"animal_id={session_metadata['animal_id']}, "
                  f"session={session_metadata['session']}")
 
-        # Wait for remote to be ready (fresh heartbeat received)
-        # This prevents sending commands to remotes that are still reconnecting
+        # Wait for remote to be fully ready (heartbeat + SUB socket synced)
+        # The is_node_ready() check ensures the remote has:
+        # 1. Sent a heartbeat (connected_nodes)
+        # 2. Completed SUB socket sync (ready_nodes)
+        # No sleep workarounds needed - sync is explicit via sync_ready message
         log.info(f"Waiting for remote node {self.node_id} to be ready...")
-        max_wait = 15.0  # Wait up to 15 seconds for remote to connect
+        max_wait = 15.0
         wait_start = time.time()
         while time.time() - wait_start < max_wait:
-            if self.node_id in self.server.connected_nodes:
-                log.info(f"Remote node {self.node_id} is ready")
-                # IMPORTANT: Small delay for ZMQ SUB socket to fully establish connection
-                # Without this, first PUB message after connection may be lost (ZMQ "slow joiner" problem)
-                # The SUB socket needs time to complete internal handshake before receiving messages
-                time.sleep(0.5)
+            if self.server.is_node_ready(self.node_id):
+                log.info(f"Remote node {self.node_id} is ready (SUB socket synced)")
                 break
             time.sleep(0.5)
         else:
@@ -432,7 +431,7 @@ class RemoteInterfaceNode:
 
     def __init__(
         self,
-        master_host: str,
+        master_host,
         node_id: str,
         command_port: int = 5557,
         response_port: int = 5558
@@ -440,10 +439,14 @@ class RemoteInterfaceNode:
         """Initialize remote interface node.
 
         Args:
-            master_host: IP address of master computer
-            node_id: Unique identifier for this node
-            command_port: Port for receiving commands
-            response_port: Port for sending responses
+            master_host: IP address(es) of master computer(s). Can be:
+                - Single IP: "192.168.1.10"
+                - List of IPs: ["192.168.1.10", "192.168.1.20"]
+                - IP range: "192.168.1.10-30" (auto-expands to IPs 10-30)
+                Remote will connect to whichever master responds first.
+            node_id: Unique identifier for this node.
+            command_port: Port for receiving commands.
+            response_port: Port for sending responses.
         """
         self.master_host = master_host
         self.node_id = node_id
@@ -466,7 +469,33 @@ class RemoteInterfaceNode:
         self.client.register_handler("call_method", self._handle_call_method)
         self.client.register_handler("cleanup", self._handle_cleanup)
 
+        # Register disconnect callback to cleanup interface immediately on connection loss
+        self.client.on_disconnect(self._on_disconnect)
+
+        # Mark client as ready to process commands
+        # This allows heartbeats to be sent, signaling to master that we're ready
+        self.client.mark_ready()
+
         log.info(f"RemoteInterfaceNode '{node_id}' connected to {master_host}")
+
+    def _on_disconnect(self) -> None:
+        """Called when connection to master is lost.
+
+        Immediately cleanup interface (stop camera, transfer files) rather than
+        waiting for reconnection and new init_interface command.
+        """
+        log.info("Connection lost - cleaning up interface immediately")
+        if self.interface:
+            try:
+                if hasattr(self.interface, 'cleanup'):
+                    self.interface.cleanup()
+                if hasattr(self.interface, 'release'):
+                    self.interface.release()
+                log.info("Interface cleanup complete")
+            except Exception as e:
+                log.error(f"Error during disconnect cleanup: {e}")
+            finally:
+                self.interface = None
 
     def _handle_init_interface(self, data: dict) -> dict:
         """Initialize interface WITH session metadata.
