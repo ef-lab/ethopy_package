@@ -1,17 +1,42 @@
 """Network communication utilities for distributed nodes.
 
 This module provides ZMQ-based networking capabilities for coordinating
-distributed ethopy nodes. It implements a publish-subscribe pattern for
-master-to-remote commands and request-reply for responses.
+distributed ethopy nodes.
+
+Architecture
+------------
+Master (NetworkServer):
+    - PUB socket: broadcasts commands to all remotes
+    - REP socket: receives responses/heartbeats from remotes
+
+Remote (NetworkClient):
+    - SUB socket: receives commands from master
+    - REQ socket: sends responses/heartbeats to master
+
+Threading Model
+---------------
+NetworkClient uses a single "outbox thread" that owns the REQ socket:
+    - Sends queued messages (responses, events)
+    - Sends heartbeats when queue is empty
+    - Handles reconnection (owns socket lifecycle)
+
+Main thread:
+    - Receives commands via SUB socket (process_commands)
+    - Queues responses via send() method
+
+This eliminates lock contention and prevents deadlocks during reconnection.
 
 The module requires pyzmq to be installed:
     pip install pyzmq
 """
 import logging
+import queue
 import socket
 import threading
 import time
-from typing import Any, Callable, Dict, Optional
+from dataclasses import dataclass, field
+from enum import Enum, auto
+from typing import Any, Callable, Dict, List, Optional, Union
 
 try:
     import zmq
@@ -24,20 +49,30 @@ except ImportError:
 log = logging.getLogger(__name__)
 
 
+# =============================================================================
+# NetworkServer (Master side)
+# =============================================================================
+
+
 class NetworkServer:
     """ZMQ server for master node to coordinate remote nodes.
 
-    Master creates one server that accepts connections from multiple remote nodes.
-    Uses PUB-SUB pattern for commands and REQ-REP for responses.
+    The server broadcasts commands to remotes via PUB socket and receives
+    responses/heartbeats via REP socket.
 
     Attributes:
-        context (zmq.Context): ZMQ context for socket management
-        pub_socket (zmq.Socket): Publisher socket for broadcasting commands
-        rep_socket (zmq.Socket): Reply socket for receiving responses
-        running (bool): Flag indicating server is running
-        connected_nodes (dict): Map of node_id to last heartbeat time
-        heartbeat_thread (threading.Thread): Thread monitoring node heartbeats
+        context: ZMQ context for socket management
+        pub_socket: Publisher socket for broadcasting commands
+        rep_socket: Reply socket for receiving responses
+        running: Flag indicating server is running
+        connected_nodes: Map of node_id to last heartbeat time
+        ready_nodes: Set of nodes that completed SUB socket sync
 
+    Example:
+        server = NetworkServer(command_port=5555, response_port=5556)
+        server.send_command("start", {"param": 1}, target_node="rpi_camera_1")
+        response = server.get_response("rpi_camera_1", "start", timeout=5.0)
+        server.shutdown()
     """
 
     def __init__(self, command_port: int = 5555, response_port: int = 5556):
@@ -49,7 +84,6 @@ class NetworkServer:
 
         Raises:
             RuntimeError: If ZMQ is not installed
-
         """
         if not HAVE_ZMQ:
             raise RuntimeError("ZMQ not installed - run: pip install pyzmq")
@@ -66,41 +100,38 @@ class NetworkServer:
 
         self.running = True
 
-        # Track server start time to identify stale heartbeats from previous sessions
-        # Only heartbeats with timestamp >= start_time are considered valid
+        # Track server start time to filter stale heartbeats from previous sessions
         self.start_time = time.time()
 
-        self.connected_nodes = {}  # {node_id: last_heartbeat_time}
+        # Node tracking
+        self.connected_nodes: Dict[str, float] = {}  # {node_id: last_heartbeat_time}
+        self.ready_nodes: set = set()  # Nodes that completed SUB socket sync
 
-        # Response routing: store latest response per command type per node
-        # Format: {(node_id, command_type): response_dict}
-        self._response_cache = {}
+        # Response cache for async retrieval
+        self._response_cache: Dict[tuple, dict] = {}  # {(node_id, command_type): response}
         self._response_lock = threading.Lock()
 
-        # Event handlers for asynchronous events from remote nodes
-        # Format: {command_type: handler_function}
-        self._event_handlers = {}
+        # Event handlers for async events from remotes (e.g., log_event)
+        self._event_handlers: Dict[str, Callable] = {}
 
-        log.info(f"Network server started on ports {command_port}, {response_port}")
+        log.info(f"NetworkServer started on ports {command_port} (cmd), {response_port} (resp)")
 
-        # Give ZMQ time to fully bind sockets
-        time.sleep(0.5)
+        # Give ZMQ time to bind sockets before accepting connections
+        time.sleep(0.3)
 
-        # Start heartbeat monitor thread
-        self.heartbeat_thread = threading.Thread(
-            target=self._monitor_heartbeats, daemon=True
-        )
-        self.heartbeat_thread.start()
+        # Start response monitor thread
+        self._monitor_thread = threading.Thread(target=self._monitor_loop, daemon=True)
+        self._monitor_thread.start()
 
-    def register_event_handler(self, command_type: str, handler: Callable) -> None:
-        """Register handler for asynchronous events from remote nodes.
+    def register_event_handler(self, event_type: str, handler: Callable) -> None:
+        """Register handler for async events from remotes.
 
         Args:
-            command_type: Type of event to handle (e.g., "log_event")
-            handler: Function to call when event received
+            event_type: Type of event (e.g., "log_event")
+            handler: Function(event_data) to call when event received
         """
-        self._event_handlers[command_type] = handler
-        log.debug(f"Registered event handler for '{command_type}'")
+        self._event_handlers[event_type] = handler
+        log.debug(f"Registered event handler: {event_type}")
 
     def send_command(
         self,
@@ -108,13 +139,12 @@ class NetworkServer:
         data: Optional[Dict] = None,
         target_node: str = "all",
     ) -> None:
-        """Send command to remote node(s).
+        """Send command to remote node(s) via PUB socket.
 
         Args:
-            command_type: Type of command (start_session, stop_session, etc.)
-            data: Optional data payload
+            command_type: Command identifier (e.g., "init_interface", "call_method")
+            data: Command payload
             target_node: Node ID or "all" for broadcast
-
         """
         message = {
             "target": target_node,
@@ -122,51 +152,8 @@ class NetworkServer:
             "data": data or {},
             "timestamp": time.time(),
         }
-
         self.pub_socket.send_json(message)
-        # log.info(f"Sent command '{command_type}' type {command_type}, data {data}  to {target_node}")
-
-    def wait_for_response(
-        self,
-        timeout: float = 5.0,
-        node_id: str = None,
-        command_type: str = None
-    ) -> Optional[Dict]:
-        """Wait for response from remote node.
-
-        This method should ONLY be called by the heartbeat monitor thread.
-        Other code should use get_response() to retrieve cached responses.
-
-        Args:
-            timeout: Seconds to wait for response
-            node_id: Expected node ID (for validation)
-            command_type: Expected command type (for validation)
-
-        Returns:
-            Response dict or None if timeout
-
-        """
-        try:
-            self.rep_socket.setsockopt(zmq.RCVTIMEO, int(timeout * 1000))
-            message = self.rep_socket.recv_json()
-            self.rep_socket.send_json({"status": "ack"})
-
-            # Update node heartbeat
-            msg_node_id = message.get("node_id")
-            msg_command_type = message.get("command_type")
-
-            if msg_node_id:
-                self.connected_nodes[msg_node_id] = time.time()
-
-                # Cache response for retrieval
-                with self._response_lock:
-                    cache_key = (msg_node_id, msg_command_type)
-                    self._response_cache[cache_key] = message
-
-            return message
-        except zmq.Again:
-            log.debug("Network response timeout")
-            return None
+        log.debug(f"Sent command '{command_type}' to {target_node}")
 
     def get_response(
         self,
@@ -175,270 +162,688 @@ class NetworkServer:
         timeout: float = 5.0,
         clear: bool = True
     ) -> Optional[Dict]:
-        """Get cached response from a node for a specific command.
+        """Wait for and retrieve cached response from a node.
 
-        This polls the response cache that's populated by the heartbeat monitor thread.
+        The monitor thread continuously receives responses and caches them.
+        This method polls the cache until the expected response arrives.
 
         Args:
             node_id: ID of node to get response from
             command_type: Type of command to get response for
-            timeout: Seconds to wait for response to appear in cache
-            clear: Whether to remove response from cache after retrieval
+            timeout: Max seconds to wait
+            clear: Remove response from cache after retrieval
 
         Returns:
             Response dict or None if timeout
-
         """
-        start_time = time.time()
         cache_key = (node_id, command_type)
+        deadline = time.time() + timeout
 
-        while time.time() - start_time < timeout:
+        while time.time() < deadline:
             with self._response_lock:
                 if cache_key in self._response_cache:
                     response = self._response_cache[cache_key]
                     if clear:
                         del self._response_cache[cache_key]
                     return response
+            time.sleep(0.05)
 
-            time.sleep(0.05)  # Poll every 50ms
-
-        log.warning(f"Response timeout for {node_id}/{command_type}")
+        log.warning(f"Response timeout: {node_id}/{command_type}")
         return None
 
-    def _monitor_heartbeats(self) -> None:
-        """Monitor remote node heartbeats by actively receiving them.
+    def is_node_ready(self, node_id: str) -> bool:
+        """Check if node is fully connected and ready for PUB commands.
 
-        Only accepts heartbeats with timestamp >= server start time to avoid
-        treating stale heartbeats from previous sessions as valid connections.
+        A node is ready when:
+        1. It has sent a heartbeat (in connected_nodes)
+        2. It has completed SUB socket sync (in ready_nodes)
+
+        Args:
+            node_id: ID of node to check
+
+        Returns:
+            True if node is ready to receive commands
+        """
+        return node_id in self.connected_nodes and node_id in self.ready_nodes
+
+    def _monitor_loop(self) -> None:
+        """Receive and process all messages from remotes.
+
+        Runs in dedicated thread. Handles:
+        - Heartbeats: updates connected_nodes
+        - sync_ready: marks node as ready for PUB commands
+        - Responses: caches for retrieval via get_response()
+        - Events: dispatches to registered handlers
         """
         while self.running:
             try:
-                # Actively wait for heartbeats/responses from nodes
-                response = self.wait_for_response(timeout=1.0)
+                # Wait for message with timeout
+                self.rep_socket.setsockopt(zmq.RCVTIMEO, 1000)
+                message = self.rep_socket.recv_json()
+                self.rep_socket.send_json({"status": "ack"})
 
-                if response:
-                    node_id = response.get("node_id")
-                    command_type = response.get("command_type")
-                    timestamp = response.get("timestamp", 0)
+                node_id = message.get("node_id")
+                msg_type = message.get("command_type")
+                timestamp = message.get("timestamp", 0)
 
-                    # Ignore stale heartbeats from before server start
-                    # This prevents race conditions where old heartbeats make us think
-                    # a node is connected when it's still reconnecting
-                    if timestamp < self.start_time:
-                        log.debug(f"Ignoring stale heartbeat from {node_id} (timestamp: {timestamp:.2f} < start: {self.start_time:.2f})")
-                        continue
+                # Ignore stale messages from before server start
+                if timestamp < self.start_time:
+                    log.debug(f"Ignoring stale message from {node_id}")
+                    continue
 
-                    # Register node on heartbeat or any response
-                    if node_id:
-                        if node_id not in self.connected_nodes:
-                            log.info(f"New node connected: {node_id}")
-                        self.connected_nodes[node_id] = time.time()
+                # Update node tracking
+                if node_id:
+                    if node_id not in self.connected_nodes:
+                        log.info(f"Node connected: {node_id}")
+                    self.connected_nodes[node_id] = time.time()
 
-                    # Handle asynchronous events (like log_event)
-                    if command_type in self._event_handlers:
-                        try:
-                            handler = self._event_handlers[command_type]
-                            handler(response.get("result", {}))
-                        except Exception as e:
-                            log.error(f"Error in event handler for {command_type}: {e}")
+                # Handle sync_ready - node's SUB socket is established
+                if msg_type == "sync_ready":
+                    self.ready_nodes.add(node_id)
+                    log.info(f"Node ready: {node_id} (SUB socket synced)")
+                    continue
 
+                # Handle heartbeats (just tracking, already done above)
+                if msg_type == "heartbeat":
+                    continue
+
+                # Handle async events (log_event, etc.)
+                if msg_type in self._event_handlers:
+                    try:
+                        self._event_handlers[msg_type](message.get("result", {}))
+                    except Exception as e:
+                        log.error(f"Event handler error ({msg_type}): {e}")
+                    continue
+
+                # Cache response for get_response() retrieval
+                with self._response_lock:
+                    self._response_cache[(node_id, msg_type)] = message
+
+            except zmq.Again:
+                pass  # Timeout, check for dead nodes
             except Exception as e:
-                log.debug(f"Heartbeat monitor error: {e}")
+                if self.running:
+                    log.debug(f"Monitor error: {e}")
 
-            # Check for node timeouts
-            now = time.time()
-            dead_nodes = [
-                nid for nid, last_time in self.connected_nodes.items()
-                if now - last_time > 10.0  # 10 second timeout
-            ]
+            # Check for dead nodes (no heartbeat in 10s)
+            self._check_dead_nodes()
 
-            for node_id in dead_nodes:
-                log.warning(f"Node '{node_id}' heartbeat timeout")
-                del self.connected_nodes[node_id]
+    def _check_dead_nodes(self) -> None:
+        """Remove nodes that haven't sent heartbeat recently."""
+        now = time.time()
+        dead = [nid for nid, last in self.connected_nodes.items() if now - last > 10.0]
+        for node_id in dead:
+            log.warning(f"Node timeout: {node_id}")
+            del self.connected_nodes[node_id]
+            self.ready_nodes.discard(node_id)
 
     def shutdown(self) -> None:
-        """Shutdown server.
+        """Shutdown server gracefully.
 
-        Sends graceful shutdown notification to all connected nodes
-        before closing sockets. This allows nodes to prepare for
-        reconnection rather than detecting it via heartbeat timeouts.
+        Sends shutdown notification to remotes before closing sockets.
         """
-        log.info("Shutting down network server...")
+        log.info("NetworkServer shutting down...")
 
-        # Send shutdown notification to all connected nodes
-        # This provides immediate notification rather than waiting for heartbeat failures
+        # Notify remotes of shutdown
         try:
             self.send_command("master_shutdown", {})
-            time.sleep(0.5)  # Give time for message to be sent and processed
+            time.sleep(0.3)
         except Exception as e:
-            log.warning(f"Could not send shutdown notification: {e}")
+            log.debug(f"Could not send shutdown notification: {e}")
 
         self.running = False
         self.pub_socket.close()
         self.rep_socket.close()
         self.context.term()
-        log.info("Network server shutdown complete")
+        log.info("NetworkServer shutdown complete")
+
+
+# =============================================================================
+# NetworkClient (Remote side)
+# =============================================================================
+
+
+class ConnectionState(Enum):
+    """Connection states for NetworkClient."""
+    DISCONNECTED = auto()
+    CONNECTING = auto()
+    CONNECTED = auto()
+    RECONNECTING = auto()
+
+
+@dataclass
+class OutboxMessage:
+    """Message to be sent via REQ socket.
+
+    Attributes:
+        msg_type: Message type identifier
+        data: Message payload
+        done_event: Set when message is sent (for sync sends)
+        error: Set if send fails
+    """
+    msg_type: str
+    data: dict
+    done_event: Optional[threading.Event] = None
+    error: Optional[Exception] = None
 
 
 class NetworkClient:
-    """ZMQ client for remote node to connect to master.
+    """ZMQ client for remote nodes to communicate with master.
 
-    Remote nodes subscribe to master's commands and send responses/heartbeats.
+    Connects to a NetworkServer, receives commands via SUB socket,
+    and sends responses/heartbeats via REQ socket. Handles automatic
+    reconnection when master restarts.
 
     Attributes:
-        context (zmq.Context): ZMQ context for socket management
-        master_host (str): IP address of master node
-        node_id (str): Unique identifier for this node
-        sub_socket (zmq.Socket): Subscriber socket for receiving commands
-        req_socket (zmq.Socket): Request socket for sending responses
-        running (bool): Flag indicating client is running
-        command_handlers (dict): Map of command types to handler functions
-        heartbeat_thread (threading.Thread): Thread sending periodic heartbeats
+        node_id: Unique identifier for this node
+        state: Current connection state (DISCONNECTED, CONNECTING, CONNECTED, RECONNECTING)
+        command_handlers: Map of command types to handler functions
 
+    Example:
+        client = NetworkClient(
+            master_host="192.168.1.10",  # or ["192.168.1.10", "192.168.1.20"]
+            node_id="rpi_camera_1"
+        )
+        client.register_handler("start", handle_start)
+        client.mark_ready()
+
+        while True:
+            client.process_commands(timeout=0.1)
     """
+
+    # Configuration
+    HEARTBEAT_INTERVAL = 2.0  # Seconds between heartbeats
+    DISCOVERY_TIMEOUT = 2.0   # Timeout for master probe
+    SEND_TIMEOUT = 2.0        # Timeout for REQ-REP round-trip
+    RECONNECT_DELAY = 5.0     # Delay between reconnection attempts
 
     def __init__(
         self,
-        master_host: str,
+        master_host: Union[str, List[str]],
         command_port: int = 5555,
         response_port: int = 5556,
-        node_id: str = None,
+        node_id: Optional[str] = None,
     ):
         """Initialize network client.
 
         Args:
-            master_host: IP address of master node
-            command_port: Port for receiving commands
-            response_port: Port for sending responses
-            node_id: Unique identifier for this node
+            master_host: IP address(es) of master node(s). Formats:
+                - Single IP: "192.168.1.10"
+                - List: ["192.168.1.10", "192.168.1.20"]
+                - Range: "192.168.1.10-30" (expands to .10 through .30)
+            command_port: Port for receiving commands (master's PUB)
+            response_port: Port for sending responses (master's REP)
+            node_id: Unique identifier (defaults to hostname)
 
         Raises:
             RuntimeError: If ZMQ is not installed
-
         """
         if not HAVE_ZMQ:
             raise RuntimeError("ZMQ not installed - run: pip install pyzmq")
 
+        # ZMQ context - manages all sockets, one per process
         self.context = zmq.Context()
-        self.master_host = master_host
+
+        # Connection parameters (stored for reconnection)
         self.node_id = node_id or socket.gethostname()
+        self.command_port = command_port   # Master's PUB port (we SUB to it)
+        self.response_port = response_port  # Master's REP port (we REQ to it)
 
-        # IMPORTANT: Store ports for reconnection
-        # When master shuts down between sessions and recreates server,
-        # remote needs to reconnect to the SAME ports
-        self.command_port = command_port
-        self.response_port = response_port
+        # List of master IPs to try (supports failover)
+        self._master_candidates = self._parse_hosts(master_host)
+        log.info(f"NetworkClient '{self.node_id}' initialized")
+        log.info(f"  Master candidates: {len(self._master_candidates)}")
 
-        # SUB socket for receiving commands from master
-        self.sub_socket = self.context.socket(zmq.SUB)
-        self.sub_socket.connect(f"tcp://{master_host}:{command_port}")
-        self.sub_socket.setsockopt_string(
-            zmq.SUBSCRIBE, ""
-        )  # Subscribe to all messages
+        # Connection state machine (thread-safe via _state_lock)
+        self._state = ConnectionState.DISCONNECTED
+        self._state_lock = threading.Lock()
 
-        # REQ socket for sending responses to master
-        self.req_socket = self.context.socket(zmq.REQ)
-        self.req_socket.connect(f"tcp://{master_host}:{response_port}")
+        # Command handlers: {"command_type": handler_func}
+        # Called by process_commands() when master sends a command
+        self.command_handlers: Dict[str, Callable] = {}
 
-        self.running = True
-        self.command_handlers = {}  # {command_type: handler_function}
+        # Disconnect callback: called once when entering RECONNECTING state
+        # Use this to cleanup resources (e.g., stop camera) before reconnection
+        self._on_disconnect_callback: Optional[Callable] = None
+        self._disconnect_handled = False  # Ensures callback runs only once per disconnect
 
-        # Lock to protect REQ socket from concurrent access
-        # REQ sockets must alternate send-recv strictly, so we need to serialize access
-        self._req_lock = threading.Lock()
+        # Flag for graceful shutdown - adds delay before reconnect to let master fully close
+        self._graceful_shutdown = False
 
-        # Simple flag to indicate connection is broken and needs reconnection
-        # Only the heartbeat thread performs reconnection (single owner pattern)
-        # Main thread just sets this flag when it detects errors
-        self._connection_broken = False
+        # Outbox queue: main thread queues messages, outbox thread sends them
+        # This avoids lock contention on the REQ socket
+        self._outbox: queue.Queue[OutboxMessage] = queue.Queue()
 
-        log.info(f"Network client '{self.node_id}' connected to {master_host}")
+        # Current master IP (set by outbox thread during reconnect, read by main thread)
+        self._current_master: Optional[str] = None
 
-        # Try to send initial heartbeat (wait indefinitely for master)
-        def _send_initial_heartbeat():
-            """Send initial heartbeat and recreate socket on failure."""
-            try:
-                self._send_response("heartbeat", {"status": "alive"})
-            except Exception:
-                # Recreate socket and retry
-                self.req_socket.close()
-                self.req_socket = self.context.socket(zmq.REQ)
-                self.req_socket.connect(f"tcp://{self.master_host}:{self.response_port}")
-                raise  # Re-raise to trigger retry
+        # ZMQ sockets with SPLIT OWNERSHIP to avoid cross-thread crashes:
+        # - sub_socket: owned by MAIN thread (created/closed in process_commands)
+        # - req_socket: owned by OUTBOX thread (created/closed in _reconnect)
+        self.sub_socket: Optional[zmq.Socket] = None
+        self.req_socket: Optional[zmq.Socket] = None
 
-        self._wait_for_connection(
-            f"master at {self.master_host}",
-            _send_initial_heartbeat,
-            retry_delay=1.0,
-        )
+        # Control flags
+        self.running = True   # Set to False in shutdown() to stop all threads
+        self._ready = False   # Set by mark_ready() to enable outbox thread
 
-        # Register internal handler for graceful master shutdown
-        self.register_handler("master_shutdown", self._handle_master_shutdown)
+        # Establish initial connection (blocks until master found)
+        self._connect()
 
-        # Start heartbeat thread for periodic updates
-        self.heartbeat_thread = threading.Thread(
-            target=self._send_heartbeats, daemon=True
-        )
-        self.heartbeat_thread.start()
+        # Handle graceful master shutdown (triggers reconnection)
+        self.register_handler("master_shutdown", self._on_master_shutdown)
 
-    def _wait_for_connection(
-        self,
-        operation_name: str,
-        retry_func: Callable,
-        retry_delay: float = 1.0,
-        log_interval: float = 30.0,
-    ) -> None:
-        """Wait for connection with time-based progress logging.
+        # Outbox thread: sends queued messages and heartbeats
+        self._outbox_thread = threading.Thread(target=self._outbox_loop, daemon=True)
+        self._outbox_thread.start()
+
+        log.info(f"NetworkClient '{self.node_id}' connected")
+
+    @property
+    def state(self) -> ConnectionState:
+        """Current connection state (thread-safe)."""
+        with self._state_lock:
+            return self._state
+
+    @state.setter
+    def state(self, value: ConnectionState) -> None:
+        with self._state_lock:
+            old = self._state
+            self._state = value
+            if old != value:
+                log.debug(f"State: {old.name} -> {value.name}")
+
+        # Call disconnect callback when entering RECONNECTING (outside lock)
+        if value == ConnectionState.RECONNECTING and not self._disconnect_handled:
+            self._disconnect_handled = True
+            if self._on_disconnect_callback:
+                try:
+                    log.info("Calling disconnect callback...")
+                    self._on_disconnect_callback()
+                except Exception as e:
+                    log.error(f"Disconnect callback error: {e}")
+
+        # Reset flag when connected again
+        if value == ConnectionState.CONNECTED:
+            self._disconnect_handled = False
+
+    def on_disconnect(self, callback: Callable) -> None:
+        """Register callback to be called when connection is lost.
+
+        The callback is called once when entering RECONNECTING state,
+        before reconnection attempts begin. Use this to cleanup resources
+        like stopping cameras or saving data.
 
         Args:
-            operation_name: Description of operation (e.g., "master at 192.168.1.100")
-            retry_func: Function to retry; should raise exception on failure
-            retry_delay: Seconds to wait between retry attempts
-            log_interval: Seconds between progress log messages
-
+            callback: Function with no arguments to call on disconnect
         """
-        start_time = time.time()
-        last_log_time = start_time
+        self._on_disconnect_callback = callback
 
-        log.info(f"Waiting for {operation_name}...")
+    def _parse_hosts(self, master_host: Union[str, List[str]]) -> List[str]:
+        """Parse master_host into list of IP addresses.
+
+        Supports single IP, list of IPs, or IP range notation.
+
+        Args:
+            master_host: IP specification
+
+        Returns:
+            List of IP addresses to probe
+
+        Raises:
+            ValueError: If format is invalid
+        """
+        if isinstance(master_host, list):
+            return master_host
+
+        if isinstance(master_host, str):
+            # Check for range notation: "192.168.1.10-20"
+            if "-" in master_host and master_host.count(".") == 3:
+                base, range_part = master_host.rsplit(".", 1)
+                if "-" in range_part:
+                    try:
+                        start, end = range_part.split("-")
+                        return [f"{base}.{i}" for i in range(int(start), int(end) + 1)]
+                    except ValueError:
+                        pass
+            return [master_host]
+
+        raise ValueError(f"Invalid master_host: {master_host}")
+
+    def _probe_host(self, host: str) -> bool:
+        """Check if master is responsive at given host.
+
+        Creates temporary REQ socket, sends probe, waits for ACK.
+
+        Args:
+            host: IP address to probe
+
+        Returns:
+            True if master responded
+        """
+        sock = None
+        try:
+            sock = self.context.socket(zmq.REQ)
+            sock.setsockopt(zmq.LINGER, 0)
+            sock.connect(f"tcp://{host}:{self.response_port}")
+
+            sock.send_json({
+                "node_id": self.node_id,
+                "command_type": "heartbeat",
+                "result": {"status": "probe"},
+                "timestamp": time.time()
+            })
+
+            sock.setsockopt(zmq.RCVTIMEO, int(self.DISCOVERY_TIMEOUT * 1000))
+            sock.recv_json()
+            return True
+
+        except Exception:
+            return False
+        finally:
+            if sock:
+                sock.close()
+
+    def _discover_master(self) -> str:
+        """Find first responsive master from candidates.
+
+        Probes all candidates in parallel, returns first responder.
+
+        Returns:
+            IP address of responsive master
+
+        Raises:
+            TimeoutError: If no master responds
+        """
+        result_queue: queue.Queue[str] = queue.Queue()
+        found = threading.Event()
+
+        def probe(host: str) -> None:
+            if found.is_set():
+                return
+            if self._probe_host(host):
+                if not found.is_set():
+                    found.set()
+                    result_queue.put(host)
+
+        # Probe all candidates in parallel
+        threads = [
+            threading.Thread(target=probe, args=(h,), daemon=True)
+            for h in self._master_candidates
+        ]
+        for t in threads:
+            t.start()
+
+        try:
+            master = result_queue.get(timeout=self.DISCOVERY_TIMEOUT + 1)
+            log.info(f"Discovered master: {master}")
+            return master
+        except queue.Empty:
+            raise TimeoutError(f"No master found: {self._master_candidates}")
+
+    # -------------------------------------------------------------------------
+    # Socket management (split ownership: SUB=main thread, REQ=outbox thread)
+    # -------------------------------------------------------------------------
+
+    def _create_sub_socket(self, master: str) -> None:
+        """Create SUB socket. Called by MAIN thread only."""
+        self.sub_socket = self.context.socket(zmq.SUB)
+        self.sub_socket.connect(f"tcp://{master}:{self.command_port}")
+        self.sub_socket.setsockopt_string(zmq.SUBSCRIBE, "")
+
+    def _create_req_socket(self, master: str) -> None:
+        """Create REQ socket. Called by OUTBOX thread only."""
+        self.req_socket = self.context.socket(zmq.REQ)
+        self.req_socket.connect(f"tcp://{master}:{self.response_port}")
+
+    def _close_sub_socket(self) -> None:
+        """Close SUB socket. Called by MAIN thread only."""
+        if self.sub_socket:
+            try:
+                self.sub_socket.setsockopt(zmq.LINGER, 0)
+                self.sub_socket.close()
+                self.sub_socket = None
+            except Exception:
+                pass
+
+    def _close_req_socket(self) -> None:
+        """Close REQ socket. Called by OUTBOX thread only."""
+        if self.req_socket:
+            try:
+                self.req_socket.setsockopt(zmq.LINGER, 0)
+                self.req_socket.close()
+                self.req_socket = None
+            except Exception:
+                pass
+
+    # -------------------------------------------------------------------------
+    # Connection lifecycle
+    # -------------------------------------------------------------------------
+
+    def _connect(self) -> None:
+        """Initial connection to master (called from __init__, before threads start)."""
+        self.state = ConnectionState.CONNECTING
+        log.info("Connecting to master...")
+
+        start = time.time()
+        last_log = start
 
         while True:
             try:
-                retry_func()
-                elapsed = time.time() - start_time
-                log.info(f"✓ Connected to {operation_name} after {elapsed:.1f}s")
-                break
-            except Exception as e:
-                current_time = time.time()
-                if current_time - last_log_time >= log_interval:
-                    elapsed = current_time - start_time
-                    log.info(f"Still waiting... ({elapsed:.0f}s elapsed)")
-                    last_log_time = current_time
-                time.sleep(retry_delay)
+                self._current_master = self._discover_master()
+                # Safe to create both sockets here - no threads running yet
+                self._create_sub_socket(self._current_master)
+                self._create_req_socket(self._current_master)
+                self.state = ConnectionState.CONNECTED
+                return
+            except TimeoutError:
+                now = time.time()
+                if now - last_log >= 30:
+                    log.info(f"Still waiting for master... ({now - start:.0f}s)")
+                    last_log = now
+                time.sleep(self.RECONNECT_DELAY)
 
-    def register_handler(self, command_type: str, handler: Callable) -> None:
-        """Register command handler.
+    def _reconnect(self) -> None:
+        """Reconnect after connection loss. Called by OUTBOX thread only.
+
+        Only manages REQ socket. Main thread manages its own SUB socket
+        when it detects RECONNECTING state in process_commands().
+        """
+        self.state = ConnectionState.RECONNECTING
+        log.warning("Reconnecting to master...")
+
+        # If graceful shutdown, wait for master to fully close before reconnecting
+        if self._graceful_shutdown:
+            log.info("Graceful shutdown - waiting 2s for master to close...")
+            time.sleep(2.0)
+            self._graceful_shutdown = False
+
+        # Close only REQ socket (we own it)
+        self._close_req_socket()
+
+        while self.running:
+            try:
+                # Discover new master and store for main thread
+                self._current_master = self._discover_master()
+
+                # Create only REQ socket (we own it)
+                self._create_req_socket(self._current_master)
+
+                # Sync handshake: confirms connection is ready
+                self._do_send("sync_ready", {"status": "reconnected"})
+
+                self.state = ConnectionState.CONNECTED
+                log.info(f"Reconnected to {self._current_master}")
+                return
+            except TimeoutError:
+                log.info(f"No master available, retrying in {self.RECONNECT_DELAY}s...")
+                time.sleep(self.RECONNECT_DELAY)
+            except Exception as e:
+                log.warning(f"Reconnect error: {e}")
+                time.sleep(self.RECONNECT_DELAY)
+
+    def _do_send(self, msg_type: str, data: Any) -> None:
+        """Send message via REQ socket (outbox thread only).
 
         Args:
-            command_type: Type of command to handle
-            handler: Function to call when command received
+            msg_type: Message type identifier
+            data: Message payload
 
+        Raises:
+            Exception: If send or recv fails
+        """
+        message = {
+            "node_id": self.node_id,
+            "command_type": msg_type,
+            "result": self._serialize(data),
+            "timestamp": time.time(),
+        }
+
+        self.req_socket.send_json(message)
+        self.req_socket.setsockopt(zmq.RCVTIMEO, int(self.SEND_TIMEOUT * 1000))
+        self.req_socket.recv_json()  # Wait for ACK
+
+    def _serialize(self, data: Any) -> Any:
+        """Convert data to JSON-serializable format.
+
+        Handles Port objects, numpy types, nested structures.
+        """
+        if hasattr(data, '__dict__') and hasattr(data, 'port'):
+            return data.__dict__
+        elif isinstance(data, tuple):
+            return tuple(self._serialize(x) for x in data)
+        elif isinstance(data, list):
+            return [self._serialize(x) for x in data]
+        elif isinstance(data, dict):
+            return {
+                (k.item() if hasattr(k, 'item') else k): self._serialize(v)
+                for k, v in data.items()
+            }
+        elif hasattr(data, 'item'):
+            return data.item()
+        return data
+
+    def _outbox_loop(self) -> None:
+        """Process outbox queue and send heartbeats.
+
+        This is the ONLY thread that uses the REQ socket.
+        Runs continuously until shutdown.
+        """
+        while self.running:
+            # Wait until ready
+            if not self._ready:
+                time.sleep(0.1)
+                continue
+
+            # Handle reconnection
+            if self.state == ConnectionState.RECONNECTING:
+                self._reconnect()
+                continue
+
+            # Check for broken connection
+            if self.state != ConnectionState.CONNECTED:
+                time.sleep(0.1)
+                continue
+
+            try:
+                # Get queued message or timeout for heartbeat
+                try:
+                    msg = self._outbox.get(timeout=self.HEARTBEAT_INTERVAL)
+                except queue.Empty:
+                    # No queued messages - send heartbeat
+                    self._do_send("heartbeat", {"status": "alive"})
+                    continue
+
+                # Send queued message
+                try:
+                    self._do_send(msg.msg_type, msg.data)
+                    if msg.done_event:
+                        msg.done_event.set()
+                except Exception as e:
+                    msg.error = e
+                    if msg.done_event:
+                        msg.done_event.set()
+                    raise
+
+            except Exception as e:
+                log.warning(f"Outbox error: {e}")
+                self.state = ConnectionState.RECONNECTING
+
+    def register_handler(self, command_type: str, handler: Callable) -> None:
+        """Register handler for a command type.
+
+        Args:
+            command_type: Command identifier
+            handler: Function(data) -> result to call
         """
         self.command_handlers[command_type] = handler
-        log.debug(f"Registered handler for '{command_type}'")
+        log.debug(f"Registered handler: {command_type}")
+
+    def mark_ready(self) -> None:
+        """Enable outbox thread to start sending.
+
+        Call this after registering all command handlers.
+        Sends sync_ready to master to confirm SUB socket is established.
+        """
+        self._ready = True
+
+        # Queue sync_ready message
+        self.send("sync_ready", {"status": "initial"}, wait=False)
+
+        log.info(f"Client '{self.node_id}' ready")
+
+    def send(self, msg_type: str, data: dict, wait: bool = True, timeout: float = 5.0) -> None:
+        """Queue a message to be sent to master.
+
+        Args:
+            msg_type: Message type identifier
+            data: Message payload
+            wait: If True, block until sent
+            timeout: Max seconds to wait (if wait=True)
+
+        Raises:
+            TimeoutError: If wait=True and send times out
+            Exception: If send fails
+        """
+        if wait:
+            event = threading.Event()
+            msg = OutboxMessage(msg_type, data, event)
+            self._outbox.put(msg)
+
+            if not event.wait(timeout):
+                raise TimeoutError(f"Send timeout: {msg_type}")
+            if msg.error:
+                raise msg.error
+        else:
+            self._outbox.put(OutboxMessage(msg_type, data))
 
     def process_commands(self, timeout: float = 1.0) -> bool:
-        """Poll for commands and process them.
+        """Poll for and handle commands from master.
+
+        This method owns the SUB socket lifecycle. When reconnection is needed,
+        it closes its SUB socket, waits for outbox thread to reconnect,
+        then creates a new SUB socket.
 
         Args:
             timeout: Seconds to wait for command
 
         Returns:
-            True if command processed, False if timeout
-
+            True if command was processed
         """
-        # Skip if connection is broken - let heartbeat thread handle reconnection
-        if self._connection_broken:
+        # Handle reconnection (we own SUB socket)
+        if self.state == ConnectionState.RECONNECTING:
+            self._close_sub_socket()
+            # Wait for outbox thread to reconnect
+            while self.state != ConnectionState.CONNECTED and self.running:
+                time.sleep(0.1)
+            if not self.running:
+                return False
+            # Create new SUB socket using master discovered by outbox thread
+            self._create_sub_socket(self._current_master)
+            log.info("SUB socket reconnected")
+
+        # Skip if not connected
+        if self.state != ConnectionState.CONNECTED:
             time.sleep(0.1)
             return False
 
@@ -451,223 +856,54 @@ class NetworkClient:
             if target not in ["all", self.node_id]:
                 return False
 
-            command_type = message.get("type")
+            cmd_type = message.get("type")
             data = message.get("data", {})
 
-            # log.info(f"Received command: {command_type}")
-
-            # Call registered handler
-            if command_type in self.command_handlers:
-                result = self.command_handlers[command_type](data)
-
-                # Send response
-                self._send_response(command_type, result)
+            # Dispatch to handler
+            if cmd_type in self.command_handlers:
+                result = self.command_handlers[cmd_type](data)
+                self.send(cmd_type, result, wait=False)
                 return True
-            log.warning(f"No handler for command type: {command_type}")
+
+            log.warning(f"No handler for: {cmd_type}")
             return False
 
         except zmq.Again:
-            # Timeout - no command received (this is NORMAL)
-            return False
+            return False  # Timeout (normal)
         except zmq.ZMQError as e:
-            # Connection broken - master shutdown or network issue
-            # Don't reconnect directly - just mark as broken and let heartbeat thread handle it
-            log.warning(f"Network error: {e}")
-            self._connection_broken = True
+            log.warning(f"SUB socket error: {e}")
+            self.state = ConnectionState.RECONNECTING
             return False
         except Exception as e:
-            log.error(f"Error processing command: {e}", exc_info=True)
+            log.error(f"Command processing error: {e}", exc_info=True)
             return False
 
-    def _serialize_result(self, result: Any) -> Any:
-        """Serialize result for JSON transmission.
-
-        Converts non-JSON-serializable objects (like Port, numpy types) to
-        JSON-compatible formats.
-
-        Args:
-            result: Result to serialize
-
-        Returns:
-            JSON-serializable version of result
-        """
-        # Handle Port objects from ethopy.core.interface
-        if hasattr(result, '__dict__') and hasattr(result, 'port'):
-            return result.__dict__
-
-        # Handle tuples (e.g., in_position returns (Port, int, int))
-        elif isinstance(result, tuple):
-            return tuple(self._serialize_result(item) for item in result)
-
-        # Handle lists
-        elif isinstance(result, list):
-            return [self._serialize_result(item) for item in result]
-
-        # Handle dicts (convert numpy keys to native Python types)
-        elif isinstance(result, dict):
-            serialized_dict = {}
-            for k, v in result.items():
-                # Convert numpy keys to native Python types
-                if hasattr(k, 'item'):  # numpy scalar key
-                    key = k.item()
-                else:
-                    key = k
-                serialized_dict[key] = self._serialize_result(v)
-            return serialized_dict
-
-        # Handle numpy types
-        elif hasattr(result, 'item'):  # numpy scalar
-            return result.item()
-
-        # Already JSON-serializable
-        else:
-            return result
-
-    def _send_response(self, command_type: str, result: Any, timeout: float = 2.0) -> None:
-        """Send response to master.
-
-        Args:
-            command_type: Type of command being responded to
-            result: Result from command handler
-            timeout: Seconds to wait for acknowledgment
-
-        Raises:
-            zmq.Again: If no acknowledgment received within timeout
-
-        """
-        # Serialize result to JSON-compatible format
-        serialized_result = self._serialize_result(result)
-
-        message = {
-            "node_id": self.node_id,
-            "command_type": command_type,
-            "result": serialized_result,
-            "timestamp": time.time(),
-        }
-
-        # Lock REQ socket to prevent concurrent send-recv cycles
-        # REQ sockets must alternate send-recv, so this ensures atomicity
-        with self._req_lock:
-            # log.info(f"🔌 CLIENT SEND: {command_type} - {serialized_result}")
-            self.req_socket.send_json(message)
-            # Wait for ack with timeout
-            self.req_socket.setsockopt(zmq.RCVTIMEO, int(timeout * 1000))
-            ack = self.req_socket.recv_json()
-            # log.info(f"🔌 CLIENT RECV ACK: {ack}")
-
-    def _reconnect(self) -> None:
-        """Reconnect to master after connection loss.
-
-        This method is called when the master shuts down its server
-        between sessions. The remote node will continuously retry
-        connecting until the master comes back online.
-
-        IMPORTANT:
-        - This allows remote nodes to run for days, waiting for master to start/restart
-        - Only called from heartbeat thread (single owner pattern)
-        - No locks needed since only one thread calls this
-        """
-        log.warning(f"Lost connection to master at {self.master_host}")
-
-        def _perform_reconnection():
-            """Reconnect sockets and test connection with heartbeat."""
-            # Close old broken sockets
-            # IMPORTANT: Must close before creating new ones to avoid
-            # "socket already in use" errors
-            # Use _req_lock to prevent any pending heartbeat sends during close
-            with self._req_lock:
-                try:
-                    self.sub_socket.close()
-                    self.req_socket.close()
-                except:
-                    pass  # Ignore errors if already closed
-
-                # Create fresh sockets
-                self.sub_socket = self.context.socket(zmq.SUB)
-                self.sub_socket.connect(f"tcp://{self.master_host}:{self.command_port}")
-                self.sub_socket.setsockopt_string(zmq.SUBSCRIBE, "")
-
-                self.req_socket = self.context.socket(zmq.REQ)
-                self.req_socket.connect(f"tcp://{self.master_host}:{self.response_port}")
-
-                # Test connection with heartbeat
-                # IMPORTANT: This verifies master is actually listening,
-                # not just that we connected (ZMQ connects even if no server)
-                self.req_socket.send_json({
-                    "node_id": self.node_id,
-                    "command_type": "heartbeat",
-                    "result": {"status": "reconnected"},
-                    "timestamp": time.time()
-                })
-                self.req_socket.setsockopt(zmq.RCVTIMEO, 2000)  # 2s timeout
-                ack = self.req_socket.recv_json()
-
-        self._wait_for_connection(
-            f"master at {self.master_host}",
-            _perform_reconnection,
-            retry_delay=2.0,
-        )
-
-        # Reset connection broken flag - reconnection complete
-        self._connection_broken = False
-        log.info("Reconnection complete")
-
-        # Note: We don't send a post-reconnection heartbeat here to avoid race conditions
-        # The regular heartbeat thread (running every 5s) will naturally send the next heartbeat
-        # The master filters stale heartbeats using server.start_time, ensuring only fresh ones count
-
-    def _handle_master_shutdown(self, data: Dict) -> Dict:
-        """Handle graceful master shutdown notification.
-
-        When master sends shutdown command before closing, this provides
-        immediate notification rather than waiting for heartbeat failures.
-
-        Args:
-            data: Shutdown data (currently unused)
-
-        Returns:
-            Acknowledgment dict
-        """
-        log.info("Master shutting down gracefully - marking connection as broken")
-        # Mark connection as broken - heartbeat thread will reconnect immediately
-        self._connection_broken = True
+    def _on_master_shutdown(self, data: dict) -> dict:
+        """Handle graceful master shutdown notification."""
+        log.info("Master shutdown received - will reconnect after delay")
+        self._graceful_shutdown = True  # Signal reconnect to wait
+        self.state = ConnectionState.RECONNECTING
         return {"status": "acknowledged"}
 
-    def _send_heartbeats(self) -> None:
-        """Send periodic heartbeats to master.
-
-        Monitors connection health and triggers reconnection when needed.
-        This is the ONLY place that calls _reconnect() (single owner pattern).
-
-        Reconnection is triggered by:
-        1. Heartbeat failure (network error)
-        2. Connection broken flag set by main thread (command processing error)
-        3. Graceful shutdown notification from master
-        """
-        while self.running:
-            # Check if reconnection needed (set by main thread or previous heartbeat failure)
-            if self._connection_broken:
-                log.info("Connection broken detected, reconnecting...")
-                self._reconnect()
-                # Flag is reset inside _reconnect() after successful reconnection
-                continue  # Skip this heartbeat iteration, will send next cycle
-
-            # Send normal heartbeat
-            try:
-                self._send_response("heartbeat", {"status": "alive"})
-            except Exception as e:
-                log.warning(f"Heartbeat failed: {e}")
-                # Mark connection as broken and reconnect on next iteration
-                self._connection_broken = True
-                # Don't sleep here - reconnect immediately on next iteration
-                continue
-
-            time.sleep(2)
-
     def shutdown(self) -> None:
-        """Shutdown client."""
+        """Shutdown client and release resources."""
+        log.info("NetworkClient shutting down...")
         self.running = False
-        self.sub_socket.close()
-        self.req_socket.close()
+        # Close both sockets (safe during shutdown - no operations in progress)
+        self._close_sub_socket()
+        self._close_req_socket()
         self.context.term()
-        log.info("Network client shutdown")
+        log.info("NetworkClient shutdown complete")
+
+
+# =============================================================================
+# Backward compatibility aliases
+# =============================================================================
+
+# Keep old method names working
+def _send_response(self, command_type: str, result: Any, timeout: float = 2.0) -> None:
+    """Backward compatible alias for send()."""
+    self.send(command_type, result, wait=True, timeout=timeout)
+
+
+NetworkClient._send_response = _send_response
