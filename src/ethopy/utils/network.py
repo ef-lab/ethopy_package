@@ -382,7 +382,7 @@ class NetworkClient:
             node_id="rpi_camera_1"
         )
         client.register_handler("start", handle_start)
-        client.mark_ready()
+        client.sync_with_master()
 
         while True:
             client.process_commands(timeout=0.1)
@@ -463,7 +463,7 @@ class NetworkClient:
 
         # Control flags
         self.running = True   # Set to False in shutdown() to stop all threads
-        self._ready = False   # Set by mark_ready() to enable outbox thread
+        self._ready = False   # Set by sync_with_master() to enable outbox thread
 
         # Establish initial connection (blocks until master found)
         self._connect()
@@ -858,18 +858,19 @@ class NetworkClient:
         self.command_handlers[command_type] = handler
         log.debug(f"Registered handler: {command_type}")
 
-    def mark_ready(self) -> None:
-        """Enable outbox thread to start sending.
+    def sync_with_master(self) -> None:
+        """Synchronize with master to signal readiness.
 
         Call this after registering all command handlers.
-        Sends sync_ready to master to confirm SUB socket is established.
+        Sends sync_ready message to master confirming SUB socket is established
+        and client is ready to receive commands.
         """
         self._ready = True
 
         # Queue sync_ready message
         self.send("sync_ready", {"status": "initial"}, wait=False)
 
-        log.info(f"Client '{self.node_id}' ready")
+        log.info(f"Client '{self.node_id}' synced with master")
 
     def send(self, msg_type: str, data: dict, wait: bool = True, timeout: float = 5.0) -> None:
         """Queue a message to be sent to master.

@@ -417,9 +417,8 @@ class RemoteInterfaceNode:
         # Register disconnect callback to cleanup interface immediately on connection loss
         self.client.on_disconnect(self._on_disconnect)
 
-        # Mark client as ready to process commands
-        # This allows heartbeats to be sent, signaling to master that we're ready
-        self.client.mark_ready()
+        # Sync with master to signal we're ready to receive commands
+        self.client.sync_with_master()
 
         log.info(f"RemoteInterfaceNode '{node_id}' connected to {master_host}")
 
