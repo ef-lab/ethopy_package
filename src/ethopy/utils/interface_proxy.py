@@ -5,8 +5,8 @@ on a remote computer via network. Similar to ProcessProxy for stimuli, but for
 distributed interfaces across networked computers.
 """
 import logging
-import time
-from typing import Type
+from typing import Type, Optional
+import socket
 
 from ethopy.utils.network import NetworkClient, NetworkServer
 
@@ -155,7 +155,7 @@ class InterfaceProxy:
         # Create network server on master
         self.server = NetworkServer(command_port=command_port, response_port=response_port)
 
-        log.info(f"InterfaceProxy created for {interface_class.__name__} on {remote_host}")
+        log.debug(f"InterfaceProxy created for {interface_class.__name__} on {remote_host}")
 
         # Local attributes for compatibility (will be set in init_local)
         self.logger = None
@@ -168,51 +168,6 @@ class InterfaceProxy:
 
         # Register event handler for log_event (events from remote)
         self.server.register_event_handler("log_event", self._handle_log_event)
-
-    def _wait_for_remote_connection(self, timeout: float):
-        """Wait for remote node to connect.
-
-        The heartbeat monitor thread will receive the initial heartbeat from the
-        remote node and add it to connected_nodes. We just poll that dict.
-
-        Args:
-            timeout: Seconds to wait for connection
-
-        Raises:
-            TimeoutError: If remote doesn't connect within timeout
-        """
-        import time
-        start_time = time.time()
-
-        while time.time() - start_time < timeout:
-            # Check if heartbeat monitor has registered the node
-            if self.node_id in self.server.connected_nodes:
-                log.info(f"Remote node '{self.node_id}' connected")
-                return
-
-            # Small sleep to avoid busy-waiting
-            time.sleep(0.1)
-
-        raise TimeoutError(f"Remote node '{self.node_id}' failed to connect within {timeout}s")
-
-    def _initialize_remote_interface(self):
-        """Send initialization command to remote node."""
-        init_data = {
-            "interface_class": f"{self._interface_class.__module__}.{self._interface_class.__name__}",
-            "setup_conf_idx": self.remote_setup_conf_idx
-        }
-
-        self.server.send_command("init_interface", init_data, target_node=self.node_id)
-        response = self.server.get_response(
-            node_id=self.node_id,
-            command_type="init_interface",
-            timeout=10.0
-        )
-
-        if not response or response.get("result", {}).get("status") != "initialized":
-            raise RuntimeError(f"Failed to initialize remote interface: {response}")
-
-        log.info(f"Remote interface {self._interface_class.__name__} initialized")
 
     def _handle_log_event(self, event_data: dict):
         """Handle log_event from remote node.
@@ -269,25 +224,13 @@ class InterfaceProxy:
             "session_metadata": session_metadata  # Include metadata!
         }
 
+        # Wait for remote to be fully ready (heartbeat + SUB socket synced)
+        # This will raise informative error if a different node_id connects
+        self.server.wait_for_node(self.node_id, timeout=15.0)
+
         log.info(f"Initializing remote interface with session: "
                  f"animal_id={session_metadata['animal_id']}, "
                  f"session={session_metadata['session']}")
-
-        # Wait for remote to be fully ready (heartbeat + SUB socket synced)
-        # The is_node_ready() check ensures the remote has:
-        # 1. Sent a heartbeat (connected_nodes)
-        # 2. Completed SUB socket sync (ready_nodes)
-        # No sleep workarounds needed - sync is explicit via sync_ready message
-        log.info(f"Waiting for remote node {self.node_id} to be ready...")
-        max_wait = 15.0
-        wait_start = time.time()
-        while time.time() - wait_start < max_wait:
-            if self.server.is_node_ready(self.node_id):
-                log.info(f"Remote node {self.node_id} is ready (SUB socket synced)")
-                break
-            time.sleep(0.5)
-        else:
-            raise RuntimeError(f"Remote node {self.node_id} did not connect within {max_wait}s")
 
         # Send init command to remote
         self.server.send_command("init_interface", init_data, target_node=self.node_id)
@@ -432,9 +375,9 @@ class RemoteInterfaceNode:
     def __init__(
         self,
         master_host,
-        node_id: str,
         command_port: int = 5557,
-        response_port: int = 5558
+        response_port: int = 5558,
+        node_id: Optional[str] = None,
     ):
         """Initialize remote interface node.
 
@@ -449,11 +392,13 @@ class RemoteInterfaceNode:
             response_port: Port for sending responses.
         """
         self.master_host = master_host
-        self.node_id = node_id
+        self.node_id = node_id or socket.gethostname()
         self.interface = None
         self.logger = None
         self.exp = None
         self.beh = None
+        self.command_port = command_port
+        self.response_port = response_port
 
         # Connect to master
         self.client = NetworkClient(

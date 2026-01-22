@@ -34,7 +34,7 @@ import queue
 import socket
 import threading
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Any, Callable, Dict, List, Optional, Union
 
@@ -105,6 +105,7 @@ class NetworkServer:
 
         # Node tracking
         self.connected_nodes: Dict[str, float] = {}  # {node_id: last_heartbeat_time}
+        self.node_ips: Dict[str, str] = {}  # {node_id: client_ip}
         self.ready_nodes: set = set()  # Nodes that completed SUB socket sync
 
         # Response cache for async retrieval
@@ -206,6 +207,39 @@ class NetworkServer:
         """
         return node_id in self.connected_nodes and node_id in self.ready_nodes
 
+    def wait_for_node(self, node_id: str, timeout: float = 15.0) -> None:
+        """Wait for specific node to connect and be ready.
+
+        Blocks until the node is fully ready (heartbeat received + SUB socket synced).
+        Provides informative error if a different node connects instead.
+
+        Args:
+            node_id: ID of node to wait for
+            timeout: Maximum seconds to wait
+
+        Raises:
+            TimeoutError: If node doesn't connect in time, with details about
+                what nodes DID connect (helps debug node_id mismatches)
+        """
+        start = time.time()
+        while time.time() - start < timeout:
+            if self.is_node_ready(node_id):
+                log.info(f"Node '{node_id}' is ready")
+                return
+            time.sleep(0.5)
+
+        # Timeout - provide informative error about what actually connected
+        connected = list(self.connected_nodes.keys())
+        if connected:
+            # Show node_id -> IP mapping for debugging
+            node_info = [f"'{nid}' (IP: {self.node_ips.get(nid, 'unknown')})"
+                         for nid in connected]
+            raise TimeoutError(
+                f"Expected node '{node_id}' but connected node(s): {', '.join(node_info)}. "
+                f"Hint: Remote client defaults to socket.gethostname() if node_id not set."
+            )
+        raise TimeoutError(f"No nodes connected within {timeout}s")
+
     def _monitor_loop(self) -> None:
         """Receive and process all messages from remotes.
 
@@ -233,14 +267,16 @@ class NetworkServer:
 
                 # Update node tracking
                 if node_id:
+                    client_ip = message.get("client_ip", "unknown")
                     if node_id not in self.connected_nodes:
-                        log.info(f"Node connected: {node_id}")
+                        log.info(f"Node connected: {node_id} (IP: {client_ip})")
                     self.connected_nodes[node_id] = time.time()
+                    self.node_ips[node_id] = client_ip
 
                 # Handle sync_ready - node's SUB socket is established
                 if msg_type == "sync_ready":
                     self.ready_nodes.add(node_id)
-                    log.info(f"Node ready: {node_id} (SUB socket synced)")
+                    log.debug(f"Node ready: {node_id} (SUB socket synced)")
                     continue
 
                 # Handle heartbeats (just tracking, already done above)
@@ -275,6 +311,7 @@ class NetworkServer:
         for node_id in dead:
             log.warning(f"Node timeout: {node_id}")
             del self.connected_nodes[node_id]
+            self.node_ips.pop(node_id, None)
             self.ready_nodes.discard(node_id)
 
     def shutdown(self) -> None:
@@ -386,6 +423,7 @@ class NetworkClient:
 
         # Connection parameters (stored for reconnection)
         self.node_id = node_id or socket.gethostname()
+        self.client_ip = self._get_local_ip()
         self.command_port = command_port   # Master's PUB port (we SUB to it)
         self.response_port = response_port  # Master's REP port (we REQ to it)
 
@@ -479,6 +517,20 @@ class NetworkClient:
         """
         self._on_disconnect_callback = callback
 
+    def _get_local_ip(self) -> str:
+        """Get local IP via system routing table (avoids DNS hostname issues)."""
+        try:
+            # Create UDP socket and "connect" to external address
+            # This doesn't send anything, just determines route
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(("8.8.8.8", 80))
+            ip = s.getsockname()[0]
+            s.close()
+            return ip
+        except Exception:
+            # Fallback to hostname resolution
+            return socket.gethostbyname(socket.gethostname())
+
     def _parse_hosts(self, master_host: Union[str, List[str]]) -> List[str]:
         """Parse master_host into list of IP addresses.
 
@@ -529,6 +581,7 @@ class NetworkClient:
 
             sock.send_json({
                 "node_id": self.node_id,
+                "client_ip": self.client_ip,
                 "command_type": "heartbeat",
                 "result": {"status": "probe"},
                 "timestamp": time.time()
@@ -643,6 +696,38 @@ class NetworkClient:
                     last_log = now
                 time.sleep(self.RECONNECT_DELAY)
 
+    def _handle_graceful_shutdown(self) -> None:
+        """Wait for master to fully close before reconnecting.
+
+        When master sends 'master_shutdown' command, _on_master_shutdown()
+        sets _graceful_shutdown=True. This method adds a delay so the master
+        has time to close its sockets before we attempt reconnection.
+
+        See: _on_master_shutdown() where _graceful_shutdown is set to True.
+        """
+        if not self._graceful_shutdown:
+            return
+
+        log.info("Graceful shutdown - waiting 2s for master to close...")
+        time.sleep(2.0)
+        self._graceful_shutdown = False
+
+    def _log_reconnect_status(self, attempts: int, log_interval: int) -> None:
+        """Log reconnection status without flooding logs.
+
+        Logs immediately on first attempt, then once per hour to avoid
+        filling logs during extended waits (e.g., master offline for days).
+
+        Args:
+            attempts: Number of reconnection attempts so far
+            log_interval: Attempts between hourly log messages
+        """
+        if attempts == 1:
+            log.info("No master available, waiting...")
+        elif attempts % log_interval == 0:
+            hours = (attempts * self.RECONNECT_DELAY) / 3600
+            log.info(f"Still waiting for master ({hours:.1f}h, {attempts} attempts)")
+
     def _reconnect(self) -> None:
         """Reconnect after connection loss. Called by OUTBOX thread only.
 
@@ -652,31 +737,24 @@ class NetworkClient:
         self.state = ConnectionState.RECONNECTING
         log.warning("Reconnecting to master...")
 
-        # If graceful shutdown, wait for master to fully close before reconnecting
-        if self._graceful_shutdown:
-            log.info("Graceful shutdown - waiting 2s for master to close...")
-            time.sleep(2.0)
-            self._graceful_shutdown = False
-
-        # Close only REQ socket (we own it)
+        self._handle_graceful_shutdown()
         self._close_req_socket()
+
+        attempts = 0
+        hourly_attempts = int(3600 / self.RECONNECT_DELAY)
 
         while self.running:
             try:
-                # Discover new master and store for main thread
                 self._current_master = self._discover_master()
-
-                # Create only REQ socket (we own it)
                 self._create_req_socket(self._current_master)
-
-                # Sync handshake: confirms connection is ready
                 self._do_send("sync_ready", {"status": "reconnected"})
 
                 self.state = ConnectionState.CONNECTED
                 log.info(f"Reconnected to {self._current_master}")
                 return
             except TimeoutError:
-                log.info(f"No master available, retrying in {self.RECONNECT_DELAY}s...")
+                attempts += 1
+                self._log_reconnect_status(attempts, hourly_attempts)
                 time.sleep(self.RECONNECT_DELAY)
             except Exception as e:
                 log.warning(f"Reconnect error: {e}")
@@ -694,6 +772,7 @@ class NetworkClient:
         """
         message = {
             "node_id": self.node_id,
+            "client_ip": self.client_ip,
             "command_type": msg_type,
             "result": self._serialize(data),
             "timestamp": time.time(),
