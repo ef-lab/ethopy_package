@@ -13,92 +13,6 @@ from ethopy.utils.network import NetworkClient, NetworkServer
 log = logging.getLogger(__name__)
 
 
-class BehaviorProxy:
-    """Proxy for behavior object on remote node that forwards events to master.
-
-    When the remote interface calls self.beh.log_activity(), this proxy
-    intercepts the call and sends it to the master via the network.
-
-    This proxy provides stub methods (is_licking, get_response) that can be
-    wrapped by DummyPorts to inject event polling, but return dummy values
-    since the real behavior logic runs on the master.
-
-    Attributes:
-        client: NetworkClient for sending events to master
-        logger: Logger proxy with timer for calculating timestamps
-    """
-
-    def __init__(self, client: 'NetworkClient', logger=None):
-        """Initialize behavior proxy.
-
-        Args:
-            client: NetworkClient connected to master
-            logger: Logger proxy with timer (set later via set_logger)
-        """
-        self.client = client
-        self.logger = logger
-
-    def is_licking(self, since=0, reward=False, clear=True):
-        """Stub method for compatibility with DummyPorts wrapping.
-
-        In remote mode, this does nothing since the real behavior logic
-        runs on the master. DummyPorts can wrap this method to inject
-        _get_events() calls for event polling.
-
-        Returns:
-            0 (no lick detected - master handles actual lick detection)
-        """
-        return 0
-
-    def get_response(self, *args, **kwargs):
-        """Stub method for compatibility with DummyPorts wrapping.
-
-        In remote mode, this does nothing since the real behavior logic
-        runs on the master. DummyPorts can wrap this method to inject
-        _get_events() calls for event polling.
-
-        Returns:
-            False (no response - master handles actual response detection)
-        """
-        return False
-
-    def log_activity(self, activity_key: dict) -> int:
-        """Log activity by sending event to master.
-
-        This is called by the interface when events occur (button presses, etc.).
-        It forwards the event to the master's real behavior object.
-
-        Uses the logger timer (synchronized with master's start_time) to calculate
-        correct relative timestamps.
-
-        Args:
-            activity_key: Event data dict (port, time, in_position, etc.)
-
-        Returns:
-            Timestamp of the event (milliseconds since session start)
-        """
-        # Calculate timestamp using logger timer (synchronized with master)
-        if self.logger and hasattr(self.logger, 'logger_timer'):
-            timestamp = self.logger.logger_timer.elapsed_time()
-        else:
-            log.warning("Logger not set on BehaviorProxy, using 0 timestamp")
-            timestamp = 0
-
-        # Set timestamp in activity_key
-        if "time" not in activity_key or not activity_key.get("time"):
-            activity_key["time"] = timestamp
-
-        # Send event to master via response channel
-        # This uses the existing REQ-REP socket to send the event
-        try:
-            log.info(f"📤 REMOTE -> MASTER: Sending event {activity_key} (timestamp={timestamp}ms)")
-            self.client._send_response("log_event", activity_key, timeout=1.0)
-        except Exception as e:
-            log.error(f"❌ Failed to send event to master: {e}")
-
-        return activity_key["time"]
-
-
 class InterfaceProxy:
     """Proxy that runs an interface on a remote computer via network.
 
@@ -180,9 +94,8 @@ class InterfaceProxy:
         """
         if self.beh:
             try:
-                log.info(f"MASTER <- REMOTE: Received event {event_data}")
                 self.beh.log_activity(event_data)
-                log.info("Event logged to behavior database")
+                log.debug(f"MASTER <- REMOTE: Received event {event_data}")
             except Exception as e:
                 log.error(f"Error logging remote event: {e}")
         else:
@@ -223,10 +136,6 @@ class InterfaceProxy:
             "setup_conf_idx": self.remote_setup_conf_idx,
             "session_metadata": session_metadata  # Include metadata!
         }
-
-        # Wait for remote to be fully ready (heartbeat + SUB socket synced)
-        # This will raise informative error if a different node_id connects
-        self.server.wait_for_node(self.node_id, timeout=15.0)
 
         log.info(f"Initializing remote interface with session: "
                  f"animal_id={session_metadata['animal_id']}, "
@@ -315,19 +224,14 @@ class InterfaceProxy:
             )
 
             if not response:
-                log.error(f"❌ Timeout waiting for {name}() response")
+                log.error(f"Timeout waiting for {name}() response")
                 raise TimeoutError(f"Remote did not respond to {name}() call")
-
-            if name not in ['in_position', 'sync_out']:
-                log.info(f"🔵 MASTER <- REMOTE: {name}() returned {response.get('result', {})}")
 
             result = response.get("result", {})
             if result.get("status") == "error":
                 raise RuntimeError(f"Remote error in {name}(): {result.get('message')}")
 
             return_value = result.get("return_value")
-
-            # Deserialize Port objects if needed
             return_value = self._deserialize_result(return_value)
 
             return return_value
@@ -353,6 +257,105 @@ class InterfaceProxy:
         """
         log.info("Shutting down InterfaceProxy network server")
         self.server.shutdown()
+
+
+class RemoteBehaviorProxy:
+    """Proxy for behavior object on remote node that forwards events to master.
+
+    When the remote interface calls self.beh.log_activity(), this proxy
+    intercepts the call and sends it to the master via the network.
+
+    This proxy provides stub methods (is_licking, get_response) that can be
+    wrapped by DummyPorts to inject event polling, but return dummy values
+    since the real behavior logic runs on the master.
+
+    Attributes:
+        client: NetworkClient for sending events to master
+        logger: Logger proxy with timer for calculating timestamps
+    """
+
+    def __init__(self, client: 'NetworkClient', logger=None):
+        """Initialize behavior proxy.
+
+        Args:
+            client: NetworkClient connected to master
+            logger: Logger proxy with timer (set later via set_logger)
+        """
+        self.client = client
+        self.logger = logger
+
+    def is_licking(self, since=0, reward=False, clear=True):
+        """Stub method for compatibility with DummyPorts wrapping.
+
+        In remote mode, this does nothing since the real behavior logic
+        runs on the master. DummyPorts can wrap this method to inject
+        _get_events() calls for event polling.
+
+        Returns:
+            0 (no lick detected - master handles actual lick detection)
+        """
+        return 0
+
+    def get_response(self, *args, **kwargs):
+        """Stub method for compatibility with DummyPorts wrapping.
+
+        In remote mode, this does nothing since the real behavior logic
+        runs on the master. DummyPorts can wrap this method to inject
+        _get_events() calls for event polling.
+
+        Returns:
+            False (no response - master handles actual response detection)
+        """
+        return False
+
+    def log_activity(self, activity_key: dict) -> int:
+        """Log activity by sending event to master.
+
+        This is called by the interface when events occur (button presses, etc.).
+        It forwards the event to the master's real behavior object.
+
+        Uses the logger timer (synchronized with master's start_time) to calculate
+        correct relative timestamps.
+
+        Args:
+            activity_key: Event data dict (port, time, in_position, etc.)
+
+        Returns:
+            Timestamp of the event (milliseconds since session start)
+        """
+        # Calculate timestamp using logger timer (synchronized with master)
+        if self.logger and hasattr(self.logger, 'logger_timer'):
+            timestamp = self.logger.logger_timer.elapsed_time()
+        else:
+            log.warning("Logger not set on BehaviorProxy, using 0 timestamp")
+            timestamp = 0
+
+        # Set timestamp in activity_key
+        if "time" not in activity_key or not activity_key.get("time"):
+            activity_key["time"] = timestamp
+
+        # Send event to master via response channel
+        # This uses the existing REQ-REP socket to send the event
+        try:
+            log.info(f"REMOTE -> MASTER: Sending event {activity_key} (timestamp={timestamp}ms)")
+            self.client._send_response("log_event", activity_key, timeout=1.0)
+        except Exception as e:
+            log.error(f"Failed to send event to master: {e}")
+
+        return activity_key["time"]
+
+
+class RemoteExperimentProxy:
+    def __init__(self, logger, setup_conf_idx):
+        self.logger = logger
+        self.setup_conf_idx = setup_conf_idx
+        self.params = {}
+        self.sync = False
+        self.curr_trial = 0
+        self.curr_cond = {}
+        self.quit = False
+        self.in_operation = False
+        self.session_params = {"setup_conf_idx": setup_conf_idx}
 
 
 class RemoteInterfaceNode:
@@ -493,22 +496,10 @@ class RemoteInterfaceNode:
                      f"start_time={session_meta['start_time']}")
 
             # Create minimal exp proxy
-            class ExpProxy:
-                def __init__(self, logger, setup_conf_idx):
-                    self.logger = logger
-                    self.setup_conf_idx = setup_conf_idx
-                    self.params = {}
-                    self.sync = False
-                    self.curr_trial = 0
-                    self.curr_cond = {}
-                    self.quit = False
-                    self.in_operation = False
-                    self.session_params = {"setup_conf_idx": setup_conf_idx}
-
-            self.exp = ExpProxy(self.logger, data["setup_conf_idx"])
+            self.exp = RemoteExperimentProxy(self.logger, data["setup_conf_idx"])
 
             # Create behavior proxy
-            self.beh = BehaviorProxy(self.client, logger=self.logger)
+            self.beh = RemoteBehaviorProxy(self.client, logger=self.logger)
 
             # Create interface (ports will be initialized)
             self.interface = interface_class(exp=self.exp, beh=self.beh)
