@@ -22,7 +22,7 @@ classifiers = [
 ]
 dependencies = [
     "click>=8.1.0",
-    "datajoint",
+    "datajoint<2.0.0",
     "imageio",
     "pandas>=2.0.0",
     "h5py",
