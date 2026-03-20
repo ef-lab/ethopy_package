@@ -1,11 +1,46 @@
-"""Network proxy for running interfaces on remote computers.
+"""Proxy for running hardware interfaces on remote computers.
 
-This module provides an InterfaceProxy class that wraps any Interface to run it
-on a remote computer via network. Similar to ProcessProxy for stimuli, but for
-distributed interfaces across networked computers.
+Allows interfaces (cameras, sensors) to run on a separate machine
+(e.g. a Raspberry Pi) while the experiment runs on the master. From
+the master's perspective, the remote interface behaves like a local one.
+
+Basic usage
+-----------
+On the remote machine, start a node and leave it running::
+
+    node = RemoteInterfaceNode(master_host="192.168.1.10", node_id="rpi_camera")
+    node.run()  # waits for master, reconnects automatically between sessions
+
+On the master, create a proxy and use it like a local interface::
+
+    proxy = InterfaceProxy(RPPorts, remote_host="192.168.1.10", node_id="rpi_camera")
+    proxy.init_local(exp, beh)   # connect and send session metadata
+    proxy.start_recording()      # forwarded to remote transparently
+    proxy.cleanup()              # end of session, server stays alive
+    proxy.shutdown()             # completely done
+
+Remote context objects
+----------------------
+A real interface expects ``exp`` and ``beh`` objects in its constructor.
+On the remote there is no real experiment or behavior running, so two
+lightweight stubs fill that role:
+
+- ``RemoteExperimentProxy`` — holds session metadata (animal_id, session,
+  setup_conf_idx) sent from the master. Gives the interface the data it
+  needs without running any experiment logic.
+- ``RemoteBehaviorProxy`` — intercepts ``beh.log_activity()`` calls from
+  the interface (e.g. button presses) and forwards them to the master's
+  real behavior object via the network.
+
+Key classes
+-----------
+InterfaceProxy        -- master side: forwards method calls to remote
+RemoteInterfaceNode   -- remote side: runs the real interface and responds to commands
+RemoteExperimentProxy -- stub exp object passed to the interface on the remote
+RemoteBehaviorProxy   -- stub beh object that forwards hardware events to master
 """
 import logging
-from typing import Type, Optional
+from typing import Any, Dict, Type, Optional
 import socket
 
 from ethopy.utils.network import NetworkClient, NetworkServer
@@ -14,16 +49,38 @@ log = logging.getLogger(__name__)
 
 
 class InterfaceProxy:
-    """Proxy that runs an interface on a remote computer via network.
+    """Master-side proxy that forwards interface calls to a remote node.
 
-    This class provides transparent access to interface objects running on remote
-    computers. It forwards method calls over the network and handles responses.
+    Instantiate with the interface class and remote host, then call
+    ``init_local(exp, beh)`` once the experiment session is ready.
+    After that, method calls on this object are transparently forwarded
+    over the network to the ``RemoteInterfaceNode`` running on the remote.
+
+    Example::
+
+        proxy = InterfaceProxy(Camera, remote_host="192.168.1.20",
+                               remote_setup_conf_idx=1)
+        proxy.init_local(exp, beh)   # after experiment starts
+        proxy.start_recording()      # forwarded to remote Camera
+        ...
+        proxy.cleanup()              # end of session (server stays alive)
+        proxy.shutdown()             # end of experiment
 
     Attributes:
         _interface_class: Original interface class to be proxied
         remote_host: IP address of remote computer
         remote_setup_conf_idx: Setup configuration index for remote
+        node_id: Unique identifier for this remote node
         server: NetworkServer for communication with remote
+        _remote_initialized: Whether remote interface has been initialized via init_local()
+        _timeout_policies: Per-method timeout policies (crash/ignore/retry)
+        logger: Logger from experiment (set in init_local)
+        exp: Experiment object (set in init_local)
+        beh: Behavior object (set in init_local)
+        camera: Camera compatibility stub (None until set by remote)
+        ports: Port list compatibility stub
+        rew_ports: Reward ports compatibility stub
+        proximity_ports: Proximity ports compatibility stub
 
     Class Attributes:
         LOCAL_METHODS: Methods that run locally, not forwarded to remote
@@ -65,6 +122,11 @@ class InterfaceProxy:
         self.remote_setup_conf_idx = remote_setup_conf_idx
         self.node_id = node_id or f"remote_{interface_class.__name__}"
         self._remote_initialized = False
+
+        # Per-method timeout policies: {"method_name": policy}
+        # policy = "crash" | "ignore" | ("retry", n)
+        # Default for all methods is "crash" (raises TimeoutError).
+        self._timeout_policies: Dict[str, Any] = {}
 
         # Create network server on master
         self.server = NetworkServer(command_port=command_port, response_port=response_port)
@@ -122,6 +184,10 @@ class InterfaceProxy:
         self.beh = beh
         self.logger = exp.logger
 
+        # Wait for remote to be fully ready (SUB socket synced via sync_ready)
+        # This will raise informative error if a different node_id connects
+        self.server.add_node(self.node_id, timeout=15.0)
+
         # Prepare session metadata
         session_metadata = {
             "animal_id": int(self.logger.trial_key["animal_id"]),
@@ -142,11 +208,12 @@ class InterfaceProxy:
                  f"session={session_metadata['session']}")
 
         # Send init command to remote
-        self.server.send_command("init_interface", init_data, target_node=self.node_id)
+        request_id = self.server.send_command("init_interface", init_data, target_node=self.node_id)
         response = self.server.get_response(
             node_id=self.node_id,
             command_type="init_interface",
-            timeout=15.0
+            request_id=request_id,
+            timeout=60.0
         )
 
         if not response or response.get("result", {}).get("status") != "initialized":
@@ -183,6 +250,22 @@ class InterfaceProxy:
         else:
             return result
 
+    def set_timeout_policy(self, method_name: str, policy) -> None:
+        """Set timeout behavior for a specific remote method.
+
+        Args:
+            method_name: Name of the remote interface method
+            policy: One of:
+                "crash"       — raise TimeoutError (default)
+                "ignore"      — return None silently, log warning
+                ("retry", n)  — retry up to n times, then crash
+
+        Example:
+            proxy.set_timeout_policy("in_position", "ignore")
+            proxy.set_timeout_policy("start_recording", ("retry", 3))
+        """
+        self._timeout_policies[method_name] = policy
+
     def __getattr__(self, name):
         """Intercept method calls and forward to remote interface."""
         # Avoid infinite recursion
@@ -197,6 +280,13 @@ class InterfaceProxy:
                 log.debug(f"Local method {name} called (not forwarded to remote)")
                 return None
             return local_method
+
+        # Guard against calling before initialization
+        if not self._remote_initialized:
+            raise RuntimeError(
+                f"Cannot call '{name}()' — remote interface not initialized yet. "
+                f"Call exp.start() before using the camera."
+            )
 
         # Forward all other methods to remote
         def remote_method(*args, **kwargs):
@@ -216,16 +306,31 @@ class InterfaceProxy:
             if name not in ['in_position', 'sync_out']:
                 log.debug(f"MASTER -> REMOTE: Calling {name}({args}, {kwargs})")
 
-            self.server.send_command("call_method", command_data, target_node=self.node_id)
-            response = self.server.get_response(
-                node_id=self.node_id,
-                command_type="call_method",
-                timeout=5.0
-            )
+            policy = self._timeout_policies.get(name, "crash")
+            max_attempts = policy[1] if isinstance(policy, tuple) and policy[0] == "retry" else 1
 
-            if not response:
-                log.error(f"Timeout waiting for {name}() response")
-                raise TimeoutError(f"Remote did not respond to {name}() call")
+            response = None
+            for attempt in range(max_attempts):
+                request_id = self.server.send_command("call_method", command_data, target_node=self.node_id)
+                response = self.server.get_response(
+                    node_id=self.node_id,
+                    command_type="call_method",
+                    request_id=request_id,
+                    timeout=5.0
+                )
+                if response is not None:
+                    break
+                if attempt < max_attempts - 1:
+                    log.warning(f"Timeout on {name}() attempt {attempt + 1}/{max_attempts}, retrying...")
+
+            if response is None:
+                effective_policy = policy[0] if isinstance(policy, tuple) else policy
+                if effective_policy == "ignore":
+                    log.warning(f"Timeout on {name}() — ignoring (policy=ignore)")
+                    return None
+                else:
+                    log.error(f"Timeout waiting for {name}() response")
+                    raise TimeoutError(f"Remote did not respond to {name}() call")
 
             result = response.get("result", {})
             if result.get("status") == "error":
@@ -247,6 +352,7 @@ class InterfaceProxy:
         """
         log.info("Cleaning up remote interface (server stays alive)")
         self.server.send_command("cleanup", {}, target_node=self.node_id)
+        self._remote_initialized = False  # Guard reactivated until next init_local()
         # Don't shutdown server - keep it alive for next session
 
     def shutdown(self):
@@ -338,7 +444,7 @@ class RemoteBehaviorProxy:
         # This uses the existing REQ-REP socket to send the event
         try:
             log.info(f"REMOTE -> MASTER: Sending event {activity_key} (timestamp={timestamp}ms)")
-            self.client._send_response("log_event", activity_key, timeout=1.0)
+            self.client.send("log_event", activity_key, timeout=1.0)
         except Exception as e:
             log.error(f"Failed to send event to master: {e}")
 
@@ -420,8 +526,8 @@ class RemoteInterfaceNode:
         # Register disconnect callback to cleanup interface immediately on connection loss
         self.client.on_disconnect(self._on_disconnect)
 
-        # Sync with master to signal we're ready to receive commands
-        self.client.sync_with_master()
+        # Connect to master (blocks until acknowledged)
+        self.client.connect()
 
         log.info(f"RemoteInterfaceNode '{node_id}' connected to {master_host}")
 

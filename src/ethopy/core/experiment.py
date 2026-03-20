@@ -234,8 +234,6 @@ class ExperimentClass:
                 self.beh, self.logger, self.setup_conf_idx
             )
 
-        self.interface.setup_cameras()
-
         self.interface.load_calibration()
         self.beh.setup(self)
 
@@ -308,7 +306,7 @@ class ExperimentClass:
     def stop(self) -> None:
         """Stop the experiment."""
         self.stim.exit()
-        # self.interface.release()  # Handles both local and remote cameras
+        self.interface.release()
         self.beh.exit()
         if self.sync:
             while self.interface.is_recording():
