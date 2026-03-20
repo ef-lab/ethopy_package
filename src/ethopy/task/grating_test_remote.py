@@ -16,9 +16,9 @@ exp.setup(logger, MultiPort, session_params)
 
 # Step 3: Register remote Raspberry Pi camera
 exp.interface.register_remote_camera(
-    remote_host="139.91.75.170",  # Raspberry Pi IP
+    remote_host="xxx.xx.xx.170",  # Raspberry Pi IP
     setup_conf_idx=32,  # Camera config in database
-    node_id="rpi_camera_1",  # Must match node_id on RPi
+    node_id="efrpx",  # Must match node_id on RPi
     command_port=5557,  # Must match camera_node.py
     response_port=5558  # Must match camera_node.py
 )
@@ -44,13 +44,14 @@ conditions = []
 ports = {1: 0,
          2: 90}
 
-block = exp.Block(difficulty=1, next_up=1, next_down=1, trial_selection='staircase', metric='dprime', stair_up=1, stair_down=0.5)
+block = exp.Block(difficulty=1, next_up=1, next_down=1, trial_selection='staircase',
+                  metric='dprime', stair_up=1, stair_down=0.5)
 
 for port in ports:
     conditions += exp.make_conditions(stim_class=Grating(), conditions={**block.dict(),
                                                                         **key,
-                                                                        'theta'        : ports[port],
-                                                                        'reward_port'  : port,
+                                                                        'theta': ports[port],
+                                                                        'reward_port': port,
                                                                         'response_port': port})
 
 # run experiments
