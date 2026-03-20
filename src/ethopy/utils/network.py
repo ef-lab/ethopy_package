@@ -1,33 +1,34 @@
-"""Network communication utilities for distributed nodes.
+"""ZMQ-based networking for coordinating distributed nodes.
 
-This module provides ZMQ-based networking capabilities for coordinating
-distributed ethopy nodes.
+One master sends commands to one or more remotes and collects their
+responses. Remotes run continuously, staying in standby between sessions
+and reconnecting whenever a master becomes available.
 
-Architecture
-------------
-Master (NetworkServer):
-    - PUB socket: broadcasts commands to all remotes
-    - REP socket: receives responses/heartbeats from remotes
+Communication uses two ZMQ patterns:
+  - PUB/SUB for commands: master broadcasts to all remotes or a specific
+    node. Commands are confirmed via get_response(), so lost commands
+    surface as timeouts rather than silent failures.
+  - REQ/REP for responses and heartbeats: guaranteed delivery (blocks
+    until acknowledged). Used to return results and detect dead nodes.
 
-Remote (NetworkClient):
-    - SUB socket: receives commands from master
-    - REQ socket: sends responses/heartbeats to master
+This design suits: one coordinator sending tasks to N persistent workers,
+where responses are always expected.
+It does NOT suit:
+  - Peer-to-peer communication: remotes cannot send commands to each
+    other, only to the master.
+  - Streaming or large data transfer: all messages are JSON-serialized,
+    so binary blobs (e.g. video frames) should use a separate channel.
+  - Message queuing when remotes are offline: commands sent while a
+    remote is disconnected are lost; the master will receive a timeout.
 
-Threading Model
----------------
-NetworkClient uses a single "outbox thread" that owns the REQ socket:
-    - Sends queued messages (responses, events)
-    - Sends heartbeats when queue is empty
-    - Handles reconnection (owns socket lifecycle)
+Key classes:
+    NetworkServer         -- runs on master, sends commands and receives responses
+    NetworkClient         -- runs on remote, receives commands and sends responses
+    NodeDisconnectedError -- raised when communicating with a timed-out node
 
-Main thread:
-    - Receives commands via SUB socket (process_commands)
-    - Queues responses via send() method
+For usage examples see docs/network_module_guide.md.
 
-This eliminates lock contention and prevents deadlocks during reconnection.
-
-The module requires pyzmq to be installed:
-    pip install pyzmq
+Requires pyzmq: pip install pyzmq
 """
 import logging
 import queue
@@ -49,41 +50,47 @@ except ImportError:
 log = logging.getLogger(__name__)
 
 
+class NodeDisconnectedError(Exception):
+    """Raised when attempting to communicate with a disconnected node."""
+    pass
+
+
 # =============================================================================
 # NetworkServer (Master side)
 # =============================================================================
 
 
 class NetworkServer:
-    """ZMQ server for master node to coordinate remote nodes.
+    """Runs on the master computer to coordinate remote nodes.
 
-    The server broadcasts commands to remotes via PUB socket and receives
-    responses/heartbeats via REP socket.
+    Broadcasts commands to connected remotes and collects their responses.
+    A background thread monitors heartbeats to detect disconnected nodes.
+
+    Typical usage::
+
+        server = NetworkServer(command_port=5555, response_port=5556)
+        server.add_node("worker", timeout=15.0)  # block until remote connects
+
+        req_id = server.send_command("start", {"param": 1}, target_node="worker")
+        response = server.get_response("worker", "start", req_id, timeout=5.0)
+        server.shutdown()
 
     Attributes:
-        context: ZMQ context for socket management
-        pub_socket: Publisher socket for broadcasting commands
-        rep_socket: Reply socket for receiving responses
-        running: Flag indicating server is running
-        connected_nodes: Map of node_id to last heartbeat time
-        ready_nodes: Set of nodes that completed SUB socket sync
-
-    Example:
-        server = NetworkServer(command_port=5555, response_port=5556)
-        server.send_command("start", {"param": 1}, target_node="rpi_camera_1")
-        response = server.get_response("rpi_camera_1", "start", timeout=5.0)
-        server.shutdown()
+        nodes: Connected nodes mapped to last heartbeat time {node_id: timestamp}.
+               A node appears here only after sending sync_ready.
+        node_ips: IP address of each connected node {node_id: ip}.
+        running: False after shutdown() is called.
     """
 
     def __init__(self, command_port: int = 5555, response_port: int = 5556):
-        """Initialize network server.
+        """Initialize and start the network server.
 
         Args:
-            command_port: Port for publishing commands to remotes
-            response_port: Port for receiving responses from remotes
+            command_port: Port for broadcasting commands to remotes.
+            response_port: Port for receiving responses and heartbeats from remotes.
 
         Raises:
-            RuntimeError: If ZMQ is not installed
+            RuntimeError: If pyzmq is not installed.
         """
         if not HAVE_ZMQ:
             raise RuntimeError("ZMQ not installed - run: pip install pyzmq")
@@ -103,22 +110,22 @@ class NetworkServer:
         # Track server start time to filter stale heartbeats from previous sessions
         self.start_time = time.time()
 
-        # Node tracking
-        self.connected_nodes: Dict[str, float] = {}  # {node_id: last_heartbeat_time}
+        # Node tracking - only populated on sync_ready (not on heartbeat)
+        self.nodes: Dict[str, float] = {}  # {node_id: last_heartbeat_time}
         self.node_ips: Dict[str, str] = {}  # {node_id: client_ip}
-        self.ready_nodes: set = set()  # Nodes that completed SUB socket sync
 
-        # Response cache for async retrieval
-        self._response_cache: Dict[tuple, dict] = {}  # {(node_id, command_type): response}
+        # Response cache for async retrieval.
+        self._request_counter = 0
+        self._response_cache: Dict[tuple, dict] = {}  # {(node_id, command_type, request_id)}
         self._response_lock = threading.Lock()
 
         # Event handlers for async events from remotes (e.g., log_event)
         self._event_handlers: Dict[str, Callable] = {}
 
-        log.info(f"NetworkServer started on ports {command_port} (cmd), {response_port} (resp)")
+        # Disconnect handlers - called when a node times out
+        self._disconnect_handlers: List[Callable[[str], None]] = []
 
-        # Give ZMQ time to bind sockets before accepting connections
-        time.sleep(0.3)
+        log.info(f"NetworkServer started on ports {command_port} (cmd), {response_port} (resp)")
 
         # Start response monitor thread
         self._monitor_thread = threading.Thread(target=self._monitor_loop, daemon=True)
@@ -134,32 +141,54 @@ class NetworkServer:
         self._event_handlers[event_type] = handler
         log.debug(f"Registered event handler: {event_type}")
 
+    def on_node_disconnect(self, callback: Callable[[str], None]) -> None:
+        """Register callback when any node disconnects.
+
+        The callback receives the node_id of the disconnected node.
+        Callbacks run in the monitor thread - keep them quick.
+
+        Args:
+            callback: Function(node_id: str) to call when node disconnects
+        """
+        self._disconnect_handlers.append(callback)
+
     def send_command(
         self,
         command_type: str,
         data: Optional[Dict] = None,
         target_node: str = "all",
-    ) -> None:
+    ) -> int:
         """Send command to remote node(s) via PUB socket.
 
         Args:
             command_type: Command identifier (e.g., "init_interface", "call_method")
             data: Command payload
             target_node: Node ID or "all" for broadcast
+
+        Returns:
+            request_id: Unique ID for this request, pass to get_response()
+
+        # TODO: add fire_and_forget=False parameter — when True, skip get_response()
+        # and immediately mark request as abandoned so its late response is discarded.
         """
+        self._request_counter += 1
+        request_id = self._request_counter
         message = {
             "target": target_node,
             "type": command_type,
+            "request_id": request_id,
             "data": data or {},
             "timestamp": time.time(),
         }
         self.pub_socket.send_json(message)
-        log.debug(f"Sent command '{command_type}' to {target_node}")
+        log.debug(f"Sent command '{command_type}' to {target_node} (req_id={request_id})")
+        return request_id
 
     def get_response(
         self,
         node_id: str,
         command_type: str,
+        request_id: int,
         timeout: float = 5.0,
         clear: bool = True
     ) -> Optional[Dict]:
@@ -171,13 +200,23 @@ class NetworkServer:
         Args:
             node_id: ID of node to get response from
             command_type: Type of command to get response for
+            request_id: ID returned by send_command(), prevents stale response collisions
             timeout: Max seconds to wait
             clear: Remove response from cache after retrieval
 
         Returns:
             Response dict or None if timeout
+
+        Raises:
+            NodeDisconnectedError: If node is not currently connected
         """
-        cache_key = (node_id, command_type)
+        # Check if node is still connected
+        if node_id not in self.nodes:
+            raise NodeDisconnectedError(
+                f"Node '{node_id}' is disconnected. Cannot get response for '{command_type}'."
+            )
+
+        cache_key = (node_id, command_type, request_id)
         deadline = time.time() + timeout
 
         while time.time() < deadline:
@@ -189,28 +228,13 @@ class NetworkServer:
                     return response
             time.sleep(0.05)
 
-        log.warning(f"Response timeout: {node_id}/{command_type}")
+        log.warning(f"Response timeout: {node_id}/{command_type} (req_id={request_id})")
         return None
 
-    def is_node_ready(self, node_id: str) -> bool:
-        """Check if node is fully connected and ready for PUB commands.
-
-        A node is ready when:
-        1. It has sent a heartbeat (in connected_nodes)
-        2. It has completed SUB socket sync (in ready_nodes)
-
-        Args:
-            node_id: ID of node to check
-
-        Returns:
-            True if node is ready to receive commands
-        """
-        return node_id in self.connected_nodes and node_id in self.ready_nodes
-
-    def wait_for_node(self, node_id: str, timeout: float = 15.0) -> None:
+    def add_node(self, node_id: str, timeout: float = 30.0) -> None:
         """Wait for specific node to connect and be ready.
 
-        Blocks until the node is fully ready (heartbeat received + SUB socket synced).
+        Blocks until the node sends sync_ready (SUB socket established).
         Provides informative error if a different node connects instead.
 
         Args:
@@ -221,15 +245,16 @@ class NetworkServer:
             TimeoutError: If node doesn't connect in time, with details about
                 what nodes DID connect (helps debug node_id mismatches)
         """
+        log.info(f"Waiting for node '{node_id}'...")
         start = time.time()
         while time.time() - start < timeout:
-            if self.is_node_ready(node_id):
+            if node_id in self.nodes:
                 log.info(f"Node '{node_id}' is ready")
                 return
             time.sleep(0.5)
 
         # Timeout - provide informative error about what actually connected
-        connected = list(self.connected_nodes.keys())
+        connected = list(self.nodes.keys())
         if connected:
             # Show node_id -> IP mapping for debugging
             node_info = [f"'{nid}' (IP: {self.node_ips.get(nid, 'unknown')})"
@@ -244,8 +269,8 @@ class NetworkServer:
         """Receive and process all messages from remotes.
 
         Runs in dedicated thread. Handles:
-        - Heartbeats: updates connected_nodes
-        - sync_ready: marks node as ready for PUB commands
+        - Heartbeats: updates timestamp for known nodes, ignores unknown
+        - sync_ready: adds node to self.nodes
         - Responses: caches for retrieval via get_response()
         - Events: dispatches to registered handlers
         """
@@ -265,22 +290,20 @@ class NetworkServer:
                     log.debug(f"Ignoring stale message from {node_id}")
                     continue
 
-                # Update node tracking
-                if node_id:
-                    client_ip = message.get("client_ip", "unknown")
-                    if node_id not in self.connected_nodes:
-                        log.info(f"Node connected: {node_id} (IP: {client_ip})")
-                    self.connected_nodes[node_id] = time.time()
-                    self.node_ips[node_id] = client_ip
-
-                # Handle sync_ready - node's SUB socket is established
-                if msg_type == "sync_ready":
-                    self.ready_nodes.add(node_id)
-                    log.debug(f"Node ready: {node_id} (SUB socket synced)")
+                # Handle heartbeats - only update known nodes
+                if msg_type == "heartbeat":
+                    if node_id not in self.nodes:
+                        log.debug(f"Heartbeat from unknown node: {node_id}")
+                    else:
+                        self.nodes[node_id] = time.time()
                     continue
 
-                # Handle heartbeats (just tracking, already done above)
-                if msg_type == "heartbeat":
+                # Handle sync_ready - add node to tracking
+                if msg_type == "sync_ready":
+                    client_ip = message.get("client_ip", "unknown")
+                    self.nodes[node_id] = time.time()
+                    self.node_ips[node_id] = client_ip
+                    log.info(f"Node connected: {node_id} (IP: {client_ip})")
                     continue
 
                 # Handle async events (log_event, etc.)
@@ -293,7 +316,9 @@ class NetworkServer:
 
                 # Cache response for get_response() retrieval
                 with self._response_lock:
-                    self._response_cache[(node_id, msg_type)] = message
+                    request_id = message.get("request_id")
+                    cache_key = (node_id, msg_type, request_id)
+                    self._response_cache[cache_key] = message
 
             except zmq.Again:
                 pass  # Timeout, check for dead nodes
@@ -304,15 +329,25 @@ class NetworkServer:
             # Check for dead nodes (no heartbeat in 10s)
             self._check_dead_nodes()
 
-    def _check_dead_nodes(self) -> None:
+    def _check_dead_nodes(self, timeout: float = 5.0) -> None:
         """Remove nodes that haven't sent heartbeat recently."""
         now = time.time()
-        dead = [nid for nid, last in self.connected_nodes.items() if now - last > 10.0]
+        dead = [nid for nid, last in self.nodes.items() if now - last > timeout]
         for node_id in dead:
-            log.warning(f"Node timeout: {node_id}")
-            del self.connected_nodes[node_id]
+            log.warning(f"Node '{node_id}' disconnected (no heartbeat response)")
+            del self.nodes[node_id]
             self.node_ips.pop(node_id, None)
-            self.ready_nodes.discard(node_id)
+            # Clean stale cached responses for this node
+            with self._response_lock:
+                stale_keys = [k for k in self._response_cache if k[0] == node_id]
+                for key in stale_keys:
+                    del self._response_cache[key]
+            # Invoke disconnect callbacks
+            for handler in self._disconnect_handlers:
+                try:
+                    handler(node_id)
+                except Exception as e:
+                    log.error(f"Disconnect handler error: {e}")
 
     def shutdown(self) -> None:
         """Shutdown server gracefully.
@@ -362,30 +397,33 @@ class OutboxMessage:
     data: dict
     done_event: Optional[threading.Event] = None
     error: Optional[Exception] = None
+    request_id: Optional[int] = None
 
 
 class NetworkClient:
-    """ZMQ client for remote nodes to communicate with master.
+    """Runs on a remote node to receive commands from the master.
 
-    Connects to a NetworkServer, receives commands via SUB socket,
-    and sends responses/heartbeats via REQ socket. Handles automatic
-    reconnection when master restarts.
+    Connects to a NetworkServer, stays in standby between sessions, and
+    reconnects automatically whenever the master becomes available.
+
+    Typical usage::
+
+        client = NetworkClient(master_host="xxx.xxx.x.xx", node_id="rpi_camera_1")
+        client.register_handler("ping", lambda data: {"response": "pong"})
+        client.connect()  # blocks until master acknowledges
+
+        try:
+            while True:
+                client.process_commands(timeout=0.1)
+        finally:
+            client.shutdown()
 
     Attributes:
-        node_id: Unique identifier for this node
-        state: Current connection state (DISCONNECTED, CONNECTING, CONNECTED, RECONNECTING)
-        command_handlers: Map of command types to handler functions
-
-    Example:
-        client = NetworkClient(
-            master_host="192.168.1.10",  # or ["192.168.1.10", "192.168.1.20"]
-            node_id="rpi_camera_1"
-        )
-        client.register_handler("start", handle_start)
-        client.sync_with_master()
-
-        while True:
-            client.process_commands(timeout=0.1)
+        node_id: Unique identifier for this node (defaults to hostname).
+        state: Current connection state, one of ConnectionState.DISCONNECTED,
+               CONNECTING, CONNECTED, or RECONNECTING.
+        running: False after shutdown() is called.
+        command_handlers: Handlers registered via register_handler() {command_type: callable}.
     """
 
     # Configuration
@@ -401,19 +439,21 @@ class NetworkClient:
         response_port: int = 5556,
         node_id: Optional[str] = None,
     ):
-        """Initialize network client.
+        """Initialize the network client.
 
         Args:
-            master_host: IP address(es) of master node(s). Formats:
-                - Single IP: "192.168.1.10"
-                - List: ["192.168.1.10", "192.168.1.20"]
-                - Range: "192.168.1.10-30" (expands to .10 through .30)
-            command_port: Port for receiving commands (master's PUB)
-            response_port: Port for sending responses (master's REP)
-            node_id: Unique identifier (defaults to hostname)
+            master_host: IP address(es) of the master. Accepted formats:
+                - Single IP:  "xxx.xxx.x.xx"
+                - List:       ["xxx.xxx.x.xx", "xxx.xxx.x.yy"]
+                - Range:      "xxx.xxx.x.10-30" (expands to .10 through .30)
+                All candidates are probed in parallel; first to respond wins.
+            command_port: Port for receiving commands (must match server's command_port).
+            response_port: Port for sending responses (must match server's response_port).
+            node_id: Unique identifier for this node. Defaults to hostname.
+                     Must match the node_id used on the master side.
 
         Raises:
-            RuntimeError: If ZMQ is not installed
+            RuntimeError: If pyzmq is not installed.
         """
         if not HAVE_ZMQ:
             raise RuntimeError("ZMQ not installed - run: pip install pyzmq")
@@ -429,8 +469,6 @@ class NetworkClient:
 
         # List of master IPs to try (supports failover)
         self._master_candidates = self._parse_hosts(master_host)
-        log.info(f"NetworkClient '{self.node_id}' initialized")
-        log.info(f"  Master candidates: {len(self._master_candidates)}")
 
         # Connection state machine (thread-safe via _state_lock)
         self._state = ConnectionState.DISCONNECTED
@@ -463,19 +501,14 @@ class NetworkClient:
 
         # Control flags
         self.running = True   # Set to False in shutdown() to stop all threads
-        self._ready = False   # Set by sync_with_master() to enable outbox thread
-
-        # Establish initial connection (blocks until master found)
-        self._connect()
 
         # Handle graceful master shutdown (triggers reconnection)
         self.register_handler("master_shutdown", self._on_master_shutdown)
 
-        # Outbox thread: sends queued messages and heartbeats
-        self._outbox_thread = threading.Thread(target=self._outbox_loop, daemon=True)
-        self._outbox_thread.start()
+        # Thread created in connect()
+        self._outbox_thread: Optional[threading.Thread] = None
 
-        log.info(f"NetworkClient '{self.node_id}' connected")
+        log.info(f"NetworkClient '{self.node_id}' initialized")
 
     @property
     def state(self) -> ConnectionState:
@@ -708,8 +741,8 @@ class NetworkClient:
         if not self._graceful_shutdown:
             return
 
-        log.info("Graceful shutdown - waiting 2s for master to close...")
-        time.sleep(2.0)
+        log.info("Graceful shutdown - waiting for master to close...")
+        time.sleep(0.5)
         self._graceful_shutdown = False
 
     def _log_reconnect_status(self, attempts: int, log_interval: int) -> None:
@@ -747,7 +780,8 @@ class NetworkClient:
             try:
                 self._current_master = self._discover_master()
                 self._create_req_socket(self._current_master)
-                self._do_send("sync_ready", {"status": "reconnected"})
+                # Don't send sync_ready here — SUB socket hasn't been created yet.
+                # process_commands() sends sync_ready after creating the SUB socket.
 
                 self.state = ConnectionState.CONNECTED
                 log.info(f"Reconnected to {self._current_master}")
@@ -760,12 +794,13 @@ class NetworkClient:
                 log.warning(f"Reconnect error: {e}")
                 time.sleep(self.RECONNECT_DELAY)
 
-    def _do_send(self, msg_type: str, data: Any) -> None:
+    def _do_send(self, msg_type: str, data: Any, request_id: Optional[int] = None) -> None:
         """Send message via REQ socket (outbox thread only).
 
         Args:
             msg_type: Message type identifier
             data: Message payload
+            request_id: Echo back the master's request_id so response can be matched
 
         Raises:
             Exception: If send or recv fails
@@ -776,6 +811,7 @@ class NetworkClient:
             "command_type": msg_type,
             "result": self._serialize(data),
             "timestamp": time.time(),
+            "request_id": request_id,
         }
 
         self.req_socket.send_json(message)
@@ -785,7 +821,7 @@ class NetworkClient:
     def _serialize(self, data: Any) -> Any:
         """Convert data to JSON-serializable format.
 
-        Handles Port objects, numpy types, nested structures.
+        Handles Port objects, numpy scalars, nested structures.
         """
         if hasattr(data, '__dict__') and hasattr(data, 'port'):
             return data.__dict__
@@ -809,11 +845,6 @@ class NetworkClient:
         Runs continuously until shutdown.
         """
         while self.running:
-            # Wait until ready
-            if not self._ready:
-                time.sleep(0.1)
-                continue
-
             # Handle reconnection
             if self.state == ConnectionState.RECONNECTING:
                 self._reconnect()
@@ -835,7 +866,7 @@ class NetworkClient:
 
                 # Send queued message
                 try:
-                    self._do_send(msg.msg_type, msg.data)
+                    self._do_send(msg.msg_type, msg.data, msg.request_id)
                     if msg.done_event:
                         msg.done_event.set()
                 except Exception as e:
@@ -858,21 +889,34 @@ class NetworkClient:
         self.command_handlers[command_type] = handler
         log.debug(f"Registered handler: {command_type}")
 
-    def sync_with_master(self) -> None:
-        """Synchronize with master to signal readiness.
+    def connect(self) -> None:
+        """Connect to master and block until acknowledged.
 
-        Call this after registering all command handlers.
-        Sends sync_ready message to master confirming SUB socket is established
-        and client is ready to receive commands.
+        Call this after registering all command handlers. This method:
+        1. Discovers and connects to the master
+        2. Starts the outbox thread for sending messages
+        3. Blocks until master acknowledges the connection
+
+        Raises:
+            RuntimeError: If already connected
         """
-        self._ready = True
+        if self.state == ConnectionState.CONNECTED:
+            raise RuntimeError("Already connected")
 
-        # Queue sync_ready message
-        self.send("sync_ready", {"status": "initial"}, wait=False)
+        # Discover master and create sockets
+        self._connect()
 
-        log.info(f"Client '{self.node_id}' synced with master")
+        # Start outbox thread
+        self._outbox_thread = threading.Thread(target=self._outbox_loop, daemon=True)
+        self._outbox_thread.start()
 
-    def send(self, msg_type: str, data: dict, wait: bool = True, timeout: float = 5.0) -> None:
+        # Block until master ACKs (REQ/REP is synchronous)
+        log.info("Syncing with master...")
+        self.send("sync_ready", {"status": "initial"}, wait=True, timeout=20.0)
+        log.info(f"Client '{self.node_id}' connected to {self._current_master}")
+
+    def send(self, msg_type: str, data: dict, wait: bool = True, timeout: float = 5.0,
+             request_id: Optional[int] = None) -> None:
         """Queue a message to be sent to master.
 
         Args:
@@ -880,14 +924,19 @@ class NetworkClient:
             data: Message payload
             wait: If True, block until sent
             timeout: Max seconds to wait (if wait=True)
+            request_id: Echo master's request_id so response can be matched in cache
 
         Raises:
+            RuntimeError: If not connected (call connect() first)
             TimeoutError: If wait=True and send times out
             Exception: If send fails
         """
+        if self.state == ConnectionState.DISCONNECTED:
+            raise RuntimeError("Not connected - call connect() first")
+
         if wait:
             event = threading.Event()
-            msg = OutboxMessage(msg_type, data, event)
+            msg = OutboxMessage(msg_type, data, event, request_id=request_id)
             self._outbox.put(msg)
 
             if not event.wait(timeout):
@@ -895,7 +944,7 @@ class NetworkClient:
             if msg.error:
                 raise msg.error
         else:
-            self._outbox.put(OutboxMessage(msg_type, data))
+            self._outbox.put(OutboxMessage(msg_type, data, request_id=request_id))
 
     def process_commands(self, timeout: float = 1.0) -> bool:
         """Poll for and handle commands from master.
@@ -920,7 +969,13 @@ class NetworkClient:
                 return False
             # Create new SUB socket using master discovered by outbox thread
             self._create_sub_socket(self._current_master)
+            # Wait for TCP connection to establish before announcing readiness.
+            # ZMQ connect() is non-blocking; messages published before the handshake
+            # completes are silently dropped (slow joiner problem).
+            time.sleep(0.5)
             log.info("SUB socket reconnected")
+            # Only NOW is the SUB socket ready — tell master we're ready to receive commands
+            self.send("sync_ready", {"status": "reconnected"}, wait=False)
 
         # Skip if not connected
         if self.state != ConnectionState.CONNECTED:
@@ -938,11 +993,12 @@ class NetworkClient:
 
             cmd_type = message.get("type")
             data = message.get("data", {})
+            request_id = message.get("request_id")
 
             # Dispatch to handler
             if cmd_type in self.command_handlers:
                 result = self.command_handlers[cmd_type](data)
-                self.send(cmd_type, result, wait=False)
+                self.send(cmd_type, result, wait=False, request_id=request_id)
                 return True
 
             log.warning(f"No handler for: {cmd_type}")
@@ -974,16 +1030,3 @@ class NetworkClient:
         self._close_req_socket()
         self.context.term()
         log.info("NetworkClient shutdown complete")
-
-
-# =============================================================================
-# Backward compatibility aliases
-# =============================================================================
-
-# Keep old method names working
-def _send_response(self, command_type: str, result: Any, timeout: float = 2.0) -> None:
-    """Backward compatible alias for send()."""
-    self.send(command_type, result, wait=True, timeout=timeout)
-
-
-NetworkClient._send_response = _send_response
