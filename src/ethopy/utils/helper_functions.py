@@ -78,7 +78,7 @@ class FillColors:
 def create_virtual_modules(schemata, create_tables=True, create_schema=True):
     try:
         if dj.config["database.password"] is None:
-            dj.config["password"] = getpass(prompt="Please enter DataJoint password: ")
+            dj.config.database.password = getpass(prompt="Please enter DataJoint password: ")
         # Create virtual modules
         _conn = dj.Connection(
             dj.config["database.host"],
@@ -88,7 +88,7 @@ def create_virtual_modules(schemata, create_tables=True, create_schema=True):
         )
         virtual_modules = {}
         for name, schema in schemata.items():
-            virtual_modules[name] = dj.create_virtual_module(
+            virtual_modules[name] = dj.VirtualModule(
                 name,
                 schema,
                 create_tables=create_tables,

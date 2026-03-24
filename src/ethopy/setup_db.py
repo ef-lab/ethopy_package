@@ -11,6 +11,8 @@ from pathlib import Path
 from time import sleep
 from typing import Optional, Tuple
 
+import sys
+
 import click
 import datajoint as dj
 
@@ -203,10 +205,9 @@ def setup_dj_docker(mysql_path: Optional[str], container_name: str) -> None:
         )
 
         docker_content = (
-            f"version: '2.4'\n"
             f"services:\n"
             f"  {container_name}:\n"
-            f"    image: datajoint/mysql:5.7\n"
+            f"    image: datajoint/mysql:8\n"
             f"    environment:\n"
             f"    - MYSQL_ROOT_PASSWORD={mysql_password}\n"
             f"    ports:\n"
@@ -246,15 +247,20 @@ def check_db_connection() -> None:
     from ethopy import local_conf
 
     try:
-        dj.config.update(local_conf.get("dj_local_conf"))
-        dj.logger.setLevel(local_conf.get("dj_local_conf")["datajoint.loglevel"])
+        _dj_conf = local_conf.get("dj_local_conf")
+        for _key, _val in _dj_conf.items():
+            _parts = _key.split(".")
+            if _parts[0] == "database":
+                setattr(dj.config.database, _parts[1], _val)
+            elif _key == "datajoint.loglevel":
+                dj.config.loglevel = _val
         _ = dj.conn()
     except Exception:
         logging.error("Failed to connect to database")
-        raise Exception(f"Failed to connect to database {dj.config['database.host']}")
+        raise Exception(f"Failed to connect to database {dj.config.database.host}")
 
     logging.info(
-        f"Connected to {dj.config['database.user']}@{dj.config['database.host']} !!"
+        f"Connected to {dj.config.database.user}@{dj.config.database.host} !!"
     )
 
 

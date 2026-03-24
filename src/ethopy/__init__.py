@@ -35,8 +35,14 @@ environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
 local_conf = ConfigurationManager()
 
 # set the datajoint parameters
-dj.config.update(local_conf.get("dj_local_conf"))
-dj.logger.setLevel(local_conf.get("dj_local_conf")["datajoint.loglevel"])
+_dj_conf = local_conf.get("dj_local_conf")
+for _key, _val in _dj_conf.items():
+    _parts = _key.split(".")
+    if _parts[0] == "database":
+        setattr(dj.config.database, _parts[1], _val)
+    elif _key == "datajoint.loglevel":
+        dj.config.loglevel = _val
+dj.logger.setLevel(_dj_conf.get("datajoint.loglevel", "WARNING"))
 # Schema mappings
 SCHEMATA = local_conf.get("SCHEMATA")
 
