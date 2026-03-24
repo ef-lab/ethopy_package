@@ -203,12 +203,12 @@ class Logger:
 
         """
         for schema, value in extra_schema.items():
-            globals()[schema] = dj.create_virtual_module(
+            globals()[schema] = dj.VirtualModule(
                 schema, value, create_tables=True, create_schema=True
             )
             self._schemata.update(
                 {
-                    schema: dj.create_virtual_module(
+                    schema: dj.VirtualModule(
                         schema, value, connection=self.private_conn
                     )
                 }

@@ -525,7 +525,7 @@ class ExperimentClass:
         self,
         conditions: List[Dict],
         hash_field: str,
-        schema: dj.schema,
+        schema: dj.Schema,
         condition_tables: List,
     ) -> List[Dict]:
         """Make unique hash based on all fields from condition tables."""
@@ -1004,7 +1004,7 @@ class Session(dj.Manual):  # noqa: D101
         -> Session
         ---
         task_name        : varchar(256)                 # task filename
-        task_file        : blob                         # task text file
+        task_file        : <blob>                        # task text file
         """
 
     class Version(dj.Part):  # noqa: D101, D106
