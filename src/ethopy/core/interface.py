@@ -550,7 +550,7 @@ class PortCalibration(dj.Manual):
         setup                        : varchar(256)                 # Setup name
         port                         : tinyint                      # port id
         timestamp=CURRENT_TIMESTAMP  : timestamp
-        ___
+        ---
         result=null                  : enum('Passed','Failed')
         pulses=null                  : int
         """

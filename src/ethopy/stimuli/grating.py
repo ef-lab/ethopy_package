@@ -50,7 +50,7 @@ class Grating(Stimulus, dj.Manual):
         -> Grating
         file_name                : varchar(256)
         ---
-        clip                     : longblob
+        clip                     : <blob>
         """
 
     def init(self, exp):
