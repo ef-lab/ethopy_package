@@ -153,7 +153,9 @@ class PluginManager:
             import_path: Full import path (e.g., 'ethopy.mymodule')
             plugin_path: Path to the plugin file
             plugin_type: 'standalone', 'core', or category name
-            is_core: Whether this is from the main ethopy package
+            is_core: True if this plugin is part of the installed ethopy package.
+                Core plugins cannot be overridden by user plugins, any user plugin with the
+                same import path will be rejected with a warning.
 
         """
         name = import_path.split(".")[-1]
