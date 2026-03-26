@@ -195,12 +195,7 @@ class PluginManager:
             is_core=is_core,
         )
 
-        # Register the plugin (overwriting any existing one)
-        self._plugins[import_path] = PluginInfo(
-            name=name, path=plugin_path, type=plugin_type, import_path=import_path
-        )
-
-    def add_plugin_path(self, path: str) -> None:
+    def e(self, path: str) -> None:
         """Add a new plugin directory to the system.
 
         Args:
@@ -211,7 +206,7 @@ class PluginManager:
         if not os.path.isdir(path):
             # log.warning(f"Plugin path not found: {path}")
             return
-        
+
         log.info(f"Plugin path: {path}")
         if path not in self.plugin_paths:
             self.plugin_paths.add(path)
