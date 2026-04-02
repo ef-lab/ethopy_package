@@ -197,7 +197,7 @@ class PluginManager:
             is_core=is_core,
         )
 
-    def e(self, path: str) -> None:
+    def add_plugin_path(self, path: str) -> None:
         """Add a new plugin directory to the system.
 
         Args:
