@@ -215,7 +215,12 @@ class ConfigurationManager:
 
             # Update DataJoint configuration with this instance's settings
             dj_config = self.get("dj_local_conf", {})
-            dj.config.update(dj_config)
+            for _key, _val in dj_config.items():
+                _parts = _key.split(".")
+                if _parts[0] == "database":
+                    setattr(dj.config.database, _parts[1], _val)
+                elif _key == "datajoint.loglevel":
+                    dj.config.loglevel = _val
             dj.logger.setLevel(dj_config.get("datajoint.loglevel", "WARNING"))
 
             # Update global schema mappings

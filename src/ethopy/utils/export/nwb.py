@@ -1254,7 +1254,12 @@ def setup_datajoint_connection(
     config = ConfigurationManager(config_path)
     dj_conf = config.get_datajoint_config()
     logger.info(f"Connecting to database: {dj_conf['database.host']}")
-    dj.config.update(dj_conf)
+    for _key, _val in dj_conf.items():
+        _parts = _key.split(".")
+        if _parts[0] == "database":
+            setattr(dj.config.database, _parts[1], _val)
+        elif _key == "datajoint.loglevel":
+            dj.config.loglevel = _val
 
     schemata = config.get("SCHEMATA")
     virtual_modules, _ = create_virtual_modules(schemata)
