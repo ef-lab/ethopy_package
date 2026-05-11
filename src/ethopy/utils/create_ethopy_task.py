@@ -9,7 +9,10 @@ following a predefined structure.
 import datetime
 import textwrap
 
+from ethopy.core.experiment import SessionParameters
 from ethopy.utils.task_helper_funcs import format_params_print, get_parameters
+
+SESSION_PARAM_KEYS = set(SessionParameters.__annotations__.keys())
 
 
 def generate_ethopy_template():
@@ -36,7 +39,11 @@ def generate_ethopy_template():
         print(f"❌ Error importing {exp_class_name} from {exp_module_path}: {e}")
         return
 
-    exp_params = format_params_print(get_parameters(eval(f"{exp_class_name}()")))
+    exp_params_dict = get_parameters(eval(f"{exp_class_name}()"))
+    exp_params_dict = {
+        k: v for k, v in exp_params_dict.items() if k not in SESSION_PARAM_KEYS
+    }
+    exp_params = format_params_print(exp_params_dict)
     # Get Behavior details
     beh_module_path = input(
         "2. Enter the behavior module path relative to ethopy "
