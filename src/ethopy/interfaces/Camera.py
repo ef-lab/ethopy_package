@@ -126,14 +126,28 @@ class Camera(ABC):
             # (video_aim / camera_idx suffix) propagate here too — otherwise two
             # cameras in the same session would overwrite each other's h5.
             self.filename_tmst = f"videotmst_{self.filename}.h5"
+            # The h5 is written later by Logger.createDataset (child process),
+            # but the DB row is inserted here in the parent. Mirror the path
+            # logic from createDataset (logger.py:950-961) so the Recording
+            # row points at where the file will actually land.
+            recordings_folder = (
+                f"Recordings/{logger.trial_key['animal_id']}"
+                f"_{logger.trial_key['session']}/"
+            )
+            h5_source_path = logger.source_path + recordings_folder
+            h5_target_path = (
+                logger.target_path + recordings_folder
+                if os.path.isdir(logger.target_path)
+                else False
+            )
             logger.log_recording(
                 dict(
                     rec_aim="sync",
                     software="EthoPy",
                     version="0.1",
                     filename=self.filename_tmst,
-                    source_path=self.source_path,
-                    target_path=self.target_path,
+                    source_path=h5_source_path,
+                    target_path=h5_target_path,
                 ),
                 block=True,
             )
@@ -398,12 +412,22 @@ class WebCam(Camera):
                 "You can install cv2 using pip:\n"
                 'sudo pip3 install opencv-python"'
             )
-        self.camera = cv2.VideoCapture(self.camera_num, cv2.CAP_V4L2)
-        if not self.camera.isOpened():
+        # Stat-based probe: confirm the device node exists in the PARENT before
+        # spawning the subprocess. We deliberately do NOT open() the device here
+        # — opening + releasing leaves brief V4L2 driver state that races with
+        # the child's open in recording_init(), especially with two cameras
+        # initialized back-to-back. stat is cheap, race-free, and catches the
+        # common config errors (wrong camera_num, unplugged camera). Permission
+        # / device-busy errors still surface from the child's open later.
+        # Future: accept string device paths (e.g. udev symlinks like
+        # "/dev/cam_eye") so cameras can be addressed by role instead of
+        # relying on stable Linux enumeration order across reboots/replugs.
+        device_path = f"/dev/video{self.camera_num}"
+        if not os.path.exists(device_path):
             raise RuntimeError(
-                "No camera is available. Please check if the camera is connected and functional."
+                f"Camera device {device_path} not found. Check that the camera "
+                "is connected and that camera_num matches the intended /dev/videoN."
             )
-        self.camera.release()
         super().__init__(kwargs["filename"], kwargs["logger"], kwargs["video_aim"])
 
     def setup(self):
