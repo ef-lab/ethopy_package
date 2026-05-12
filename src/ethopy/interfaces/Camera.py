@@ -122,11 +122,10 @@ class Camera(ABC):
                 ),
                 block=True,
             )
-            h5s_filename = (
-                f"animal_id_{logger.trial_key['animal_id']}"
-                f"_session_{logger.trial_key['session']}.h5"
-            )
-            self.filename_tmst = "videosssctmst" + h5s_filename
+            # Tie the h5 timestamp file to self.filename so per-camera disambiguators
+            # (video_aim / camera_idx suffix) propagate here too — otherwise two
+            # cameras in the same session would overwrite each other's h5.
+            self.filename_tmst = f"videotmst_{self.filename}.h5"
             logger.log_recording(
                 dict(
                     rec_aim="sync",
@@ -346,6 +345,7 @@ class WebCam(Camera):
         resolution_x: int = 1280,
         resolution_y: int = 720,
         fps: int = 30,
+        camera_num: int = 0,
         logger_timer: Optional["Timer"] = None,
         **kwargs,
     ):
@@ -355,6 +355,7 @@ class WebCam(Camera):
         Args:
             resolution (Tuple[int, int], optional): Resolution of the webcam.
             Defaults to (640, 480).
+            camera_num (int): /dev/videoN index used by V4L2. Defaults to 0.
 
         Raises:
             ImportError: If the cv2 package is not installed.
@@ -362,6 +363,7 @@ class WebCam(Camera):
 
         """
         self.fps = fps
+        self.camera_num = camera_num
         self.video_output = None
         self.dataset = None
         self.tmst_output = None
@@ -385,7 +387,7 @@ class WebCam(Camera):
                 "You can install cv2 using pip:\n"
                 'sudo pip3 install opencv-python"'
             )
-        self.camera = cv2.VideoCapture(0, cv2.CAP_V4L2)
+        self.camera = cv2.VideoCapture(self.camera_num, cv2.CAP_V4L2)
         if not self.camera.isOpened():
             raise RuntimeError(
                 "No camera is available. Please check if the camera is connected and functional."
@@ -484,7 +486,7 @@ class WebCam(Camera):
         return True
 
     def recording_init(self):
-        self.camera = cv2.VideoCapture(0, cv2.CAP_V4L2)
+        self.camera = cv2.VideoCapture(self.camera_num, cv2.CAP_V4L2)
         if not self.camera.isOpened():
             raise RuntimeError(
                 "No camera is available. Please check if the camera is connected and functional."
@@ -589,6 +591,7 @@ class PiCamera(Camera):
         fps: int = 15,
         sensor_mode: int = 1,
         exposure: int = 10000,
+        camera_num: int = 0,
         file_format: str = "rgb",
         logger_timer: Optional["Timer"] = None,
         **kwargs,
@@ -605,6 +608,7 @@ class PiCamera(Camera):
         self.sensor_mode = sensor_mode
         self.resolution = (resolution_x, resolution_y)
         self.exposure = exposure
+        self.camera_num = camera_num
         self.file_format = file_format
         self.tmst_output = None
 
@@ -675,7 +679,9 @@ class PiCamera(Camera):
 
     def init_cam(self) -> "Picamera2":
         """Initialize the camera."""
-        picam2 = Picamera2()
+        # Future: support string device identifiers so cameras can be addressed
+        # by role (via udev/libcamera config) instead of enumeration order.
+        picam2 = Picamera2(camera_num=self.camera_num)
         _mode = picam2.sensor_modes[self.sensor_mode]
         config = picam2.create_video_configuration(
             raw={"size": _mode["size"], "format": _mode["format"].format},
