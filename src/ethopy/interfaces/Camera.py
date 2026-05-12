@@ -294,18 +294,29 @@ class Camera(ABC):
                 time.sleep(0.01)
 
     def stop_rec(self) -> None:
+        """Stop the camera subprocess.
+
+        Idempotent and safe to call before the camera has finished starting up
+        (i.e. before ``self.recording`` has been set). The ``stop`` event is
+        sufficient to signal shutdown regardless of which lifecycle step the
+        child process has reached — relying on ``recording.is_set()`` here
+        would race against the spawn.
         """
-        Set the stop event and join the write runner.
-        """
+        if self.camera_process is None:
+            return
         self.stop.set()
         time.sleep(3)
-        # TODO: use join and close (possible issue due to h5 files)
         self.camera_process.join(timeout=30)
-        # check if the process is still alive
         if self.camera_process.is_alive():
             self.camera_process.terminate()
-        else:
+            self.camera_process.join(timeout=5)
+        try:
             self.camera_process.close()
+        except ValueError:
+            # Process still alive after terminate() — rare, but don't mask it
+            # by raising during cleanup. The OS will reap it once it exits.
+            pass
+        self.camera_process = None
 
     @abstractmethod
     def rec(self) -> None:
@@ -345,7 +356,7 @@ class WebCam(Camera):
         resolution_x: int = 1280,
         resolution_y: int = 720,
         fps: int = 30,
-        camera_num: int = 0,
+    camera_num: int = 0,
         logger_timer: Optional["Timer"] = None,
         **kwargs,
     ):

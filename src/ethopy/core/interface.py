@@ -235,11 +235,15 @@ class Interface:
         """Clean up interface resources."""
 
     def release(self) -> None:
-        """Release hardware resources, especially cameras."""
+        """Release hardware resources, especially cameras.
+
+        Calls ``stop_rec`` unconditionally — checking ``recording.is_set()`` here
+        would race against cameras still inside their startup path (TOCTOU).
+        ``stop_rec`` is idempotent and safe to call before recording begins.
+        """
         for aim, cam in self.cameras.items():
             log.info("Releasing camera resources (video_aim=%s).", aim)
-            if cam.recording.is_set():
-                cam.stop_rec()
+            cam.stop_rec()
 
     def load_calibration(self) -> None:
         """Load port calibration data from database.
