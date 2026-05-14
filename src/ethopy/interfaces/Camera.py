@@ -231,13 +231,13 @@ class Camera(ABC):
         file, target = args
         try:
             shutil.copy(str(file), str(target / file.name))
-            log.info(f"Transferred file: {file.name}")
+            log.debug(f"Transferred file: {file.name}")
             # Verify the file exists in the target directory
             if os.path.exists(str(target / file.name)) and os.path.getsize(
                 str(file)
             ) == os.path.getsize(str(target / file.name)):
                 os.remove(str(file))
-                log.info(f"Deleted original file: {file.name}")
+                log.debug(f"Deleted original file: {file.name}")
             else:
                 log.error(f"Failed to transfer file: {file.name}")
         except FileNotFoundError as ex:
@@ -251,24 +251,38 @@ class Camera(ABC):
         target = Path(self.target_path)
 
         if not source.is_dir():
+            log.error(f"Video source path does not exist: {source}")
             raise ValueError(
                 f"Source path {source} does not exist or is not a directory."
             )
 
         if not target.exists():
+            log.error(f"Video target path does not exist: {target}")
+            log.error(f"Create it with: mkdir -p {target}")
             raise ValueError(
                 f"Target path {target} does not exist or is not a directory."
             )
 
         files = [(entry, target) for entry in source.iterdir() if entry.is_file()]
 
-        with Pool(processes=min(2, os.cpu_count() - 1)) as pool:
-            pool.map(self.copy_file, files)
+        if not files:
+            log.warning("No video files found to transfer")
+        else:
+            log.info(
+                f"Transferring {len(files)} video file(s) from {source} to {target}"
+            )
+            with Pool(processes=min(2, os.cpu_count() - 1)) as pool:
+                pool.map(self.copy_file, files)
 
         # Clean up if the source directory is empty
         if not any(source.iterdir()):
             source.rmdir()
-            log.info(f"Deleted the empty folder: {source}")
+            log.info("Video transfer complete, cleaned up source folder")
+        else:
+            remaining = list(source.iterdir())
+            log.warning(
+                f"Source folder not empty after transfer: {len(remaining)} items remaining"
+            )
 
     def setup(self) -> None:
         """
