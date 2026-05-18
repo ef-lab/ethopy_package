@@ -112,7 +112,7 @@ EthoPy relies on a MariaDB database for experiment configuration and data loggin
 
 === "Windows"
     `%USERPROFILE%\.ethopy\local_conf.json`
-   dj_local_conf includes the parameters relevant to the [datajoint configuration](https://datajoint.com/docs/elements/element-miniscope/0.2/tutorials/01-Configure/), more details about the local_conf.json can be found [here](local_conf.md):
+   dj_local_conf includes the parameters relevant to the [datajoint configuration](https://docs.datajoint.com/how-to/configure-database/), more details about the local_conf.json can be found [here](local_conf.md):
    ```json
    {
        "dj_local_conf": {
