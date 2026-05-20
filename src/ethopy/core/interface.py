@@ -90,7 +90,7 @@ class Interface:
         self.timer_ready = Timer()
         self.response: List[Any] = []
 
-        if exp and hasattr(exp, "params"):
+        if exp and hasattr(exp, "session_params"):
             self._initialize_hardware()
 
     def _initialize_hardware(self) -> None:

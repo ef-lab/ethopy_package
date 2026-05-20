@@ -443,11 +443,14 @@ class WebCam(Camera):
             height (int): height of frame
         """
 
-        self.camera.set(cv2.CAP_PROP_FRAME_WIDTH, 960)
-        self.camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 600)
+        self.camera.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+        self.camera.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
         check, image = self.get_frame()
+        if not check:
+            log.error("Failed to capture frame while setting resolution")
+            return False
         log.info(f"image shape set resolution {image.shape}")
-        return (image.shape[1], image.shape[0]) == (533, 300)
+        return (image.shape[1], image.shape[0]) == (width, height)
 
     def get_frame(self) -> Tuple[bool, np.ndarray]:
         """
@@ -499,6 +502,7 @@ class WebCam(Camera):
         if self.wb_temperature:
             self.camera.set(cv2.CAP_PROP_AUTO_WB, 0.0)  # Disable auto white balance
             self._set_camera_property(cv2.CAP_PROP_WB_TEMPERATURE, self.wb_temperature)
+        # If not provided in kwargs, they default to None and _set_camera_property skips them
         self._set_camera_property(cv2.CAP_PROP_SATURATION, self.saturation)
         self._set_camera_property(cv2.CAP_PROP_GAIN, self.gain)
         self._set_camera_property(cv2.CAP_PROP_CONTRAST, self.contrast)
@@ -530,8 +534,6 @@ class WebCam(Camera):
         """
         self.recording_init()
         self.recording.set()
-        # first_tmst = self.logger_timer.elapsed_time()
-        # cam_tmst_first = self.camera.get(cv2.CAP_PROP_POS_MSEC)
         while not self.stop.is_set() and self.camera_opened(self.camera):
             try:
                 check, image = self.get_frame()
@@ -544,7 +546,6 @@ class WebCam(Camera):
             tmst = self.logger_timer.elapsed_time()
             if not self.res_set:
                 image = cv2.resize(image, (self.resolution_x, self.resolution_y))
-            # tmst = first_tmst + (self.camera.get(cv2.CAP_PROP_POS_MSEC)-cam_tmst_first)
             self.frame_queue.put((tmst, image))
             # Check if a separate process queue is provided
             if self.process_queue is not False:

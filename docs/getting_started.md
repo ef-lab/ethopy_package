@@ -80,36 +80,39 @@ EthoPy relies on a MariaDB database for experiment configuration and data loggin
    ```bash
    ethopy-setup-djdocker
    ```
-   Alteratively follow the instructions from datajoint [here](https://github.com/datajoint/mysql-docker)
 
    The default username is "root".
 
-> **Note:** if ethopy-setup-djdocker does not work try to setup the docker image based on the [datajoint instructions](https://github.com/datajoint/mysql-docker)
+!!! tip "Alternative Setup"
+    If `ethopy-setup-djdocker` does not work properly, you can set up the Docker image manually using the [DataJoint instructions](https://github.com/datajoint/mysql-docker).
 
+!!! note "Docker Permissions"
+    By default, Docker requires sudo because the Docker daemon runs as root.
 
-> **Note:** By default, Docker requires sudo because the Docker daemon runs as root.
-This command adds your user to the docker group, so you can run Docker commands without sudo.
->
->```bash
->sudo usermod -aG docker $USER
->```
->
->restart your session (log out and back in) or run:
->```bash
->newgrp docker
->```
->
+    === "Linux"
+        Add your user to the docker group to run Docker commands without sudo:
+        ```bash
+        sudo usermod -aG docker $USER
+        ```
+
+        Then restart your session (log out and back in) or run:
+        ```bash
+        newgrp docker
+        ```
+
+    === "macOS / Windows"
+        Docker Desktop manages permissions automatically. You don't need to run `usermod` commands.
 
 ## Step 3: Configure ethopy
 
    Create a configuration file at path:
    
-=== "Linux/macOS"
+=== "Linux / macOS"
     `~/.ethopy/local_conf.json`
 
 === "Windows"
     `%USERPROFILE%\.ethopy\local_conf.json`
-   dj_local_conf includes the parameters relevant to the [datajoint configuration](https://datajoint.com/docs/elements/element-miniscope/0.2/tutorials/01-Configure/), more details about the local_conf.json can be found [here](local_conf.md):
+   dj_local_conf includes the parameters relevant to the [datajoint configuration](https://docs.datajoint.com/how-to/configure-database/), more details about the local_conf.json can be found [here](local_conf.md):
    ```json
    {
        "dj_local_conf": {
@@ -196,3 +199,4 @@ Expand your EthoPy workflow with these companion packages:
 - **[EthoPy Analysis](https://github.com/ef-lab/ethopy_analysis)** - Data analysis tools and plots for EthoPy experiments
 - **[EthoPy Plugins](https://github.com/ef-lab/ethopy_plugins)** - Additional plugins and extensions for EthoPy functionality
 - **[EthoPy Control](https://github.com/ef-lab/ethopy_control)** - Web-based control interface for remote experiment management
+- **[EthoPy Hardware](https://github.com/ef-lab/ethopy_hardware)** - Example hardware setups and build specifications 

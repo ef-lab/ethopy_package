@@ -253,10 +253,10 @@ class PyWelcome:
         return menu_task
 
     def reboot(self):
-        os.system("systemctl reboot -i")
+        os.system("sudo systemctl reboot -i")
 
     def shutdown(self):
-        os.system("systemctl poweroff")
+        os.system("sudo systemctl poweroff")
 
     def start_experiment(self):
         self.logger.update_setup_info({"status": "running"})

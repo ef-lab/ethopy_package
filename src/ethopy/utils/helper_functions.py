@@ -9,7 +9,7 @@ import socket
 import subprocess
 from dataclasses import dataclass, field
 from datetime import datetime
-from getpass import getpass
+from getpass import getpass, getuser
 from itertools import product
 from multiprocessing.shared_memory import SharedMemory
 from typing import Any, Dict, List, Tuple
@@ -474,7 +474,7 @@ def get_environment_info() -> Dict[str, Any]:
         "cpu_info": cpu_info,
         "memory_info": memory_info,
         "hostname": socket.gethostname(),
-        "username": os.getlogin() if hasattr(os, "getlogin") else "unknown",
+        "username": getuser(),
     }
 
 
