@@ -384,7 +384,7 @@ class WebCam(Camera):
         resolution_x: int = 1280,
         resolution_y: int = 720,
         fps: int = 30,
-    camera_num: int = 0,
+        camera_num: int = 0,
         logger_timer: Optional["Timer"] = None,
         **kwargs,
     ):
@@ -395,6 +395,14 @@ class WebCam(Camera):
             resolution (Tuple[int, int], optional): Resolution of the webcam.
             Defaults to (640, 480).
             camera_num (int): /dev/videoN index used by V4L2. Defaults to 0.
+            Used only when ``device_id`` (kwarg) is empty.
+
+        Keyword Args:
+            device_id (str): Stable hardware identifier for the camera. Either a
+            full path to a ``/dev/v4l/by-id/...`` symlink, or a substring of one
+            (e.g. a serial like "20231205_0001"). When set, it takes precedence
+            over ``camera_num`` and survives reboots / USB re-plugging. Empty
+            (default) falls back to the ``camera_num`` index.
 
         Raises:
             ImportError: If the cv2 package is not installed.
@@ -418,6 +426,7 @@ class WebCam(Camera):
         self.gain = kwargs.get("gain")
         self.contrast = kwargs.get("contrast")
         self.brightness = kwargs.get("brightness")
+        self.device_id = kwargs.get("device_id") or ""
 
         if not globals()["IMPORT_CV2"]:
             raise ImportError(
@@ -426,23 +435,61 @@ class WebCam(Camera):
                 "You can install cv2 using pip:\n"
                 'sudo pip3 install opencv-python"'
             )
-        # Stat-based probe: confirm the device node exists in the PARENT before
-        # spawning the subprocess. We deliberately do NOT open() the device here
-        # — opening + releasing leaves brief V4L2 driver state that races with
-        # the child's open in recording_init(), especially with two cameras
-        # initialized back-to-back. stat is cheap, race-free, and catches the
-        # common config errors (wrong camera_num, unplugged camera). Permission
-        # / device-busy errors still surface from the child's open later.
-        # Future: accept string device paths (e.g. udev symlinks like
-        # "/dev/cam_eye") so cameras can be addressed by role instead of
-        # relying on stable Linux enumeration order across reboots/replugs.
-        device_path = f"/dev/video{self.camera_num}"
-        if not os.path.exists(device_path):
-            raise RuntimeError(
-                f"Camera device {device_path} not found. Check that the camera "
-                "is connected and that camera_num matches the intended /dev/videoN."
-            )
+        # Resolve + probe the device in the PARENT before spawning the
+        # subprocess. We deliberately do NOT open() the device here — opening +
+        # releasing leaves brief V4L2 driver state that races with the child's
+        # open in recording_init(), especially with two cameras initialized
+        # back-to-back. The resolver does a stat (cheap, race-free) and catches
+        # the common config errors (wrong device, unplugged camera) early.
+        # Permission / device-busy errors still surface from the child's open.
+        # self.device is set before super().__init__ spawns the child so the
+        # forked process inherits the resolved target.
+        self.device = self._resolve_device()
         super().__init__(kwargs["filename"], kwargs["logger"], kwargs["video_aim"])
+
+    def _resolve_device(self) -> Union[int, str]:
+        """Resolve the configured camera to a target ``cv2.VideoCapture`` can open.
+
+        Resolution order:
+            * no ``device_id`` -> the ``/dev/videoN`` index (``camera_num``);
+              legacy behaviour, fine when only one camera is connected.
+            * ``device_id`` is an existing path (e.g. a ``/dev/v4l/by-id/...``
+              symlink) -> use it directly.
+            * otherwise ``device_id`` is treated as a substring (serial/model)
+              and matched against the capture-node (``index0``) symlinks under
+              ``/dev/v4l/by-id``.
+
+        ``by-id`` symlinks are keyed on vendor/model/serial, so they survive
+        reboots and USB re-plugging — unlike the ``/dev/videoN`` index or
+        ``/dev/v4l/by-path`` (which encodes the physical port).
+        """
+        if not self.device_id:
+            device_path = f"/dev/video{self.camera_num}"
+            if not os.path.exists(device_path):
+                raise RuntimeError(
+                    f"Camera device {device_path} not found. Check that the "
+                    "camera is connected and that camera_idx matches the "
+                    "intended /dev/videoN."
+                )
+            return self.camera_num
+
+        if os.path.exists(self.device_id):
+            return self.device_id
+
+        by_id = "/dev/v4l/by-id"
+        available = sorted(os.listdir(by_id)) if os.path.isdir(by_id) else []
+        matches = [
+            os.path.join(by_id, name)
+            for name in available
+            if self.device_id in name and name.endswith("index0")
+        ]
+        if len(matches) == 1:
+            return matches[0]
+        raise RuntimeError(
+            f"device_id {self.device_id!r} matched {len(matches)} capture "
+            f"device(s) under {by_id} (expected exactly 1). "
+            f"Available: {available}"
+        )
 
     def setup(self):
         """Setup the camera."""
@@ -513,7 +560,7 @@ class WebCam(Camera):
         check, image = self.camera.read()
         if check:
             # If the capture was successful, convert the image to grayscale
-            image = np.squeeze(np.mean(image, axis=2))
+            image = np.squeeze(np.mean(image, axis=2)).astype(np.uint8)
         return check, image
 
     def write_frame(self, item: Tuple[float, np.ndarray]) -> None:
@@ -535,25 +582,34 @@ class WebCam(Camera):
         return True
 
     def recording_init(self):
-        self.camera = cv2.VideoCapture(self.camera_num, cv2.CAP_V4L2)
+        self.camera = cv2.VideoCapture(self.device, cv2.CAP_V4L2)
         if not self.camera.isOpened():
             raise RuntimeError(
                 "No camera is available. Please check if the camera is connected and functional."
             )
+        # Pin a predictable capture format: YUYV decoded to 3-channel RGB (get_frame's
+        # grayscale mean over axis=2 relies on 3 channels), and BUFFERSIZE=1 so read()
+        # always returns the most recent frame instead of a stale buffered one.
+        self.camera.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc("Y", "U", "Y", "V"))
+        self.camera.set(cv2.CAP_PROP_CONVERT_RGB, 1)
+        self.camera.set(cv2.CAP_PROP_BUFFERSIZE, 1)
         self.camera.set(cv2.CAP_PROP_FPS, self.fps)
         self.res_set = self.set_resolution(self.resolution_x, self.resolution_y)
         if not self.res_set:
             logging.warning(
-                f"Camera resolution cannot be set tp {(self.resolution_x, self.resolution_y)}"
-                f",resize of frames will be used!!"
+                f"Camera resolution cannot be set to {(self.resolution_x, self.resolution_y)}"
+                f", resize of frames will be used!!"
             )
+        # Every property below is opt-in. A camera that can't honour a setting
+        # (e.g. an analog frame-grabber) simply omits the key from its config, so
+        # the attribute is None and the setter is skipped. Provide real, non-zero
+        # values only for cameras that support them.
         if self.exposure:
             self.camera.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)  # Disable auto exposure
             self._set_camera_property(cv2.CAP_PROP_EXPOSURE, self.exposure)
         if self.wb_temperature:
             self.camera.set(cv2.CAP_PROP_AUTO_WB, 0.0)  # Disable auto white balance
             self._set_camera_property(cv2.CAP_PROP_WB_TEMPERATURE, self.wb_temperature)
-        # If not provided in kwargs, they default to None and _set_camera_property skips them
         self._set_camera_property(cv2.CAP_PROP_SATURATION, self.saturation)
         self._set_camera_property(cv2.CAP_PROP_GAIN, self.gain)
         self._set_camera_property(cv2.CAP_PROP_CONTRAST, self.contrast)
@@ -571,6 +627,13 @@ class WebCam(Camera):
                         f"Camera property {property_id} was set to "
                         f"{actual_value}, not the requested {value}"
                     )
+            else:
+                # set() returned False: the driver rejected the property
+                # (common on analog grabbers / cameras that don't expose it).
+                logging.warning(
+                    f"Camera property {property_id} is not supported by this "
+                    f"camera; requested value {value} was ignored"
+                )
 
     def rec(self):
         """

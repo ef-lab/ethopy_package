@@ -467,6 +467,7 @@ class SetupConfiguration(dj.Lookup, dj.Manual):
         iso                      : smallint
         file_format              : varchar(256)
         video_aim                : enum('eye','body','openfield')
+        device_id=""             : varchar(256)  # stable /dev/v4l/by-id symlink or serial substring; empty = use camera_idx
         discription              : varchar(256)
         """
 
