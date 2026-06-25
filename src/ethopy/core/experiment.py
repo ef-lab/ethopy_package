@@ -591,19 +591,28 @@ class ExperimentClass:
                     log.warning(f"Skipping {ctable}, Missing keys:{missing_keys}")
                     continue
 
-                # check if there is a primary key which is not hash and it is iterable
-                if core and hasattr(condition[core[0]], "__iter__"):
-                    # TODO make a function for this and clarify it
-                    # If any of the primary keys is iterable all the rest should be.
-                    # The first element of the iterable will be matched with the first
-                    # element of the rest of the keys
-                    for idx, _ in enumerate(condition[core[0]]):
+                # If any non-hash primary key is an indexable sequence (list,
+                # tuple, or numpy array), expand the condition into one row per
+                # element. Checking every core key (not just core[0]) avoids
+                # missing the sequence when a scalar key sorts first. Strings and
+                # numpy scalars are treated as single values, not expanded.
+                seq_types = (list, tuple, np.ndarray)
+                expandable_key = next(
+                    (k for k in core if isinstance(condition.get(k), seq_types)),
+                    None,
+                )
+                if expandable_key is not None:
+                    # Expand into one row per element, all sharing the same
+                    # cond_hash (one condition, many rows). Scalar fields are
+                    # repeated; every sequence field is split in parallel by
+                    # index, so all sequences must have the same length.
+                    for idx in range(len(condition[expandable_key])):
                         cond_key = {}
                         for k in fields:
-                            if isinstance(condition[k], (int, float, str)):
-                                cond_key[k] = condition[k]
-                            else:
+                            if isinstance(condition[k], seq_types):
                                 cond_key[k] = condition[k][idx]
+                            else:
+                                cond_key[k] = condition[k]
 
                         self.logger.put(
                             table=ctable,
