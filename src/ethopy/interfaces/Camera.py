@@ -82,8 +82,22 @@ class Camera(ABC):
             else datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         )
 
-        self.source_path = local_conf.get("video_source_path", "") + f"{self.filename}/"
-        self.target_path = local_conf.get("video_target_path", "") + f"{self.filename}/"
+        if logger:
+            # Co-locate the video with the timestamp/DLC h5 in the session
+            # Recordings folder (the path Logger.createDataset also uses).
+            recordings_folder = (
+                f"Recordings/{logger.trial_key['animal_id']}"
+                f"_{logger.trial_key['session']}/"
+            )
+            self.source_path = logger.source_path + recordings_folder
+            self.target_path = (
+                logger.target_path + recordings_folder
+                if os.path.isdir(logger.target_path)
+                else self.source_path
+            )
+        else:
+            self.source_path = local_conf.get("source_path", "") + f"{self.filename}/"
+            self.target_path = local_conf.get("target_path", "") + f"{self.filename}/"
 
         self.serve_port = local_conf.get("server.port", 0)
         if self.serve_port:
@@ -123,14 +137,8 @@ class Camera(ABC):
                 block=True,
             )
             # Per-camera name so two cameras in a session don't overwrite each
-            # other's h5; paths mirror Logger.createDataset (logger.py:950-961),
-            # which writes the file later in the child process.
+            # other's h5; the file is written later by Logger.createDataset.
             self.filename_tmst = f"videotmst_{self.filename}.h5"
-            recordings_folder = (
-                f"Recordings/{logger.trial_key['animal_id']}"
-                f"_{logger.trial_key['session']}/"
-            )
-            h5_source_path = logger.source_path + recordings_folder
             h5_target_path = (
                 logger.target_path + recordings_folder
                 if os.path.isdir(logger.target_path)
@@ -142,7 +150,7 @@ class Camera(ABC):
                     software="EthoPy",
                     version="0.1",
                     filename=self.filename_tmst,
-                    source_path=h5_source_path,
+                    source_path=self.source_path,
                     target_path=h5_target_path,
                 ),
                 block=True,
@@ -240,45 +248,32 @@ class Camera(ABC):
             log.error(f"Failed to transfer file: {file.name}. Reason: {ex}")
 
     def clear_local_videos(self) -> None:
-        """
-        Move all files from the source path to the target path.
+        """Move this camera's video file(s) to the target path.
+
+        The source folder is shared with the timestamp/DLC h5 files (owned by the
+        Writer) and other cameras, so only this camera's own files are moved
+        (matched by filename, excluding .h5) and the folder is left in place.
         """
         source = Path(self.source_path)
         target = Path(self.target_path)
 
-        if not source.is_dir():
-            log.error(f"Video source path does not exist: {source}")
-            raise ValueError(
-                f"Source path {source} does not exist or is not a directory."
-            )
+        if source == target or not target.is_dir():
+            return  # autocopy disabled; leave the video alongside the h5 files
 
-        if not target.exists():
-            log.error(f"Video target path does not exist: {target}")
-            log.error(f"Create it with: mkdir -p {target}")
-            raise ValueError(
-                f"Target path {target} does not exist or is not a directory."
-            )
-
-        files = [(entry, target) for entry in source.iterdir() if entry.is_file()]
-
+        files = [
+            (entry, target)
+            for entry in source.iterdir()
+            if entry.is_file()
+            and self.filename in entry.name
+            and entry.suffix.lower() != ".h5"
+        ]
         if not files:
             log.warning("No video files found to transfer")
-        else:
-            log.info(
-                f"Transferring {len(files)} video file(s) from {source} to {target}"
-            )
-            with Pool(processes=min(2, os.cpu_count() - 1)) as pool:
-                pool.map(self.copy_file, files)
+            return
 
-        # Clean up if the source directory is empty
-        if not any(source.iterdir()):
-            source.rmdir()
-            log.info("Video transfer complete, cleaned up source folder")
-        else:
-            remaining = list(source.iterdir())
-            log.warning(
-                f"Source folder not empty after transfer: {len(remaining)} items remaining"
-            )
+        log.info(f"Transferring {len(files)} video file(s) from {source} to {target}")
+        with Pool(processes=min(2, os.cpu_count() - 1)) as pool:
+            pool.map(self.copy_file, files)
 
     def setup(self) -> None:
         """
