@@ -1,3 +1,4 @@
+import logging
 import multiprocessing as mp
 import os
 import time
@@ -19,6 +20,8 @@ try:
 except ImportError:
     IMPORT_DLCLive = False
 from ethopy.utils.helper_functions import read_yalm, shared_memory_array
+
+log = logging.getLogger(__name__)
 
 np.set_printoptions(suppress=True)
 
@@ -52,12 +55,15 @@ class DLCModel(ModelInterface):
         self.joint_names = read_yalm(self.path, "pose_cfg.yaml", "all_joints_names")
 
     def setup_model(self, frame):
+        log.debug(
+            "DLC setup input: shape=%s, dtype=%s, min=%s, max=%s",
+            frame.shape, frame.dtype, frame.min(), frame.max(),
+        )
         self.dlc_model = DLCLive(self.path, processor=self.dlc_processor)
-        self.dlc_model.init_inference(frame / 255)
+        self.dlc_model.init_inference((frame / 255).astype(np.float32))
 
     def get_pose(self, frame):
-        return self.dlc_model.get_pose(frame / 255)
-
+        return self.dlc_model.get_pose((frame / 255).astype(np.float32))
 
 class DLCProcessor(ABC):
     """
@@ -82,7 +88,7 @@ class DLCProcessor(ABC):
                 "Please install dlc_live before using DLCProcessor.\n"
                 "sudo pip3 install deeplabcut-live"
             )
-        print("model_path ", model_path)
+        log.debug("DLC model_path: %s", model_path)
         self.model = DLCModel(model_path)
         self.frame_queue = frame_queue
         self.frame_timeout = 1
@@ -94,11 +100,19 @@ class DLCProcessor(ABC):
         self.finish_signal.clear()
 
         self.current_frame = None
+        self._log_throttle = {}  # per-key timestamps for the per-frame logs below
         self.dlc_process = mp.Process(target=self._setup_and_run)
         self.dlc_process.start()
 
         if wait_for_setup:
             self._wait_for_setup()
+
+    def _throttled_log(self, key, level, msg, *args, interval=1.0):
+        """Log at most once per ``interval`` seconds per ``key`` (for loop bodies)."""
+        now = time.time()
+        if now - self._log_throttle.get(key, 0.0) >= interval:
+            self._log_throttle[key] = now
+            log.log(level, msg, *args)
 
     def _wait_for_setup(self):
         """Wait for the DLC model setup to complete."""
@@ -133,13 +147,17 @@ class DLCProcessor(ABC):
                 if self.latest_frame is not None:
                     frame_tranfer_delay = self.logger.logger_timer.elapsed_time()-latest_timestamp
                     if frame_tranfer_delay > 100:
-                        print(f"###############################frame transfer delay: {frame_tranfer_delay} ms")
-                    # print('exception qsize', self.frame_queue.qsize(), self.frame_queue.empty())
+                        self._throttled_log(
+                            "transfer_delay", logging.WARNING,
+                            "DLC frame transfer delay: %s ms", frame_tranfer_delay,
+                        )
                     if delay_time > 0.01:
-                        print(f"------------------------------------------ DLC queue empty delay: {delay_time} sec")
+                        self._throttled_log(
+                            "drain_delay", logging.DEBUG,
+                            "DLC queue drain delay: %s sec", delay_time,
+                        )
                     pose = self.model.get_pose(self.latest_frame)
                     self._process_frame(pose, latest_timestamp)
-                    # print("time ", time.time()-start_t)
                 else:
                     # If stop signal is set wait until there is no new frames(Close camera)
                     if self.stop_signal.is_set():
@@ -147,10 +165,10 @@ class DLCProcessor(ABC):
                     time.sleep(0.01)  # Short sleep to prevent busy-waiting
         except Exception as e:
             # Log any exceptions that occur during frame processing
-            print(f"Frame processing error: {e}")
+            log.exception("DLC frame processing error: %s", e)
         finally:
             # Ensure cleanup is always executed, even if an error occurs
-            print("Frame process has been finished.")
+            log.debug("DLC frame process finished.")
             self._process_finish()
         self.finish_signal.clear()
 
@@ -169,7 +187,7 @@ class DLCProcessor(ABC):
         self.stop_signal.set()
         self.dlc_process.join(timeout=60)
         if self.dlc_process.is_alive():
-            print("Terminate dlc process")
+            log.warning("DLC process did not stop in time; terminating.")
             self.dlc_process.terminate()  # Force terminate if not stopping.
 
 
@@ -209,15 +227,30 @@ class DLCCornerDetector(DLCProcessor):
 
     def _process_frame(self, pose, timestamp):
         """Detect arena corners and calculate perspective transform."""
-        if np.all(pose[:, 2] > self.CONFIDENCE_THRESHOLD):
+        confident = np.all(pose[:, 2] > self.CONFIDENCE_THRESHOLD)
+        self._throttled_log(
+            "corner_scores", logging.DEBUG,
+            "DLC corner scores=%s all>%s? %s", pose[:, 2], self.CONFIDENCE_THRESHOLD, confident,
+        )
+        if confident:
             self.detected_corners.append(pose)
-        else:
-            print("\rWait for high confidence corners scores", pose[:, 2], end="")
+            log.debug("DLC corner frame appended — total %s", len(self.detected_corners))
         if len(self.detected_corners) >= self.MIN_CONFIDENT_FRAMES or self.stop_signal.is_set():
             self.finish_signal.set()
 
     def _process_finish(self):
+        log.debug(
+            "DLC corner finish: %s confident frame(s), stop_signal=%s",
+            len(self.detected_corners), self.stop_signal.is_set(),
+        )
+        if len(self.detected_corners) == 0:
+            log.warning(
+                "DLC corner detection found no high-confidence corners; "
+                "skipping perspective transform."
+            )
+            return
         self.corners = np.mean(np.array(self.detected_corners), axis=0)
+        log.debug("DLC detected corners: %s", self.corners)
         self.affine_matrix, self.affine_matrix_inv = self._calculate_perspective_transform(
             self.corners, self.arena_size
         )
@@ -385,9 +418,11 @@ class DLCContinuousPoseEstimator(DLCProcessor):
             if not self.frame_queue.empty():
                 _, frame = self.frame_queue.get_nowait()
                 pose = self.model.get_pose(frame)
-                print("frame ", frame)
                 scores = np.array(pose[0:3][:, 2])
-                print("\rWait for high confidence pose scores ", scores, end="")
+                self._throttled_log(
+                    "pose_wait", logging.DEBUG,
+                    "Waiting for high-confidence pose scores: %s", scores,
+                )
                 if np.sum(scores >= confidence_threshold) == 3:
                     return pose
             time.sleep(0.1)
@@ -544,4 +579,4 @@ class DLCContinuousPoseEstimator(DLCProcessor):
                 try:
                     self.shared_memory.unlink()
                 except FileNotFoundError:
-                    print("Shared memory already unlinked or does not exist.")
+                    log.debug("Shared memory already unlinked or does not exist.")

@@ -122,14 +122,10 @@ class Camera(ABC):
                 ),
                 block=True,
             )
-            # Tie the h5 timestamp file to self.filename so per-camera disambiguators
-            # (video_aim / camera_idx suffix) propagate here too — otherwise two
-            # cameras in the same session would overwrite each other's h5.
+            # Per-camera name so two cameras in a session don't overwrite each
+            # other's h5; paths mirror Logger.createDataset (logger.py:950-961),
+            # which writes the file later in the child process.
             self.filename_tmst = f"videotmst_{self.filename}.h5"
-            # The h5 is written later by Logger.createDataset (child process),
-            # but the DB row is inserted here in the parent. Mirror the path
-            # logic from createDataset (logger.py:950-961) so the Recording
-            # row points at where the file will actually land.
             recordings_folder = (
                 f"Recordings/{logger.trial_key['animal_id']}"
                 f"_{logger.trial_key['session']}/"
@@ -322,13 +318,8 @@ class Camera(ABC):
                 time.sleep(0.01)
 
     def stop_rec(self) -> None:
-        """Stop the camera subprocess.
-
-        Idempotent and safe to call before the camera has finished starting up
-        (i.e. before ``self.recording`` has been set). The ``stop`` event is
-        sufficient to signal shutdown regardless of which lifecycle step the
-        child process has reached — relying on ``recording.is_set()`` here
-        would race against the spawn.
+        """Stop the camera subprocess. Idempotent and safe to call before the
+        camera has finished starting up (the stop event alone signals shutdown).
         """
         if self.camera_process is None:
             return
@@ -341,9 +332,7 @@ class Camera(ABC):
         try:
             self.camera_process.close()
         except ValueError:
-            # Process still alive after terminate() — rare, but don't mask it
-            # by raising during cleanup. The OS will reap it once it exits.
-            pass
+            pass  # still alive after terminate(); the OS reaps it once it exits
         self.camera_process = None
 
     @abstractmethod
@@ -427,6 +416,7 @@ class WebCam(Camera):
         self.contrast = kwargs.get("contrast")
         self.brightness = kwargs.get("brightness")
         self.device_id = kwargs.get("device_id") or ""
+        self._last_frame_err_log = 0.0  # throttles the per-frame read-error log
 
         if not globals()["IMPORT_CV2"]:
             raise ImportError(
@@ -435,41 +425,25 @@ class WebCam(Camera):
                 "You can install cv2 using pip:\n"
                 'sudo pip3 install opencv-python"'
             )
-        # Resolve + probe the device in the PARENT before spawning the
-        # subprocess. We deliberately do NOT open() the device here — opening +
-        # releasing leaves brief V4L2 driver state that races with the child's
-        # open in recording_init(), especially with two cameras initialized
-        # back-to-back. The resolver does a stat (cheap, race-free) and catches
-        # the common config errors (wrong device, unplugged camera) early.
-        # Permission / device-busy errors still surface from the child's open.
-        # self.device is set before super().__init__ spawns the child so the
-        # forked process inherits the resolved target.
+        # Probe in the parent (stat only, no open() — opening here races the
+        # child's open in recording_init). self.device is inherited by the fork.
         self.device = self._resolve_device()
         super().__init__(kwargs["filename"], kwargs["logger"], kwargs["video_aim"])
 
     def _resolve_device(self) -> Union[int, str]:
-        """Resolve the configured camera to a target ``cv2.VideoCapture`` can open.
+        """Resolve the camera to a target cv2.VideoCapture can open.
 
-        Resolution order:
-            * no ``device_id`` -> the ``/dev/videoN`` index (``camera_num``);
-              legacy behaviour, fine when only one camera is connected.
-            * ``device_id`` is an existing path (e.g. a ``/dev/v4l/by-id/...``
-              symlink) -> use it directly.
-            * otherwise ``device_id`` is treated as a substring (serial/model)
-              and matched against the capture-node (``index0``) symlinks under
-              ``/dev/v4l/by-id``.
-
-        ``by-id`` symlinks are keyed on vendor/model/serial, so they survive
-        reboots and USB re-plugging — unlike the ``/dev/videoN`` index or
-        ``/dev/v4l/by-path`` (which encodes the physical port).
+        With no ``device_id`` this is the ``/dev/videoN`` index. Otherwise it is
+        an existing path (e.g. a ``/dev/v4l/by-id`` symlink), or a substring
+        matched against the ``index0`` symlinks under ``/dev/v4l/by-id`` — these
+        are keyed on vendor/model/serial, so they survive reboots and re-plugging.
         """
         if not self.device_id:
             device_path = f"/dev/video{self.camera_num}"
             if not os.path.exists(device_path):
                 raise RuntimeError(
-                    f"Camera device {device_path} not found. Check that the "
-                    "camera is connected and that camera_idx matches the "
-                    "intended /dev/videoN."
+                    f"Camera device {device_path} not found; check the camera is "
+                    "connected and camera_idx matches the intended /dev/videoN."
                 )
             return self.camera_num
 
@@ -483,12 +457,13 @@ class WebCam(Camera):
             for name in available
             if self.device_id in name and name.endswith("index0")
         ]
+        # Require exactly one: 0 means not found, 2+ means the substring is
+        # ambiguous and picking one would open an arbitrary camera.
         if len(matches) == 1:
             return matches[0]
         raise RuntimeError(
-            f"device_id {self.device_id!r} matched {len(matches)} capture "
-            f"device(s) under {by_id} (expected exactly 1). "
-            f"Available: {available}"
+            f"device_id {self.device_id!r} matched {len(matches)} device(s) "
+            f"under {by_id} (expected 1). Available: {available}"
         )
 
     def setup(self):
@@ -587,9 +562,8 @@ class WebCam(Camera):
             raise RuntimeError(
                 "No camera is available. Please check if the camera is connected and functional."
             )
-        # Pin a predictable capture format: YUYV decoded to 3-channel RGB (get_frame's
-        # grayscale mean over axis=2 relies on 3 channels), and BUFFERSIZE=1 so read()
-        # always returns the most recent frame instead of a stale buffered one.
+        # YUYV decoded to 3-channel RGB (get_frame averages over axis=2), and
+        # BUFFERSIZE=1 so read() returns the latest frame, not a stale buffered one.
         self.camera.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc("Y", "U", "Y", "V"))
         self.camera.set(cv2.CAP_PROP_CONVERT_RGB, 1)
         self.camera.set(cv2.CAP_PROP_BUFFERSIZE, 1)
@@ -600,10 +574,8 @@ class WebCam(Camera):
                 f"Camera resolution cannot be set to {(self.resolution_x, self.resolution_y)}"
                 f", resize of frames will be used!!"
             )
-        # Every property below is opt-in. A camera that can't honour a setting
-        # (e.g. an analog frame-grabber) simply omits the key from its config, so
-        # the attribute is None and the setter is skipped. Provide real, non-zero
-        # values only for cameras that support them.
+        # Properties below are opt-in: omit the key from a camera's config (e.g. an
+        # analog grabber) to leave the value None and skip the setter.
         if self.exposure:
             self.camera.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)  # Disable auto exposure
             self._set_camera_property(cv2.CAP_PROP_EXPOSURE, self.exposure)
@@ -628,8 +600,7 @@ class WebCam(Camera):
                         f"{actual_value}, not the requested {value}"
                     )
             else:
-                # set() returned False: the driver rejected the property
-                # (common on analog grabbers / cameras that don't expose it).
+                # set() returned False: the camera doesn't expose this property.
                 logging.warning(
                     f"Camera property {property_id} is not supported by this "
                     f"camera; requested value {value} was ignored"
@@ -655,7 +626,10 @@ class WebCam(Camera):
                     continue
                 # Process the frame here
             except RuntimeError as error:
-                log.error(f"Failed to read frame from camera. Error: {error}")
+                now = time.time()
+                if now - self._last_frame_err_log >= 1.0:
+                    self._last_frame_err_log = now
+                    log.error(f"Failed to read frame from camera. Error: {error}")
                 continue
             tmst = self.logger_timer.elapsed_time()
             if not self.res_set:

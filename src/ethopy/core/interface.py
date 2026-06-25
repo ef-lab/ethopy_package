@@ -119,14 +119,9 @@ class Interface:
         self._initialize_camera()
 
     def _initialize_camera(self) -> None:
-        """Initialize all cameras configured for this setup, keyed by ``video_aim``.
-
-        Each row in ``SetupConfiguration.Camera`` becomes one ``Camera`` instance,
-        stored in ``self.cameras`` under ``f"{video_aim}_{camera_idx}"``. Always
-        including camera_idx in the key keeps the mapping "physical camera ->
-        file" stable across config edits — if a setup later drops one of two
-        openfield cameras, the remaining one keeps its idx suffix instead of
-        silently becoming the new "first openfield".
+        """Initialize each configured camera into ``self.cameras``, keyed by
+        ``f"{video_aim}_{camera_idx}"`` so the camera->file mapping stays stable
+        across config edits.
         """
         setup_cameras = self.logger.get(
             schema="interface",
@@ -151,10 +146,7 @@ class Interface:
 
         for camera in camera_rows:
             video_aim = camera.pop("video_aim")
-            # camera_idx doubles as the OS /dev/videoN index (V4L2) or the
-            # libcamera index (Picamera2). Future work: allow string device
-            # paths (e.g. udev symlinks) so cameras are addressed by role
-            # rather than relying on stable kernel enumeration order.
+            # camera_idx is the /dev/videoN (V4L2) or libcamera index.
             camera_num = camera.pop("camera_idx")
             key = f"{video_aim}_{camera_num}"
             camera_class = getattr(
@@ -235,12 +227,8 @@ class Interface:
         """Clean up interface resources."""
 
     def release(self) -> None:
-        """Release hardware resources, especially cameras.
-
-        Calls ``stop_rec`` unconditionally — checking ``recording.is_set()`` here
-        would race against cameras still inside their startup path (TOCTOU).
-        ``stop_rec`` is idempotent and safe to call before recording begins.
-        """
+        """Release hardware resources. stop_rec is idempotent, so it is called
+        unconditionally rather than racing a recording.is_set() check."""
         for aim, cam in self.cameras.items():
             log.info("Releasing camera resources (video_aim=%s).", aim)
             cam.stop_rec()
