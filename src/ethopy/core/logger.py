@@ -1014,7 +1014,7 @@ class Logger:
             key=self.trial_key,
             fields=["rec_idx"],
         )
-        rec_idx = 1 if not recs else max(recs) + 1
+        rec_idx = 1 if len(recs) == 0 else max(recs) + 1
         self.log("Recording", data={**rec_key, "rec_idx": rec_idx},
                  schema="recording", **kwargs)
 
