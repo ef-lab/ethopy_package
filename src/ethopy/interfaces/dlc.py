@@ -63,7 +63,8 @@ class DLCModel(ModelInterface):
         self.dlc_model.init_inference((frame / 255).astype(np.float32))
 
     def get_pose(self, frame):
-        return self.dlc_model.get_pose((frame / 255).astype(np.float32))
+        # DLCLive's exported graph does its own preprocessing and expects pixels in the 0-255 range.
+        return self.dlc_model.get_pose(frame)
 
 class DLCProcessor(ABC):
     """
