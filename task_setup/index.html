@@ -1065,6 +1065,56 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#4-how-conditions-are-made" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. How Conditions Are Made
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. How Conditions Are Made">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-make_conditions-does-with-your-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What make_conditions does with your dictionary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-factorization-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The factorization rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fields-that-must-stay-together-lists-vs-tuples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fields that must stay together (lists vs. tuples)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1901,6 +1951,56 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#4-how-conditions-are-made" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. How Conditions Are Made
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. How Conditions Are Made">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-make_conditions-does-with-your-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What make_conditions does with your dictionary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-factorization-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The factorization rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fields-that-must-stay-together-lists-vs-tuples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fields that must stay together (lists vs. tuples)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2256,6 +2356,95 @@
     <span class="n">stim_class</span><span class="o">=</span><span class="n">SomeStimulus</span><span class="p">(),</span>
     <span class="n">conditions</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">block</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span> <span class="o">**</span><span class="n">key</span><span class="p">,</span> <span class="s1">&#39;other_param&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
 <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="4-how-conditions-are-made">4. How Conditions Are Made<a class="headerlink" href="#4-how-conditions-are-made" title="Permanent link">&para;</a></h3>
+<p>A <strong>condition</strong> is one fully specified trial: a single dictionary that holds one value for every stimulus, behavior, and experiment parameter. You rarely write conditions out one by one. Instead you pass <code>make_conditions</code> a compact dictionary that describes <em>ranges</em> of values, and Ethopy expands (factorizes) it into the full set of individual conditions.</p>
+<h4 id="what-make_conditions-does-with-your-dictionary">What <code>make_conditions</code> does with your dictionary<a class="headerlink" href="#what-make_conditions-does-with-your-dictionary" title="Permanent link">&para;</a></h4>
+<p>When you call <code>make_conditions</code>, the single dictionary you pass is split by parameter ownership and factorized in three independent groups:</p>
+<ol>
+<li><strong>Stimulus</strong> parameters (the fields of your stim_class, e.g. contrast, spatial_freq).</li>
+<li><strong>Behavior</strong> parameters (the fields of the behavior class, e.g. reward and port settings).</li>
+<li><strong>Experiment</strong> parameters (the Block fields and other experiment-level settings).</li>
+</ol>
+<p>Each group is factorized on its own, and then the three groups are combined by a final <strong>cartesian product</strong>. So the total number of conditions is:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>n_stimulus  ×  n_behavior  ×  n_experiment
+</code></pre></div></td></tr></table></div>
+<p>This split is why the same flat dictionary can carry stimulus, behavior, and block parameters at once, each parameter is routed to the class that owns it, and any key that no class claims is still attached to every condition.</p>
+<h4 id="the-factorization-rule">The factorization rule<a class="headerlink" href="#the-factorization-rule" title="Permanent link">&para;</a></h4>
+<p>Within each group, expansion is done by the <code>factorize</code> helper, which generates the <strong>cartesian product</strong> of the parameters so you can define many conditions with a single call.</p>
+<p>A single rule governs the expansion:</p>
+<blockquote>
+<p>A <code>list</code> value is treated as a set of alternatives to expand over. Any other type  (<code>tuple</code>, <code>int</code>, <code>float</code>, <code>str</code>) is treated as a single fixed value.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>You write</th>
+<th>Interpreted as</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'x': [1, 2, 3]</code></td>
+<td>three alternatives</td>
+<td>three conditions (<code>x=1</code>, <code>x=2</code>, <code>x=3</code>)</td>
+</tr>
+<tr>
+<td><code>'x': 5</code></td>
+<td>one fixed value</td>
+<td>one condition</td>
+</tr>
+<tr>
+<td><code>'x': (1, 2)</code></td>
+<td>one fixed value (a tuple)</td>
+<td>one condition, <code>x</code> stays <code>(1, 2)</code></td>
+</tr>
+</tbody>
+</table>
+<p>For example:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">factorize</span><span class="p">({</span><span class="s1">&#39;freq&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;contrast&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="s1">&#39;duration&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">})</span>
+<span class="c1"># 2 x 2 x 1 = 4 conditions:</span>
+<span class="c1">#   {&#39;freq&#39;: 1, &#39;contrast&#39;: 10, &#39;duration&#39;: 500}</span>
+<span class="c1">#   {&#39;freq&#39;: 1, &#39;contrast&#39;: 20, &#39;duration&#39;: 500}</span>
+<span class="c1">#   {&#39;freq&#39;: 2, &#39;contrast&#39;: 10, &#39;duration&#39;: 500}</span>
+<span class="c1">#   {&#39;freq&#39;: 2, &#39;contrast&#39;: 20, &#39;duration&#39;: 500}</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="fields-that-must-stay-together-lists-vs-tuples">Fields that must stay together (lists vs. tuples)<a class="headerlink" href="#fields-that-must-stay-together-lists-vs-tuples" title="Permanent link">&para;</a></h4>
+<p>Some condition tables have fields that represent <strong>one value made of several aligned elements</strong> rather than a set of alternatives. A common case is a color field such as <code>bg_level</code>, an <code>[R, G, B]</code> triple whose three elements must stay together as a single value.</p>
+<p>For these fields use a <strong>tuple</strong>, so <code>factorize</code> keeps them intact instead of expanding them:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="s1">&#39;bg_level&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>   <span class="c1"># ONE color (white)</span>
+<span class="s1">&#39;bg_level&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>   <span class="c1"># THREE separate conditions: 1, 1, 1</span>
+</code></pre></div></td></tr></table></div>
+<p>To vary over several such arrays in one call, wrap the tuples (or inner lists) in an outer list. The outer list is the set of alternatives, each inner array becomes one condition's aligned value (inner lists are converted to tuples automatically):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="s1">&#39;bg_level&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>            <span class="c1"># one condition,  bg_level = (1, 1, 1)</span>
+<span class="s1">&#39;bg_level&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span> <span class="c1"># two conditions: (1, 1, 1) and (0, 0, 0)</span>
+</code></pre></div></td></tr></table></div>
+<p>You can see this pattern in the shipped <code>dot_test.py</code> example task, where each stimulus keeps an aligned RGB triple as a single value while other fields expand:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># src/ethopy/task/dot_test.py</span>
+<span class="n">key</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;bg_level&#39;</span> <span class="p">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
+    <span class="s1">&#39;dot_level&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+    <span class="s1">&#39;dot_x&#39;</span>    <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">.45</span><span class="p">,</span> <span class="mf">.45</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>  <span class="c1"># 10 alternatives</span>
+    <span class="s1">&#39;dot_y&#39;</span>    <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">.27</span><span class="p">,</span> <span class="mf">.27</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span>   <span class="c1"># 6 alternatives</span>
+    <span class="c1"># ...</span>
+<span class="p">}</span>
+<span class="c1"># 10 x 6 = 60 conditions; bg_level / dot_level stay intact as single RGB triples</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="helper-functions">Helper Functions<a class="headerlink" href="#helper-functions" title="Permanent link">&para;</a></h2>
 <p>Ethopy provides helper functions for task creation:</p>
