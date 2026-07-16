@@ -175,6 +175,84 @@ conditions = exp.make_conditions(
 )
 ```
 
+### 4. How Conditions Are Made
+
+A **condition** is one fully specified trial: a single dictionary that holds one value for every stimulus, behavior, and experiment parameter. You rarely write conditions out one by one. Instead you pass `make_conditions` a compact dictionary that describes *ranges* of values, and Ethopy expands (factorizes) it into the full set of individual conditions.
+
+#### What `make_conditions` does with your dictionary
+
+When you call `make_conditions`, the single dictionary you pass is split by parameter ownership and factorized in three independent groups:
+
+1. **Stimulus** parameters (the fields of your stim_class, e.g. contrast, spatial_freq).
+2. **Behavior** parameters (the fields of the behavior class, e.g. reward and port settings).
+3. **Experiment** parameters (the Block fields and other experiment-level settings).
+
+Each group is factorized on its own, and then the three groups are combined by a final **cartesian product**. So the total number of conditions is:
+
+```
+n_stimulus  ×  n_behavior  ×  n_experiment
+```
+
+This split is why the same flat dictionary can carry stimulus, behavior, and block parameters at once, each parameter is routed to the class that owns it, and any key that no class claims is still attached to every condition.
+
+#### The factorization rule
+
+Within each group, expansion is done by the `factorize` helper, which generates the **cartesian product** of the parameters so you can define many conditions with a single call.
+
+A single rule governs the expansion:
+
+> A `list` value is treated as a set of alternatives to expand over. Any other type  (`tuple`, `int`, `float`, `str`) is treated as a single fixed value.
+
+| You write | Interpreted as | Result |
+|-----------|----------------|--------|
+| `'x': [1, 2, 3]` | three alternatives | three conditions (`x=1`, `x=2`, `x=3`) |
+| `'x': 5` | one fixed value | one condition |
+| `'x': (1, 2)` | one fixed value (a tuple) | one condition, `x` stays `(1, 2)` |
+
+For example:
+
+```python
+factorize({'freq': [1, 2], 'contrast': [10, 20], 'duration': 500})
+# 2 x 2 x 1 = 4 conditions:
+#   {'freq': 1, 'contrast': 10, 'duration': 500}
+#   {'freq': 1, 'contrast': 20, 'duration': 500}
+#   {'freq': 2, 'contrast': 10, 'duration': 500}
+#   {'freq': 2, 'contrast': 20, 'duration': 500}
+```
+
+#### Fields that must stay together (lists vs. tuples)
+
+Some condition tables have fields that represent **one value made of several aligned elements** rather than a set of alternatives. A common case is a color field such as `bg_level`, an `[R, G, B]` triple whose three elements must stay together as a single value.
+
+For these fields use a **tuple**, so `factorize` keeps them intact instead of expanding them:
+
+```python
+'bg_level': (1, 1, 1),   # ONE color (white)
+'bg_level': [1, 1, 1],   # THREE separate conditions: 1, 1, 1
+```
+
+To vary over several such arrays in one call, wrap the tuples (or inner lists) in an outer list. The outer list is the set of alternatives, each inner array becomes one condition's aligned value (inner lists are converted to tuples automatically):
+
+```python
+'bg_level': [[1, 1, 1]]            # one condition,  bg_level = (1, 1, 1)
+'bg_level': [[1, 1, 1], [0, 0, 0]] # two conditions: (1, 1, 1) and (0, 0, 0)
+```
+
+You can see this pattern in the shipped `dot_test.py` example task, where each stimulus keeps an aligned RGB triple as a single value while other fields expand:
+
+```python
+# src/ethopy/task/dot_test.py
+key = {
+    'bg_level' : [[1, 1, 1]],
+    'dot_level': [[0, 0, 0]],
+    'dot_x'    : list(np.linspace(-.45, .45, 10)),  # 10 alternatives
+    'dot_y'    : list(np.linspace(-.27, .27, 6)),   # 6 alternatives
+    # ...
+}
+# 10 x 6 = 60 conditions; bg_level / dot_level stay intact as single RGB triples
+```
+
+
 ## Helper Functions
 
 Ethopy provides helper functions for task creation:
