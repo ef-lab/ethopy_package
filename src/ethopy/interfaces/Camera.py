@@ -542,8 +542,11 @@ class WebCam(Camera):
         """
         img = item[1].copy()
         self.video_output.writeFrame(img)
-        # Append the timestamp to the 'frame_tmst' h5 dataset
-        self.dataset.append("frame_tmst", [np.double(item[0])])
+        # Record the timestamp: h5 dataset with a logger, plain text file without.
+        if self.tmst_type == "txt":
+            self.tmst_output.write(f"{item[0]}\n")
+        else:
+            self.dataset.append("frame_tmst", [np.double(item[0])])
 
     def camera_opened(self, camera):
         """Check if the camera is opened."""
@@ -640,7 +643,10 @@ class WebCam(Camera):
 
         self.camera.release()
         self.recording.clear()
-        self.dataset.exit()
+        if self.tmst_type == "txt":
+            self.tmst_output.close()
+        else:
+            self.dataset.exit()
 
     def stop_rec(self):
         """
@@ -792,7 +798,10 @@ class PiCamera(Camera):
         output = FfmpegOutput(str(Path(self.source_path) / f"{self.filename}.mp4"))
         if self.serve_port > 0:
             self.httpthread = HTTPServerThread(
-                self, server_user=self.server_user, server_password=self.server_password
+                self,
+                serve_port=self.serve_port,
+                server_user=self.server_user,
+                server_password=self.server_password,
             )
             self.httpthread.start()
         picam2.start_encoder(encoder, output)
