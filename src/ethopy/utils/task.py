@@ -4,7 +4,7 @@ import logging
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, Union
+from typing import List, Optional, Union
 
 log = logging.getLogger(__name__)
 
@@ -21,6 +21,31 @@ class Task:
         """Return True if either path or id is specified, indicating manual
         task selection"""
         return bool(self.path or self.id)
+
+
+def _task_search_dirs() -> List[Path]:
+    """Return directories searched when a task is given by bare file name.
+
+    The built-in ``task`` folder is searched first (so packaged tasks take
+    precedence, consistent with core plugins winning over user plugins), then
+    any ``task`` directory discovered inside a plugin path.
+    """
+    dirs = [Path(__file__).parent.parent / "task"]
+
+    # Import lazily to avoid a circular import at module load time.
+    from ethopy import plugin_manager
+
+    dirs.extend(Path(p) for p in plugin_manager.task_paths)
+    return dirs
+
+
+def _resolve_task_filename(filename: str) -> Optional[Path]:
+    """Locate a bare task file name across the built-in and plugin task dirs."""
+    for directory in _task_search_dirs():
+        candidate = directory / filename
+        if candidate.is_file():
+            return candidate
+    return None
 
 
 def resolve_task(
@@ -45,11 +70,14 @@ def resolve_task(
 
     if task_path:
         path = Path(task_path)
-        # If only filename provided, look in default config directory
+        # If only a filename is provided, search the built-in task folder and
+        # any task folders provided by plugins.
         if not path.parent.name:
-            path = Path(__file__).parent.parent / "task" / path
-
-        if not path.is_file():
+            resolved = _resolve_task_filename(path.name)
+            if resolved is None:
+                raise FileNotFoundError(f"Task file not found: {path.name}")
+            path = resolved
+        elif not path.is_file():
             raise FileNotFoundError(f"Task file not found: {path}")
 
         return Task(path=path, id=None)
@@ -65,12 +93,13 @@ def resolve_task(
         task_path = Path(task_query.fetch1("task"))
         path, filename = os.path.split(task_path)
         if not path:
-            task_path = Path(
-                os.path.join(
-                    str(Path(__file__).parent.absolute()), "..", "task", filename
+            resolved = _resolve_task_filename(filename)
+            if resolved is None:
+                raise FileNotFoundError(
+                    f"Task file from database not found: {filename}"
                 )
-            )
-        if not task_path.is_file():
+            task_path = resolved
+        elif not task_path.is_file():
             raise FileNotFoundError(f"Task file from database not found: {task_path}")
 
         return Task(path=task_path, id=task_id)

@@ -44,6 +44,7 @@ class PluginManager:
     """
 
     PLUGIN_CATEGORIES = ["behaviors", "experiments", "interfaces", "stimuli"]
+    TASK_DIR = "task"
 
     def __init__(self, local_conf_path: Optional[str] = None):
         """Initialize PluginManager instance.
@@ -68,6 +69,8 @@ class PluginManager:
 
         """
         self.plugin_paths: Set[str] = set()
+        # tasks area trucjed separately from other plugins because they are scripts resolved by file path, not imported.
+        self.task_paths: List[str] = []
         self._plugins: Dict[str, PluginInfo] = {}  # import_path -> PluginInfo
         self._duplicates: Dict[
             str, List[str]
@@ -221,6 +224,12 @@ class PluginManager:
 
             # Scan for plugins
             self._scan_plugins(path)
+            # if plugin path contains a task directory, register it for task resolution. Tasks are
+            # scripts run by file name, so we only track the directory
+            task_path = os.path.join(path, self.TASK_DIR)
+            if os.path.isdir(task_path) and task_path not in self.task_paths:
+                self.task_paths.append(task_path)
+                log.info(f"Added task path: {task_path}")
 
             # Refresh import cache
             importlib.invalidate_caches()
