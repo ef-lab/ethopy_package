@@ -89,6 +89,24 @@ class TestExpandConditionRows:
         rows = expand_condition_rows(condition, {"cond_hash", "port"}, ["port"])
         assert [r["port"] for r in rows] == [1, 2]
 
+    def test_tuple_secondary_field_is_split_like_a_list(self):
+        """A tuple is split element-by-element, even as a secondary field.
+
+        Note: this differs from factorize(), which keeps tuples as one composite
+        value.
+        """
+        condition = {"cond_hash": "h", "port": [1, 2], "coord": (5, 6)}
+        rows = expand_condition_rows(
+            condition, {"cond_hash", "port", "coord"}, ["port"]
+        )
+        assert [r["coord"] for r in rows] == [5, 6]
+
+    def test_empty_sequence_expands_to_no_rows(self):
+        """An empty sequence primary key produces zero rows (silently)."""
+        condition = {"cond_hash": "h", "port": []}
+        rows = expand_condition_rows(condition, {"cond_hash", "port"}, ["port"])
+        assert rows == []
+
     def test_mismatched_sequence_lengths_raise(self):
         """Unequal sequence lengths raise a clear error naming the fields."""
         condition = {"cond_hash": "h", "port": [1, 2, 3], "loc_x": [0.1, 0.2]}
