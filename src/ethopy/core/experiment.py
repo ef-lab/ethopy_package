@@ -28,7 +28,11 @@ from sklearn.metrics import roc_auc_score
 
 from ethopy.core.logger import Logger, experiment
 from ethopy.utils.helper_functions import factorize, make_hash
-from ethopy.utils.task_helper_funcs import format_params_print, get_parameters
+from ethopy.utils.task_helper_funcs import (
+    expand_condition_rows,
+    format_params_print,
+    get_parameters,
+)
 from ethopy.utils.timer import Timer
 
 log = logging.getLogger(__name__)
@@ -591,39 +595,11 @@ class ExperimentClass:
                     log.warning(f"Skipping {ctable}, Missing keys:{missing_keys}")
                     continue
 
-                # If any non-hash primary key is an indexable sequence (list,
-                # tuple, or numpy array), expand the condition into one row per
-                # element. Checking every core key (not just core[0]) avoids
-                # missing the sequence when a scalar key sorts first. Strings and
-                # numpy scalars are treated as single values, not expanded.
-                seq_types = (list, tuple, np.ndarray)
-                expandable_key = next(
-                    (k for k in core if isinstance(condition.get(k), seq_types)),
-                    None,
-                )
-                if expandable_key is not None:
-                    # Expand into one row per element, all sharing the same
-                    # cond_hash (one condition, many rows). Scalar fields are
-                    # repeated; every sequence field is split in parallel by
-                    # index, so all sequences must have the same length.
-                    for idx in range(len(condition[expandable_key])):
-                        cond_key = {}
-                        for k in fields:
-                            if isinstance(condition[k], seq_types):
-                                cond_key[k] = condition[k][idx]
-                            else:
-                                cond_key[k] = condition[k]
-
-                        self.logger.put(
-                            table=ctable,
-                            tuple=cond_key,
-                            schema=schema,
-                            priority=_priority,
-                        )
-
-                else:
+                # A condition normally maps to one row, but a sequence-valued
+                # primary key expands it into several (see expand_condition_rows).
+                for row in expand_condition_rows(condition, fields, core):
                     self.logger.put(
-                        table=ctable, tuple=condition, schema=schema, priority=_priority
+                        table=ctable, tuple=row, schema=schema, priority=_priority
                     )
 
                 # Increment the priority for each subsequent table
