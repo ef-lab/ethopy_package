@@ -1,5 +1,5 @@
 site_name: EthoPy
-site_description: Python Boilerplate contains all the boilerplate you need to create a Python package.
+site_description: A Python framework for automated, high-throughput behavioral experiments with database integration.
 site_author: olakiril, alexevag
 site_url: https://ef-lab.github.io/ethopy_package/
 repo_url: https://github.com/ef-lab/ethopy_package
