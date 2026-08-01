@@ -56,6 +56,12 @@ class TestBehavior:
         assert behavior.last_lick.time == 1500
         assert behavior.licked_port == 2
 
+    def test_log_activity_before_logger_setup(self, behavior):
+        """Callbacks firing before setup() must not raise AttributeError."""
+        behavior.logger = None
+        result = behavior.log_activity({"type": "Lick", "port": 1, "time": 500})
+        assert result == 500
+
     def test_is_licking_no_lick(self, behavior):
         """Test is_licking when no lick has occurred."""
         from ethopy.core.behavior import BehActivity
