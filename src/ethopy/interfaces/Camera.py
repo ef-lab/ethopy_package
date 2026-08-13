@@ -218,7 +218,7 @@ class Camera(ABC):
         return path
 
     @staticmethod
-    def copy_file(args):
+    def copy_file(args) -> bool:
         """
         Copy a file from the source path to the target path.
 
@@ -226,26 +226,32 @@ class Camera(ABC):
             args (tuple): A tuple containing the source file path and the target directory path.
 
         Returns:
-            None
-
-        Raises:
-            FileNotFoundError: If the source file is not found.
+            bool: True if the file was copied, verified and removed locally. On
+            False the local copy is kept, so the recording is never lost.
 
         """
         file, target = args
+        destination = target / file.name
         try:
-            shutil.copy(str(file), str(target / file.name))
+            shutil.copy(str(file), str(destination))
             log.debug(f"Transferred file: {file.name}")
-            # Verify the file exists in the target directory
-            if os.path.exists(str(target / file.name)) and os.path.getsize(
-                str(file)
-            ) == os.path.getsize(str(target / file.name)):
-                os.remove(str(file))
-                log.debug(f"Deleted original file: {file.name}")
-            else:
-                log.error(f"Failed to transfer file: {file.name}")
-        except FileNotFoundError as ex:
+            # Verify the copy before deleting the only other copy of the data
+            if (
+                not destination.exists()
+                or destination.stat().st_size != file.stat().st_size
+            ):
+                log.error(
+                    f"Size mismatch after transferring {file.name}; "
+                    "keeping the local copy"
+                )
+                return False
+            os.remove(str(file))
+            log.debug(f"Deleted original file: {file.name}")
+            return True
+        except OSError as ex:
+            # OSError also covers shutil.SameFileError and a dropped network mount
             log.error(f"Failed to transfer file: {file.name}. Reason: {ex}")
+            return False
 
     def clear_local_videos(self) -> None:
         """Move this camera's video file(s) to the target path.
@@ -273,7 +279,14 @@ class Camera(ABC):
 
         log.info(f"Transferring {len(files)} video file(s) from {source} to {target}")
         with Pool(processes=min(2, os.cpu_count() - 1)) as pool:
-            pool.map(self.copy_file, files)
+            results = pool.map(self.copy_file, files)
+
+        failed = [entry.name for (entry, _), ok in zip(files, results) if not ok]
+        if failed:
+            log.error(
+                f"Failed to transfer {len(failed)} of {len(files)} video file(s): "
+                f"{', '.join(failed)}. They are kept in {source}"
+            )
 
     def setup(self) -> None:
         """
@@ -297,7 +310,9 @@ class Camera(ABC):
             self.capture_runner.join()
             self.write_runner.join()
         except Exception as cam_error:
-            raise f"Exception occurred during recording: {cam_error}"
+            raise RuntimeError(
+                f"Exception occurred during recording: {cam_error}"
+            ) from cam_error
 
     def dequeue(self, frame_queue: Queue) -> None:
         """
@@ -687,6 +702,16 @@ class PiCamera(Camera):
             raise ImportError(
                 "the picamera package could not be imported, install it before use!"
             )
+        # PicameraOutput annotates every frame with cv2, so a missing cv2 would
+        # otherwise surface as a NameError inside the recording thread.
+        if not globals()["IMPORT_CV2"]:
+            raise ImportError(
+                "The cv2 package could not be imported. "
+                "Please install it before using PiCamera.\n"
+                "On Raspberry Pi OS install it from apt so it links against the "
+                "system numpy:\n"
+                "sudo apt install python3-opencv"
+            )
         self.initialized = threading.Event()
         self.initialized.clear()
         self.cam = None
@@ -754,7 +779,9 @@ class PiCamera(Camera):
             while not self.stop.is_set():
                 time.sleep(1)
         except Exception as rec_error:
-            raise f"Error during camera recording: {rec_error}"
+            raise RuntimeError(
+                f"Error during camera recording: {rec_error}"
+            ) from rec_error
         finally:
             self._stop_recording()
 
@@ -813,8 +840,11 @@ class PiCamera(Camera):
         if self.recording.is_set():
             if self.httpthread:
                 self.httpthread.stop_serving()
-            self.cam.stop_recording()
-            self.cam.close()
+            # cam is None when init_cam() raised; without this the AttributeError
+            # here would replace the real initialisation error.
+            if self.cam is not None:
+                self.cam.stop_recording()
+                self.cam.close()
 
         if self.tmst_type == "txt":
             self.tmst_output.close()
@@ -822,7 +852,7 @@ class PiCamera(Camera):
             self.dataset.exit()
 
         self.recording.clear()
-        self._cam = None
+        self.cam = None
         self.clear_local_videos()
 
     def write_frame(self, item: Union[List, tuple]) -> None:
