@@ -153,9 +153,12 @@ class Logger:
         self.update_status.clear()
 
         # source path is the local path that data are saved
-        self.source_path = local_conf.get("source_path")
         # target path is the path that data will be moved after the session ends
-        self.target_path = local_conf.get("target_path")
+        # Both are joined to subfolders/filenames by string concatenation (here, in
+        # Writer and in Camera), so they must end with a separator; os.path.join
+        # with "" appends one only when it is missing.
+        self.source_path = os.path.join(local_conf.get("source_path"), "")
+        self.target_path = os.path.join(local_conf.get("target_path"), "")
 
         # inserter_thread read the queue and insert the data in the database
         self.thread_end, self.thread_lock = threading.Event(), threading.Lock()
