@@ -679,15 +679,26 @@ class ExperimentClass:
             perf: Current performance metric
 
         """
-        if self.cur_block_sz >= self.curr_cond["staircase_window"]:
-            if perf >= self.curr_cond["stair_up"]:
-                self.cur_block = self.curr_cond["next_up"]
-                self.cur_block_sz = 0
-                self.logger.update_setup_info({"difficulty": self.cur_block})
-            elif perf < self.curr_cond["stair_down"]:
-                self.cur_block = self.curr_cond["next_down"]
-                self.cur_block_sz = 0
-                self.logger.update_setup_info({"difficulty": self.cur_block})
+        if self.cur_block_sz < self.curr_cond["staircase_window"]:
+            return
+
+        if perf >= self.curr_cond["stair_up"]:
+            next_block = self.curr_cond["next_up"]
+        elif perf < self.curr_cond["stair_down"]:
+            next_block = self.curr_cond["next_down"]
+        else:
+            return
+
+        self.cur_block_sz = 0
+        if next_block not in self.blocks:
+            log.warning(
+                f"No conditions with difficulty {next_block}, "
+                f"staying in difficulty {self.cur_block}."
+            )
+            return
+
+        self.cur_block = next_block
+        self.logger.update_setup_info({"difficulty": self.cur_block})
 
     def _get_valid_conditions(self, condition_idx: np.ndarray) -> List[Dict]:
         """Get list of valid conditions based on condition index.
