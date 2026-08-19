@@ -790,6 +790,24 @@ class PiCamera(Camera):
         self.stop.clear()
         self.recording.set()
         self.cam = self.init_cam()
+        self._start_http_server()
+
+    def _start_http_server(self) -> None:
+        """Serve the camera over HTTP, if a port is configured.
+
+        Must run after self.cam is assigned: start_serving() dereferences it
+        from the HTTP handler thread, so the server cannot accept a client any
+        earlier without racing the camera being ready.
+        """
+        if self.serve_port <= 0:
+            return
+        self.httpthread = HTTPServerThread(
+            self,
+            serve_port=self.serve_port,
+            server_user=self.server_user,
+            server_password=self.server_password,
+        )
+        self.httpthread.start()
 
     def init_cam(self) -> "Picamera2":
         """Initialize the camera."""
@@ -823,14 +841,6 @@ class PiCamera(Camera):
         )  # pylint: disable=all
         encoder = H264Encoder(10000000)
         output = FfmpegOutput(str(Path(self.source_path) / f"{self.filename}.mp4"))
-        if self.serve_port > 0:
-            self.httpthread = HTTPServerThread(
-                self,
-                serve_port=self.serve_port,
-                server_user=self.server_user,
-                server_password=self.server_password,
-            )
-            self.httpthread.start()
         picam2.start_encoder(encoder, output)
 
         return picam2
