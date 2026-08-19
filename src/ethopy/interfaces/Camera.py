@@ -103,6 +103,8 @@ class Camera(ABC):
         if self.serve_port:
             self.server_user = local_conf.get("server.user", "")
             self.server_password = local_conf.get("server.password", "")
+            # Frames per second to stream; 0 streams every encoded frame.
+            self.serve_fps = local_conf.get("server.fps", 0)
         self.httpthread = None
         self.tmst_type = None
         self.dataset = None
@@ -806,6 +808,7 @@ class PiCamera(Camera):
             serve_port=self.serve_port,
             server_user=self.server_user,
             server_password=self.server_password,
+            serve_fps=self.serve_fps,
         )
         self.httpthread.start()
 
@@ -946,6 +949,7 @@ class HTTPServerThread(Thread):
         serve_port: int = 8000,
         server_user: Optional[str] = None,
         server_password: Optional[str] = None,
+        serve_fps: float = 0,
     ):
         super().__init__()
         self.python_logger = logging.getLogger(self.__class__.__name__)
@@ -953,6 +957,8 @@ class HTTPServerThread(Thread):
             ("", serve_port), self.CameraHTTPRequestHandler
         )
         self.server.cam = cam
+        # 0 (the default) streams every frame the encoder produces.
+        self.server.serve_interval = 1 / serve_fps if serve_fps > 0 else 0
         self.server.auth = None
         if server_user and server_password:
             str_auth = f"{server_user}:{server_password}"
@@ -991,12 +997,16 @@ class HTTPServerThread(Thread):
 
         def send_jpeg(self, output: StreamingOutput) -> None:
             """Send a JPEG image."""
+            # Take a reference under the lock but write outside it: the encoder
+            # holds the same condition in StreamingOutput.write, so a slow
+            # client must not block frame production.
             with output.condition:
                 output.condition.wait()
-                self.send_header("Content-Type", "image/jpeg")
-                self.send_header("Content-Length", len(output.frame))
-                self.end_headers()
-                self.wfile.write(output.frame)
+                frame = output.frame
+            self.send_header("Content-Type", "image/jpeg")
+            self.send_header("Content-Length", len(frame))
+            self.end_headers()
+            self.wfile.write(frame)
 
         def do_GET(self) -> None:
             """Handle a GET request."""
@@ -1015,6 +1025,11 @@ class HTTPServerThread(Thread):
                             self.send_jpeg(output)
                             self.wfile.write(b"\r\n")
                             self.wfile.flush()
+                            # Throttle the stream: send_jpeg blocks until the
+                            # next frame, so sleeping here drops the ones in
+                            # between instead of pushing them over the network.
+                            if self.server.serve_interval:
+                                time.sleep(self.server.serve_interval)
                     except IOError as err:
                         self.logger().error(
                             "Exception while serving client %s: %s",
