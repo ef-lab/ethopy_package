@@ -296,10 +296,31 @@ class Camera(ABC):
         """
         self.frame_queue = Queue()
         # self.process_queue.cancel_join_thread()
-        self.capture_runner = threading.Thread(target=self.rec)
-        self.write_runner = threading.Thread(
-            target=self.dequeue, args=(self.frame_queue,)
+        self.capture_runner = threading.Thread(
+            target=self._run_guarded, args=(self.rec,)
         )
+        self.write_runner = threading.Thread(
+            target=self._run_guarded, args=(self.dequeue, self.frame_queue)
+        )
+
+    def _run_guarded(self, func: Any, *args: Any) -> None:
+        """Run a recording thread target, logging whatever it raises.
+
+        An unhandled exception in a thread only reaches threading.excepthook,
+        so it never lands in the ethopy log, and self.stop stays clear - which
+        leaves dequeue() spinning and the whole camera subprocess alive with a
+        closed camera (and still holding the streaming port).
+        """
+        try:
+            func(*args)
+        except Exception:
+            log.exception(
+                "Camera %s: %s failed, stopping recording.",
+                self.filename,
+                getattr(func, "__name__", func),
+            )
+        finally:
+            self.stop.set()
 
     def start_rec(self) -> None:
         """
@@ -312,6 +333,7 @@ class Camera(ABC):
             self.capture_runner.join()
             self.write_runner.join()
         except Exception as cam_error:
+            log.exception("Camera %s: recording setup failed.", self.filename)
             raise RuntimeError(
                 f"Exception occurred during recording: {cam_error}"
             ) from cam_error
@@ -789,7 +811,6 @@ class PiCamera(Camera):
 
     def recording_init(self) -> None:
         """Initialize the recording."""
-        self.stop.clear()
         self.recording.set()
         self.cam = self.init_cam()
         self._start_http_server()
@@ -803,13 +824,29 @@ class PiCamera(Camera):
         """
         if self.serve_port <= 0:
             return
-        self.httpthread = HTTPServerThread(
-            self,
-            serve_port=self.serve_port,
-            server_user=self.server_user,
-            server_password=self.server_password,
-            serve_fps=self.serve_fps,
-        )
+        # One port per camera, so several cameras in one setup do not all try
+        # to bind server.port.
+        port = self.serve_port + self.camera_num
+        try:
+            self.httpthread = HTTPServerThread(
+                self,
+                serve_port=port,
+                server_user=self.server_user,
+                server_password=self.server_password,
+                serve_fps=self.serve_fps,
+            )
+        except OSError:
+            # Streaming is an accessory: a port that is busy (usually a camera
+            # process left over from an earlier run) must not stop the
+            # recording.
+            self.httpthread = None
+            log.exception(
+                "Camera %s: could not serve on port %s, continuing without "
+                "the video stream.",
+                self.filename,
+                port,
+            )
+            return
         self.httpthread.start()
 
     def init_cam(self) -> "Picamera2":
