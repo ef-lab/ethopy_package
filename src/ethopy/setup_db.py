@@ -280,6 +280,7 @@ def createschema() -> None:
         ("core/interface", "from ethopy.core.interface import *"),
         ("core/behavior", "from ethopy.core.behavior import *"),
         ("core/recordings", "from ethopy.core.recordings import *"),
+        ("core/mice", "from ethopy.core.mice import *"),
         ("stimuli", "from ethopy.stimuli import *"),
         ("behaviors", "from ethopy.behaviors import *"),
         ("experiments", "from ethopy.experiments import *"),
