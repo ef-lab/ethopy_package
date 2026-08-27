@@ -44,7 +44,7 @@ class Mice(dj.Manual):
     line=''              : varchar(255)                 # mouse line
     genotype='unknown'   : enum('homozygous','heterozygous','hemizygous','positive','negative','wild type','unknown')
     ear_punch='unknown'  : enum('None','R','L','RL','RR','LL','unknown') # animal's ear punch
-    owner='none'         : enum('manolis','maria','emina','constantina','sofia','eleanna','ilianna','zoi','mariap','marsa','asimenia','Other','Available','none','dimitra','nassi','alex','nikos','andreas','odysseas','anastasios','athanasios','paschalis','rania') # mouse's owner
+    owner='none'         : enum('manolis','maria','emina','Other','Available','none') # mouse's owner
     fluo_test='unknown'  : enum('unknown','no','yes')   # fluorescence test result
     mouse_notes=''       : varchar(4096)                # other comments and distinguishing features
     facility='unknown'   : enum('TMF','Taub','Other','unknown') # animal's current facility
