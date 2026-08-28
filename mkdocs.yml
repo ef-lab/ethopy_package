@@ -76,7 +76,7 @@ nav:
   - Getting Started:
     - Quickstart: getting_started.md
     - Installation: installation.md
-    - Local Configuration: local_conf.md
+    - Configuration: local_conf.md
     - Examples:
         - Overview: creating_custom_components.md
         - Experiment: match_port_example.md
