@@ -7,6 +7,7 @@ import logging
 import os
 import socket
 import subprocess
+import sys
 from pathlib import Path
 from time import sleep
 from typing import Optional, Tuple
@@ -197,16 +198,27 @@ def setup_dj_docker(mysql_path: Optional[str], container_name: str) -> None:
         mysql_dir.mkdir(parents=True, exist_ok=True)
         os.chdir(str(mysql_dir))
 
+        # MySQL only honours MYSQL_ROOT_PASSWORD when it initialises an empty
+        # data directory, so a leftover one silently keeps its old credentials.
+        data_dir = mysql_dir / f"data_{container_name}"
+        if data_dir.exists():
+            click.echo(
+                f"WARNING: a MySQL data directory already exists at {data_dir}.\n"
+                "MySQL will reuse it and IGNORE the password entered below - the "
+                "root password stored in that directory stays in force.\n"
+                "Enter that existing password, or press Ctrl-C and move the "
+                "directory aside to start from a clean database."
+            )
+
         # Get password securely using Click's password prompt
         mysql_password = click.prompt(
             "Enter the MySQL root password", hide_input=True, confirmation_prompt=True
         )
 
         docker_content = (
-            f"version: '2.4'\n"
             f"services:\n"
             f"  {container_name}:\n"
-            f"    image: datajoint/mysql:5.7\n"
+            f"    image: datajoint/mysql:8\n"
             f"    environment:\n"
             f"    - MYSQL_ROOT_PASSWORD={mysql_password}\n"
             f"    ports:\n"
@@ -290,7 +302,10 @@ def createschema() -> None:
         try:
             # Capture both stdout and stderr
             _ = subprocess.run(
-                ["python", "-c", cmd], check=True, capture_output=True, text=True
+                [sys.executable, "-c", cmd],
+                check=True,
+                capture_output=True,
+                text=True,
             )
             click.echo(f"Successfully created tables for: {schema_name}")
 
