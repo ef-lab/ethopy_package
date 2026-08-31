@@ -134,8 +134,9 @@ class Experiment:
                 if hasattr(self, "menu"):
                     self.menu.disable()
 
+                # Not pygame.quit(): it frees fonts still cached by
+                # pygame_menu, segfaulting the next menu built.
                 pygame.display.quit()
-                pygame.quit()
             except Exception as e:
                 log.warning(f"Error during pygame cleanup: {e}")
 
