@@ -602,7 +602,7 @@
   <span class="md-ellipsis">
     
   
-    Local Configuration
+    Configuration
   
 
     
@@ -1670,15 +1670,15 @@
 <span class="normal">11</span>
 <span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># To start an experiment on a setup</span>
 <span class="n">experiment</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">update1</span><span class="p">({</span>
-    <span class="s1">&#39;setup&#39;</span><span class="p">:</span> <span class="n">setup_name</span><span class="p">,</span>
-    <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="s1">&#39;running&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;task_idx&#39;</span><span class="p">:</span> <span class="n">your_task_id</span>
+    <span class="s1">'setup'</span><span class="p">:</span> <span class="n">setup_name</span><span class="p">,</span>
+    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'running'</span><span class="p">,</span>
+    <span class="s1">'task_idx'</span><span class="p">:</span> <span class="n">your_task_id</span>
 <span class="p">})</span>
 
 <span class="c1"># To stop an experiment</span>
 <span class="n">experiment</span><span class="o">.</span><span class="n">Control</span><span class="o">.</span><span class="n">update1</span><span class="p">({</span>
-    <span class="s1">&#39;setup&#39;</span><span class="p">:</span> <span class="n">setup_name</span><span class="p">,</span>
-    <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="s1">&#39;stop&#39;</span>
+    <span class="s1">'setup'</span><span class="p">:</span> <span class="n">setup_name</span><span class="p">,</span>
+    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'stop'</span>
 <span class="p">})</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="important-notes">Important Notes<a class="headerlink" href="#important-notes" title="Permanent link">&para;</a></h2>
@@ -1738,11 +1738,11 @@
 <span class="normal">7</span>
 <span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Example of information updated in each cycle</span>
 <span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;last_ping&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;queue_size&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">(),</span>
-    <span class="s1">&#39;trials&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;trial_idx&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;total_liquid&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_reward</span><span class="p">,</span>
-    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_state</span><span class="p">,</span>
+    <span class="s1">'last_ping'</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S'</span><span class="p">),</span>
+    <span class="s1">'queue_size'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">(),</span>
+    <span class="s1">'trials'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">'trial_idx'</span><span class="p">],</span>
+    <span class="s1">'total_liquid'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_reward</span><span class="p">,</span>
+    <span class="s1">'state'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_state</span><span class="p">,</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div></p>
 </li>

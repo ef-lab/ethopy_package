@@ -602,7 +602,7 @@
   <span class="md-ellipsis">
     
   
-    Local Configuration
+    Configuration
   
 
     
@@ -2015,7 +2015,7 @@
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">#</span><span class="w"> </span><span class="n">SetupConfiguration</span>
 <span class="n">setup_conf_idx</span><span class="w">      </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">      </span><span class="o">#</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="nb">number</span>
 <span class="c1">---</span>
-<span class="n">interface</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">&#39;DummyPorts&#39;</span><span class="p">,</span><span class="s1">&#39;RPPorts&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;PCPorts&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;RPVR&#39;</span><span class="p">)</span>
+<span class="n">interface</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">'DummyPorts'</span><span class="p">,</span><span class="s1">'RPPorts'</span><span class="p">,</span><span class="w"> </span><span class="s1">'PCPorts'</span><span class="p">,</span><span class="w"> </span><span class="s1">'RPVR'</span><span class="p">)</span>
 <span class="n">description</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <p><strong>Interface types:</strong></p>
@@ -2036,10 +2036,10 @@
 <span class="normal">7</span>
 <span class="normal">8</span>
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">port</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">                  </span><span class="o">#</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="nb">number</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">...)</span>
-<span class="k">type</span><span class="o">=</span><span class="ss">&quot;Lick&quot;</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">&#39;Lick&#39;</span><span class="p">,</span><span class="s1">&#39;Proximity&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="n">does</span>
+<span class="k">type</span><span class="o">=</span><span class="ss">"Lick"</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">'Lick'</span><span class="p">,</span><span class="s1">'Proximity'</span><span class="p">)</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="n">does</span>
 <span class="o">-&gt;</span><span class="w"> </span><span class="n">SetupConfiguration</span>
 <span class="c1">---</span>
-<span class="n">ready</span><span class="o">=</span><span class="mi">0</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">detect</span><span class="w"> </span><span class="ss">&quot;ready&quot;</span><span class="w"> </span><span class="k">state</span>
+<span class="n">ready</span><span class="o">=</span><span class="mi">0</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">detect</span><span class="w"> </span><span class="ss">"ready"</span><span class="w"> </span><span class="k">state</span>
 <span class="n">response</span><span class="o">=</span><span class="mi">0</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">detect</span><span class="w"> </span><span class="n">responses</span>
 <span class="n">reward</span><span class="o">=</span><span class="mi">0</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">deliver</span><span class="w"> </span><span class="n">rewards</span>
 <span class="n">invert</span><span class="o">=</span><span class="mi">0</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w">       </span><span class="o">#</span><span class="w"> </span><span class="n">invert</span><span class="w"> </span><span class="n">signal</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="o">=</span><span class="n">normal</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="n">inverted</span><span class="p">)</span>
@@ -2096,7 +2096,7 @@
 <span class="n">fps</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="n">tinyint</span><span class="w"> </span><span class="n">UNSIGNED</span><span class="w">    </span><span class="o">#</span><span class="w"> </span><span class="n">recording</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="n">rate</span>
 <span class="n">resolution_x</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nb">smallint</span><span class="w">            </span><span class="o">#</span><span class="w"> </span><span class="n">video</span><span class="w"> </span><span class="n">width</span>
 <span class="n">resolution_y</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nb">smallint</span><span class="w">            </span><span class="o">#</span><span class="w"> </span><span class="n">video</span><span class="w"> </span><span class="n">height</span>
-<span class="n">video_aim</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">&#39;eye&#39;</span><span class="p">,</span><span class="s1">&#39;body&#39;</span><span class="p">,</span><span class="s1">&#39;openfield&#39;</span><span class="p">)</span><span class="w">  </span><span class="o">#</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">record</span>
+<span class="n">video_aim</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="n">enum</span><span class="p">(</span><span class="s1">'eye'</span><span class="p">,</span><span class="s1">'body'</span><span class="p">,</span><span class="s1">'openfield'</span><span class="p">)</span><span class="w">  </span><span class="o">#</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">record</span>
 <span class="n">description</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="5-other-components">5. Other Components<a class="headerlink" href="#5-other-components" title="Permanent link">&para;</a></h3>
@@ -2117,8 +2117,8 @@
 <span class="normal">6</span>
 <span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Check what setup_conf_idx numbers are already used</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ethopy</span><span class="w"> </span><span class="kn">import</span> <span class="n">interface</span>
-<span class="n">existing</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="p">()</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Existing configurations:&quot;</span><span class="p">,</span> <span class="n">existing</span><span class="p">)</span>
+<span class="n">existing</span> <span class="o">=</span> <span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="p">()</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">'setup_conf_idx'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Existing configurations:"</span><span class="p">,</span> <span class="n">existing</span><span class="p">)</span>
 
 <span class="c1"># Pick next available number</span>
 <span class="n">new_idx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">existing</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># e.g., if you have 0,1,2 then use 3</span>
@@ -2131,9 +2131,9 @@
 <span class="normal">5</span>
 <span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Add your main setup configuration</span>
 <span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="o">.</span><span class="n">insert1</span><span class="p">({</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="s1">&#39;interface&#39;</span><span class="p">:</span> <span class="s1">&#39;RPPorts&#39;</span><span class="p">,</span>  <span class="c1"># or &#39;DummyPorts&#39;, &#39;PCPorts&#39;, &#39;RPVR&#39;</span>
-    <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;My new Raspberry Pi setup&#39;</span>
+    <span class="s1">'setup_conf_idx'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s1">'interface'</span><span class="p">:</span> <span class="s1">'RPPorts'</span><span class="p">,</span>  <span class="c1"># or 'DummyPorts', 'PCPorts', 'RPVR'</span>
+    <span class="s1">'description'</span><span class="p">:</span> <span class="s1">'My new Raspberry Pi setup'</span>
 <span class="p">})</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="step-3-add-port-configuration">Step 3: Add Port Configuration<a class="headerlink" href="#step-3-add-port-configuration" title="Permanent link">&para;</a></h3>
@@ -2177,36 +2177,36 @@
 <span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="o">.</span><span class="n">Port</span><span class="o">.</span><span class="n">insert</span><span class="p">([</span>
     <span class="c1"># Port 1: Left lick port with reward</span>
     <span class="p">{</span>
-        <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Lick&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;ready&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>    <span class="c1"># Can detect licks</span>
-        <span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># Can give rewards</span>
-        <span class="s1">&#39;invert&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Left reward port&#39;</span>
+        <span class="s1">'setup_conf_idx'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s1">'port'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'Lick'</span><span class="p">,</span>
+        <span class="s1">'ready'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">'response'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>    <span class="c1"># Can detect licks</span>
+        <span class="s1">'reward'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># Can give rewards</span>
+        <span class="s1">'invert'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">'description'</span><span class="p">:</span> <span class="s1">'Left reward port'</span>
     <span class="p">},</span>
     <span class="c1"># Port 2: Right lick port with reward</span>
     <span class="p">{</span>
-        <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Lick&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;ready&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>    <span class="c1"># Can detect licks</span>
-        <span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># Can give rewards</span>
-        <span class="s1">&#39;invert&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Right reward port&#39;</span>
+        <span class="s1">'setup_conf_idx'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s1">'port'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'Lick'</span><span class="p">,</span>
+        <span class="s1">'ready'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">'response'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>    <span class="c1"># Can detect licks</span>
+        <span class="s1">'reward'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># Can give rewards</span>
+        <span class="s1">'invert'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">'description'</span><span class="p">:</span> <span class="s1">'Right reward port'</span>
     <span class="p">},</span>
     <span class="c1"># Port 3: Proximity sensor</span>
     <span class="p">{</span>
-        <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Proximity&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;ready&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>       <span class="c1"># Indicates animal is ready for trial</span>
-        <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s1">&#39;invert&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Animal proximity sensor&#39;</span>
+        <span class="s1">'setup_conf_idx'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s1">'port'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'Proximity'</span><span class="p">,</span>
+        <span class="s1">'ready'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>       <span class="c1"># Indicates animal is ready for trial</span>
+        <span class="s1">'response'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">'reward'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">'invert'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">'description'</span><span class="p">:</span> <span class="s1">'Animal proximity sensor'</span>
     <span class="p">}</span>
 <span class="p">])</span>
 </code></pre></div></td></tr></table></div>
@@ -2226,17 +2226,17 @@
 <span class="normal">13</span>
 <span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Only needed if your experiment shows visual stimuli</span>
 <span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="o">.</span><span class="n">Screen</span><span class="o">.</span><span class="n">insert1</span><span class="p">({</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="s1">&#39;screen_idx&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;intensity&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>        <span class="c1"># Screen brightness</span>
-    <span class="s1">&#39;distance&#39;</span><span class="p">:</span> <span class="mf">15.0</span><span class="p">,</span>        <span class="c1"># 15 cm from animal</span>
-    <span class="s1">&#39;center_x&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>           <span class="c1"># Centered horizontally</span>
-    <span class="s1">&#39;center_y&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>           <span class="c1"># Centered vertically</span>
-    <span class="s1">&#39;resolution_x&#39;</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span>    <span class="c1"># HD resolution</span>
-    <span class="s1">&#39;resolution_y&#39;</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
-    <span class="s1">&#39;fps&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>               <span class="c1"># 60 FPS</span>
-    <span class="s1">&#39;fullscreen&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>         <span class="c1"># Fullscreen mode</span>
-    <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Main stimulus screen&#39;</span>
+    <span class="s1">'setup_conf_idx'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s1">'screen_idx'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">'intensity'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>        <span class="c1"># Screen brightness</span>
+    <span class="s1">'distance'</span><span class="p">:</span> <span class="mf">15.0</span><span class="p">,</span>        <span class="c1"># 15 cm from animal</span>
+    <span class="s1">'center_x'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>           <span class="c1"># Centered horizontally</span>
+    <span class="s1">'center_y'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>           <span class="c1"># Centered vertically</span>
+    <span class="s1">'resolution_x'</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span>    <span class="c1"># HD resolution</span>
+    <span class="s1">'resolution_y'</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
+    <span class="s1">'fps'</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>               <span class="c1"># 60 FPS</span>
+    <span class="s1">'fullscreen'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>         <span class="c1"># Fullscreen mode</span>
+    <span class="s1">'description'</span><span class="p">:</span> <span class="s1">'Main stimulus screen'</span>
 <span class="p">})</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="step-5-add-camera-configuration-if-needed">Step 5: Add Camera Configuration (If Needed)<a class="headerlink" href="#step-5-add-camera-configuration-if-needed" title="Permanent link">&para;</a></h3>
@@ -2251,13 +2251,13 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Only needed if you want to record behavior</span>
 <span class="n">interface</span><span class="o">.</span><span class="n">SetupConfiguration</span><span class="o">.</span><span class="n">Camera</span><span class="o">.</span><span class="n">insert1</span><span class="p">({</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="s1">&#39;camera_idx&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;fps&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>               <span class="c1"># 30 FPS recording</span>
-    <span class="s1">&#39;resolution_x&#39;</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span>
-    <span class="s1">&#39;resolution_y&#39;</span><span class="p">:</span> <span class="mi">480</span><span class="p">,</span>
-    <span class="s1">&#39;video_aim&#39;</span><span class="p">:</span> <span class="s1">&#39;body&#39;</span><span class="p">,</span>     <span class="c1"># Record body movements</span>
-    <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Behavior recording camera&#39;</span>
+    <span class="s1">'setup_conf_idx'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s1">'camera_idx'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">'fps'</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>               <span class="c1"># 30 FPS recording</span>
+    <span class="s1">'resolution_x'</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span>
+    <span class="s1">'resolution_y'</span><span class="p">:</span> <span class="mi">480</span><span class="p">,</span>
+    <span class="s1">'video_aim'</span><span class="p">:</span> <span class="s1">'body'</span><span class="p">,</span>     <span class="c1"># Record body movements</span>
+    <span class="s1">'description'</span><span class="p">:</span> <span class="s1">'Behavior recording camera'</span>
 <span class="p">})</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="using-your-new-configuration">Using Your New Configuration<a class="headerlink" href="#using-your-new-configuration" title="Permanent link">&para;</a></h2>

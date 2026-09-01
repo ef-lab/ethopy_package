@@ -602,7 +602,7 @@
   <span class="md-ellipsis">
     
   
-    Local Configuration
+    Configuration
   
 
     
@@ -2103,10 +2103,10 @@
 <span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># ~/.ethopy/ethopy_plugins/mymodule.py</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MyModule</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;My Custom Module&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"My Custom Module"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">do_something</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;Hello from MyModule!&quot;</span>
+        <span class="k">return</span> <span class="s2">"Hello from MyModule!"</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="categorized-modules">Categorized Modules<a class="headerlink" href="#categorized-modules" title="Permanent link">&para;</a></h3>
 <p>Examples of the behavior, experiment and stimulus plugin content can be found <a href="../creating_custom_components/">here</a>.</p>
@@ -2283,7 +2283,7 @@ to create the new tables.</p>
 <span class="n">plugin_manager</span> <span class="o">=</span> <span class="n">PluginManager</span><span class="p">()</span>
 
 <span class="c1"># Add custom plugin path</span>
-<span class="n">plugin_manager</span><span class="o">.</span><span class="n">add_plugin_path</span><span class="p">(</span><span class="s1">&#39;/path/to/plugins&#39;</span><span class="p">)</span>
+<span class="n">plugin_manager</span><span class="o">.</span><span class="n">add_plugin_path</span><span class="p">(</span><span class="s1">'/path/to/plugins'</span><span class="p">)</span>
 
 <span class="c1"># List available plugins</span>
 <span class="n">plugins</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">list_plugins</span><span class="p">(</span>
@@ -2293,21 +2293,21 @@ to create the new tables.</p>
 
 <span class="c1"># Print plugin information</span>
 <span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">plugins</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s2"> plugins:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s2"> plugins:"</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">plugin</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">plugin</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;duplicates&#39;</span> <span class="ow">in</span> <span class="n">plugin</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    Duplicate versions found in:&quot;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">dup</span> <span class="ow">in</span> <span class="n">plugin</span><span class="p">[</span><span class="s1">&#39;duplicates&#39;</span><span class="p">]:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;      - </span><span class="si">{</span><span class="n">dup</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  - </span><span class="si">{</span><span class="n">plugin</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">plugin</span><span class="p">[</span><span class="s1">'path'</span><span class="p">]</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'duplicates'</span> <span class="ow">in</span> <span class="n">plugin</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"    Duplicate versions found in:"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">dup</span> <span class="ow">in</span> <span class="n">plugin</span><span class="p">[</span><span class="s1">'duplicates'</span><span class="p">]:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"      - </span><span class="si">{</span><span class="n">dup</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Get information about a specific plugin</span>
-<span class="n">info</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">get_plugin_info</span><span class="p">(</span><span class="s1">&#39;ethopy.mymodule&#39;</span><span class="p">)</span>
+<span class="n">info</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">get_plugin_info</span><span class="p">(</span><span class="s1">'ethopy.mymodule'</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">info</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plugin: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Path: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Type: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is Core: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">is_core</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Plugin: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Path: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Type: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Is Core: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">is_core</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="plugin-resolution">Plugin Resolution<a class="headerlink" href="#plugin-resolution" title="Permanent link">&para;</a></h2>
 <h3 id="load-order">Load Order<a class="headerlink" href="#load-order" title="Permanent link">&para;</a></h3>
@@ -2340,9 +2340,9 @@ to create the new tables.</p>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>WARNING: Plugin &#39;ethopy.mymodule&#39; from /path/to/plugin conflicts with core ethopy module. Core module will be used.
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>WARNING: Plugin 'ethopy.mymodule' from /path/to/plugin conflicts with core ethopy module. Core module will be used.
 
-WARNING: Duplicate plugin found for &#39;ethopy.behaviors.custom&#39;:
+WARNING: Duplicate plugin found for 'ethopy.behaviors.custom':
   Using:     /home/user/.ethopy/ethopy_plugins/behaviors/custom.py
   Ignoring:  /another/path/behaviors/custom.py
 </code></pre></div></td></tr></table></div></p>
@@ -2446,7 +2446,7 @@ WARNING: Duplicate plugin found for &#39;ethopy.behaviors.custom&#39;:
 <p><strong>Enable Debug Logging</strong>:
    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;ethopy&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'ethopy'</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div></p>
 </li>
 <li>
@@ -2464,12 +2464,12 @@ WARNING: Duplicate plugin found for &#39;ethopy.behaviors.custom&#39;:
 <span class="n">plugins</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">list_plugins</span><span class="p">(</span><span class="n">show_duplicates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Check specific plugin</span>
-<span class="n">info</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">get_plugin_info</span><span class="p">(</span><span class="s1">&#39;ethopy.mymodule&#39;</span><span class="p">)</span>
+<span class="n">info</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">get_plugin_info</span><span class="p">(</span><span class="s1">'ethopy.mymodule'</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">info</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plugin registered at: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plugin type: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Plugin registered at: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Plugin type: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plugin not registered&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Plugin not registered"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div></p>
 </li>
 <li>
@@ -2478,9 +2478,9 @@ WARNING: Duplicate plugin found for &#39;ethopy.behaviors.custom&#39;:
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Print current plugin search paths</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plugin paths:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Plugin paths:"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">_plugin_paths</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div></p>
 </li>
 </ol>

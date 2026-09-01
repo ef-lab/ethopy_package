@@ -597,7 +597,7 @@
   <span class="md-ellipsis">
     
   
-    Local Configuration
+    Configuration
   
 
     
@@ -2307,45 +2307,45 @@ hardware based on setup index.</p>
 <span class="normal">516</span>
 <span class="normal">517</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@interface</span><span class="o">.</span><span class="n">schema</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Configuration</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;DataJoint table for saving setup configurations for each session.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""DataJoint table for saving setup configurations for each session."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Session behavior configuration info</span>
 <span class="s2">    -&gt; experiment.Session</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 
     <span class="k">class</span><span class="w"> </span><span class="nc">Port</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Port configuration table.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Port configuration table."""</span>
 
-        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">        # Probe identity</span>
 <span class="s2">        -&gt; Configuration</span>
 <span class="s2">        port                     : tinyint                      # port id</span>
-<span class="s2">        type=&quot;Lick&quot;              : varchar(24)                 # port type</span>
+<span class="s2">        type="Lick"              : varchar(24)                 # port type</span>
 <span class="s2">        ---</span>
 <span class="s2">        ready=0                  : tinyint                      # ready flag</span>
 <span class="s2">        response=0               : tinyint                      # response flag</span>
 <span class="s2">        reward=0                 : tinyint                      # reward flag</span>
 <span class="s2">        discription              : varchar(256)</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+<span class="s2">        """</span>
 
     <span class="k">class</span><span class="w"> </span><span class="nc">Ball</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ball configuration table.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Ball configuration table."""</span>
 
-        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">        # Ball information</span>
 <span class="s2">        -&gt; Configuration</span>
 <span class="s2">        ---</span>
 <span class="s2">        ball_radius=0.125        : float                   # in meters</span>
-<span class="s2">        material=&quot;styrofoam&quot;     : varchar(64)             # ball material</span>
-<span class="s2">        coupling=&quot;bearings&quot;      : enum(&#39;bearings&#39;,&#39;air&#39;)  # mechanical coupling</span>
+<span class="s2">        material="styrofoam"     : varchar(64)             # ball material</span>
+<span class="s2">        coupling="bearings"      : enum('bearings','air')  # mechanical coupling</span>
 <span class="s2">        discription              : varchar(256)</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+<span class="s2">        """</span>
 
     <span class="k">class</span><span class="w"> </span><span class="nc">Screen</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Screen configuration table.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Screen configuration table."""</span>
 
-        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">        # Screen information</span>
 <span class="s2">        -&gt; Configuration</span>
 <span class="s2">        screen_idx               : tinyint</span>
@@ -2360,12 +2360,12 @@ hardware based on setup index.</p>
 <span class="s2">        resolution_x             : smallint</span>
 <span class="s2">        resolution_y             : smallint</span>
 <span class="s2">        description              : varchar(256)</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+<span class="s2">        """</span>
 
     <span class="k">class</span><span class="w"> </span><span class="nc">Speaker</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Speaker configuration table.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Speaker configuration table."""</span>
 
-        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">        # Speaker information</span>
 <span class="s2">        speaker_idx             : tinyint</span>
 <span class="s2">        -&gt; Configuration</span>
@@ -2374,7 +2374,7 @@ hardware based on setup index.</p>
 <span class="s2">        duration=500            : int           # in ms</span>
 <span class="s2">        volume=50               : tinyint       # 0-100 percentage</span>
 <span class="s2">        discription             : varchar(256)</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+<span class="s2">        """</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -2430,17 +2430,17 @@ hardware based on setup index.</p>
 <span class="normal">481</span>
 <span class="normal">482</span>
 <span class="normal">483</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Ball</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ball configuration table.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Ball configuration table."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Ball information</span>
 <span class="s2">    -&gt; Configuration</span>
 <span class="s2">    ---</span>
 <span class="s2">    ball_radius=0.125        : float                   # in meters</span>
-<span class="s2">    material=&quot;styrofoam&quot;     : varchar(64)             # ball material</span>
-<span class="s2">    coupling=&quot;bearings&quot;      : enum(&#39;bearings&#39;,&#39;air&#39;)  # mechanical coupling</span>
+<span class="s2">    material="styrofoam"     : varchar(64)             # ball material</span>
+<span class="s2">    coupling="bearings"      : enum('bearings','air')  # mechanical coupling</span>
 <span class="s2">    discription              : varchar(256)</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -2507,19 +2507,19 @@ hardware based on setup index.</p>
 <span class="normal">468</span>
 <span class="normal">469</span>
 <span class="normal">470</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Port</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Port configuration table.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Port configuration table."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Probe identity</span>
 <span class="s2">    -&gt; Configuration</span>
 <span class="s2">    port                     : tinyint                      # port id</span>
-<span class="s2">    type=&quot;Lick&quot;              : varchar(24)                 # port type</span>
+<span class="s2">    type="Lick"              : varchar(24)                 # port type</span>
 <span class="s2">    ---</span>
 <span class="s2">    ready=0                  : tinyint                      # ready flag</span>
 <span class="s2">    response=0               : tinyint                      # response flag</span>
 <span class="s2">    reward=0                 : tinyint                      # reward flag</span>
 <span class="s2">    discription              : varchar(256)</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -2591,9 +2591,9 @@ hardware based on setup index.</p>
 <span class="normal">501</span>
 <span class="normal">502</span>
 <span class="normal">503</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Screen</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Screen configuration table.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Screen configuration table."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Screen information</span>
 <span class="s2">    -&gt; Configuration</span>
 <span class="s2">    screen_idx               : tinyint</span>
@@ -2608,7 +2608,7 @@ hardware based on setup index.</p>
 <span class="s2">    resolution_x             : smallint</span>
 <span class="s2">    resolution_y             : smallint</span>
 <span class="s2">    description              : varchar(256)</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -2674,9 +2674,9 @@ hardware based on setup index.</p>
 <span class="normal">515</span>
 <span class="normal">516</span>
 <span class="normal">517</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Speaker</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Speaker configuration table.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Speaker configuration table."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Speaker information</span>
 <span class="s2">    speaker_idx             : tinyint</span>
 <span class="s2">    -&gt; Configuration</span>
@@ -2685,7 +2685,7 @@ hardware based on setup index.</p>
 <span class="s2">    duration=500            : int           # in ms</span>
 <span class="s2">    volume=50               : tinyint       # 0-100 percentage</span>
 <span class="s2">    discription             : varchar(256)</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -3203,7 +3203,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 <span class="normal">294</span>
 <span class="normal">295</span>
 <span class="normal">296</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Interface</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base interface class for hardware interaction in experimental setups.</span>
+<span class="w">    </span><span class="sd">"""Base interface class for hardware interaction in experimental setups.</span>
 
 <span class="sd">    This class manages hardware interfaces including ports, cameras, and other</span>
 <span class="sd">    peripherals.</span>
@@ -3226,7 +3226,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 <span class="sd">        channels (Dict[str, Any]): Channel mappings</span>
 <span class="sd">        position_dur (int): Position duration</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -3234,14 +3234,14 @@ It provides methods for stimulus delivery, reward management, and hardware contr
         <span class="n">beh</span><span class="p">:</span> <span class="n">Optional</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">callbacks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the interface with experiment and behavior objects.</span>
+<span class="w">        </span><span class="sd">"""Initialize the interface with experiment and behavior objects.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            exp: Experiment object containing parameters and logger</span>
 <span class="sd">            beh: Behavior object for tracking responses</span>
 <span class="sd">            callbacks: Whether to enable callback functions</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Initialize basic attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beh</span> <span class="o">=</span> <span class="n">beh</span>
@@ -3269,19 +3269,19 @@ It provides methods for stimulus delivery, reward management, and hardware contr
         <span class="bp">self</span><span class="o">.</span><span class="n">timer_ready</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">if</span> <span class="n">exp</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="s2">&quot;session_params&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">exp</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="s2">"session_params"</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_hardware</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_hardware</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize hardware components based on setup configuration.</span>
+<span class="w">        </span><span class="sd">"""Initialize hardware components based on setup configuration.</span>
 
 <span class="sd">        This method sets up ports and camera if configured in the experiment parameters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Initialize ports</span>
         <span class="n">port_configs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-            <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration.Port&quot;</span><span class="p">,</span>
-            <span class="n">key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;setup_conf_idx=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">setup_conf_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s2">"interface"</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="s2">"SetupConfiguration.Port"</span><span class="p">,</span>
+            <span class="n">key</span><span class="o">=</span><span class="sa">f</span><span class="s2">"setup_conf_idx=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">setup_conf_idx</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
             <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -3290,7 +3290,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ports</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">proximity_ports</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">port</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;Proximity&quot;</span><span class="p">]</span>
+            <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">port</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">"Proximity"</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rew_ports</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">port</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">reward</span><span class="p">])</span>
 
@@ -3298,108 +3298,108 @@ It provides methods for stimulus delivery, reward management, and hardware contr
         <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_camera</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize camera if configured in setup.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize camera if configured in setup."""</span>
         <span class="n">setup_cameras</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-            <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration.Camera&quot;</span><span class="p">,</span>
-            <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;setup_conf_idx&quot;</span><span class="p">],</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s2">"interface"</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="s2">"SetupConfiguration.Camera"</span><span class="p">,</span>
+            <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">"setup_conf_idx"</span><span class="p">],</span>
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">setup_conf_idx</span> <span class="ow">in</span> <span class="n">setup_cameras</span><span class="p">:</span>
             <span class="n">camera_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-                <span class="n">table</span><span class="o">=</span><span class="s2">&quot;SetupConfiguration.Camera&quot;</span><span class="p">,</span>
-                <span class="n">key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;setup_conf_idx=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">setup_conf_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">schema</span><span class="o">=</span><span class="s2">"interface"</span><span class="p">,</span>
+                <span class="n">table</span><span class="o">=</span><span class="s2">"SetupConfiguration.Camera"</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="sa">f</span><span class="s2">"setup_conf_idx=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">setup_conf_idx</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                 <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
             <span class="n">camera_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
-                <span class="n">import_module</span><span class="p">(</span><span class="s2">&quot;ethopy.interfaces.Camera&quot;</span><span class="p">),</span> <span class="n">camera_params</span><span class="p">[</span><span class="s2">&quot;discription&quot;</span><span class="p">]</span>
+                <span class="n">import_module</span><span class="p">(</span><span class="s2">"ethopy.interfaces.Camera"</span><span class="p">),</span> <span class="n">camera_params</span><span class="p">[</span><span class="s2">"discription"</span><span class="p">]</span>
             <span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">camera_class</span><span class="p">(</span>
-                <span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;animal_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">'animal_id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+                <span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">trial_key</span><span class="p">[</span><span class="s1">'session'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                 <span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span>
                 <span class="n">logger_timer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">logger_timer</span><span class="p">,</span>
-                <span class="n">video_aim</span><span class="o">=</span><span class="n">camera_params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;video_aim&quot;</span><span class="p">),</span>
+                <span class="n">video_aim</span><span class="o">=</span><span class="n">camera_params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"video_aim"</span><span class="p">),</span>
                 <span class="o">**</span><span class="n">camera_params</span><span class="p">,</span>
             <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">give_liquid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Deliver liquid reward through specified port.</span>
+<span class="w">        </span><span class="sd">"""Deliver liquid reward through specified port.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            port: Port number for delivery</span>
 <span class="sd">            duration: Duration of delivery in milliseconds</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">give_odor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">odor_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Deliver odor stimulus.</span>
+<span class="w">        </span><span class="sd">"""Deliver odor stimulus.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            odor_idx: Index of odor to deliver</span>
 <span class="sd">            duration: Duration of delivery in milliseconds</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">give_sound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sound_freq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dutycycle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate sound stimulus.</span>
+<span class="w">        </span><span class="sd">"""Generate sound stimulus.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            sound_freq: Frequency of sound in Hz</span>
 <span class="sd">            duration: Duration of sound in milliseconds</span>
 <span class="sd">            dutycycle: Duty cycle for sound generation (0-1)</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">in_position</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if subject is in correct position.</span>
+<span class="w">        </span><span class="sd">"""Check if subject is in correct position.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Tuple of (position status, position time)</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">create_pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a pulse for stimulus delivery.</span>
+<span class="w">        </span><span class="sd">"""Create a pulse for stimulus delivery.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            port: Port number for pulse</span>
 <span class="sd">            duration: Duration of pulse in milliseconds</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">sync_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send synchronization signal.</span>
+<span class="w">        </span><span class="sd">"""Send synchronization signal.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            state: Synchronization state to set</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">set_operation_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operation_status</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set operation status of interface.</span>
+<span class="w">        </span><span class="sd">"""Set operation status of interface.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            operation_status: Status to set</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clean up interface resources.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Clean up interface resources."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">release</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Release hardware resources, especially camera.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Release hardware resources, especially camera."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Releasing camera resources.&quot;</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Releasing camera resources."</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">recording</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">stop_rec</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">load_calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load port calibration data from database.</span>
+<span class="w">        </span><span class="sd">"""Load port calibration data from database.</span>
 
 <span class="sd">        This method loads the most recent calibration data for each reward port,</span>
 <span class="sd">        including pulse durations and weights.</span>
@@ -3407,34 +3407,34 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 <span class="sd">        Raises:</span>
 <span class="sd">            RuntimeError: If no calibration data is found</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rew_ports</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
             <span class="n">key</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">setup</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span>
             <span class="n">dates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-                <span class="n">table</span><span class="o">=</span><span class="s2">&quot;PortCalibration.Liquid&quot;</span><span class="p">,</span>
+                <span class="n">schema</span><span class="o">=</span><span class="s2">"interface"</span><span class="p">,</span>
+                <span class="n">table</span><span class="o">=</span><span class="s2">"PortCalibration.Liquid"</span><span class="p">,</span>
                 <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
-                <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
-                <span class="n">order_by</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span>
+                <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span>
+                <span class="n">order_by</span><span class="o">=</span><span class="s2">"date"</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No PortCalibration found!&quot;</span><span class="p">)</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"No PortCalibration found!"</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="k">break</span>
 
-            <span class="n">key</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># use most recent calibration</span>
+            <span class="n">key</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># use most recent calibration</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">pulse_dur</span><span class="p">[</span><span class="n">port</span><span class="p">],</span> <span class="n">pulse_num</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-                <span class="n">table</span><span class="o">=</span><span class="s2">&quot;PortCalibration.Liquid&quot;</span><span class="p">,</span>
+                <span class="n">schema</span><span class="o">=</span><span class="s2">"interface"</span><span class="p">,</span>
+                <span class="n">table</span><span class="o">=</span><span class="s2">"PortCalibration.Liquid"</span><span class="p">,</span>
                 <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
-                <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;pulse_dur&quot;</span><span class="p">,</span> <span class="s2">&quot;pulse_num&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">],</span>
+                <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">"pulse_dur"</span><span class="p">,</span> <span class="s2">"pulse_num"</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">],</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">weight_per_pulse</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">pulse_num</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">calc_pulse_dur</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward_amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate pulse duration for desired reward amount.</span>
+<span class="w">        </span><span class="sd">"""Calculate pulse duration for desired reward amount.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            reward_amount: Desired reward amount in microliters</span>
@@ -3442,7 +3442,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 <span class="sd">        Returns:</span>
 <span class="sd">            Dictionary mapping ports to actual reward amounts</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">actual_rew</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rew_ports</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">reward_amount</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">]:</span>
@@ -3458,8 +3458,8 @@ It provides methods for stimulus delivery, reward management, and hardware contr
             <span class="n">actual_rew</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="n">reward_amount</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">actual_rew</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_channel2port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">category</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Proximity&quot;</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert channel number to port object.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_channel2port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">category</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Proximity"</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Convert channel number to port object.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            channel: Channel number to convert</span>
@@ -3468,7 +3468,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 <span class="sd">        Returns:</span>
 <span class="sd">            Corresponding port or None if not found</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">port</span> <span class="o">=</span> <span class="n">reverse_lookup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">[</span><span class="n">category</span><span class="p">],</span> <span class="n">channel</span><span class="p">)</span> <span class="k">if</span> <span class="n">channel</span> <span class="k">else</span> <span class="mi">0</span>
         <span class="k">if</span> <span class="n">port</span><span class="p">:</span>
             <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="n">Port</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">category</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
@@ -3616,14 +3616,14 @@ It provides methods for stimulus delivery, reward management, and hardware contr
     <span class="n">beh</span><span class="p">:</span> <span class="n">Optional</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">callbacks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the interface with experiment and behavior objects.</span>
+<span class="w">    </span><span class="sd">"""Initialize the interface with experiment and behavior objects.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        exp: Experiment object containing parameters and logger</span>
 <span class="sd">        beh: Behavior object for tracking responses</span>
 <span class="sd">        callbacks: Whether to enable callback functions</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Initialize basic attributes</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">beh</span> <span class="o">=</span> <span class="n">beh</span>
@@ -3651,7 +3651,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
     <span class="bp">self</span><span class="o">.</span><span class="n">timer_ready</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">if</span> <span class="n">exp</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="s2">&quot;session_params&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">exp</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="s2">"session_params"</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_hardware</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3753,7 +3753,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 <span class="normal">278</span>
 <span class="normal">279</span>
 <span class="normal">280</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">calc_pulse_dur</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward_amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate pulse duration for desired reward amount.</span>
+<span class="w">    </span><span class="sd">"""Calculate pulse duration for desired reward amount.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        reward_amount: Desired reward amount in microliters</span>
@@ -3761,7 +3761,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 <span class="sd">    Returns:</span>
 <span class="sd">        Dictionary mapping ports to actual reward amounts</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">actual_rew</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rew_ports</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">reward_amount</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">]:</span>
@@ -3800,7 +3800,7 @@ It provides methods for stimulus delivery, reward management, and hardware contr
               <summary>Source code in <code>src/ethopy/core/interface.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">212</span>
 <span class="normal">213</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean up interface resources.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Clean up interface resources."""</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -3878,13 +3878,13 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 <span class="normal">192</span>
 <span class="normal">193</span>
 <span class="normal">194</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a pulse for stimulus delivery.</span>
+<span class="w">    </span><span class="sd">"""Create a pulse for stimulus delivery.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        port: Port number for pulse</span>
 <span class="sd">        duration: Duration of pulse in milliseconds</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -3962,13 +3962,13 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 <span class="normal">155</span>
 <span class="normal">156</span>
 <span class="normal">157</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">give_liquid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Deliver liquid reward through specified port.</span>
+<span class="w">    </span><span class="sd">"""Deliver liquid reward through specified port.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        port: Port number for delivery</span>
 <span class="sd">        duration: Duration of delivery in milliseconds</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -4046,13 +4046,13 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 <span class="normal">164</span>
 <span class="normal">165</span>
 <span class="normal">166</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">give_odor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">odor_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Deliver odor stimulus.</span>
+<span class="w">    </span><span class="sd">"""Deliver odor stimulus.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        odor_idx: Index of odor to deliver</span>
 <span class="sd">        duration: Duration of delivery in milliseconds</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -4147,14 +4147,14 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 <span class="normal">174</span>
 <span class="normal">175</span>
 <span class="normal">176</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">give_sound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sound_freq</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dutycycle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate sound stimulus.</span>
+<span class="w">    </span><span class="sd">"""Generate sound stimulus.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        sound_freq: Frequency of sound in Hz</span>
 <span class="sd">        duration: Duration of sound in milliseconds</span>
 <span class="sd">        dutycycle: Duty cycle for sound generation (0-1)</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -4208,12 +4208,12 @@ It provides methods for stimulus delivery, reward management, and hardware contr
 <span class="normal">183</span>
 <span class="normal">184</span>
 <span class="normal">185</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">in_position</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if subject is in correct position.</span>
+<span class="w">    </span><span class="sd">"""Check if subject is in correct position.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Tuple of (position status, position time)</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -4296,7 +4296,7 @@ including pulse durations and weights.</p>
 <span class="normal">253</span>
 <span class="normal">254</span>
 <span class="normal">255</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load port calibration data from database.</span>
+<span class="w">    </span><span class="sd">"""Load port calibration data from database.</span>
 
 <span class="sd">    This method loads the most recent calibration data for each reward port,</span>
 <span class="sd">    including pulse durations and weights.</span>
@@ -4304,29 +4304,29 @@ including pulse durations and weights.</p>
 <span class="sd">    Raises:</span>
 <span class="sd">        RuntimeError: If no calibration data is found</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rew_ports</span><span class="p">)):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pulse_rew</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="n">key</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">setup</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setup</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span>
         <span class="n">dates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-            <span class="n">table</span><span class="o">=</span><span class="s2">&quot;PortCalibration.Liquid&quot;</span><span class="p">,</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s2">"interface"</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="s2">"PortCalibration.Liquid"</span><span class="p">,</span>
             <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
-            <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
-            <span class="n">order_by</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span>
+            <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">],</span>
+            <span class="n">order_by</span><span class="o">=</span><span class="s2">"date"</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No PortCalibration found!&quot;</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"No PortCalibration found!"</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">exp</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">break</span>
 
-        <span class="n">key</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># use most recent calibration</span>
+        <span class="n">key</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># use most recent calibration</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">pulse_dur</span><span class="p">[</span><span class="n">port</span><span class="p">],</span> <span class="n">pulse_num</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-            <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-            <span class="n">table</span><span class="o">=</span><span class="s2">&quot;PortCalibration.Liquid&quot;</span><span class="p">,</span>
+            <span class="n">schema</span><span class="o">=</span><span class="s2">"interface"</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="s2">"PortCalibration.Liquid"</span><span class="p">,</span>
             <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
-            <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;pulse_dur&quot;</span><span class="p">,</span> <span class="s2">&quot;pulse_num&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">],</span>
+            <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">"pulse_dur"</span><span class="p">,</span> <span class="s2">"pulse_num"</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight_per_pulse</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">pulse_num</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -4357,9 +4357,9 @@ including pulse durations and weights.</p>
 <span class="normal">218</span>
 <span class="normal">219</span>
 <span class="normal">220</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">release</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Release hardware resources, especially camera.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Release hardware resources, especially camera."""</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="p">:</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Releasing camera resources.&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Releasing camera resources."</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">recording</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">stop_rec</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -4422,12 +4422,12 @@ including pulse durations and weights.</p>
 <span class="normal">208</span>
 <span class="normal">209</span>
 <span class="normal">210</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_operation_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operation_status</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set operation status of interface.</span>
+<span class="w">    </span><span class="sd">"""Set operation status of interface.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        operation_status: Status to set</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -4488,12 +4488,12 @@ including pulse durations and weights.</p>
 <span class="normal">200</span>
 <span class="normal">201</span>
 <span class="normal">202</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">sync_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Send synchronization signal.</span>
+<span class="w">    </span><span class="sd">"""Send synchronization signal.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        state: Synchronization state to set</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -4664,21 +4664,21 @@ including pulse durations and weights.</p>
 <span class="normal">331</span>
 <span class="normal">332</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Port</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataclass representing a hardware port configuration.</span>
+<span class="w">    </span><span class="sd">"""Dataclass representing a hardware port configuration.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        port (int): Port identifier</span>
-<span class="sd">        type (str): Port type (e.g., &#39;Lick&#39;, &#39;Proximity&#39;)</span>
+<span class="sd">        type (str): Port type (e.g., 'Lick', 'Proximity')</span>
 <span class="sd">        ready (bool): Whether port is in ready state</span>
 <span class="sd">        reward (bool): Whether port can deliver rewards</span>
 <span class="sd">        response (bool): Whether port accepts responses</span>
 <span class="sd">        invert (bool): Whether to invert port signal</span>
 <span class="sd">        state (bool): Current port state</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">ready</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">reward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">response</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -4686,12 +4686,12 @@ including pulse durations and weights.</p>
     <span class="n">state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">datafield</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the instance with the given keyword arguments.</span>
+<span class="w">        </span><span class="sd">"""Initialize the instance with the given keyword arguments.</span>
 
 <span class="sd">        This constructor dynamically sets the attributes of the instance</span>
 <span class="sd">        based on the provided keyword arguments. Only attributes that are</span>
 <span class="sd">        defined as fields of the class will be set.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)])</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
@@ -4742,12 +4742,12 @@ defined as fields of the class will be set.</p>
 <span class="normal">330</span>
 <span class="normal">331</span>
 <span class="normal">332</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the instance with the given keyword arguments.</span>
+<span class="w">    </span><span class="sd">"""Initialize the instance with the given keyword arguments.</span>
 
 <span class="sd">    This constructor dynamically sets the attributes of the instance</span>
 <span class="sd">    based on the provided keyword arguments. Only attributes that are</span>
 <span class="sd">    defined as fields of the class will be set.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)])</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
@@ -4832,19 +4832,19 @@ defined as fields of the class will be set.</p>
 <span class="normal">555</span>
 <span class="normal">556</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@interface</span><span class="o">.</span><span class="n">schema</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">PortCalibration</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Liquid delivery calibration sessions for each port with water availability.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Liquid delivery calibration sessions for each port with water availability."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Liquid delivery calibration sessions for each port with water availability</span>
 <span class="s2">    setup                        : varchar(256)  # Setup name</span>
 <span class="s2">    port                         : tinyint       # port id</span>
 <span class="s2">    date                         : date # session date (only one per day is allowed)</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 
     <span class="k">class</span><span class="w"> </span><span class="nc">Liquid</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Datajoint table for volume per pulse duty cycle estimation.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Datajoint table for volume per pulse duty cycle estimation."""</span>
 
-        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">        # Data for volume per pulse duty cycle estimation</span>
 <span class="s2">        -&gt; PortCalibration</span>
 <span class="s2">        pulse_dur                    : int       # duration of pulse in ms</span>
@@ -4853,20 +4853,20 @@ defined as fields of the class will be set.</p>
 <span class="s2">        weight                       : float     # weight of total liquid released in gr</span>
 <span class="s2">        timestamp=CURRENT_TIMESTAMP  : timestamp # timestamp</span>
 <span class="s2">        pressure=0                   : float     # air pressure (PSI)</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+<span class="s2">        """</span>
 
     <span class="k">class</span><span class="w"> </span><span class="nc">Test</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Datajoint table for Lick Test.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Datajoint table for Lick Test."""</span>
 
-        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">        # Lick timestamps</span>
 <span class="s2">        setup                        : varchar(256)                 # Setup name</span>
 <span class="s2">        port                         : tinyint                      # port id</span>
 <span class="s2">        timestamp=CURRENT_TIMESTAMP  : timestamp</span>
 <span class="s2">        ___</span>
-<span class="s2">        result=null                  : enum(&#39;Passed&#39;,&#39;Failed&#39;)</span>
+<span class="s2">        result=null                  : enum('Passed','Failed')</span>
 <span class="s2">        pulses=null                  : int</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+<span class="s2">        """</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -4923,9 +4923,9 @@ defined as fields of the class will be set.</p>
 <span class="normal">541</span>
 <span class="normal">542</span>
 <span class="normal">543</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Liquid</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for volume per pulse duty cycle estimation.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Datajoint table for volume per pulse duty cycle estimation."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Data for volume per pulse duty cycle estimation</span>
 <span class="s2">    -&gt; PortCalibration</span>
 <span class="s2">    pulse_dur                    : int       # duration of pulse in ms</span>
@@ -4934,7 +4934,7 @@ defined as fields of the class will be set.</p>
 <span class="s2">    weight                       : float     # weight of total liquid released in gr</span>
 <span class="s2">    timestamp=CURRENT_TIMESTAMP  : timestamp # timestamp</span>
 <span class="s2">    pressure=0                   : float     # air pressure (PSI)</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -4999,17 +4999,17 @@ defined as fields of the class will be set.</p>
 <span class="normal">554</span>
 <span class="normal">555</span>
 <span class="normal">556</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Test</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Datajoint table for Lick Test.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Datajoint table for Lick Test."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Lick timestamps</span>
 <span class="s2">    setup                        : varchar(256)                 # Setup name</span>
 <span class="s2">    port                         : tinyint                      # port id</span>
 <span class="s2">    timestamp=CURRENT_TIMESTAMP  : timestamp</span>
 <span class="s2">    ___</span>
-<span class="s2">    result=null                  : enum(&#39;Passed&#39;,&#39;Failed&#39;)</span>
+<span class="s2">    result=null                  : enum('Passed','Failed')</span>
 <span class="s2">    pulses=null                  : int</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -5184,31 +5184,31 @@ defined as fields of the class will be set.</p>
 <span class="normal">444</span>
 <span class="normal">445</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@interface</span><span class="o">.</span><span class="n">schema</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">SetupConfiguration</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;DataJoint table for configuring the setup interfaces.</span>
+<span class="w">    </span><span class="sd">"""DataJoint table for configuring the setup interfaces.</span>
 
 <span class="sd">    The user can define all harware configuration by defining only the setup index.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Setup configuration</span>
 <span class="s2">    setup_conf_idx           : tinyint      # configuration version</span>
 <span class="s2">    ---</span>
-<span class="s2">    interface                : enum(&#39;DummyPorts&#39;,&#39;RPPorts&#39;, &#39;PCPorts&#39;, &#39;RPVR&#39;)</span>
+<span class="s2">    interface                : enum('DummyPorts','RPPorts', 'PCPorts', 'RPVR')</span>
 <span class="s2">    discription              : varchar(256)</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 
     <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;DummyPorts&quot;</span><span class="p">,</span> <span class="s2">&quot;Simulation&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"DummyPorts"</span><span class="p">,</span> <span class="s2">"Simulation"</span><span class="p">],</span>
     <span class="p">]</span>
 
     <span class="k">class</span><span class="w"> </span><span class="nc">Port</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Port configuration table.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Port configuration table."""</span>
 
-        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">        # Probe identityrepeat_n = 1</span>
 
 <span class="s2">        port                     : tinyint                      # port id</span>
-<span class="s2">        type=&quot;Lick&quot;              : enum(&#39;Lick&#39;,&#39;Proximity&#39;)     # port type</span>
+<span class="s2">        type="Lick"              : enum('Lick','Proximity')     # port type</span>
 <span class="s2">        -&gt; SetupConfiguration</span>
 <span class="s2">        ---</span>
 <span class="s2">        ready=0                  : tinyint                      # ready flag</span>
@@ -5216,18 +5216,18 @@ defined as fields of the class will be set.</p>
 <span class="s2">        reward=0                 : tinyint                      # reward flag</span>
 <span class="s2">        invert=0                 : tinyint                      # invert flag</span>
 <span class="s2">        discription              : varchar(256)</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+<span class="s2">        """</span>
 
         <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Lick&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;probe&quot;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Lick&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;probe&quot;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Proximity&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;probe&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"Lick"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"probe"</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"Lick"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"probe"</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"Proximity"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"probe"</span><span class="p">],</span>
         <span class="p">]</span>
 
     <span class="k">class</span><span class="w"> </span><span class="nc">Screen</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Screen configuration table.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Screen configuration table."""</span>
 
-        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">        # Screen information</span>
 <span class="s2">        screen_idx               : tinyint</span>
 <span class="s2">        -&gt; SetupConfiguration</span>
@@ -5243,29 +5243,29 @@ defined as fields of the class will be set.</p>
 <span class="s2">        resolution_y             : smallint</span>
 <span class="s2">        description              : varchar(256)</span>
 <span class="s2">        fullscreen               : tinyint</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+<span class="s2">        """</span>
 
         <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.66</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="s2">&quot;Simulation&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.66</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="s2">"Simulation"</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
         <span class="p">]</span>
 
     <span class="k">class</span><span class="w"> </span><span class="nc">Ball</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ball configuration table.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Ball configuration table."""</span>
 
-        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">        # Ball information</span>
 <span class="s2">        -&gt; SetupConfiguration</span>
 <span class="s2">        ---</span>
 <span class="s2">        ball_radius=0.125        : float                   # in meters</span>
-<span class="s2">        material=&quot;styrofoam&quot;     : varchar(64)             # ball material</span>
-<span class="s2">        coupling=&quot;bearings&quot;      : enum(&#39;bearings&#39;,&#39;air&#39;)  # mechanical coupling</span>
+<span class="s2">        material="styrofoam"     : varchar(64)             # ball material</span>
+<span class="s2">        coupling="bearings"      : enum('bearings','air')  # mechanical coupling</span>
 <span class="s2">        discription              : varchar(256)</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+<span class="s2">        """</span>
 
     <span class="k">class</span><span class="w"> </span><span class="nc">Speaker</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Speaker configuration table.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Speaker configuration table."""</span>
 
-        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">        # Speaker information</span>
 <span class="s2">        speaker_idx             : tinyint</span>
 <span class="s2">        -&gt; SetupConfiguration</span>
@@ -5274,12 +5274,12 @@ defined as fields of the class will be set.</p>
 <span class="s2">        duration=500            : int           # in ms</span>
 <span class="s2">        volume=50               : tinyint       # 0-100 percentage</span>
 <span class="s2">        discription             : varchar(256)</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+<span class="s2">        """</span>
 
     <span class="k">class</span><span class="w"> </span><span class="nc">Camera</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Camera configuration table.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Camera configuration table."""</span>
 
-        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">        # Camera information</span>
 <span class="s2">        camera_idx               : tinyint</span>
 <span class="s2">        -&gt; SetupConfiguration</span>
@@ -5290,9 +5290,9 @@ defined as fields of the class will be set.</p>
 <span class="s2">        shutter_speed            : smallint</span>
 <span class="s2">        iso                      : smallint</span>
 <span class="s2">        file_format              : varchar(256)</span>
-<span class="s2">        video_aim                : enum(&#39;eye&#39;,&#39;body&#39;,&#39;openfield&#39;)</span>
+<span class="s2">        video_aim                : enum('eye','body','openfield')</span>
 <span class="s2">        discription              : varchar(256)</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+<span class="s2">        """</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -5348,17 +5348,17 @@ defined as fields of the class will be set.</p>
 <span class="normal">411</span>
 <span class="normal">412</span>
 <span class="normal">413</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Ball</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ball configuration table.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Ball configuration table."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Ball information</span>
 <span class="s2">    -&gt; SetupConfiguration</span>
 <span class="s2">    ---</span>
 <span class="s2">    ball_radius=0.125        : float                   # in meters</span>
-<span class="s2">    material=&quot;styrofoam&quot;     : varchar(64)             # ball material</span>
-<span class="s2">    coupling=&quot;bearings&quot;      : enum(&#39;bearings&#39;,&#39;air&#39;)  # mechanical coupling</span>
+<span class="s2">    material="styrofoam"     : varchar(64)             # ball material</span>
+<span class="s2">    coupling="bearings"      : enum('bearings','air')  # mechanical coupling</span>
 <span class="s2">    discription              : varchar(256)</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -5428,9 +5428,9 @@ defined as fields of the class will be set.</p>
 <span class="normal">443</span>
 <span class="normal">444</span>
 <span class="normal">445</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Camera</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Camera configuration table.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Camera configuration table."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Camera information</span>
 <span class="s2">    camera_idx               : tinyint</span>
 <span class="s2">    -&gt; SetupConfiguration</span>
@@ -5441,9 +5441,9 @@ defined as fields of the class will be set.</p>
 <span class="s2">    shutter_speed            : smallint</span>
 <span class="s2">    iso                      : smallint</span>
 <span class="s2">    file_format              : varchar(256)</span>
-<span class="s2">    video_aim                : enum(&#39;eye&#39;,&#39;body&#39;,&#39;openfield&#39;)</span>
+<span class="s2">    video_aim                : enum('eye','body','openfield')</span>
 <span class="s2">    discription              : varchar(256)</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -5518,13 +5518,13 @@ defined as fields of the class will be set.</p>
 <span class="normal">373</span>
 <span class="normal">374</span>
 <span class="normal">375</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Port</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Port configuration table.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Port configuration table."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Probe identityrepeat_n = 1</span>
 
 <span class="s2">    port                     : tinyint                      # port id</span>
-<span class="s2">    type=&quot;Lick&quot;              : enum(&#39;Lick&#39;,&#39;Proximity&#39;)     # port type</span>
+<span class="s2">    type="Lick"              : enum('Lick','Proximity')     # port type</span>
 <span class="s2">    -&gt; SetupConfiguration</span>
 <span class="s2">    ---</span>
 <span class="s2">    ready=0                  : tinyint                      # ready flag</span>
@@ -5532,12 +5532,12 @@ defined as fields of the class will be set.</p>
 <span class="s2">    reward=0                 : tinyint                      # reward flag</span>
 <span class="s2">    invert=0                 : tinyint                      # invert flag</span>
 <span class="s2">    discription              : varchar(256)</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 
     <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Lick&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;probe&quot;</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Lick&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;probe&quot;</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Proximity&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;probe&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"Lick"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"probe"</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"Lick"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"probe"</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"Proximity"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"probe"</span><span class="p">],</span>
     <span class="p">]</span>
 </code></pre></div></td></tr></table></div>
               </details>
@@ -5615,9 +5615,9 @@ defined as fields of the class will be set.</p>
 <span class="normal">398</span>
 <span class="normal">399</span>
 <span class="normal">400</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Screen</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Screen configuration table.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Screen configuration table."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Screen information</span>
 <span class="s2">    screen_idx               : tinyint</span>
 <span class="s2">    -&gt; SetupConfiguration</span>
@@ -5633,10 +5633,10 @@ defined as fields of the class will be set.</p>
 <span class="s2">    resolution_y             : smallint</span>
 <span class="s2">    description              : varchar(256)</span>
 <span class="s2">    fullscreen               : tinyint</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 
     <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.66</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="s2">&quot;Simulation&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.66</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="s2">"Simulation"</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
     <span class="p">]</span>
 </code></pre></div></td></tr></table></div>
               </details>
@@ -5703,9 +5703,9 @@ defined as fields of the class will be set.</p>
 <span class="normal">425</span>
 <span class="normal">426</span>
 <span class="normal">427</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Speaker</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Lookup</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Speaker configuration table.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Speaker configuration table."""</span>
 
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # Speaker information</span>
 <span class="s2">    speaker_idx             : tinyint</span>
 <span class="s2">    -&gt; SetupConfiguration</span>
@@ -5714,7 +5714,7 @@ defined as fields of the class will be set.</p>
 <span class="s2">    duration=500            : int           # in ms</span>
 <span class="s2">    volume=50               : tinyint       # 0-100 percentage</span>
 <span class="s2">    discription             : varchar(256)</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 </code></pre></div></td></tr></table></div>
               </details>
 

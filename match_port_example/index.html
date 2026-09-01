@@ -602,7 +602,7 @@
   <span class="md-ellipsis">
     
   
-    Local Configuration
+    Configuration
   
 
     
@@ -1907,7 +1907,7 @@
 <span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@experiment</span><span class="o">.</span><span class="n">schema</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Condition</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
     <span class="k">class</span><span class="w"> </span><span class="nc">MatchPort</span><span class="p">(</span><span class="n">dj</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-        <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">        # 2AFC experiment conditions</span>
 <span class="s2">        -&gt; Condition</span>
 <span class="s2">        ---</span>
@@ -1915,7 +1915,7 @@
 <span class="s2">        min_reward=500              : smallint</span>
 <span class="s2">        hydrate_delay=0             : int # delay hydration in minutes</span>
 
-<span class="s2">        trial_selection=&#39;staircase&#39; : enum(&#39;fixed&#39;,&#39;block&#39;,&#39;random&#39;,&#39;staircase&#39;, &#39;biased&#39;)</span>
+<span class="s2">        trial_selection='staircase' : enum('fixed','block','random','staircase', 'biased')</span>
 <span class="s2">        difficulty                  : int</span>
 <span class="s2">        bias_window=5               : smallint</span>
 <span class="s2">        staircase_window=20         : smallint</span>
@@ -1925,7 +1925,7 @@
 <span class="s2">        incremental_punishment=1    : tinyint(1)</span>
 <span class="s2">        next_up=0                   : tinyint</span>
 <span class="s2">        next_down=0                 : tinyint</span>
-<span class="s2">        metric=&#39;accuracy&#39;           : enum(&#39;accuracy&#39;,&#39;dprime&#39;)</span>
+<span class="s2">        metric='accuracy'           : enum('accuracy','dprime')</span>
 <span class="s2">        antibias=1                  : tinyint(1)</span>
 
 <span class="s2">        init_ready                  : int</span>
@@ -1935,7 +1935,7 @@
 <span class="s2">        reward_duration             : int</span>
 <span class="s2">        punish_duration             : int</span>
 <span class="s2">        abort_duration              : int</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+<span class="s2">        """</span>
 </code></pre></div></td></tr></table></div>
 <p>This table definition:</p>
 <ul>
@@ -1972,28 +1972,28 @@
 <span class="normal">23</span>
 <span class="normal">24</span>
 <span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Experiment</span><span class="p">(</span><span class="n">State</span><span class="p">,</span> <span class="n">ExperimentClass</span><span class="p">):</span>
-    <span class="n">cond_tables</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MatchPort&quot;</span><span class="p">]</span>
-    <span class="n">required_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;difficulty&quot;</span><span class="p">]</span>
+    <span class="n">cond_tables</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"MatchPort"</span><span class="p">]</span>
+    <span class="n">required_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"difficulty"</span><span class="p">]</span>
     <span class="n">default_key</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;max_reward&quot;</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
-        <span class="s2">&quot;min_reward&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
-        <span class="s2">&quot;hydrate_delay&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;trial_selection&quot;</span><span class="p">:</span> <span class="s2">&quot;staircase&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;init_ready&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;trial_ready&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;intertrial_duration&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
-        <span class="s2">&quot;trial_duration&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
-        <span class="s2">&quot;reward_duration&quot;</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span>
-        <span class="s2">&quot;punish_duration&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
-        <span class="s2">&quot;abort_duration&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;noresponse_intertrial&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">&quot;incremental_punishment&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"max_reward"</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
+        <span class="s2">"min_reward"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+        <span class="s2">"hydrate_delay"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"trial_selection"</span><span class="p">:</span> <span class="s2">"staircase"</span><span class="p">,</span>
+        <span class="s2">"init_ready"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"trial_ready"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"intertrial_duration"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"trial_duration"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"reward_duration"</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span>
+        <span class="s2">"punish_duration"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"abort_duration"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"noresponse_intertrial"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"incremental_punishment"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="o">**</span><span class="n">ExperimentClass</span><span class="o">.</span><span class="n">Block</span><span class="p">()</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
     <span class="p">}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">entry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">curr_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Trial.StateOnset&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">()})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"Trial.StateOnset"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"state"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">()})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state_timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -2048,7 +2048,7 @@ required_fields + default_key must have all the parameters from the Condition.Ma
         <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">present</span><span class="p">()</span>  <span class="c1"># Start Stimulus</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">has_responded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_ready</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;trial_ready&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_ready</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">"trial_ready"</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
             <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span>
         <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="o">=</span> <span class="kc">True</span>
@@ -2056,19 +2056,19 @@ required_fields + default_key must have all the parameters from the Condition.Ma
 
     <span class="k">def</span><span class="w"> </span><span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_off_proximity</span><span class="p">():</span>  <span class="c1"># did not wait</span>
-            <span class="k">return</span> <span class="s2">&quot;Abort&quot;</span>
+            <span class="k">return</span> <span class="s2">"Abort"</span>
         <span class="k">elif</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">has_responded</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_correct</span><span class="p">()</span>
         <span class="p">):</span>  <span class="c1"># response to incorrect probe</span>
-            <span class="k">return</span> <span class="s2">&quot;Punish&quot;</span>
+            <span class="k">return</span> <span class="s2">"Punish"</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_responded</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_correct</span><span class="p">():</span>  <span class="c1"># response to correct probe</span>
-            <span class="k">return</span> <span class="s2">&quot;Reward&quot;</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;trial_duration&quot;</span><span class="p">]:</span>
-            <span class="k">return</span> <span class="s2">&quot;Abort&quot;</span>
+            <span class="k">return</span> <span class="s2">"Reward"</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">"trial_duration"</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="s2">"Abort"</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_stopped</span><span class="p">():</span>
-            <span class="k">return</span> <span class="s2">&quot;Exit&quot;</span>
+            <span class="k">return</span> <span class="s2">"Exit"</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;Trial&quot;</span>
+            <span class="k">return</span> <span class="s2">"Trial"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># stop stimulus when timeout</span>
@@ -2108,7 +2108,7 @@ required_fields + default_key must have all the parameters from the Condition.Ma
     <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">present</span><span class="p">()</span>  <span class="c1"># Start Stimulus</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">has_responded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_ready</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;trial_ready&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_ready</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">"trial_ready"</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
         <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="o">=</span> <span class="kc">True</span>
@@ -2159,19 +2159,19 @@ required_fields + default_key must have all the parameters from the Condition.Ma
 <span class="normal">14</span>
 <span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp_ready</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_off_proximity</span><span class="p">():</span>  <span class="c1"># did not wait</span>
-        <span class="k">return</span> <span class="s2">&quot;Abort&quot;</span>
+        <span class="k">return</span> <span class="s2">"Abort"</span>
     <span class="k">elif</span> <span class="p">(</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">has_responded</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_correct</span><span class="p">()</span>
     <span class="p">):</span>  <span class="c1"># response to incorrect probe</span>
-        <span class="k">return</span> <span class="s2">&quot;Punish&quot;</span>
+        <span class="k">return</span> <span class="s2">"Punish"</span>
     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_responded</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beh</span><span class="o">.</span><span class="n">is_correct</span><span class="p">():</span>  <span class="c1"># response to correct probe</span>
-        <span class="k">return</span> <span class="s2">&quot;Reward&quot;</span>
-    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">&quot;trial_duration&quot;</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="s2">&quot;Abort&quot;</span>
+        <span class="k">return</span> <span class="s2">"Reward"</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">stim</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s2">"trial_duration"</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="s2">"Abort"</span>
     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_stopped</span><span class="p">():</span>
-        <span class="k">return</span> <span class="s2">&quot;Exit&quot;</span>
+        <span class="k">return</span> <span class="s2">"Exit"</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;Trial&quot;</span>
+        <span class="k">return</span> <span class="s2">"Trial"</span>
 </code></pre></div></td></tr></table></div>
 <p>This method determines the next state based on the animal's behavior and timing:</p>
 <ul>

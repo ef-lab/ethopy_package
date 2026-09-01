@@ -602,7 +602,7 @@
   <span class="md-ellipsis">
     
   
-    Local Configuration
+    Configuration
   
 
     
@@ -2173,7 +2173,7 @@
 
 <span class="c1"># 1. Session Parameters</span>
 <span class="n">session_params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">'setup_conf_idx'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
     <span class="c1"># ... other session parameters</span>
 <span class="p">}</span>
 
@@ -2292,11 +2292,11 @@
 <span class="normal">7</span>
 <span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">session_params</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1"># Required Parameters</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># Setup configuration index</span>
+    <span class="s1">'setup_conf_idx'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># Setup configuration index</span>
 
     <span class="c1"># Optional Parameters</span>
-    <span class="s1">&#39;max_reward&#39;</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>    <span class="c1"># Maximum reward amount</span>
-    <span class="s1">&#39;min_reward&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>      <span class="c1"># Minimum reward amount</span>
+    <span class="s1">'max_reward'</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>    <span class="c1"># Maximum reward amount</span>
+    <span class="s1">'min_reward'</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>      <span class="c1"># Minimum reward amount</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="2-stimulus-conditions">2. Stimulus Conditions<a class="headerlink" href="#2-stimulus-conditions" title="Permanent link">&para;</a></h3>
@@ -2313,13 +2313,13 @@
 <span class="normal">10</span>
 <span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Example from grating_test.py</span>
 <span class="n">key</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;contrast&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-    <span class="s1">&#39;spatial_freq&#39;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>        <span class="c1"># cycles/deg</span>
-    <span class="s1">&#39;temporal_freq&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>          <span class="c1"># cycles/sec</span>
-    <span class="s1">&#39;duration&#39;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>            <span class="c1"># ms</span>
-    <span class="s1">&#39;trial_duration&#39;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>      <span class="c1"># ms</span>
-    <span class="s1">&#39;intertrial_duration&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>    <span class="c1"># ms</span>
-    <span class="s1">&#39;reward_amount&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="s1">'contrast'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s1">'spatial_freq'</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>        <span class="c1"># cycles/deg</span>
+    <span class="s1">'temporal_freq'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>          <span class="c1"># cycles/sec</span>
+    <span class="s1">'duration'</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>            <span class="c1"># ms</span>
+    <span class="s1">'trial_duration'</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>      <span class="c1"># ms</span>
+    <span class="s1">'intertrial_duration'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>    <span class="c1"># ms</span>
+    <span class="s1">'reward_amount'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
     <span class="c1"># ... other stimulus parameters</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -2345,8 +2345,8 @@
     <span class="n">difficulty</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">next_up</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">next_down</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">trial_selection</span><span class="o">=</span><span class="s1">&#39;staircase&#39;</span><span class="p">,</span>
-    <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;dprime&#39;</span><span class="p">,</span>
+    <span class="n">trial_selection</span><span class="o">=</span><span class="s1">'staircase'</span><span class="p">,</span>
+    <span class="n">metric</span><span class="o">=</span><span class="s1">'dprime'</span><span class="p">,</span>
     <span class="n">stair_up</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">stair_down</span><span class="o">=</span><span class="mf">0.5</span>
 <span class="p">)</span>
@@ -2354,7 +2354,7 @@
 <span class="c1"># Create conditions</span>
 <span class="n">conditions</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">make_conditions</span><span class="p">(</span>
     <span class="n">stim_class</span><span class="o">=</span><span class="n">SomeStimulus</span><span class="p">(),</span>
-    <span class="n">conditions</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">block</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span> <span class="o">**</span><span class="n">key</span><span class="p">,</span> <span class="s1">&#39;other_param&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
+    <span class="n">conditions</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">block</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span> <span class="o">**</span><span class="n">key</span><span class="p">,</span> <span class="s1">'other_param'</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
 <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="4-how-conditions-are-made">4. How Conditions Are Made<a class="headerlink" href="#4-how-conditions-are-made" title="Permanent link">&para;</a></h3>
@@ -2408,24 +2408,24 @@
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">factorize</span><span class="p">({</span><span class="s1">&#39;freq&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;contrast&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="s1">&#39;duration&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">})</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">factorize</span><span class="p">({</span><span class="s1">'freq'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">'contrast'</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="s1">'duration'</span><span class="p">:</span> <span class="mi">500</span><span class="p">})</span>
 <span class="c1"># 2 x 2 x 1 = 4 conditions:</span>
-<span class="c1">#   {&#39;freq&#39;: 1, &#39;contrast&#39;: 10, &#39;duration&#39;: 500}</span>
-<span class="c1">#   {&#39;freq&#39;: 1, &#39;contrast&#39;: 20, &#39;duration&#39;: 500}</span>
-<span class="c1">#   {&#39;freq&#39;: 2, &#39;contrast&#39;: 10, &#39;duration&#39;: 500}</span>
-<span class="c1">#   {&#39;freq&#39;: 2, &#39;contrast&#39;: 20, &#39;duration&#39;: 500}</span>
+<span class="c1">#   {'freq': 1, 'contrast': 10, 'duration': 500}</span>
+<span class="c1">#   {'freq': 1, 'contrast': 20, 'duration': 500}</span>
+<span class="c1">#   {'freq': 2, 'contrast': 10, 'duration': 500}</span>
+<span class="c1">#   {'freq': 2, 'contrast': 20, 'duration': 500}</span>
 </code></pre></div></td></tr></table></div>
 <h4 id="fields-that-must-stay-together-lists-vs-tuples">Fields that must stay together (lists vs. tuples)<a class="headerlink" href="#fields-that-must-stay-together-lists-vs-tuples" title="Permanent link">&para;</a></h4>
 <p>Some condition tables have fields that represent <strong>one value made of several aligned elements</strong> rather than a set of alternatives. A common case is a color field such as <code>bg_level</code>, an <code>[R, G, B]</code> triple whose three elements must stay together as a single value.</p>
 <p>For these fields use a <strong>tuple</strong>, so <code>factorize</code> keeps them intact instead of expanding them:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="s1">&#39;bg_level&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>   <span class="c1"># ONE color (white)</span>
-<span class="s1">&#39;bg_level&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>   <span class="c1"># THREE separate conditions: 1, 1, 1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="s1">'bg_level'</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>   <span class="c1"># ONE color (white)</span>
+<span class="s1">'bg_level'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>   <span class="c1"># THREE separate conditions: 1, 1, 1</span>
 </code></pre></div></td></tr></table></div>
 <p>To vary over several such arrays in one call, wrap the tuples (or inner lists) in an outer list. The outer list is the set of alternatives, each inner array becomes one condition's aligned value (inner lists are converted to tuples automatically):</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="s1">&#39;bg_level&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>            <span class="c1"># one condition,  bg_level = (1, 1, 1)</span>
-<span class="s1">&#39;bg_level&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span> <span class="c1"># two conditions: (1, 1, 1) and (0, 0, 0)</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="s1">'bg_level'</span><span class="p">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>            <span class="c1"># one condition,  bg_level = (1, 1, 1)</span>
+<span class="s1">'bg_level'</span><span class="p">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span> <span class="c1"># two conditions: (1, 1, 1) and (0, 0, 0)</span>
 </code></pre></div></td></tr></table></div>
 <p>You can see this pattern in the shipped <code>dot_test.py</code> example task, where each stimulus keeps an aligned RGB triple as a single value while other fields expand:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -2438,10 +2438,10 @@
 <span class="normal">8</span>
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># src/ethopy/task/dot_test.py</span>
 <span class="n">key</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;bg_level&#39;</span> <span class="p">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
-    <span class="s1">&#39;dot_level&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
-    <span class="s1">&#39;dot_x&#39;</span>    <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">.45</span><span class="p">,</span> <span class="mf">.45</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>  <span class="c1"># 10 alternatives</span>
-    <span class="s1">&#39;dot_y&#39;</span>    <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">.27</span><span class="p">,</span> <span class="mf">.27</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span>   <span class="c1"># 6 alternatives</span>
+    <span class="s1">'bg_level'</span> <span class="p">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
+    <span class="s1">'dot_level'</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+    <span class="s1">'dot_x'</span>    <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">.45</span><span class="p">,</span> <span class="mf">.45</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>  <span class="c1"># 10 alternatives</span>
+    <span class="s1">'dot_y'</span>    <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">.27</span><span class="p">,</span> <span class="mf">.27</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span>   <span class="c1"># 6 alternatives</span>
     <span class="c1"># ...</span>
 <span class="p">}</span>
 <span class="c1"># 10 x 6 = 60 conditions; bg_level / dot_level stay intact as single RGB triples</span>
@@ -2515,8 +2515,8 @@
 
 <span class="c1"># Session setup</span>
 <span class="n">session_params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;max_reward&#39;</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
-    <span class="s1">&#39;setup_conf_idx&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">'max_reward'</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
+    <span class="s1">'setup_conf_idx'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="n">exp</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">()</span>
@@ -2524,16 +2524,16 @@
 
 <span class="c1"># Stimulus conditions</span>
 <span class="n">key</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;contrast&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-    <span class="s1">&#39;spatial_freq&#39;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>
-    <span class="s1">&#39;duration&#39;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>
+    <span class="s1">'contrast'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s1">'spatial_freq'</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="s1">'duration'</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="c1"># Port mapping</span>
 <span class="n">ports</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">90</span><span class="p">}</span>  <span class="c1"># Port number: orientation</span>
 
 <span class="c1"># Create conditions</span>
-<span class="n">block</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">difficulty</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">trial_selection</span><span class="o">=</span><span class="s1">&#39;staircase&#39;</span><span class="p">)</span>
+<span class="n">block</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">difficulty</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">trial_selection</span><span class="o">=</span><span class="s1">'staircase'</span><span class="p">)</span>
 <span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">ports</span><span class="p">:</span>
     <span class="n">conditions</span> <span class="o">+=</span> <span class="n">exp</span><span class="o">.</span><span class="n">make_conditions</span><span class="p">(</span>
@@ -2541,9 +2541,9 @@
         <span class="n">conditions</span><span class="o">=</span><span class="p">{</span>
             <span class="o">**</span><span class="n">block</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
             <span class="o">**</span><span class="n">key</span><span class="p">,</span>
-            <span class="s1">&#39;theta&#39;</span><span class="p">:</span> <span class="n">ports</span><span class="p">[</span><span class="n">port</span><span class="p">],</span>
-            <span class="s1">&#39;reward_port&#39;</span><span class="p">:</span> <span class="n">port</span><span class="p">,</span>
-            <span class="s1">&#39;response_port&#39;</span><span class="p">:</span> <span class="n">port</span>
+            <span class="s1">'theta'</span><span class="p">:</span> <span class="n">ports</span><span class="p">[</span><span class="n">port</span><span class="p">],</span>
+            <span class="s1">'reward_port'</span><span class="p">:</span> <span class="n">port</span><span class="p">,</span>
+            <span class="s1">'response_port'</span><span class="p">:</span> <span class="n">port</span>
         <span class="p">}</span>
     <span class="p">)</span>
 

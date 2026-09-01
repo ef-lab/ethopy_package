@@ -602,7 +602,7 @@
   <span class="md-ellipsis">
     
   
-    Local Configuration
+    Configuration
   
 
     
@@ -1760,7 +1760,7 @@
 <span class="normal">14</span>
 <span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@stimulus</span><span class="o">.</span><span class="n">schema</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Dot</span><span class="p">(</span><span class="n">Stimulus</span><span class="p">,</span> <span class="n">dj</span><span class="o">.</span><span class="n">Manual</span><span class="p">):</span>
-    <span class="n">definition</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">definition</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    # This class handles the presentation of area mapping Bar stimulus</span>
 <span class="s2">    -&gt; stimulus.StimCondition</span>
 <span class="s2">    ---</span>
@@ -1770,9 +1770,9 @@
 <span class="s2">    dot_y                 : float  # (fraction of monitor width, 0 for center) position of dot on y axis</span>
 <span class="s2">    dot_xsize             : float  # fraction of monitor width, width of dots</span>
 <span class="s2">    dot_ysize             : float # fraction of monitor width, height of dots</span>
-<span class="s2">    dot_shape             : enum(&#39;rect&#39;,&#39;oval&#39;) # shape of the dot</span>
+<span class="s2">    dot_shape             : enum('rect','oval') # shape of the dot</span>
 <span class="s2">    dot_time              : float # (sec) time of each dot persists</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 </code></pre></div></td></tr></table></div>
 <p>This table definition:</p>
 <ul>
@@ -1798,11 +1798,11 @@
 <span class="normal">6</span>
 <span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Dot&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;dot_x&#39;</span><span class="p">,</span> <span class="s1">&#39;dot_y&#39;</span><span class="p">,</span> <span class="s1">&#39;dot_xsize&#39;</span><span class="p">,</span> <span class="s1">&#39;dot_ysize&#39;</span><span class="p">,</span> <span class="s1">&#39;dot_time&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">default_key</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;bg_level&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="s1">&#39;dot_level&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># degrees</span>
-                        <span class="s1">&#39;dot_shape&#39;</span><span class="p">:</span> <span class="s1">&#39;rect&#39;</span><span class="p">}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cond_tables</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Dot'</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">required_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'dot_x'</span><span class="p">,</span> <span class="s1">'dot_y'</span><span class="p">,</span> <span class="s1">'dot_xsize'</span><span class="p">,</span> <span class="s1">'dot_ysize'</span><span class="p">,</span> <span class="s1">'dot_time'</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">default_key</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'bg_level'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s1">'dot_level'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># degrees</span>
+                        <span class="s1">'dot_shape'</span><span class="p">:</span> <span class="s1">'rect'</span><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="1-__init__-method">1. <code>__init__()</code> method<a class="headerlink" href="#1-__init__-method" title="Permanent link">&para;</a></h3>
 <p>This initializes the stimulus and defines:</p>
@@ -1825,16 +1825,16 @@
 <span class="normal">11</span>
 <span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curr_cond</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span> <span class="o">=</span> <span class="n">curr_cond</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;bg_level&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">set_background_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;bg_level&#39;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">'bg_level'</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">set_background_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">'bg_level'</span><span class="p">])</span>
     <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="o">.</span><span class="n">resolution_x</span>
     <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span><span class="o">.</span><span class="n">resolution_y</span>
-    <span class="n">x_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;dot_x&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
-    <span class="n">y_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;dot_y&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">width</span><span class="o">/</span><span class="n">height</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_start</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;dot_xsize&#39;</span><span class="p">],</span>
-                 <span class="n">y_start</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;dot_ysize&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">width</span><span class="o">/</span><span class="n">height</span><span class="p">,</span>
-                 <span class="n">x_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;dot_xsize&#39;</span><span class="p">],</span>
-                 <span class="n">y_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;dot_ysize&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">width</span><span class="o">/</span><span class="n">height</span><span class="p">)</span>
+    <span class="n">x_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">'dot_x'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">y_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">'dot_y'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">width</span><span class="o">/</span><span class="n">height</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_start</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">'dot_xsize'</span><span class="p">],</span>
+                 <span class="n">y_start</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">'dot_ysize'</span><span class="p">]</span><span class="o">*</span><span class="n">width</span><span class="o">/</span><span class="n">height</span><span class="p">,</span>
+                 <span class="n">x_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">'dot_xsize'</span><span class="p">],</span>
+                 <span class="n">y_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">'dot_ysize'</span><span class="p">]</span><span class="o">*</span><span class="n">width</span><span class="o">/</span><span class="n">height</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <p>This method:</p>
 <ol>
@@ -1852,7 +1852,7 @@
 <span class="normal">2</span>
 <span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">draw_rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;dot_level&#39;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">draw_rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">'dot_level'</span><span class="p">])</span>
 </code></pre></div></td></tr></table></div>
 <p>This method:</p>
 <ol>
@@ -1864,7 +1864,7 @@
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">present</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">&#39;dot_time&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_cond</span><span class="p">[</span><span class="s1">'dot_time'</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">in_operation</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Presenter</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_colors</span><span class="o">.</span><span class="n">background</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>

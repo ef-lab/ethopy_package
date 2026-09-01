@@ -29,7 +29,7 @@
     
     
       
-        <title>Local Configuration - EthoPy</title>
+        <title>Configuration - EthoPy</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ethopy-local-configuration-guide" class="md-skip">
+        <a href="#ethopy-configuration-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Local Configuration
+              Configuration
             
           </span>
         </div>
@@ -611,7 +611,7 @@
   <span class="md-ellipsis">
     
   
-    Local Configuration
+    Configuration
   
 
     
@@ -629,7 +629,7 @@
   <span class="md-ellipsis">
     
   
-    Local Configuration
+    Configuration
   
 
     
@@ -666,10 +666,82 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#file-location" class="md-nav__link">
+  <a href="#how-ethopy-is-configured" class="md-nav__link">
     <span class="md-ellipsis">
       
-        File Location
+        How EthoPy is Configured
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How EthoPy is Configured">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-default-configuration-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The default configuration file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-a-different-config-file-on-the-command-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. A different config file on the command line
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-from-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. From Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Environment variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Built-in Defaults
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#precedence-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precedence Order
       
     </span>
   </a>
@@ -1704,10 +1776,82 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#file-location" class="md-nav__link">
+  <a href="#how-ethopy-is-configured" class="md-nav__link">
     <span class="md-ellipsis">
       
-        File Location
+        How EthoPy is Configured
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How EthoPy is Configured">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-default-configuration-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The default configuration file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-a-different-config-file-on-the-command-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. A different config file on the command line
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-from-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. From Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Environment variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Built-in Defaults
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#precedence-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precedence Order
       
     </span>
   </a>
@@ -1987,7 +2131,7 @@
   
 
 
-<h1 id="ethopy-local-configuration-guide">EthoPy Local Configuration Guide<a class="headerlink" href="#ethopy-local-configuration-guide" title="Permanent link">&para;</a></h1>
+<h1 id="ethopy-configuration-guide">EthoPy Configuration Guide<a class="headerlink" href="#ethopy-configuration-guide" title="Permanent link">&para;</a></h1>
 <h2 id="what-is-local_confjson">What is local_conf.json?<a class="headerlink" href="#what-is-local_confjson" title="Permanent link">&para;</a></h2>
 <p>The <code>local_conf.json</code> file stores <strong>device-specific settings</strong> that are unique to each computer or experimental setup. These are settings that:</p>
 <ul>
@@ -1995,16 +2139,170 @@
 <li>Need to be configured once per machine, not per experiment</li>
 </ul>
 <p><strong>Key distinction</strong>: Experimental parameters and data go in the database. Machine-specific settings go in <code>local_conf.json</code>.</p>
-<h2 id="file-location">File Location<a class="headerlink" href="#file-location" title="Permanent link">&para;</a></h2>
-<p>EthoPy automatically looks for your configuration file here:</p>
+<h2 id="how-ethopy-is-configured">How EthoPy is Configured<a class="headerlink" href="#how-ethopy-is-configured" title="Permanent link">&para;</a></h2>
+<p>EthoPy reads its settings from <strong>one JSON configuration file</strong>, plus a small number of overrides that apply on top of it. There are four mechanisms in total:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Mechanism</th>
+<th>What it controls</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>~/.ethopy/local_conf.json</code></td>
+<td>Everything: database, paths, logging, schemata, plugins, hardware</td>
+<td>Default for every run on this machine</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>ethopy -c /path/to/conf.json</code></td>
+<td>Same as above, from a different file</td>
+<td>A single run</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Environment variable <code>ETHOPY_PLUGIN_PATH</code></td>
+<td>Extra plugin directories only</td>
+<td>The shell session</td>
+</tr>
+</tbody>
+</table>
+<p>Command-line flags (<code>--log-level</code>, <code>--log-console</code>) override individual logging settings for one run, but they are not a general configuration mechanism.</p>
+<h3 id="1-the-default-configuration-file">1. The default configuration file<a class="headerlink" href="#1-the-default-configuration-file" title="Permanent link">&para;</a></h3>
+<p>With no other instruction, EthoPy loads:</p>
 <ul>
 <li><strong>Mac/Linux</strong>: <code>~/.ethopy/local_conf.json</code></li>
 <li><strong>Windows</strong>: <code>%USERPROFILE%\.ethopy\local_conf.json</code></li>
 </ul>
-<p>You can also specify a custom location using the environment variable:</p>
+<p>The file is read once, at <code>import ethopy</code>. If it does not exist, EthoPy runs entirely on its <a href="#built-in-defaults">built-in defaults</a>.</p>
+<h3 id="2-a-different-config-file-on-the-command-line">2. A different config file on the command line<a class="headerlink" href="#2-a-different-config-file-on-the-command-line" title="Permanent link">&para;</a></h3>
+<p>Every EthoPy run can point at another file with <code>-c</code> / <code>--config</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ethopy<span class="w"> </span>-p<span class="w"> </span>my_task.py<span class="w"> </span>-c<span class="w"> </span>/path/to/rig2_conf.json
+</code></pre></div></td></tr></table></div>
+<p>This is the supported way to keep several configurations on one machine, one per rig, or one per database. The file must exist; EthoPy exits with an error if it does not.</p>
+<p><strong>Important</strong>: the custom file <em>replaces</em> the default one, it is not merged with <code>~/.ethopy/local_conf.json</code>. Any key you leave out falls back to the built-in default, not to the value in your home-directory file. Custom config files should therefore be self-contained.</p>
+<h3 id="3-from-python">3. From Python<a class="headerlink" href="#3-from-python" title="Permanent link">&para;</a></h3>
+<p>The configuration object is available as <code>ethopy.local_conf</code> and can be read anywhere in your own code, including plugins:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy</span><span class="w"> </span><span class="kn">import</span> <span class="n">local_conf</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="n">local_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"source_path"</span><span class="p">)</span>              <span class="c1"># top-level key</span>
+<span class="n">host</span> <span class="o">=</span> <span class="n">local_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"database.host"</span><span class="p">)</span>              <span class="c1"># key inside dj_local_conf</span>
+<span class="n">level</span> <span class="o">=</span> <span class="n">local_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"logging.level"</span><span class="p">,</span> <span class="s2">"INFO"</span><span class="p">)</span>     <span class="c1"># nested key, with a fallback</span>
+</code></pre></div></td></tr></table></div>
+<p><code>get()</code> resolves a key in this order, returning the first hit:</p>
+<ol>
+<li>A top-level key of the JSON file (<code>"source_path"</code>, <code>"SCHEMATA"</code>, <code>"Channels"</code>, ...)</li>
+<li>A key inside <code>dj_local_conf</code> (so <code>"database.host"</code> works without a prefix)</li>
+<li>Dot notation walked through nested objects (<code>"logging.level"</code>)</li>
+<li>The <code>default</code> argument you passed, or <code>None</code></li>
+</ol>
+<p>To load a different file explicitly — for example in a notebook or an export script:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ethopy.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigurationManager</span>
+
+<span class="n">conf</span> <span class="o">=</span> <span class="n">ConfigurationManager</span><span class="p">(</span><span class="n">config_file</span><span class="o">=</span><span class="s2">"/path/to/rig2_conf.json"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>                       <span class="c1"># prints every resolved setting and the file it came from</span>
+</code></pre></div></td></tr></table></div>
+<p>By itself this only affects the <code>conf</code> object. To make the rest of EthoPy (DataJoint connection, schema names, plugin manager) use it as well, apply it globally:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">conf</span><span class="o">.</span><span class="n">update_global_config</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p><code>update_global_config()</code> re-points <code>ethopy.local_conf</code>, pushes <code>dj_local_conf</code> into DataJoint, replaces <code>ethopy.SCHEMATA</code>, and rebuilds the plugin manager from the new <code>plugin_path</code>. This is exactly what <code>ethopy -c</code> does internally.</p>
+<p>The NWB exporter takes its own <code>config_path</code> argument for the same purpose — see <a href="../nwb_docs/">Export to NWB</a>.</p>
+<h3 id="4-environment-variables">4. Environment variables<a class="headerlink" href="#4-environment-variables" title="Permanent link">&para;</a></h3>
+<p>EthoPy reads exactly one environment variable of its own:</p>
 <ul>
-<li><strong>Environment variable</strong>: Set <code>ETHOPY_CONFIG_PATH</code> to point to your custom config file location</li>
+<li><strong><code>ETHOPY_PLUGIN_PATH</code></strong> — a comma-separated list of extra plugin directories.</li>
 </ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">ETHOPY_PLUGIN_PATH</span><span class="o">=</span>/path/to/plugins,/another/plugin/path
+</code></pre></div></td></tr></table></div>
+<p>There is <strong>no environment variable for the config file location</strong> — use <code>ethopy -c</code> instead.</p>
+<p>Note that DataJoint's own environment variables (<code>DJ_HOST</code>, <code>DJ_USER</code>, <code>DJ_PASS</code>, ...) have no effect on EthoPy. EthoPy pushes its <code>dj_local_conf</code> block into <code>dj.config</code> at import, after DataJoint has read the environment, so the JSON file — or its default — wins in every case. Set database credentials in <code>dj_local_conf</code>, not in the environment.</p>
+<h2 id="built-in-defaults">Built-in Defaults<a class="headerlink" href="#built-in-defaults" title="Permanent link">&para;</a></h2>
+<p>Any key absent from your configuration file is filled in with a default, so a minimal file is enough to get started. The defaults are:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"dj_local_conf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"database.host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"127.0.0.1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.password"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.port"</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.reconnect"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.use_tls"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"datajoint.loglevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WARNING"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"SCHEMATA"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"experiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lab_experiments"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"stimulus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lab_stimuli"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"behavior"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lab_behavior"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"interface"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lab_interface"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"recording"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lab_recordings"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"logging"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"directory"</span><span class="p">:</span><span class="w"> </span><span class="s2">"~/.ethopy"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"filename"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ethopy.log"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"max_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">31457280</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"backup_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"source_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"~/EthoPy_Files"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"target_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"plugin_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"~/.ethopy/ethopy_plugins"</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Merging happens <strong>one level deep</strong>. If your file defines <code>"logging": {"level": "DEBUG"}</code>, you keep the default <code>directory</code>, <code>filename</code>, <code>max_size</code> and <code>backup_count</code> and only override <code>level</code>. The same applies to <code>dj_local_conf</code> and <code>SCHEMATA</code>.</p>
+<p>Keys with no default — <code>Channels</code>, <code>server.*</code>, <code>video_source_path</code>, <code>video_target_path</code> — are simply absent unless you define them, and code that needs them supplies its own fallback.</p>
+<h2 id="precedence-order">Precedence Order<a class="headerlink" href="#precedence-order" title="Permanent link">&para;</a></h2>
+<p>For a normal <code>ethopy</code> run, a setting is resolved like this — first match wins:</p>
+<ol>
+<li><strong>Command-line flag</strong>, where one exists for that setting (<code>--log-level</code>, <code>--log-console</code>)</li>
+<li><strong>The active configuration file</strong> — the <code>-c/--config</code> file if given, otherwise
+   <code>~/.ethopy/local_conf.json</code></li>
+<li><strong>Built-in default</strong> for that key</li>
+</ol>
+<p>Only one configuration file is ever active; files are never merged with each other.</p>
+<p><strong>Plugin directories are the exception</strong> — they accumulate rather than override. All three sources are scanned, in this order:</p>
+<ol>
+<li><code>plugin_path</code> from the active configuration file</li>
+<li><code>~/.ethopy/ethopy_plugins</code> (the default directory)</li>
+<li>Each path in <code>ETHOPY_PLUGIN_PATH</code>, left to right</li>
+</ol>
+<p>When two directories contain a module with the same import name, <strong>the one scanned later wins</strong>, so <code>ETHOPY_PLUGIN_PATH</code> overrides the default directory, which overrides <code>plugin_path</code>. Core EthoPy modules always win over plugins, regardless of source. Each conflict is logged as a warning naming both files. See the <a href="../plugin/">Plugin System</a> guide for details.</p>
 <h2 id="essential-configuration">Essential Configuration<a class="headerlink" href="#essential-configuration" title="Permanent link">&para;</a></h2>
 <h3 id="minimal-setup">Minimal Setup<a class="headerlink" href="#minimal-setup" title="Permanent link">&para;</a></h3>
 <p>Here's the minimum configuration needed to get EthoPy running:</p>
@@ -2018,14 +2316,14 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_database_address&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_username&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_password_here&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
+<span class="w">    </span><span class="nt">"dj_local_conf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"database.host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your_database_address"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your_username"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your_password_here"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.port"</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/your/data&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/your/backup&quot;</span>
+<span class="w">    </span><span class="nt">"source_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/path/to/your/data"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"target_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/path/to/your/backup"</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p><strong>What each part does:</strong></p>
@@ -2048,15 +2346,15 @@
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_mysql_password&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.reconnect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.use_tls&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.enable_python_native_blobs&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;datajoint.loglevel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;WARNING&quot;</span>
+<span class="w">    </span><span class="nt">"dj_local_conf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"database.host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"127.0.0.1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your_mysql_password"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.port"</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.reconnect"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.use_tls"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.enable_python_native_blobs"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"datajoint.loglevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WARNING"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -2113,8 +2411,8 @@
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_data&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_backup&quot;</span>
+<span class="w">    </span><span class="nt">"source_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/Users/yourname/experiment_data"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"target_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/Users/yourname/experiment_backup"</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p><strong>Settings explanation:</strong></p>
@@ -2147,12 +2445,12 @@
 <span class="normal">7</span>
 <span class="normal">8</span>
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;directory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~/.ethopy/&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ethopy.log&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;max_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">31457280</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;backup_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">    </span><span class="nt">"logging"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"directory"</span><span class="p">:</span><span class="w"> </span><span class="s2">"~/.ethopy/"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"filename"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ethopy.log"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"max_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">31457280</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"backup_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -2204,10 +2502,10 @@
 <span class="normal">5</span>
 <span class="normal">6</span>
 <span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;Channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;Liquid&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;Lick&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">27</span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;Odor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">}</span>
+<span class="w">    </span><span class="nt">"Channels"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"Liquid"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"1"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="nt">"2"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">},</span>
+<span class="w">        </span><span class="nt">"Lick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"1"</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="nt">"2"</span><span class="p">:</span><span class="w"> </span><span class="mi">27</span><span class="p">},</span>
+<span class="w">        </span><span class="nt">"Odor"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"1"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="nt">"2"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -2258,12 +2556,12 @@
 <span class="normal">7</span>
 <span class="normal">8</span>
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;SCHEMATA&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;experiment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_experiments&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;behavior&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_behavior_data&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;stimulus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_stimuli&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;interface&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_interface&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;recording&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_recordings&quot;</span>
+<span class="w">    </span><span class="nt">"SCHEMATA"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"experiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my_experiments"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"behavior"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my_behavior_data"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"stimulus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my_stimuli"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"interface"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my_interface"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"recording"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my_recordings"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -2317,7 +2615,7 @@
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;plugin_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/.ethopy/ethopy_plugins&quot;</span>
+<span class="w">    </span><span class="nt">"plugin_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/Users/yourname/.ethopy/ethopy_plugins"</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p><strong>Settings explanation:</strong></p>
@@ -2329,7 +2627,10 @@
 </ul>
 </li>
 </ul>
-<p><strong>Note</strong>: Only needed if you're using custom plugins or want to store them in a different location.</p>
+<p><strong>Note</strong>: Only needed if you're using custom plugins or want to store them in a different
+location. <code>plugin_path</code> is one of three plugin sources — the default
+<code>~/.ethopy/ethopy_plugins</code> directory and <code>ETHOPY_PLUGIN_PATH</code> are also scanned. All three
+are used together; see <a href="#precedence-order">Precedence Order</a>.</p>
 <h2 id="common-setup-scenarios">Common Setup Scenarios<a class="headerlink" href="#common-setup-scenarios" title="Permanent link">&para;</a></h2>
 <h3 id="local-database-setup-most-common">Local Database Setup (Most Common)<a class="headerlink" href="#local-database-setup-most-common" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -2342,14 +2643,14 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_mysql_password&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
+<span class="w">    </span><span class="nt">"dj_local_conf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"database.host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"127.0.0.1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your_mysql_password"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.port"</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_data&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_backup&quot;</span>
+<span class="w">    </span><span class="nt">"source_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/Users/yourname/experiment_data"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"target_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/Users/yourname/experiment_backup"</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="remote-database-setup">Remote Database Setup<a class="headerlink" href="#remote-database-setup" title="Permanent link">&para;</a></h3>
@@ -2363,14 +2664,14 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.1.100&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_user&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lab_password&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
+<span class="w">    </span><span class="nt">"dj_local_conf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"database.host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.168.1.100"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lab_user"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lab_password"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.port"</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_data&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/yourname/experiment_backup&quot;</span>
+<span class="w">    </span><span class="nt">"source_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/Users/yourname/experiment_data"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"target_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/Users/yourname/experiment_backup"</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="hardware-experiment-setup">Hardware Experiment Setup<a class="headerlink" href="#hardware-experiment-setup" title="Permanent link">&para;</a></h3>
@@ -2388,17 +2689,17 @@
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;dj_local_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;database.host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_password&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
+<span class="w">    </span><span class="nt">"dj_local_conf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"database.host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"127.0.0.1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your_password"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"database.port"</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/pi/experiment_data&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;target_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/pi/experiment_backup&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;Liquid&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;Lick&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">27</span><span class="p">}</span>
+<span class="w">    </span><span class="nt">"source_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/pi/experiment_data"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"target_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/pi/experiment_backup"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"Channels"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"Liquid"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"1"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="nt">"2"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">},</span>
+<span class="w">        </span><span class="nt">"Lick"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"1"</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="nt">"2"</span><span class="p">:</span><span class="w"> </span><span class="mi">27</span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -2462,10 +2763,18 @@
 <p><strong>Solutions:</strong></p>
 <ol>
 <li>
-<p><strong>Check file location</strong> - Ensure <code>local_conf.json</code> is in <code>~/.ethopy/</code></p>
+<p><strong>Check file location</strong> - Ensure <code>local_conf.json</code> is in <code>~/.ethopy/</code>, or pass your file
+   explicitly with <code>ethopy -c /path/to/conf.json</code></p>
 </li>
 <li>
-<p><strong>Check JSON format</strong> - Verify proper JSON syntax (no missing commas/brackets)</p>
+<p><strong>Check JSON format</strong> - Verify proper JSON syntax (no missing commas/brackets). A file
+   that fails to parse is logged as an error and EthoPy falls back to the built-in
+   defaults, which usually shows up as a failed connection to <code>127.0.0.1</code></p>
+</li>
+<li>
+<p><strong>Confirm what was loaded</strong> - Run
+   <code>python -c "import ethopy; print(ethopy.local_conf)"</code> to print the active file path and
+   every resolved setting</p>
 </li>
 <li>
 <p><strong>Start simple</strong> - Copy one of the examples from this guide</p>
