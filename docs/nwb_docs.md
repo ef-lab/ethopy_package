@@ -174,7 +174,7 @@ The export function includes the following data types:
 - **States Data**: Trial state transitions and timing
 
 ### Special Features
-- **Compound Stimuli**: Automatically handles multi-component stimuli (e.g., "Tones_Grating")
+- **Compound Stimuli**: Automatically handles multi-component (multimodal) stimuli, whatever the stimulus class is named
 - **Fallback Timing**: Robust trial timing extraction with multiple strategies
 - **Data Validation**: Comprehensive error checking and data integrity validation
 
@@ -182,17 +182,30 @@ The export function includes the following data types:
 
 ### Compound Stimulus Support
 
-The export function automatically detects and handles compound stimuli (stimuli with multiple components separated by underscores):
+A combined (multimodal) stimulus writes its parameters to several tables, one per component, all keyed by the same `stim_hash`. The export function resolves those components automatically and writes each one to the NWB file separately:
 
 ```python
-# If your session uses compound stimuli like "Tones_Grating"
+# If your session uses a combined stimulus such as TonesGrating
 # The export will automatically:
-# 1. Detect the compound stimulus
-# 2. Split it into components ("Tones" and "Grating")
-# 3. Validate all components exist in the database
-# 4. Export each component separately
+# 1. Resolve its components ("Tones" and "Grating")
+# 2. Fetch the conditions of each component
+# 3. Export each component separately
 filename = export_to_nwb(animal_id=123, session_id=1)
 ```
+
+Each component gets its presentation timing under `nwbfile.stimulus[<Component>]`, and its parameters in the `Conditions` module as `Stimulus_<Component>` (`Stimulus_Grating`, `Stimulus_Tones`). A session with a simple stimulus keeps the single `Stimulus` conditions table.
+
+Components are read back from the data, not parsed out of the class name: they are the stimulus tables holding conditions for the trials that used this stimulus class.
+
+No naming convention is required, so a compound stimulus named after its tables (`Tones_Grating`) and one named freely (`TonesGrating`, `TonesPanda`) are handled identically. What determines the exported components is the stimulus class's `cond_tables`, not its name.
+
+### Stimuli with part tables
+
+A stimulus whose parameters live in part tables (`Panda.Object`, `Panda.Light`, `Panda.Environment`, `Panda.Movie`) has those tables joined into a single condition table on export.
+
+Part tables that extend the primary key multiply the rows: `Panda.Object` adds `obj_id` and `Panda.Light` adds `light_idx`, so a condition with two objects and the default two lights produces four rows per trial. The export keeps all of them in the conditions table, one row per (object, light) combination, and collapses the repeated presentation timing back to one row per trial.
+
+Note that the part tables are combined with natural joins, so a part table populated for only *some* of a session's conditions will drop the others from the exported conditions.
 
 ### Robust Trial Timing
 
@@ -255,7 +268,7 @@ The generated NWB file contains:
 
 The export function performs extensive validation:
 - Checks for session existence
-- Validates stimulus components for compound stimuli
+- Resolves and validates stimulus components for compound stimuli
 - Verifies trial timing data consistency
 - Reports missing or incomplete data with detailed logging
 
