@@ -34,7 +34,16 @@ The Dot stimulus provides a simple visual element that can be displayed at diffe
 - Managing the lifecycle of visual elements
 - Implementing timing-based presentation
 
-### 3. [MultiPort Behavior](multi_port_behavior_example.md)
+### 3. [Compound Stimulus](compound_stimulus_example.md)
+
+A compound stimulus presents several modalities in the same trial (e.g. a tone together with a grating). This example covers:
+
+- Combining the condition tables of several stimuli under one `stim_hash`
+- Merging the required fields and defaults of the modalities
+- Deciding which modality ends the trial
+- The pitfalls that fail silently
+
+### 4. [MultiPort Behavior](multi_port_behavior_example.md)
 
 The MultiPort behavior handles interactions with multiple response ports. This example illustrates:
 
@@ -76,6 +85,7 @@ Explore each example in detail:
 
 - [Experiment](match_port_example.md) for state machine implementation
 - [Stimulus](dot_stimulus_example.md) for visual stimulus creation
+- [Compound Stimulus](compound_stimulus_example.md) for multimodal stimuli
 - [Behavior](multi_port_behavior_example.md) for response handling
 
 These examples provide a foundation for understanding how to extend Ethopy with custom components tailored to your specific experimental needs.
