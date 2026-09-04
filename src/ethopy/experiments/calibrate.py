@@ -134,8 +134,9 @@ class Experiment:
                 if hasattr(self, "menu"):
                     self.menu.disable()
 
+                # Not pygame.quit(): it frees fonts still cached by
+                # pygame_menu, segfaulting the next menu built.
                 pygame.display.quit()
-                pygame.quit()
             except Exception as e:
                 log.warning(f"Error during pygame cleanup: {e}")
 
@@ -150,6 +151,47 @@ class Experiment:
                 self.logger.update_setup_info({"status": "ready"})
             except Exception as e:
                 log.warning(f"Error updating logger status: {e}")
+
+    def _clear_menu(self):
+        """Clear the menu and re-add the always-available Abort button.
+
+        Every step rebuilds the menu from scratch, so the button has to be
+        re-added after each clear. It floats, so it does not shift the layout
+        of the widgets added after it.
+        """
+        self.menu.clear()
+        self.menu.add.button(
+            "Abort",
+            self.abort,
+            align=pygame_menu.locals.ALIGN_LEFT,
+            float=True,
+            padding=(5, 10, 5, 10),
+            background_color=(153, 0, 0),
+            font_size=25,
+        ).translate(650, 350)
+
+    def abort(self):
+        """Stop the calibration immediately.
+
+        Measurements already written by log_pulse_weight are left untouched;
+        only the remaining pulses and weight prompts are skipped.
+        """
+        log.warning("Calibration aborted by user")
+        try:
+            self.menu.clear()
+            self.menu.add.label(
+                "Calibration aborted!", float=True, font_size=30
+            ).translate(20, 80)
+            try:
+                self.menu.draw(self.screen)
+                pygame.display.flip()
+                time.sleep(2)
+            except pygame.error:
+                pass  # Display might already be quit
+        except Exception as e:
+            log.warning(f"Error during abort: {e}")
+        finally:
+            self.stop = True
 
     def exit(self):
         """exit _summary_
@@ -176,7 +218,7 @@ class Experiment:
 
     def create_pressure_menu(self):
         """The First menu in Calibration where is definde the air pressure in PSI"""
-        self.menu.clear()
+        self._clear_menu()
         self.button_input("Enter air pressure (PSI)", self.create_pulsenum_menu)
 
     def create_pulsenum_menu(self):
@@ -184,7 +226,7 @@ class Experiment:
         self.pressure = self.curr
         self.curr = ""
         if self.cal_idx < len(self.session_params["pulsenum"]):
-            self.menu.clear()
+            self._clear_menu()
             self.menu.add.label(
                 "Place zero-weighted pad under the port", float=True, font_size=30
             ).translate(20, 80)
@@ -206,7 +248,7 @@ class Experiment:
         """
         self.pulse = 0
         msg = f"Pulse {self.pulse + 1}/{self.session_params['pulsenum'][self.cal_idx]}"
-        self.menu.clear()
+        self._clear_menu()
         pulses_label = self.menu.add.label(
             msg,
             float=True,
@@ -224,6 +266,12 @@ class Experiment:
             widget (_type_): The widget that uses the function
             menu (_type_): The current menu
         """
+        # run() calls menu.update() and menu.draw() in the same iteration, so an
+        # Abort pressed during update would otherwise still deliver one more round
+        # of pulses when this draw callback fires.
+        if self.stop:
+            return
+
         if self.pulse < self.session_params["pulsenum"][self.cal_idx]:
             self.msg = f"Pulse {self.pulse + 1}/{self.session_params['pulsenum'][self.cal_idx]}"
             log.info(f"\r{self.msg}")
@@ -251,10 +299,10 @@ class Experiment:
 
     def create_port_weight(self):
         """A menu with numpad for defining the water in every port"""
-        self.menu.clear()
+        self._clear_menu()
         cal_idx = self.cal_idx - 1
         if self.session_params["save"]:
-            self.menu.clear()
+            self._clear_menu()
             if len(self.ports) != 0:
                 if len(self.ports) != len(self.session_params["ports"]):
                     self.log_pulse_weight(
