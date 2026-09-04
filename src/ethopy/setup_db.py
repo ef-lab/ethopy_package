@@ -10,7 +10,7 @@ import subprocess
 import sys
 from pathlib import Path
 from time import sleep
-from typing import Optional, Tuple
+from typing import List, Optional, Tuple
 
 import click
 import datajoint as dj
@@ -270,6 +270,55 @@ def check_db_connection() -> None:
     )
 
 
+def _plugin_import_commands() -> List[Tuple[str, str]]:
+    """Build the import commands for every registered user plugin.
+
+    The wildcard imports used for the core package only cover modules shipped
+    inside ethopy, so plugin modules have to be imported explicitly for their
+    tables to be declared.
+
+    Returns:
+        List of (name, import command) tuples, one per plugin module.
+
+    """
+    from ethopy import plugin_manager
+
+    commands = []
+    for plugins in plugin_manager.list_plugins(include_core=False).values():
+        for plugin in plugins:
+            import_path = plugin["import_path"]
+            commands.append((f"plugin/{import_path}", f"import {import_path}"))
+
+    return commands
+
+
+def _run_import(schema_name: str, cmd: str) -> Optional[str]:
+    """Run a single import command in a subprocess to declare its tables.
+
+    Args:
+        schema_name: Name used to report the result to the user.
+        cmd: Python import statement to execute.
+
+    Returns:
+        None on success, otherwise the formatted error message.
+
+    """
+    try:
+        # Capture both stdout and stderr
+        _ = subprocess.run(
+            [sys.executable, "-c", cmd], check=True, capture_output=True, text=True
+        )
+        click.echo(f"Successfully created tables for: {schema_name}")
+        return None
+
+    except subprocess.CalledProcessError as e:
+        return f"""
+                    Failed to create schema: {schema_name}
+                    Command: {cmd}
+                    Error output: {e.stderr}
+                    """
+
+
 def createschema() -> None:
     """Create all required database schemas.
 
@@ -299,21 +348,22 @@ def createschema() -> None:
     ]
 
     for schema_name, cmd in import_commands:
-        try:
-            # Capture both stdout and stderr
-            _ = subprocess.run(
-                [sys.executable, "-c", cmd],
-                check=True,
-                capture_output=True,
-                text=True,
-            )
-            click.echo(f"Successfully created tables for: {schema_name}")
+        error = _run_import(schema_name, cmd)
+        if error:
+            raise click.ClickException(error)
 
-        except subprocess.CalledProcessError as e:
-            error_msg = f"""
-                        Failed to create schema: {schema_name}
-                        Command: {cmd}
-                        Error output: {e.stderr}
-                        """
-            logging.error(error_msg)
-            raise click.ClickException(error_msg)
+    # Plugins are optional and often need hardware specific dependencies, so a plugin
+    # that fails to import only warns instead of aborting the whole setup.
+    failed_plugins = []
+    for schema_name, cmd in _plugin_import_commands():
+        error = _run_import(schema_name, cmd)
+        if error:
+            logging.warning(error)
+            failed_plugins.append(schema_name)
+
+    if failed_plugins:
+        click.echo(
+            f"\nSkipped {len(failed_plugins)} plugin(s) that failed to import: "
+            f"{', '.join(failed_plugins)}\n"
+            "See the log for the full error of each one."
+        )
