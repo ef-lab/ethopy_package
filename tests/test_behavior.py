@@ -38,6 +38,7 @@ class TestBehavior:
         beh.logger.trial_key = {}  # Empty dict for trial key
         beh.interface = Mock()
         beh.params = {}
+        beh.session_params = {}  # normally populated by setup(); tests assign into it
         # Set logging explicitly since it may not be set correctly due to mocking
         beh.logging = True
         return beh
@@ -113,14 +114,14 @@ class TestBehavior:
         assert behavior.is_hydrated(rew=6.0) is False
 
         # Test with params max_reward
-        behavior.params["max_reward"] = 4.0
+        behavior.session_params["max_reward"] = 4.0
         assert behavior.is_hydrated() is True
 
-        behavior.params["max_reward"] = 6.0
+        behavior.session_params["max_reward"] = 6.0
         assert behavior.is_hydrated() is False
 
         # Test with no max_reward set
-        behavior.params["max_reward"] = None
+        behavior.session_params["max_reward"] = None
         assert behavior.is_hydrated() is False
 
     def test_is_sleep_time(self, behavior):
