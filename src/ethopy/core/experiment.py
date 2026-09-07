@@ -691,11 +691,10 @@ class ExperimentClass:
 
         self.cur_block_sz = 0
         if next_block not in self.blocks:
-            log.warning(
+            raise ValueError(
                 f"No conditions with difficulty {next_block}, "
-                f"staying in difficulty {self.cur_block}."
+                f"cannot move from difficulty {self.cur_block}."
             )
-            return
 
         self.cur_block = next_block
         self.logger.update_setup_info({"difficulty": self.cur_block})
