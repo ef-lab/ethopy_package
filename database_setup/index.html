@@ -1866,7 +1866,7 @@
 <li>Start the container</li>
 </ol>
 <p>The Docker container uses:
-- Image: <code>datajoint/mysql:5.7</code> (https://github.com/datajoint/mysql-docker)
+- Image: <code>datajoint/mysql:8</code> (https://github.com/datajoint/mysql-docker)
 - Port: 3306 (standard MySQL port)
 - Volume: <code>./data_ethopy_sql_db:/var/lib/mysql</code> for persistent data storage</p>
 <h3 id="manual-docker-setup">Manual Docker Setup<a class="headerlink" href="#manual-docker-setup" title="Permanent link">&para;</a></h3>
@@ -1874,19 +1874,17 @@
 <ol>
 <li>
 <p>Create a <code>docker-compose.yaml</code> file:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">'2.4'</span>
-<span class="nt">services</span><span class="p">:</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">ethopy_sql_db</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">datajoint/mysql:5.7</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">datajoint/mysql:8</span>
 <span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_ROOT_PASSWORD=your_password</span>
 <span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
