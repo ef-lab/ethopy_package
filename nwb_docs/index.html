@@ -757,6 +757,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../compound_stimulus_example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compound Stimulus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../multi_port_behavior_example/" class="md-nav__link">
         
   
@@ -1390,6 +1418,17 @@
     <span class="md-ellipsis">
       
         Compound Stimulus Support
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stimuli-with-part-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stimuli with part tables
       
     </span>
   </a>
@@ -2134,6 +2173,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#stimuli-with-part-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stimuli with part tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#robust-trial-timing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2595,27 +2645,32 @@
 </ul>
 <h3 id="special-features">Special Features<a class="headerlink" href="#special-features" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Compound Stimuli</strong>: Automatically handles multi-component stimuli (e.g., "Tones_Grating")</li>
+<li><strong>Compound Stimuli</strong>: Automatically handles multi-component (multimodal) stimuli, whatever the stimulus class is named</li>
 <li><strong>Fallback Timing</strong>: Robust trial timing extraction with multiple strategies</li>
 <li><strong>Data Validation</strong>: Comprehensive error checking and data integrity validation</li>
 </ul>
 <h2 id="advanced-features">Advanced Features<a class="headerlink" href="#advanced-features" title="Permanent link">&para;</a></h2>
 <h3 id="compound-stimulus-support">Compound Stimulus Support<a class="headerlink" href="#compound-stimulus-support" title="Permanent link">&para;</a></h3>
-<p>The export function automatically detects and handles compound stimuli (stimuli with multiple components separated by underscores):</p>
+<p>A combined (multimodal) stimulus writes its parameters to several tables, one per component, all keyed by the same <code>stim_hash</code>. The export function resolves those components automatically and writes each one to the NWB file separately:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># If your session uses compound stimuli like "Tones_Grating"</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># If your session uses a combined stimulus such as TonesGrating</span>
 <span class="c1"># The export will automatically:</span>
-<span class="c1"># 1. Detect the compound stimulus</span>
-<span class="c1"># 2. Split it into components ("Tones" and "Grating")</span>
-<span class="c1"># 3. Validate all components exist in the database</span>
-<span class="c1"># 4. Export each component separately</span>
+<span class="c1"># 1. Resolve its components ("Tones" and "Grating")</span>
+<span class="c1"># 2. Fetch the conditions of each component</span>
+<span class="c1"># 3. Export each component separately</span>
 <span class="n">filename</span> <span class="o">=</span> <span class="n">export_to_nwb</span><span class="p">(</span><span class="n">animal_id</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span> <span class="n">session_id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
+<p>Each component gets its presentation timing under <code>nwbfile.stimulus[&lt;Component&gt;]</code>, and its parameters in the <code>Conditions</code> module as <code>Stimulus_&lt;Component&gt;</code> (<code>Stimulus_Grating</code>, <code>Stimulus_Tones</code>). A session with a simple stimulus keeps the single <code>Stimulus</code> conditions table.</p>
+<p>Components are read back from the data, not parsed out of the class name: they are the stimulus tables holding conditions for the trials that used this stimulus class.</p>
+<p>No naming convention is required, so a compound stimulus named after its tables (<code>Tones_Grating</code>) and one named freely (<code>TonesGrating</code>, <code>TonesPanda</code>) are handled identically. What determines the exported components is the stimulus class's <code>cond_tables</code>, not its name.</p>
+<h3 id="stimuli-with-part-tables">Stimuli with part tables<a class="headerlink" href="#stimuli-with-part-tables" title="Permanent link">&para;</a></h3>
+<p>A stimulus whose parameters live in part tables (<code>Panda.Object</code>, <code>Panda.Light</code>, <code>Panda.Environment</code>, <code>Panda.Movie</code>) has those tables joined into a single condition table on export.</p>
+<p>Part tables that extend the primary key multiply the rows: <code>Panda.Object</code> adds <code>obj_id</code> and <code>Panda.Light</code> adds <code>light_idx</code>, so a condition with two objects and the default two lights produces four rows per trial. The export keeps all of them in the conditions table, one row per (object, light) combination, and collapses the repeated presentation timing back to one row per trial.</p>
+<p>Note that the part tables are combined with natural joins, so a part table populated for only <em>some</em> of a session's conditions will drop the others from the exported conditions.</p>
 <h3 id="robust-trial-timing">Robust Trial Timing<a class="headerlink" href="#robust-trial-timing" title="Permanent link">&para;</a></h3>
 <p>The system uses multiple strategies to extract trial timing:</p>
 <ol>
@@ -2686,7 +2741,7 @@
 <h3 id="data-validation">Data Validation<a class="headerlink" href="#data-validation" title="Permanent link">&para;</a></h3>
 <p>The export function performs extensive validation:
 - Checks for session existence
-- Validates stimulus components for compound stimuli
+- Resolves and validates stimulus components for compound stimuli
 - Verifies trial timing data consistency
 - Reports missing or incomplete data with detailed logging</p>
 <h3 id="performance-notes">Performance Notes<a class="headerlink" href="#performance-notes" title="Permanent link">&para;</a></h3>
