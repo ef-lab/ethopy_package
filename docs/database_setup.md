@@ -28,7 +28,7 @@ This command will:
 5. Start the container
 
 The Docker container uses:
-- Image: `datajoint/mysql:5.7` (https://github.com/datajoint/mysql-docker)
+- Image: `datajoint/mysql:8` (https://github.com/datajoint/mysql-docker)
 - Port: 3306 (standard MySQL port)
 - Volume: `./data_ethopy_sql_db:/var/lib/mysql` for persistent data storage
 
@@ -38,10 +38,9 @@ If you prefer to set up the container manually:
 
 1. Create a `docker-compose.yaml` file:
 ```yaml
-version: '2.4'
 services:
   ethopy_sql_db:
-    image: datajoint/mysql:5.7
+    image: datajoint/mysql:8
     environment:
       - MYSQL_ROOT_PASSWORD=your_password
     ports:
