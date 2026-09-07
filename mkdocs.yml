@@ -81,6 +81,7 @@ nav:
         - Overview: creating_custom_components.md
         - Experiment: match_port_example.md
         - Stimulus: dot_stimulus_example.md
+        - Compound Stimulus: compound_stimulus_example.md
         - Behavior: multi_port_behavior_example.md
     - Plugins: plugin.md
     - Task Setup: task_setup.md
