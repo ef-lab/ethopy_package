@@ -10,16 +10,6 @@ import pygame_menu
 log = logging.getLogger(__name__)
 
 
-def get_resolution_framebuffer():
-    try:
-        with open("/sys/class/graphics/fb0/virtual_size", "r") as f:
-            dimensions = f.read().strip().split(",")
-            return int(dimensions[0]), int(dimensions[1])
-    except Exception as e:
-        log.error(f"Error reading framebuffer resolution: {e}")
-        return None
-
-
 class PyWelcome:
     def __init__(self, logger) -> None:
         self.logger = logger
@@ -39,12 +29,12 @@ class PyWelcome:
         # Set display mode - always try fullscreen first on Pi
         try:
             if self.logger.is_pi:
-                resolution = get_resolution_framebuffer()
-                if resolution is not None:
-                    self.SCREEN_WIDTH, self.SCREEN_HEIGHT = resolution
-                # Try fullscreen mode
+                # Ask SDL for the desktop resolution. Requesting a size that
+                # differs from it returns a surface that segfaults on draw, and
+                # /sys/class/graphics/fb0/virtual_size reports its dimensions
+                # in the opposite order on some Pis.
                 self.screen = pygame.display.set_mode(
-                    (self.SCREEN_WIDTH, self.SCREEN_HEIGHT),
+                    (0, 0),
                     pygame.FULLSCREEN | pygame.DOUBLEBUF | pygame.HWSURFACE,
                 )
                 log.debug("Fullscreen mode activated")
@@ -61,6 +51,10 @@ class PyWelcome:
                 (self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
             )
             print("Fallback to windowed mode")
+
+        # Every menu is sized from the surface pygame actually gave us.
+        self.SCREEN_WIDTH, self.SCREEN_HEIGHT = self.screen.get_size()
+        log.debug(f"Display surface size: {self.SCREEN_WIDTH}x{self.SCREEN_HEIGHT}")
 
         # pygame.display.set_caption("EthoPy")
 
