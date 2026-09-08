@@ -1,4 +1,4 @@
-# EthoPy Local Configuration Guide
+# EthoPy Configuration Guide
 
 ## What is local_conf.json?
 
@@ -9,16 +9,148 @@ The `local_conf.json` file stores **device-specific settings** that are unique t
 
 **Key distinction**: Experimental parameters and data go in the database. Machine-specific settings go in `local_conf.json`.
 
-## File Location
+## How EthoPy is Configured
 
-EthoPy automatically looks for your configuration file here:
+EthoPy reads its settings from **one JSON configuration file**, plus a small number of overrides that apply on top of it. There are four mechanisms in total:
+
+| # | Mechanism | What it controls | Scope |
+|---|-----------|------------------|-------|
+| 1 | `~/.ethopy/local_conf.json` | Everything: database, paths, logging, schemata, plugins, hardware | Default for every run on this machine |
+| 2 | `ethopy -c /path/to/conf.json` | Same as above, from a different file | A single run |
+| 3 | Environment variable `ETHOPY_PLUGIN_PATH` | Extra plugin directories only | The shell session |
+
+Command-line flags (`--log-level`, `--log-console`) override individual logging settings for one run, but they are not a general configuration mechanism.
+
+### 1. The default configuration file
+
+With no other instruction, EthoPy loads:
 
 - **Mac/Linux**: `~/.ethopy/local_conf.json`
 - **Windows**: `%USERPROFILE%\.ethopy\local_conf.json`
 
-You can also specify a custom location using the environment variable:
+The file is read once, at `import ethopy`. If it does not exist, EthoPy runs entirely on its [built-in defaults](#built-in-defaults).
 
-- **Environment variable**: Set `ETHOPY_CONFIG_PATH` to point to your custom config file location
+### 2. A different config file on the command line
+
+Every EthoPy run can point at another file with `-c` / `--config`:
+
+```bash
+ethopy -p my_task.py -c /path/to/rig2_conf.json
+```
+
+This is the supported way to keep several configurations on one machine, one per rig, or one per database. The file must exist; EthoPy exits with an error if it does not.
+
+**Important**: the custom file *replaces* the default one, it is not merged with `~/.ethopy/local_conf.json`. Any key you leave out falls back to the built-in default, not to the value in your home-directory file. Custom config files should therefore be self-contained.
+
+### 3. From Python
+
+The configuration object is available as `ethopy.local_conf` and can be read anywhere in your own code, including plugins:
+
+```python
+from ethopy import local_conf
+
+source = local_conf.get("source_path")              # top-level key
+host = local_conf.get("database.host")              # key inside dj_local_conf
+level = local_conf.get("logging.level", "INFO")     # nested key, with a fallback
+```
+
+`get()` resolves a key in this order, returning the first hit:
+
+1. A top-level key of the JSON file (`"source_path"`, `"SCHEMATA"`, `"Channels"`, ...)
+2. A key inside `dj_local_conf` (so `"database.host"` works without a prefix)
+3. Dot notation walked through nested objects (`"logging.level"`)
+4. The `default` argument you passed, or `None`
+
+To load a different file explicitly — for example in a notebook or an export script:
+
+```python
+from ethopy.config import ConfigurationManager
+
+conf = ConfigurationManager(config_file="/path/to/rig2_conf.json")
+print(conf)                       # prints every resolved setting and the file it came from
+```
+
+By itself this only affects the `conf` object. To make the rest of EthoPy (DataJoint connection, schema names, plugin manager) use it as well, apply it globally:
+
+```python
+conf.update_global_config()
+```
+
+`update_global_config()` re-points `ethopy.local_conf`, pushes `dj_local_conf` into DataJoint, replaces `ethopy.SCHEMATA`, and rebuilds the plugin manager from the new `plugin_path`. This is exactly what `ethopy -c` does internally.
+
+The NWB exporter takes its own `config_path` argument for the same purpose — see [Export to NWB](nwb_docs.md).
+
+### 4. Environment variables
+
+EthoPy reads exactly one environment variable of its own:
+
+- **`ETHOPY_PLUGIN_PATH`** — a comma-separated list of extra plugin directories.
+
+```bash
+export ETHOPY_PLUGIN_PATH=/path/to/plugins,/another/plugin/path
+```
+
+There is **no environment variable for the config file location** — use `ethopy -c` instead.
+
+Note that DataJoint's own environment variables (`DJ_HOST`, `DJ_USER`, `DJ_PASS`, ...) have no effect on EthoPy. EthoPy pushes its `dj_local_conf` block into `dj.config` at import, after DataJoint has read the environment, so the JSON file — or its default — wins in every case. Set database credentials in `dj_local_conf`, not in the environment.
+
+## Built-in Defaults
+
+Any key absent from your configuration file is filled in with a default, so a minimal file is enough to get started. The defaults are:
+
+```json
+{
+    "dj_local_conf": {
+        "database.host": "127.0.0.1",
+        "database.user": "root",
+        "database.password": "",
+        "database.port": 3306,
+        "database.reconnect": true,
+        "database.use_tls": false,
+        "datajoint.loglevel": "WARNING"
+    },
+    "SCHEMATA": {
+        "experiment": "lab_experiments",
+        "stimulus": "lab_stimuli",
+        "behavior": "lab_behavior",
+        "interface": "lab_interface",
+        "recording": "lab_recordings"
+    },
+    "logging": {
+        "level": "INFO",
+        "directory": "~/.ethopy",
+        "filename": "ethopy.log",
+        "max_size": 31457280,
+        "backup_count": 5
+    },
+    "source_path": "~/EthoPy_Files",
+    "target_path": "/",
+    "plugin_path": "~/.ethopy/ethopy_plugins"
+}
+```
+
+Merging happens **one level deep**. If your file defines `"logging": {"level": "DEBUG"}`, you keep the default `directory`, `filename`, `max_size` and `backup_count` and only override `level`. The same applies to `dj_local_conf` and `SCHEMATA`.
+
+Keys with no default — `Channels`, `server.*`, `video_source_path`, `video_target_path` — are simply absent unless you define them, and code that needs them supplies its own fallback.
+
+## Precedence Order
+
+For a normal `ethopy` run, a setting is resolved like this — first match wins:
+
+1. **Command-line flag**, where one exists for that setting (`--log-level`, `--log-console`)
+2. **The active configuration file** — the `-c/--config` file if given, otherwise
+   `~/.ethopy/local_conf.json`
+3. **Built-in default** for that key
+
+Only one configuration file is ever active; files are never merged with each other.
+
+**Plugin directories are the exception** — they accumulate rather than override. All three sources are scanned, in this order:
+
+1. `plugin_path` from the active configuration file
+2. `~/.ethopy/ethopy_plugins` (the default directory)
+3. Each path in `ETHOPY_PLUGIN_PATH`, left to right
+
+When two directories contain a module with the same import name, **the one scanned later wins**, so `ETHOPY_PLUGIN_PATH` overrides the default directory, which overrides `plugin_path`. Core EthoPy modules always win over plugins, regardless of source. Each conflict is logged as a warning naming both files. See the [Plugin System](plugin.md) guide for details.
 
 ## Essential Configuration
 
@@ -248,7 +380,10 @@ If your database uses custom schema names:
     - **Purpose**: Location for custom EthoPy extensions and plugins
     - **Examples**: `"/Users/yourname/my_plugins"`, `"/opt/ethopy_plugins"`
 
-**Note**: Only needed if you're using custom plugins or want to store them in a different location.
+**Note**: Only needed if you're using custom plugins or want to store them in a different
+location. `plugin_path` is one of three plugin sources — the default
+`~/.ethopy/ethopy_plugins` directory and `ETHOPY_PLUGIN_PATH` are also scanned. All three
+are used together; see [Precedence Order](#precedence-order).
 
 ## Common Setup Scenarios
 
@@ -348,11 +483,18 @@ If your database uses custom schema names:
 
 **Solutions:**
 
-1. **Check file location** - Ensure `local_conf.json` is in `~/.ethopy/`
+1. **Check file location** - Ensure `local_conf.json` is in `~/.ethopy/`, or pass your file
+   explicitly with `ethopy -c /path/to/conf.json`
 
-2. **Check JSON format** - Verify proper JSON syntax (no missing commas/brackets)
+2. **Check JSON format** - Verify proper JSON syntax (no missing commas/brackets). A file
+   that fails to parse is logged as an error and EthoPy falls back to the built-in
+   defaults, which usually shows up as a failed connection to `127.0.0.1`
 
-3. **Start simple** - Copy one of the examples from this guide
+3. **Confirm what was loaded** - Run
+   `python -c "import ethopy; print(ethopy.local_conf)"` to print the active file path and
+   every resolved setting
+
+4. **Start simple** - Copy one of the examples from this guide
 
 ## Security Best Practices
 

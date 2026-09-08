@@ -60,19 +60,21 @@ def _set_connection() -> None:
         behavior: The virtual module for behavior.
         interface: The virtual module for interface.
         recording: The virtual module for recording.
+        mice: The virtual module for the animal colony.
         public_conn: The connection object for public access.
 
     Returns:
         None
 
     """
-    global experiment, stimulus, behavior, interface, recording, public_conn
+    global experiment, stimulus, behavior, interface, recording, mice, public_conn
     virtual_modules, public_conn = create_virtual_modules(SCHEMATA)
     experiment = virtual_modules["experiment"]
     stimulus = virtual_modules["stimulus"]
     behavior = virtual_modules["behavior"]
     recording = virtual_modules["recording"]
     interface = virtual_modules["interface"]
+    mice = virtual_modules["mice"]
 
 
 _set_connection()
@@ -153,9 +155,12 @@ class Logger:
         self.update_status.clear()
 
         # source path is the local path that data are saved
-        self.source_path = local_conf.get("source_path")
         # target path is the path that data will be moved after the session ends
-        self.target_path = local_conf.get("target_path")
+        # Both are joined to subfolders/filenames by string concatenation (here, in
+        # Writer and in Camera), so they must end with a separator; os.path.join
+        # with "" appends one only when it is missing.
+        self.source_path = os.path.join(local_conf.get("source_path"), "")
+        self.target_path = os.path.join(local_conf.get("target_path"), "")
 
         # inserter_thread read the queue and insert the data in the database
         self.thread_end, self.thread_lock = threading.Event(), threading.Lock()
@@ -1014,7 +1019,7 @@ class Logger:
             key=self.trial_key,
             fields=["rec_idx"],
         )
-        rec_idx = 1 if not recs else max(recs) + 1
+        rec_idx = 1 if len(recs) == 0 else max(recs) + 1
         self.log("Recording", data={**rec_key, "rec_idx": rec_idx},
                  schema="recording", **kwargs)
 

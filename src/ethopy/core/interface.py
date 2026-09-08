@@ -70,7 +70,7 @@ class Interface:
         self.logger = exp.logger if exp else None
         self.position = Port()
         self.position_tmst: int = 0
-        self.camera = None
+        self.cameras: Dict[str, Any] = {}
         self.ports: List[Port] = []
         self.pulse_rew: Dict[int, Dict] = {}
         self.duration: Dict[int, float] = {}
@@ -119,32 +119,46 @@ class Interface:
         self._initialize_camera()
 
     def _initialize_camera(self) -> None:
-        """Initialize camera if configured in setup."""
+        """Initialize each configured camera into ``self.cameras``, keyed by
+        ``f"{video_aim}_{camera_idx}"`` so the camera->file mapping stays stable
+        across config edits.
+        """
         setup_cameras = self.logger.get(
             schema="interface",
             table="SetupConfiguration.Camera",
             fields=["setup_conf_idx"],
         )
 
-        if self.exp.setup_conf_idx in setup_cameras:
-            camera_params = self.logger.get(
-                schema="interface",
-                table="SetupConfiguration.Camera",
-                key=f"setup_conf_idx={self.exp.setup_conf_idx}",
-                as_dict=True,
-            )[0]
+        if self.exp.setup_conf_idx not in setup_cameras:
+            return
 
+        camera_rows = self.logger.get(
+            schema="interface",
+            table="SetupConfiguration.Camera",
+            key=f"setup_conf_idx={self.exp.setup_conf_idx}",
+            as_dict=True,
+        )
+
+        filename_base = (
+            f"{self.logger.trial_key['animal_id']}"
+            f"_{self.logger.trial_key['session']}"
+        )
+
+        for camera in camera_rows:
+            video_aim = camera.pop("video_aim")
+            # camera_idx is the /dev/videoN (V4L2) or libcamera index.
+            camera_num = camera.pop("camera_idx")
+            key = f"{video_aim}_{camera_num}"
             camera_class = getattr(
-                import_module("ethopy.interfaces.Camera"), camera_params["discription"]
+                import_module("ethopy.interfaces.Camera"), camera["discription"]
             )
-
-            self.camera = camera_class(
-                filename=f"{self.logger.trial_key['animal_id']}"
-                f"_{self.logger.trial_key['session']}",
+            self.cameras[key] = camera_class(
+                filename=f"{filename_base}_{key}",
                 logger=self.logger,
                 logger_timer=self.logger.logger_timer,
-                video_aim=camera_params.pop("video_aim"),
-                **camera_params,
+                video_aim=video_aim,
+                camera_num=camera_num,
+                **camera,
             )
 
     def give_liquid(self, port: int, duration: Optional[float] = 0) -> None:
@@ -213,11 +227,11 @@ class Interface:
         """Clean up interface resources."""
 
     def release(self) -> None:
-        """Release hardware resources, especially camera."""
-        if self.camera:
-            log.info("Releasing camera resources.")
-            if self.camera.recording.is_set():
-                self.camera.stop_rec()
+        """Release hardware resources. stop_rec is idempotent, so it is called
+        unconditionally rather than racing a recording.is_set() check."""
+        for aim, cam in self.cameras.items():
+            log.info("Releasing camera resources (video_aim=%s).", aim)
+            cam.stop_rec()
 
     def load_calibration(self) -> None:
         """Load port calibration data from database.
@@ -441,6 +455,7 @@ class SetupConfiguration(dj.Lookup, dj.Manual):
         iso                      : smallint
         file_format              : varchar(256)
         video_aim                : enum('eye','body','openfield')
+        device_id=""             : varchar(256)  # stable /dev/v4l/by-id symlink or serial substring; empty = use camera_idx
         discription              : varchar(256)
         """
 

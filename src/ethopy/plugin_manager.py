@@ -309,6 +309,7 @@ class PluginManager:
             plugin_info = {
                 "name": plugin.name,
                 "path": plugin.path,
+                "import_path": plugin.import_path,
                 "is_core": plugin.is_core,
             }
 
