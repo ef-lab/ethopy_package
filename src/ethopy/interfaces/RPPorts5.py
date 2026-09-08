@@ -226,46 +226,23 @@ class RPPorts5(Interface):
         If the specified port is not in position, the tuple will be (0, 0, 0).
 
         """
-        # Get the current position and the position of the specified port.
-        position = self.position
-        port = self._get_position(port)
-
-        # # If neither position has been set, return (0, 0, 0).
-        if not position.port and not port:
+        # self.position is maintained by the debounced proximity callbacks
+        if not self.position.port or (port and self.position.port != port):
             return 0, 0, 0
-
-        # # If the specified port is not in the correct position, update the position and timestamp.
-        if position != Port(type="Proximity", port=port):
-            self._position_change(self.channels["Proximity"][max(port, position.port)])
-
-        # Calculate the duration and timestamp for the current position.
-        position_dur = (
-            self.timer_ready.elapsed_time() if self.position.port else self.position_dur
-        )
-        return self.position, position_dur, self.position_tmst
+        return self.position, self.timer_ready.elapsed_time(), self.position_tmst
 
     def off_proximity(self):
-        """checks if any proximity ports is activated
+        """Check that no proximity port is activated.
 
-        used to make sure that none of the ports is activated before move on to the next trial
-        if get_position returns 0 but position.type == Proximity means that self.position should
-        be off so call _position_change to reset it to the correct value
+        Used to make sure that none of the ports is activated before moving on to
+        the next trial. The answer comes from self.position, which the debounced
+        GPIO callbacks maintain, so the trial logic and the logged activity always
+        agree on where the animal is.
 
         Returns:
             bool: True if all proximity ports are not activated
         """
-        port = self._get_position()
-        # port==0 means that no proximity port is activated
-        if port == 0:
-            # if self.position.type == 'Proximity' and port=0
-            # add_event_detect has lost the off of the proximity
-            pos = self.position
-            if pos.type == "Proximity":
-                # call position_change to reset the self.position
-                self._position_change(self.channels["Proximity"][pos.port])
-            return True
-        else:
-            return False
+        return not self.position.port
 
     def _get_position(self, ports=0):
         """get the position of the proximity ports
@@ -313,17 +290,16 @@ class RPPorts5(Interface):
         port = self._channel2port(channel, "Proximity")
         # Check if the animal is in position
         in_position = self._get_position(port.port)
-        # Start the timer if the animal is in position
+        # Log the in_position event and update the position if there is a change in position
+        # The ready timer starts on a real entry, not on every edge
         if in_position:
             self.timer_ready.start()
         # Log the in_position event and update the position if there is a change in position
         if in_position and not self.position.port:
-            self.position_tmst = self.beh.log_activity(
-                {**port.__dict__, "in_position": 1}
-            )
+            self.position_tmst = self.beh.log_activity({**port.__dict__, 'in_position': 1})
             self.position = port
         elif not in_position and self.position.port:
-            tmst = self.beh.log_activity({**port.__dict__, "in_position": 0})
+            tmst = self.beh.log_activity({**port.__dict__, 'in_position': 0})
             self.position_dur = tmst - self.position_tmst
             self.position = Port()
 
