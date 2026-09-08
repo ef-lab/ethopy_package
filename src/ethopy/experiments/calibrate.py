@@ -577,7 +577,14 @@ class Experiment:
                     wid.get_decorator().disable(lay)
 
             widget.set_onselect(widget_select)
-            widget.set_padding((2, 19, 0, 23))
+            widget.set_padding(
+                (
+                    int(2 * self.display_scale),
+                    int(19 * self.display_scale),
+                    0,
+                    int(23 * self.display_scale),
+                )
+            )
 
     def _press(self, digit, _func=None) -> None:
         """Press numpad digit"""
