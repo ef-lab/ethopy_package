@@ -39,7 +39,9 @@ class PyWelcome:
         # Set display mode - always try fullscreen first on Pi
         try:
             if self.logger.is_pi:
-                self.SCREEN_HEIGHT, self.SCREEN_WIDTH = get_resolution_framebuffer()
+                resolution = get_resolution_framebuffer()
+                if resolution is not None:
+                    self.SCREEN_WIDTH, self.SCREEN_HEIGHT = resolution
                 # Try fullscreen mode
                 self.screen = pygame.display.set_mode(
                     (self.SCREEN_WIDTH, self.SCREEN_HEIGHT),
