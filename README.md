@@ -13,7 +13,7 @@ EthoPy provides a flexible, state-based system for designing and running behavio
 
 ### Requirements
 
-- Python 3.8 or higher
+- Python 3.9 to 3.11
 - Maria DB Database
     - EthoPy requires database setup before running experiments. Follow our step-by-step guide: **[Getting Started Guide](https://ef-lab.github.io/ethopy_package/getting_started/)** for a complete setup from installation to first experiment
 

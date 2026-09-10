@@ -5,7 +5,7 @@
 # by operating system or Python version, so this stays a single file.
 #
 # VERIFIED TO RESOLVE AND INSTALL FROM WHEELS ON
-#     Python 3.9, 3.10, 3.11
+#     Python 3.9.2+, 3.10, 3.11
 #     aarch64 (Raspberry Pi) and x86_64 (Linux, macOS, Windows)
 # All six Linux combinations were checked with no version drift. Every pin has a
 # wheel; nothing needs a compiler.

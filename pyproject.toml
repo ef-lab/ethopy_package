@@ -3,7 +3,7 @@ name = "ethopy"
 dynamic = ["version"]
 description = "State control system for automated, high-throughput behavioral training."
 readme = "README.md"
-requires-python = ">=3.8,<3.12"
+requires-python = ">=3.9,<3.12"
 license = {text = "MIT License"}
 authors = [
     {name = "Emmanouil Froudarakis", email = "frouman@imbb.forth.gr"},
@@ -14,7 +14,6 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -79,7 +78,7 @@ packages = ["src/ethopy"]
 only-include = ["src/ethopy"]
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 disallow_untyped_defs = true
 ignore_missing_imports = true
 disable_error_code = ["attr-defined", "misc"]

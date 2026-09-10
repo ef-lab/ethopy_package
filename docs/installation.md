@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Python >=3.8,<3.12
+- Python >=3.9,<3.12
 - Docker (for database setup)
 - Dependencies: numpy, pandas, datajoint, pygame, pillow, and more (automatically installed)
 
@@ -27,7 +27,7 @@ pip install -r https://raw.githubusercontent.com/ef-lab/ethopy_package/main/requ
 pip install --no-deps ethopy
 ```
 
-This works on every supported platform. The lock file uses environment markers rather than being tied to one operating system, and is verified to install from wheels on Python 3.9, 3.10 and 3.11, on both aarch64 (Raspberry Pi) and x86_64 (Linux, macOS, Windows). No pin requires a compiler.
+This works on every supported platform. The lock file uses environment markers rather than being tied to one operating system, and is verified to install from wheels on Python 3.9.2, 3.10 and 3.11, on both aarch64 (Raspberry Pi) and x86_64 (Linux, macOS, Windows). No pin requires a compiler.
 
 The locked versions are refreshed by hand, so they will lag behind the newest releases. That is intentional. See [Dependency Management](contributing.md#dependency-management) for the refresh procedure.
 
