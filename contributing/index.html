@@ -1445,6 +1445,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dependency-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependency Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pyprojecttoml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pyproject.toml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-locktxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        requirements-lock.txt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-nobody-refreshes-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If nobody refreshes this
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#pull-request-guidelines" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1627,6 +1677,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dependency-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependency Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pyprojecttoml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pyproject.toml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-locktxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        requirements-lock.txt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-nobody-refreshes-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If nobody refreshes this
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#pull-request-guidelines" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1761,6 +1861,32 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 <p>Submit a pull request through the GitHub website.</p>
 </li>
 </ol>
+<h2 id="dependency-management">Dependency Management<a class="headerlink" href="#dependency-management" title="Permanent link">&para;</a></h2>
+<p>EthoPy constrains dependencies in two layers, and they do different jobs.</p>
+<h3 id="pyprojecttoml"><code>pyproject.toml</code><a class="headerlink" href="#pyprojecttoml" title="Permanent link">&para;</a></h3>
+<p>Declares the core dependencies with loose ranges. Upper bounds are added only where a package has a track record of breaking releases, currently <code>datajoint</code>, <code>setuptools</code>, <code>numpy</code>, <code>pandas</code> and <code>scipy</code>. Do not cap every dependency. Blanket caps cause resolution conflicts for anyone installing EthoPy alongside other packages, and each one needs a release to lift.</p>
+<p>When adding a new core dependency, add it without an upper bound unless you have evidence of a breakage, and refresh the lock file in the same pull request.</p>
+<h3 id="requirements-locktxt"><code>requirements-lock.txt</code><a class="headerlink" href="#requirements-locktxt" title="Permanent link">&para;</a></h3>
+<p>One pinned version per package for the entire tree, including transitive dependencies, and what <a href="../installation/">Installation</a> points every machine at. It is a single cross-platform file: environment markers cover the few packages that differ by operating system or Python version, so there is no per-OS variant to keep in sync.</p>
+<p>Versions are chosen as the newest one actually running on a verified EthoPy machine that still supports the whole declared Python range, with the resolver enforcing mutual consistency. Hardware and analysis packages are excluded, since every such import in EthoPy is lazy and they are installed per machine.</p>
+<p>To refresh it:</p>
+<ol>
+<li>On each machine you care about, build a fresh virtual environment, install EthoPy without the lock file, run the test suite and a real experimental session, then capture <code>pip freeze --exclude-editable</code>. Do not skip the session, some breakages only appear at runtime with hardware attached.</li>
+<li>Regenerate the cross-platform pin set, capped at the versions you just verified:
+    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>uv<span class="w"> </span>pip<span class="w"> </span>compile<span class="w"> </span>pyproject.toml<span class="w"> </span>--universal<span class="w"> </span>--python-version<span class="w"> </span>&lt;lowest<span class="w"> </span>you<span class="w"> </span>support&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--constraint<span class="w"> </span>&lt;verified<span class="w"> </span>versions&gt;<span class="w"> </span>-o<span class="w"> </span>requirements-lock.txt
+</code></pre></div></td></tr></table></div></li>
+<li>Confirm it still resolves on every target before committing:
+    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>uv<span class="w"> </span>pip<span class="w"> </span>compile<span class="w"> </span>requirements-lock.txt<span class="w"> </span>--python-version<span class="w"> </span><span class="m">3</span>.9.2<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--python-platform<span class="w"> </span>aarch64-unknown-linux-gnu
+</code></pre></div></td></tr></table></div>
+   Repeat for each Python version and architecture you support. Any version drift means the pins are inconsistent.</li>
+<li>Update the header comment with the source machines, Python versions and date.</li>
+</ol>
+<h3 id="if-nobody-refreshes-this">If nobody refreshes this<a class="headerlink" href="#if-nobody-refreshes-this" title="Permanent link">&para;</a></h3>
+<p>The lock file will age. Installs keep working, reproducing an increasingly old environment, and EthoPy falls behind the ecosystem. This is the intended failure mode and it is preferred to the alternative. An install that reproduces a two-year-old working environment is still a working install. An install that silently picks up an untested major release is not.</p>
 <h2 id="pull-request-guidelines">Pull Request Guidelines<a class="headerlink" href="#pull-request-guidelines" title="Permanent link">&para;</a></h2>
 <p>Before you submit a pull request, check that it meets these guidelines:</p>
 <ol>
@@ -1768,9 +1894,8 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 <li>If the pull request adds functionality, the docs should be updated.
     Put your new functionality into a function with a docstring, and add
     the feature to the list in README.md</li>
-<li>The pull request should work for Python 3.8 and later, and
-    for PyPy. Check <a href="https://github.com/ef-lab/ethopy_package/pulls">https://github.com/ef-lab/ethopy_package/pulls</a> and make sure that the tests pass for all
-    supported Python versions.</li>
+<li>The pull request should work for Python 3.9 through 3.11, the range declared by
+    <code>requires-python</code>. Check <a href="https://github.com/ef-lab/ethopy_package/pulls">https://github.com/ef-lab/ethopy_package/pulls</a> and make sure that the tests pass for all supported Python versions.</li>
 </ol>
 
 

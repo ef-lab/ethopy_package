@@ -661,6 +661,34 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#reproducible-installation-recommended-for-rigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproducible Installation (recommended for rigs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reproducible Installation (recommended for rigs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#per-machine-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-machine packages
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#optional-features" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1561,6 +1589,34 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#reproducible-installation-recommended-for-rigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproducible Installation (recommended for rigs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reproducible Installation (recommended for rigs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#per-machine-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-machine packages
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#optional-features" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1630,7 +1686,7 @@
 <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Python &gt;=3.8,&lt;3.12</li>
+<li>Python &gt;=3.9,&lt;3.12</li>
 <li>Docker (for database setup)</li>
 <li>Dependencies: numpy, pandas, datajoint, pygame, pillow, and more (automatically installed)</li>
 </ul>
@@ -1639,20 +1695,34 @@
 <p>To install EthoPy with basic features, run:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ethopy
 </code></pre></div></td></tr></table></div>
-<p>This is the preferred method as it will install the most recent stable release.</p>
+<p>This resolves the most recent versions allowed by EthoPy's declared dependency ranges. Those versions may be newer than anything that has been tested on a rig.</p>
+<h3 id="reproducible-installation-recommended-for-rigs">Reproducible Installation (recommended for rigs)<a class="headerlink" href="#reproducible-installation-recommended-for-rigs" title="Permanent link">&para;</a></h3>
+<p><code>requirements-lock.txt</code> in the repository records the exact versions of every package, including transitive dependencies, from a Raspberry Pi rig that is known to run correctly. Install that environment first, then install EthoPy without letting it re-resolve:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>https://raw.githubusercontent.com/ef-lab/ethopy_package/main/requirements-lock.txt
+pip<span class="w"> </span>install<span class="w"> </span>--no-deps<span class="w"> </span>ethopy
+</code></pre></div></td></tr></table></div>
+<p>This works on every supported platform. The lock file uses environment markers rather than being tied to one operating system, and is verified to install from wheels on Python 3.9.2, 3.10 and 3.11, on both aarch64 (Raspberry Pi) and x86_64 (Linux, macOS, Windows). No pin requires a compiler.</p>
+<p>The locked versions are refreshed by hand, so they will lag behind the newest releases. That is intentional. See <a href="../contributing/#dependency-management">Dependency Management</a> for the refresh procedure.</p>
+<h4 id="per-machine-packages">Per-machine packages<a class="headerlink" href="#per-machine-packages" title="Permanent link">&para;</a></h4>
+<p>The lock file covers only EthoPy's core dependencies. Hardware and analysis packages are excluded, because every one of them is a lazy import and the core runs without them. Install them on top of the lock file, only where they are needed:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Raspberry Pi rigs</span>
+pip<span class="w"> </span>install<span class="w"> </span>RPi.GPIO<span class="w"> </span>pigpio<span class="w"> </span>pyserial<span class="w"> </span>picamera2<span class="w"> </span>opencv-python
+
+<span class="c1"># DeepLabCut setups, such as the openfield workstation</span>
+pip<span class="w"> </span>install<span class="w"> </span>deeplabcut-live<span class="w"> </span>scikit-video
+</code></pre></div></td></tr></table></div>
 <h3 id="optional-features">Optional Features<a class="headerlink" href="#optional-features" title="Permanent link">&para;</a></h3>
 <p>For additional functionality:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># For 3D object support</span>
-pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"ethopy[obj]"</span>
-
-<span class="c1"># For development</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># For development</span>
 pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"ethopy[dev]"</span>
 
 <span class="c1"># For documentation</span>
