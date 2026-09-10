@@ -61,6 +61,52 @@ We follow scientific Python coding standards to maintain consistency:
    - Use snake_case for functions/variables, CamelCase for classes
    - Use double quotes for strings
 
+## Dependency Management
+
+EthoPy pins dependencies in two layers, and they do different jobs.
+
+### `pyproject.toml`
+
+Declares the core dependencies with loose ranges. Upper bounds are added only where a package has a track record of breaking releases, currently `datajoint`, `setuptools`, `numpy`, `pandas` and `scipy`. Do not add a cap to every dependency. Blanket caps cause resolution conflicts for anyone installing EthoPy alongside other packages, and each cap needs a release to lift.
+
+When adding a new core dependency, add it without an upper bound unless you have evidence of a breakage, and refresh the lock file in the same pull request.
+
+### `requirements-lock.txt`
+
+One pinned version per package for the entire tree, including transitive dependencies. It is a single cross-platform file: environment markers cover the few packages that differ by operating system or Python version, so there is no per-OS variant to keep in sync.
+
+Versions are chosen as the newest one actually running on a verified EthoPy machine that still supports the whole declared Python range, with the resolver enforcing mutual consistency. The point is to record what actually ran, not what a resolver believes should work.
+
+Hardware and analysis packages are deliberately excluded. Every such import in EthoPy is lazy, so the core runs without them, and they are installed per machine.
+
+To refresh it:
+
+1. On each machine you care about, build a fresh virtual environment, install EthoPy without
+   the lock file, run the test suite and a real experimental session, then capture
+   `pip freeze --exclude-editable`. Do not skip the session; some breakages only appear at
+   runtime with hardware attached.
+2. Regenerate the cross-platform pin set, capped at the versions you just verified:
+   ```bash
+   uv pip compile pyproject.toml --universal --python-version <lowest you support> \
+       --constraint <verified versions> -o requirements-lock.txt
+   ```
+3. Confirm it still resolves on every target before committing:
+   ```bash
+   uv pip compile requirements-lock.txt --python-version 3.9.2 \
+       --python-platform aarch64-unknown-linux-gnu
+   ```
+   Repeat for each Python version and architecture you support. Any version drift means the
+   pins are inconsistent.
+4. Update the header comment with the source machines, Python versions and date.
+
+### If nobody refreshes this
+
+The lock file will age. Installs will keep working, reproducing an increasingly old
+environment, and EthoPy will fall behind the ecosystem. This is the intended failure mode and
+it is preferred to the alternative. An install that reproduces a two-year-old working
+environment is still a working install; an install that silently picks up an untested major
+release is not.
+
 ## Testing Guidelines
 
 Ethopy has specific testing requirements due to its database connections:

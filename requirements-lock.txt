@@ -1,0 +1,126 @@
+# EthoPy locked environment
+#
+# One pinned version per package, covering EthoPy's full dependency tree.
+# Environment markers (the "; ..." clauses) handle the few packages that differ
+# by operating system or Python version, so this stays a single file.
+#
+# VERIFIED TO RESOLVE AND INSTALL FROM WHEELS ON
+#     Python 3.9.2+, 3.10, 3.11
+#     aarch64 (Raspberry Pi) and x86_64 (Linux, macOS, Windows)
+# All six Linux combinations were checked with no version drift. Every pin has a
+# wheel; nothing needs a compiler.
+#
+# HOW THESE VERSIONS WERE CHOSEN
+# Each is the newest version actually running on a verified EthoPy machine that
+# still supports the whole Python range, with the resolver enforcing mutual
+# consistency. 80 of the 87 pins are running in the fleet today; the rest are
+# marked below.
+#
+#   sources : ef-rp163, ef-rp160  (Raspberry Pi 4, Python 3.9.2, aarch64)
+#             openfield           (workstation,    Python 3.10.12, x86_64)
+#   date    : 2026-09-03
+#
+# INSTALL
+#     pip install -r requirements-lock.txt
+#     pip install --no-deps ethopy
+#
+# PYTHON 3.9 IS THE BINDING CONSTRAINT
+# click, h5py, imageio, matplotlib and scikit-learn are held below the versions
+# on the openfield workstation because their newer releases require Python 3.10.
+# If the Raspberry Pi rigs move off Python 3.9, this file can advance a long way.
+#
+# NOT INCLUDED: PER-MACHINE PACKAGES
+# Every hardware and analysis import in EthoPy is lazy, so the core runs without
+# these. Install them on top of this file, only on the machines that need them:
+#
+#     Raspberry Pi   : RPi.GPIO pigpio pyserial picamera2 opencv-python
+#     DeepLabCut rig : deeplabcut-live scikit-video
+#
+# Refreshing this file is a manual step. See CONTRIBUTING.md.
+appdirs==1.4.4
+appnope==1.0.0 ; sys_platform == 'darwin'                  # not in the fleet; resolver choice
+argon2-cffi==25.1.0                                        # runs on openfield
+argon2-cffi-bindings==25.1.0                               # runs on openfield
+asttokens==3.0.1                                           # runs on openfield
+attrs==26.1.0
+backcall==0.2.0                                            # runs on rp163, rp160
+blinker==1.9.0                                             # runs on openfield
+certifi==2026.4.22                                         # runs on openfield
+cffi==2.0.0                                                # runs on openfield
+click==8.1.8                                               # runs on rp163, rp160
+colorama==0.4.6 ; sys_platform == 'win32'                  # runs on openfield
+contourpy==1.1.0                                           # runs on rp163, rp160
+cryptography==48.0.0                                       # runs on openfield
+cycler==0.12.1                                             # runs on openfield
+datajoint==0.14.9                                          # runs on openfield
+decorator==5.2.1                                           # runs on openfield
+deepdiff==8.6.2                                            # not in the fleet; resolver choice
+exceptiongroup==1.3.1 ; python_full_version < '3.11'       # runs on openfield
+executing==2.2.1                                           # runs on openfield
+faker==37.12.0                                             # not in the fleet; resolver choice
+flask==3.1.3                                               # runs on openfield
+fonttools==4.42.1                                          # runs on rp163, rp160
+h5py==3.14.0                                               # runs on rp163
+hdmf==4.3.1
+imageio==2.31.3                                            # runs on rp163, rp160
+imageio-ffmpeg==0.6.0                                      # runs on openfield
+importlib-metadata==8.4.0 ; python_full_version < '3.10'   # not in the fleet; resolver choice
+importlib-resources==6.0.1 ; python_full_version < '3.10'  # runs on rp163, rp160
+ipython==8.15.0                                            # runs on rp163, rp160
+itsdangerous==2.2.0                                        # runs on openfield
+jedi==0.18.0                                               # runs on rp163, rp160
+jinja2==3.1.6                                              # runs on openfield
+joblib==1.5.3                                              # runs on openfield
+jsonschema==4.25.1                                         # runs on rp163, rp160
+jsonschema-specifications==2025.9.1
+kiwisolver==1.4.5                                          # runs on rp163, rp160
+markupsafe==3.0.3                                          # runs on openfield
+matplotlib==3.7.2                                          # runs on rp163, rp160
+matplotlib-inline==0.2.2                                   # runs on openfield
+minio==7.2.20                                              # runs on openfield
+networkx==2.6.3                                            # runs on rp163, rp160
+numpy==1.26.4                                              # runs on openfield
+orderly-set==5.5.0                                         # runs on openfield
+otumat==0.3.1
+packaging==26.2                                            # runs on openfield
+pandas==2.3.3                                              # runs on openfield
+parso==0.8.7                                               # runs on openfield
+pexpect==4.9.0 ; sys_platform != 'win32'                   # runs on openfield
+pickleshare==0.7.5                                         # runs on rp163, rp160
+pillow==10.0.0                                             # runs on rp163, rp160
+platformdirs==4.4.0                                        # runs on rp163, rp160
+prompt-toolkit==3.0.52                                     # runs on openfield
+ptyprocess==0.7.0 ; sys_platform != 'win32'                # runs on openfield
+pure-eval==0.2.3                                           # runs on openfield
+pycparser==2.22 ; implementation_name != 'PyPy'            # runs on rp160
+pycryptodome==3.23.0                                       # runs on openfield
+pydot==4.0.0                                               # not in the fleet; resolver choice
+pyfiglet==1.0.4                                            # runs on rp163, openfield
+pygame==2.6.1                                              # runs on openfield
+pygame-menu==4.5.2                                         # runs on openfield
+pygments==2.20.0                                           # runs on openfield
+pymysql==1.1.3                                             # runs on openfield
+pynwb==3.1.3
+pyopengl==3.1.10                                           # runs on openfield
+pyparsing==3.0.9                                           # runs on rp163, rp160
+pyperclip==1.11.0                                          # runs on openfield
+python-dateutil==2.9.0.post0                               # runs on openfield
+pytz==2026.2                                               # runs on openfield
+referencing==0.36.2                                        # runs on rp163, rp160
+rpds-py==0.27.1                                            # runs on rp163, rp160
+ruamel-yaml==0.19.1
+scikit-learn==1.4.2                                        # runs on rp163, rp160
+scipy==1.13.1                                              # not in the fleet; resolver choice
+setuptools==81.0.0                                         # not in the fleet; resolver choice
+six==1.17.0                                                # runs on openfield
+stack-data==0.6.3                                          # runs on openfield
+threadpoolctl==3.6.0                                       # runs on openfield
+tqdm==4.67.3                                               # runs on openfield
+traitlets==5.15.0                                          # runs on openfield
+typing-extensions==4.15.0                                  # runs on rp163, openfield
+tzdata==2026.2                                             # runs on openfield
+urllib3==1.26.5                                            # runs on rp163, rp160
+watchdog==6.0.0                                            # runs on openfield
+wcwidth==0.7.0                                             # runs on openfield
+werkzeug==3.1.8                                            # runs on openfield
+zipp==3.16.2 ; python_full_version < '3.10'                # runs on rp163, rp160

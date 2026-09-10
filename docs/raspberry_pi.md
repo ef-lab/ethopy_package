@@ -28,7 +28,7 @@ Once your Raspberry Pi is set up, you can connect to it from your computer's ter
    python --version
    ```
 
-EthoPy requires Python >=3.8, < 3.12
+EthoPy requires Python >=3.9, < 3.12
 
 2. Setting Up a Virtual Environment
 

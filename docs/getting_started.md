@@ -6,7 +6,7 @@ This guide will walk you through the process of setting up and running your firs
 
 Before starting, ensure you have:
 
-- Python 3.8 or higher (but less than 3.12) installed
+- Python 3.9 or higher (but less than 3.12) installed
 - MariaDB database
 !!! tip  Database setup
     We recommend using [Docker](https://www.docker.com/blog/getting-started-with-docker-desktop/) for setting up a new database.
