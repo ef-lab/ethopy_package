@@ -97,6 +97,42 @@ Ready to contribute? Here's how to set up Ethopy for local development:
 
 9. Submit a pull request through the GitHub website.
 
+## Dependency Management
+
+EthoPy constrains dependencies in two layers, and they do different jobs.
+
+### `pyproject.toml`
+
+Declares the core dependencies with loose ranges. Upper bounds are added only where a package has a track record of breaking releases, currently `datajoint`, `setuptools`, `numpy`, `pandas` and `scipy`. Do not cap every dependency. Blanket caps cause resolution conflicts for anyone installing EthoPy alongside other packages, and each one needs a release to lift.
+
+When adding a new core dependency, add it without an upper bound unless you have evidence of a breakage, and refresh the lock file in the same pull request.
+
+### `requirements-lock.txt`
+
+One pinned version per package for the entire tree, including transitive dependencies, and what [Installation](installation.md) points every machine at. It is a single cross-platform file: environment markers cover the few packages that differ by operating system or Python version, so there is no per-OS variant to keep in sync.
+
+Versions are chosen as the newest one actually running on a verified EthoPy machine that still supports the whole declared Python range, with the resolver enforcing mutual consistency. Hardware and analysis packages are excluded, since every such import in EthoPy is lazy and they are installed per machine.
+
+To refresh it:
+
+1. On each machine you care about, build a fresh virtual environment, install EthoPy without the lock file, run the test suite and a real experimental session, then capture `pip freeze --exclude-editable`. Do not skip the session, some breakages only appear at runtime with hardware attached.
+2. Regenerate the cross-platform pin set, capped at the versions you just verified:
+    ```bash
+    uv pip compile pyproject.toml --universal --python-version <lowest you support> \
+        --constraint <verified versions> -o requirements-lock.txt
+    ```
+3. Confirm it still resolves on every target before committing:
+    ```bash
+    uv pip compile requirements-lock.txt --python-version 3.9.2 \
+        --python-platform aarch64-unknown-linux-gnu
+    ```
+   Repeat for each Python version and architecture you support. Any version drift means the pins are inconsistent.
+4. Update the header comment with the source machines, Python versions and date.
+
+### If nobody refreshes this
+
+The lock file will age. Installs keep working, reproducing an increasingly old environment, and EthoPy falls behind the ecosystem. This is the intended failure mode and it is preferred to the alternative. An install that reproduces a two-year-old working environment is still a working install. An install that silently picks up an untested major release is not.
+
 ## Pull Request Guidelines
 
 Before you submit a pull request, check that it meets these guidelines:
@@ -105,6 +141,5 @@ Before you submit a pull request, check that it meets these guidelines:
 2.  If the pull request adds functionality, the docs should be updated.
     Put your new functionality into a function with a docstring, and add
     the feature to the list in README.md
-3.  The pull request should work for Python 3.8 and later, and
-    for PyPy. Check <https://github.com/ef-lab/ethopy_package/pulls> and make sure that the tests pass for all
-    supported Python versions.
+3.  The pull request should work for Python 3.8 through 3.11, the range declared by
+    `requires-python`. Check <https://github.com/ef-lab/ethopy_package/pulls> and make sure that the tests pass for all supported Python versions.
