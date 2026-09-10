@@ -3,7 +3,7 @@ name = "ethopy"
 dynamic = ["version"]
 description = "State control system for automated, high-throughput behavioral training."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.8,<3.12"
 license = {text = "MIT License"}
 authors = [
     {name = "Emmanouil Froudarakis", email = "frouman@imbb.forth.gr"},
@@ -24,12 +24,12 @@ dependencies = [
     "click>=8.1.0",
     "datajoint<2.0.0",
     "imageio",
-    "pandas>=2.0.0",
+    "pandas>=2.0.0,<4",
     "h5py",
     "pygame",
     "pygame-menu",
-    "numpy",
-    "scipy",
+    "numpy<3",
+    "scipy<2",
     "pyopengl",
     "imageio-ffmpeg",
     "pyfiglet",
