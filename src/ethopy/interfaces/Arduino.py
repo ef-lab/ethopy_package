@@ -19,8 +19,6 @@ log = logging.getLogger(__name__)
 
 
 class Arduino(Interface):
-    thread_end, msg_queue, callbacks = threading.Event(), PriorityQueue(maxsize=1), True
-
     def __init__(self, **kwargs):
         if not globals()["IMPORT_SERIAL"]:
             raise ImportError(
@@ -37,9 +35,11 @@ class Arduino(Interface):
         self.timeout = 0.001
         self.no_response = False
         self.timeout_timer = time.time()
+        self.thread_end = threading.Event()
+        self.msg_queue = PriorityQueue(maxsize=1)
         self.ser = Serial(self.port, baudrate=self.baud)
         time.sleep(1)
-        self.thread_runner = threading.Thread(target=self._communicator)
+        self.thread_runner = threading.Thread(target=self._communicator, daemon=True)
         self.thread_runner.start()
 
     def give_liquid(self, port, duration=False):
@@ -94,6 +94,15 @@ class Arduino(Interface):
         return not self.position.state
 
     def cleanup(self):
+        """Stop the communicator thread and close the serial connection.
+
+        The thread must be stopped before the serial port is closed.
+        """
+        self.thread_end.set()
+        if self.thread_runner.is_alive():
+            self.thread_runner.join(timeout=2)
+            if self.thread_runner.is_alive():
+                log.warning("Arduino communicator thread did not stop in time.")
         self.ser.close()  # Close the Serial connection
 
     def setup_touch_exit(self):
