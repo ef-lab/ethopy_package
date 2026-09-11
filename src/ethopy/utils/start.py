@@ -18,13 +18,8 @@ class PyWelcome:
         if not pygame.get_init():
             pygame.init()
 
-        # AUTO-DETECT SCREEN RESOLUTION instead of hardcoding
-        # info = pygame.display.Info()
-        self.SCREEN_WIDTH = 1280
-        self.SCREEN_HEIGHT = 720
-        log.debug(
-            f"Detected screen resolution: {self.SCREEN_WIDTH}x{self.SCREEN_HEIGHT}"
-        )
+        self.SCREEN_WIDTH = 800
+        self.SCREEN_HEIGHT = 480
 
         # Set display mode - always try fullscreen first on Pi
         try:
