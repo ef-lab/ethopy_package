@@ -30,6 +30,8 @@ With no other instruction, EthoPy loads:
 
 The file is read once, at `import ethopy`. If it does not exist, EthoPy runs entirely on its [built-in defaults](#built-in-defaults).
 
+**Editing the file has no effect on a running EthoPy.** The configuration is read once, at import, and kept in memory for the lifetime of the process. Restart EthoPy for a change to take effect.
+
 ### 2. A different config file on the command line
 
 Every EthoPy run can point at another file with `-c` / `--config`:
