@@ -104,55 +104,39 @@ class Experiment:
         """Initialize pygame with Pi 5 compatibility"""
         if not pygame.get_init():
             pygame.init()
-            
-        # Auto-detect screen resolution for Pi 5
-        try:
-            info = pygame.display.Info()
-            detected_width = info.current_w
-            detected_height = info.current_h
-            
-            log.info(f"Detected screen resolution: {detected_width}x{detected_height}")
-            
-            # Use detected resolution if reasonable, otherwise fallback
-            if detected_width > 400 and detected_height > 300:
-                self.screen_width = detected_width
-                self.screen_height = detected_height
-            else:
-                log.warning("Using fallback resolution 800x480")
-                
-        except Exception as e:
-            log.warning(f"Could not detect screen resolution: {e}")
 
-        # Calculate scaling factor for UI elements
-        self.display_scale = min(self.screen_width / 800, self.screen_height / 480)
-        
         # Set display mode with Pi 5 compatibility
         try:
             if self.logger.is_pi:
-                # Try fullscreen mode first
+                # Ask SDL for the desktop resolution. Requesting a size that
+                # differs from it returns a surface that segfaults on draw, and
+                # /sys/class/graphics/fb0/virtual_size reports its dimensions
+                # in the opposite order on some Pis.
                 self.screen = pygame.display.set_mode(
-                    (self.screen_width, self.screen_height), 
+                    (0, 0),
                     pygame.FULLSCREEN | pygame.DOUBLEBUF | pygame.HWSURFACE
                 )
                 self.is_fullscreen = True
                 log.info("Fullscreen mode activated")
-                
+
                 # Hide mouse cursor for kiosk mode
                 pygame.mouse.set_visible(False)
-                
+
             else:
                 # Windowed mode for development
                 self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
                 log.info("Windowed mode activated")
-                
+
         except pygame.error as e:
             log.error(f"Failed to set display mode: {e}")
             # Fallback to windowed mode
             self.screen = pygame.display.set_mode((800, 480))
-            self.screen_width = 800
-            self.screen_height = 480
-            self.display_scale = 1.0
             log.info("Fallback to 800x480 windowed mode")
+
+        # Every widget is sized from the surface pygame actually gave us.
+        self.screen_width, self.screen_height = self.screen.get_size()
+        self.display_scale = min(self.screen_width / 800, self.screen_height / 480)
+        log.info(f"Display surface size: {self.screen_width}x{self.screen_height}")
 
         pygame.display.set_caption("EthoPy Calibration")
 
@@ -232,9 +216,7 @@ class Experiment:
                 self.is_fullscreen = False
                 pygame.mouse.set_visible(True)
             else:
-                self.screen = pygame.display.set_mode(
-                    (self.screen_width, self.screen_height), pygame.FULLSCREEN
-                )
+                self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
                 self.is_fullscreen = True
                 pygame.mouse.set_visible(False)
         except Exception as e:
