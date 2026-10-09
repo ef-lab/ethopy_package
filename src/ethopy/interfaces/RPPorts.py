@@ -248,11 +248,10 @@ class RPPorts(Interface):
         port = self._channel2port(channel, 'Proximity')
         # Check if the animal is in position
         in_position = self._get_position(port.port)
-        # Start the timer if the animal is in position
-        if in_position:
-            self.timer_ready.start()
         # Log the in_position event and update the position if there is a change in position
         if in_position and not self.position.port:
+            # Start the ready timer on a real entry, not on every edge
+            self.timer_ready.start()
             self.position_tmst = self.beh.log_activity({**port.__dict__, 'in_position': 1})
             self.position = port
         elif not in_position and self.position.port:
