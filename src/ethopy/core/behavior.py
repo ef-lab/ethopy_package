@@ -5,6 +5,7 @@ setups, including response tracking, reward delivery, and behavioral data loggin
 interfaces with hardware components and maintains experiment state.
 """
 
+import logging
 from dataclasses import dataclass, fields
 from dataclasses import field as datafield
 from datetime import datetime, timedelta
@@ -13,6 +14,8 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import datajoint as dj
 import numpy as np
+
+log = logging.getLogger(__name__)
 
 from ethopy.core.experiment import ExperimentClass
 from ethopy.core.logger import (  # pylint: disable=W0611, # noqa: F401
@@ -199,6 +202,11 @@ class Behavior:
 
         """
         activity = BehActivity(**activity_key)
+        # GPIO callbacks may fire before setup() wires the logger; drop them.
+        if self.logger is None:
+            log.warning("log_activity called before logger is set; dropping %s",
+                        activity_key)
+            return activity.time or 0
         # if activity.time is not set, set it to the current time
         if not activity.time:
             activity.time = self.logger.logger_timer.elapsed_time()
