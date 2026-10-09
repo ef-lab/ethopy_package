@@ -405,7 +405,7 @@ class Rewards(dj.Manual):
     time			        : int 	           # time from session start (ms)
     ---
     reward_type             : varchar(16)
-    reward_amount           : float            # reward amount
+    reward_amount           : float            # reward amount (uL)
     """
 
 
