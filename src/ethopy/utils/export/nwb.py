@@ -1125,8 +1125,9 @@ def add_reward_data(
         name="response_reward",
         data=reward_amount.tolist(),
         timestamps=milliseconds_to_seconds(time).tolist(),
-        description="The water amount the subject received as a reward.",
-        unit="ml",
+        description="The water amount (microliters) the subject received as a reward.",
+        unit="liters",
+        conversion=1e-6,  # reward_amount is logged in microliters
     )
 
     behavioral_events = BehavioralEvents(
