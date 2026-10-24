@@ -23,6 +23,7 @@ from dateutil import tz
 from pynwb import NWBHDF5IO, NWBFile, TimeSeries
 from pynwb.behavior import BehavioralEvents
 from pynwb.core import DynamicTable
+from pynwb.epoch import TimeIntervals
 from pynwb.file import Subject
 import pandas as pd
 
@@ -103,6 +104,18 @@ def age_to_iso8601(current_date, dob):
     return "P" + "".join(parts)
 
 
+def column_shape_error(col_data: Any) -> Optional[str]:
+    """Return why the column cannot be written to HDF5, or None if it can."""
+    # HDF5 stores a column as one array, so every cell must have the same shape
+    try:
+        shapes = {np.shape(value) for value in col_data}
+    except ValueError as e:  # a single cell is itself ragged
+        return str(e)
+    if len(shapes) > 1:
+        return f"cells have different shapes {sorted(shapes)}"
+    return None
+
+
 def inhomogeneous_columns(nwbfile: NWBFile) -> List[str]:
     """
     Find columns with inhomogeneous array data that will fail HDF5 write.
@@ -128,34 +141,28 @@ def inhomogeneous_columns(nwbfile: NWBFile) -> List[str]:
     # Check trials table
     if nwbfile.trials is not None:
         for col_name in nwbfile.trials.colnames:
-            col_data = nwbfile.trials[col_name].data
-            try:
-                np.array(col_data)
-            except ValueError as e:
-                problems.append(f"trials.{col_name}: {e}")
+            shape_error = column_shape_error(nwbfile.trials[col_name].data)
+            if shape_error:
+                problems.append(f"trials.{col_name}: {shape_error}")
 
     # Check processing modules
     for module_name, module in nwbfile.processing.items():
         for container_name, container in module.data_interfaces.items():
             if isinstance(container, DynamicTable):
                 for col_name in container.colnames:
-                    col_data = container[col_name].data
-                    try:
-                        np.array(col_data)
-                    except ValueError as e:
+                    shape_error = column_shape_error(container[col_name].data)
+                    if shape_error:
                         problems.append(
-                            f"processing.{module_name}.{container_name}.{col_name}: {e}"
+                            f"processing.{module_name}.{container_name}.{col_name}: "
+                            f"{shape_error}"
                         )
 
-    # Check stimulus tables
-    for stim_name, stim in nwbfile.stimulus.items():
-        if isinstance(stim, DynamicTable):
-            for col_name in stim.colnames:
-                col_data = stim[col_name].data
-                try:
-                    np.array(col_data)
-                except ValueError as e:
-                    problems.append(f"stimulus.{stim_name}.{col_name}: {e}")
+    # Check stimulus presentation tables
+    for stim_name, stim in nwbfile.intervals.items():
+        for col_name in stim.colnames:
+            shape_error = column_shape_error(stim[col_name].data)
+            if shape_error:
+                problems.append(f"intervals.{stim_name}.{col_name}: {shape_error}")
 
     return problems
 
@@ -1015,6 +1022,8 @@ def create_dynamic_table_from_dj_table(
     description: str,
     skip_columns: Optional[List[str]] = None,
     id_column: str = "trial_idx",
+    *,
+    ms_time_columns: Tuple[str, ...] = (),
 ) -> DynamicTable:
     """
     Create a PyNWB DynamicTable from a DataJoint table.
@@ -1025,6 +1034,7 @@ def create_dynamic_table_from_dj_table(
         description: Description of the table
         skip_columns: Columns to skip
         id_column: Column to use as ID
+        ms_time_columns: Columns stored in ms, exported in seconds
 
     Returns:
         DynamicTable object
@@ -1046,6 +1056,10 @@ def create_dynamic_table_from_dj_table(
         if tag not in skip_columns
     }
 
+    # NWB times are in seconds; DataJoint stores them in ms
+    for col in ms_time_columns:
+        trial_columns[col]["description"] = "Time from session start, in seconds."
+
     for column_info in trial_columns.values():
         logger.debug(
             f"Adding column: {column_info['name'], column_info['description']}"
@@ -1060,6 +1074,8 @@ def create_dynamic_table_from_dj_table(
         trial["id"] = trial.get(id_column, len(dynamic_table))
         for key in skip_columns:
             trial.pop(key, None)
+        for col in ms_time_columns:
+            trial[col] = milliseconds_to_seconds(trial[col])
         dynamic_table.add_row(**trial)
 
     return dynamic_table
@@ -1091,6 +1107,7 @@ def add_activity_data(
             table._table_name,
             str(table._heading),
             skip_columns=["animal_id", "session", "start_time", "stop_time"],
+            ms_time_columns=("time",),
         )
         activity_module.add(dynamic_table)
 
@@ -1146,17 +1163,14 @@ def add_stimulus_data(
     logger.info("Add Stimulus per trial")
     df = stim_conditions.fetch(format="frame").reset_index()
 
-    columns_of_interest = ["trial_idx", "start_time", "end_time", "stim_hash"]
-
-    available_cols = [col for col in columns_of_interest if col in df.columns]
-    subset_df = df[available_cols].copy()
+    columns = ["trial_idx", "period", "start_time", "end_time", "stim_hash"]
+    subset_df = df[columns].copy()
 
     # Explode array columns to get one row per presentation
     for col in ["start_time", "end_time"]:
-        if col in subset_df.columns:
-            first_val = subset_df[col].iloc[0]
-            if isinstance(first_val, (np.ndarray, list)):
-                subset_df = subset_df.explode(col)
+        first_val = subset_df[col].iloc[0] if len(subset_df) else None
+        if isinstance(first_val, (np.ndarray, list)):
+            subset_df = subset_df.explode(col)
 
     # Part tables that extend the primary key (e.g. Panda.Object, Panda.Light)
     # repeat each presentation once per combination; the timing is identical.
@@ -1168,28 +1182,36 @@ def add_stimulus_data(
             f"{len(subset_df)} after removing part-table repetitions"
         )
 
-    subset_df = subset_df.reset_index(drop=True)
+    # TimeIntervals rows should be in ascending start_time (NWB best practice)
+    subset_df = subset_df.sort_values("start_time").reset_index(drop=True)
 
     if subset_df.empty:
         logger.warning("No stimulus data found")
         return
 
-    table = DynamicTable(
-        name=stimulus_class,
-        description=f"Stimulus presentation data for {stimulus_class}",
-    )
+    # NWB times are in seconds; NULL end_time becomes NaN, arrays raise
+    for col in ["start_time", "end_time"]:
+        subset_df[col] = milliseconds_to_seconds(pd.to_numeric(subset_df[col]))
 
-    for col in available_cols:
-        if col != "trial_idx":
-            description = stim_conditions.heading.attributes.get(col, {})
-            table.add_column(name=col, description=getattr(description, "comment", col))
+    table = TimeIntervals(
+        name=stimulus_class,
+        description=f"Stimulus presentations for {stimulus_class}",
+    )
+    table.add_column(name="trial_idx", description="trial index of the presentation")
+    table.add_column(name="period", description="trial period of the presentation")
+    table.add_column(name="stim_hash", description="unique stimulus condition hash")
 
     for idx, row in subset_df.iterrows():
-        row_data = {col: row[col] for col in available_cols if col != "trial_idx"}
-        row_data["id"] = idx  # Use row index as id since trial_idx may repeat
-        table.add_row(**row_data)
+        table.add_row(
+            id=idx,  # trial_idx may repeat across periods
+            start_time=row["start_time"],
+            stop_time=row["end_time"],
+            trial_idx=row["trial_idx"],
+            period=row["period"],
+            stim_hash=row["stim_hash"],
+        )
 
-    nwbfile.add_stimulus(table)
+    nwbfile.add_time_intervals(table)
 
 
 def add_multiple_stimulus_data(
@@ -1246,6 +1268,7 @@ def add_states_data(
         "States Onset",
         str(states_table._heading),
         skip_columns=["animal_id", "session"],
+        ms_time_columns=("time",),
     )
 
     states_module.add(dynamic_table)
