@@ -599,7 +599,6 @@ class ExperimentClass:
                 # A condition normally maps to one row, but a sequence-valued
                 # primary key expands it into several (see expand_condition_rows).
                 for row in expand_condition_rows(condition, fields, core):
-                    print('cond:', ctable, row)
                     self.logger.put(
                         table=ctable, tuple=row, schema=schema, priority=_priority
                     )
