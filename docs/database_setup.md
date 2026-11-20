@@ -150,6 +150,16 @@ This will create the following schemas:
 - `lab_interface`
 - `lab_recordings`
 
+### Register EthoPy after an upgrade
+
+`ethopy-setup-schema` registers the installed EthoPy version for recording metadata. For an existing database, run the following from the upgraded environment before recording:
+
+```bash
+ethopy-register-software
+```
+
+Run this once per version on each database, with an account that can insert into `recording.Software`. You can rerun it safely.
+
 ## Troubleshooting
 
 ### Common Issues

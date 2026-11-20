@@ -75,17 +75,31 @@ class FillColors:
         return self.__dict__.values()
 
 
+class _DataJointConnection(dj.Connection):
+    def connect(self):
+        # PyMySQL 1.2 attempts TLS when SSL options are omitted.
+        if self.conn_info.get("ssl_input") is False:
+            self.conn_info["ssl_disabled"] = True
+        return super().connect()
+
+
+def connect_to_database():
+    """Open a DataJoint connection using EthoPy's database settings."""
+    password = dj.config["database.password"]
+    if password is None:
+        password = getpass(prompt="Please enter DataJoint password: ")
+
+    return _DataJointConnection(
+        dj.config["database.host"],
+        dj.config["database.user"],
+        password,
+        use_tls=dj.config["database.use_tls"],
+    )
+
+
 def create_virtual_modules(schemata, create_tables=True, create_schema=True):
     try:
-        if dj.config["database.password"] is None:
-            dj.config["password"] = getpass(prompt="Please enter DataJoint password: ")
-        # Create virtual modules
-        _conn = dj.Connection(
-            dj.config["database.host"],
-            dj.config["database.user"],
-            dj.config["database.password"],
-            use_tls=dj.config["database.use_tls"],
-        )
+        _conn = connect_to_database()
         virtual_modules = {}
         for name, schema in schemata.items():
             virtual_modules[name] = dj.create_virtual_module(

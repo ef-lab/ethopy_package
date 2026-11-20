@@ -266,12 +266,13 @@ class ExperimentClass:
     def stop(self) -> None:
         """Stop the epxeriment."""
         self.stim.exit()
-        self.interface.release()
-        self.beh.exit()
         if self.sync:
             while self.interface.is_recording():
                 log.info("Waiting for recording to end...")
                 time.sleep(1)
+        time.sleep(1)
+        self.beh.exit()
+        self.interface.release()  # this needs to run after all recordings have stopped!
         self.logger.closeDatasets()
         self.in_operation = False
 
@@ -598,6 +599,7 @@ class ExperimentClass:
                 # A condition normally maps to one row, but a sequence-valued
                 # primary key expands it into several (see expand_condition_rows).
                 for row in expand_condition_rows(condition, fields, core):
+                    print('cond:', ctable, row)
                     self.logger.put(
                         table=ctable, tuple=row, schema=schema, priority=_priority
                     )

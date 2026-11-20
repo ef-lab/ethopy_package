@@ -256,11 +256,12 @@ def setup_dj_docker(mysql_path: Optional[str], container_name: str) -> None:
 def check_db_connection() -> None:
     """Check if connection with db is established."""
     from ethopy import local_conf
+    from ethopy.utils.helper_functions import connect_to_database
 
     try:
         dj.config.update(local_conf.get("dj_local_conf"))
         dj.logger.setLevel(local_conf.get("dj_local_conf")["datajoint.loglevel"])
-        _ = dj.conn()
+        connect_to_database()
     except Exception:
         logging.error("Failed to connect to database")
         raise Exception(f"Failed to connect to database {dj.config['database.host']}")
@@ -319,6 +320,21 @@ def _run_import(schema_name: str, cmd: str) -> Optional[str]:
                     """
 
 
+def register_software_version() -> None:
+    """Register the installed EthoPy version in the configured database."""
+    from ethopy import __version__
+    from ethopy.core.recordings import Software
+
+    Software.insert1(
+        {
+            "software": "EthoPy",
+            "version": __version__,
+            "description": "EthoPy experiment acquisition",
+        },
+        skip_duplicates=True,
+    )
+
+
 def createschema() -> None:
     """Create all required database schemas.
 
@@ -341,6 +357,10 @@ def createschema() -> None:
         ("core/interface", "from ethopy.core.interface import *"),
         ("core/behavior", "from ethopy.core.behavior import *"),
         ("core/recordings", "from ethopy.core.recordings import *"),
+        (
+            "recording/Software",
+            "from ethopy.setup_db import register_software_version; register_software_version()",
+        ),
         ("core/mice", "from ethopy.core.mice import *"),
         ("stimuli", "from ethopy.stimuli import *"),
         ("behaviors", "from ethopy.behaviors import *"),
