@@ -193,7 +193,7 @@ A combined (multimodal) stimulus writes its parameters to several tables, one pe
 filename = export_to_nwb(animal_id=123, session_id=1)
 ```
 
-Each component gets its presentation timing under `nwbfile.stimulus[<Component>]`, and its parameters in the `Conditions` module as `Stimulus_<Component>` (`Stimulus_Grating`, `Stimulus_Tones`). A session with a simple stimulus keeps the single `Stimulus` conditions table.
+Each component gets its presentation timing under `nwbfile.intervals[<Component>]`, and its parameters in the `Conditions` module as `Stimulus_<Component>` (`Stimulus_Grating`, `Stimulus_Tones`). A session with a simple stimulus keeps the single `Stimulus` conditions table.
 
 Components are read back from the data, not parsed out of the class name: they are the stimulus tables holding conditions for the trials that used this stimulus class.
 
@@ -203,7 +203,7 @@ No naming convention is required, so a compound stimulus named after its tables 
 
 A stimulus whose parameters live in part tables (`Panda.Object`, `Panda.Light`, `Panda.Environment`, `Panda.Movie`) has those tables joined into a single condition table on export.
 
-Part tables that extend the primary key multiply the rows: `Panda.Object` adds `obj_id` and `Panda.Light` adds `light_idx`, so a condition with two objects and the default two lights produces four rows per trial. The export keeps all of them in the conditions table, one row per (object, light) combination, and collapses the repeated presentation timing back to one row per trial.
+Part tables that extend the primary key multiply the rows: `Panda.Object` adds `obj_id` and `Panda.Light` adds `light_idx`, so a condition with two objects and the default two lights produces four rows per trial. The export keeps all of them in the conditions table, one row per (object, light) combination, and collapses the repeated presentation timing back to one row per presentation (trial and period).
 
 Note that the part tables are combined with natural joins, so a part table populated for only *some* of a session's conditions will drop the others from the exported conditions.
 
@@ -243,7 +243,9 @@ The generated NWB file contains:
 ### Core NWB Components
 - **Trials table**: Trial-by-trial data with timing and conditions
 - **Subject**: Animal information and metadata
-- **Stimulus tables**: Stimulus parameters and presentation timing
+- **Stimulus presentations**: one `TimeIntervals` table per stimulus class under `nwbfile.intervals[<Stimulus>]`, with `start_time`/`stop_time`, `trial_idx`, `period` and `stim_hash`. Join a presentation to its parameters on `stim_hash` (`Conditions/Stimulus`, or `Conditions/Stimulus_<Component>` for compound stimuli), and to its trial on `trial_idx`.
+
+All times in the file (trials, rewards, states, activity, stimulus presentations) are in seconds from session start. Condition parameters (e.g. `trial_duration`) keep the units they were configured in.
 
 ## Troubleshooting
 
