@@ -209,7 +209,8 @@ class Logger:
         """
         for schema, value in extra_schema.items():
             globals()[schema] = dj.create_virtual_module(
-                schema, value, create_tables=True, create_schema=True
+                schema, value, create_tables=True, create_schema=True,
+                connection=public_conn,
             )
             self._schemata.update(
                 {

@@ -22,6 +22,7 @@ classifiers = [
 dependencies = [
     "click>=8.1.0",
     "datajoint<2.0.0",
+    "pymysql>=1.0.2",
     "imageio",
     "pandas>=2.0.0,<4",
     "h5py",
@@ -71,6 +72,7 @@ ethopy = "ethopy.cli:main"
 ethopy-setup-djdocker = "ethopy.setup_db:setup_dj_docker"
 ethopy-db-connection = "ethopy.setup_db:check_db_connection"
 ethopy-setup-schema = "ethopy.setup_db:createschema"
+ethopy-register-software = "ethopy.setup_db:register_software_version"
 ethopy-create-task = "ethopy.utils.create_ethopy_task:generate_ethopy_template"
 
 [tool.hatch.build.targets.wheel]
