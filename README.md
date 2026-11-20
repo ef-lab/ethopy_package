@@ -1,6 +1,6 @@
-# <img src="docs/assets/EthoPy_logo.png" alt="EthoPy Logo" width="200" style="vertical-align: middle;">
+# <img src="https://raw.githubusercontent.com/ef-lab/ethopy_package/v0.0.8.9/docs/assets/EthoPy_logo.png" alt="EthoPy Logo" width="200" style="vertical-align: middle;">
 
-[![PyPI Version](https://img.shields.io/pypi/v/ethopy.svg)](https://pypi.python.org/pypi/ethopy)
+[![PyPI Version](https://img.shields.io/pypi/v/ethopy)](https://pypi.org/project/ethopy/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/ethopy.svg)](https://pypi.org/project/ethopy/)
 [![Documentation](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://ef-lab.github.io/ethopy_package/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -46,7 +46,7 @@ ethopy --task-path grating_test.py --log-console
 Understanding Ethopy's core architecture is essential for both using the system effectively and extending it for your needs. Ethopy is built around five core modules that work together to provide a flexible and extensible experimental framework. Each module handles a specific aspect of the experiment, from controlling the overall flow to managing stimuli and recording behavior.
 
 <div align="center">
-  <img src="docs/images/ethopy_overview.png" alt="EthoPy Architecture" width="400">
+  <img src="https://raw.githubusercontent.com/ef-lab/ethopy_package/v0.0.8.9/docs/images/ethopy_overview.png" alt="EthoPy Architecture" width="400">
 </div>
 
 - **Experiment**: Defines the state control system with multiple experimental states (PreTrial, Trial, Reward, Punishment, etc.). Each state has four overridable functions that control its behavior and transitions.
@@ -56,7 +56,7 @@ Understanding Ethopy's core architecture is essential for both using the system 
 - **Logger**: Data storage and management using DataJoint for seamless database integration
 
 <div align="center">
-  <img src="docs/images/experiment_overview.png" alt="Experiment Overview" width="400">
+  <img src="https://raw.githubusercontent.com/ef-lab/ethopy_package/v0.0.8.9/docs/images/experiment_overview.png" alt="Experiment Overview" width="400">
 </div>
 
 ## Ecosystem
